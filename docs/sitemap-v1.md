@@ -1,6 +1,6 @@
 # IBL-Core Website Sitemap v1
 
-Status: Working baseline aligned with `docs/landing-prototype.png` and current brainstorming decisions.  
+Status: Working baseline aligned with `docs/landing-prototype.png` and current brainstorming decisions.
 Intended stack: Hugo static site generator, modern vanilla HTML/CSS, minimal vanilla JS.
 
 ## 1) Top-Level Navigation
@@ -8,11 +8,10 @@ Intended stack: Hugo static site generator, modern vanilla HTML/CSS, minimal van
 1. Home (`/`)
 2. About (`/about/`)
 3. Resources (`/resources/`)
-4. Projects & Partners (`/projects-partners/`)
+4. Projects (`/projects/`)
 5. Publications (`/publications/`)
-6. Join Us (`/join-us/`)
+6. Events (`/events/`)
 7. News (`/news/`)
-8. Contact (`/contact/`)
 
 ## 2) Information Architecture (Detailed)
 
@@ -34,69 +33,53 @@ Notes:
 - No persistent top-right CTA in header for v1.
 
 ### 2.2 About (`/about/`)
-Purpose:
-- Trust and orientation for new visitors.
-
-Subpages:
-- `Mission & History` (`/about/mission-history/`)
-- `Team` (`/about/team/`)
-- `Governance & Policies` (`/about/governance-policies/`)
-- `FAQ` (`/about/faq/`)
-
-Content scope:
-- Explain transition from IBL 1.0 to IBL-Core.
-- Team roles and expertise.
-- Combined governance and policy information.
-- Practical FAQ for partners, users, and applicants.
+1. Mission and History
+2. Team
+3. Governance, policies
+4. FAQ - general explanation of IBL Core
+5. Join our Core Team
+6. Contact us
 
 ### 2.3 Resources (`/resources/`)
-Purpose:
-- Central index for all practical assets.
 
-Index behavior:
-- Intro + 3 clear entry cards.
-- Fast path for technical users.
-
-Subpages:
-- `Data` (`/resources/data/`)
-- `Software` (`/resources/software/`)
-- `Hardware` (`/resources/hardware/`)
-
-Rule:
-- Tutorials/docs are merged into one of these three categories.
-- No separate top-level tutorials/docs section.
+- Modalities
+    - Neuropixels
+        - Chronic Neuropixels
+        - Spike sorting
+        - Surgical Protocols
+        - IBL ephys rig
+    - Mesoscope
+    - Fiberphotometry
+    - Widefield
+    - Behavior
+        - IBL behaviour rig
+    - Video
+- Visualisation
+    - Datoviz
+    - Website renderer
+- Data analysis packages
+    - Brainbox
+    - Model of Zoe
+- Datasets
+    - Brainwide map — within it, access + colab tutorials
+    - Other flagship datasets
+    - Personal project datasets
 
 ### 2.4 Projects & Partners (`/projects-partners/`)
-Purpose:
-- Show collaboration model, portfolio, and partner credibility.
 
-Single combined page:
-- Current and past projects
-- Partner labs/institutions
-- Outcomes and highlights
-- Clear partner-oriented guidance:
-  - If someone wants to work with IBL-Core, route them here first.
+1. List of projects ongoing
+2. Apply to become a partner
+    1. FAQ to become partner - take from https://www.internationalbrainlab.com/ibl-core-apply
 
 ### 2.5 Publications (`/publications/`)
-Purpose:
-- Evidence and impact hub.
 
-Includes:
-- Papers
-- Software citations
-- Data citations
-- Impact metrics (usage/reuse indicators where available)
+1. Our publication papers
+    1. Button to link to publication IBL 1.0 https://www.internationalbrainlab.com/publications
+2. Press
 
-### 2.6 Join Us (`/join-us/`)
-Purpose:
-- Careers-first entry point.
 
-Includes:
-- Open roles
-- Talent pool / speculative applications
-- Working at IBL-Core info
-- Explicit redirect for collaborators:
-  - "Want to become a partner? Visit Projects & Partners."
+### 2.6 Events
+1 page, no subtabs; Upcoming events with dates, locations, information
 
 ### 2.7 News (`/news/`)
 Purpose:
@@ -107,16 +90,6 @@ Includes:
 - Events
 - Press
 
-### 2.8 Contact (`/contact/`)
-Purpose:
-- Provide both structured and direct contact paths.
-
-Includes:
-- Contact form
-- Direct email
-- GitHub
-- Slack/Discord
-- Social links
 
 ## 3) Hugo Content Model (Suggested)
 
