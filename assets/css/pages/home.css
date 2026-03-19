@@ -10,7 +10,7 @@
 .hero--landing {
   position: relative;
   overflow: hidden;
-  min-height: 40.4rem;
+  min-height: 43.4rem;
   padding: 5rem 0 0;
   background:
     radial-gradient(circle at 50% 58%, rgba(125, 62, 181, 0.14), transparent 16rem),
@@ -29,7 +29,7 @@
 
 .hero__inner {
   position: relative;
-  min-height: 44.4rem;
+  min-height: 38.4rem;
 }
 
 .hero__copy {
@@ -37,7 +37,7 @@
   z-index: 2;
   width: min(100%, 48.5rem);
   margin: 0 auto;
-  padding-top: 11.3rem;
+  padding-top: 9.3rem;
   text-align: center;
 }
 
@@ -60,7 +60,7 @@
 .hero__media {
   position: absolute;
   left: 50%;
-  bottom: -6.6rem;
+  bottom: -3.6rem;
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -69,7 +69,7 @@
 }
 
 .hero__brain {
-  width: max(62rem, 103vw);
+  width: max(58rem, 103vw);
   max-width: none;
   opacity: 0.96;
   filter: drop-shadow(0 0 28px rgba(229, 134, 255, 0.22));
@@ -120,7 +120,7 @@
 }
 
 .landing-band--intro {
-  margin-top: -7rem;
+  margin-top: -8rem;
   background: rgba(0, 159, 215, 0.92);
   border-top: 1px solid rgba(255, 255, 255, 0.16);
   border-bottom: 4px solid rgba(199, 247, 255, 0.95);
