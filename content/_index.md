@@ -24,8 +24,6 @@ news_items:
 footer_links:
   - title: "Contact us"
     link: "/about/contact/"
-  - title: "Join our Core Team"
-    link: "/about/join-us/"
 ---
 
 IBL-Core builds open neuroscience infrastructure, data resources, and software for collaborative research.

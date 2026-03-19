@@ -1,9 +1,6 @@
 ---
 title: "Projects"
-description: "Current projects, collaboration pathways, and partner information."
-lead: "This section will list ongoing projects and explain how to apply to become a partner."
+description: "Research projects, partner projects, and affiliates."
+lead: "Explore structured project listings powered by Hugo data files and markdown content."
 ---
-
-## Placeholder
-
-Add current and past projects here, then separate the partner application FAQ clearly from general project summaries.
+This page is generated from `data/projects.yaml` and the markdown files under `content/projects/descriptions/`.
