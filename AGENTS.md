@@ -11,9 +11,11 @@ Primary short-term goal: implement the site from `docs/sitemap-v1.md` using reus
 
 1. `docs/sitemap-v1.md` (single source of truth for IA, page scope, and implementation direction)
 2. `docs/brainstorming.md` (strategy context)
-3. `docs/landing-prototype.webp` (legacy reference only; may be outdated)
+3. `docs/landing-prototype-mini.webp` (current temporary landing-page visual reference)
 
 When in conflict, follow the sitemap decisions unless the user explicitly revises them.
+
+For landing-page visual work, treat the other `docs/landing*.*` files as obsolete unless the user explicitly asks to use them.
 
 ## IA Rule
 

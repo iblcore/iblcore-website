@@ -13,7 +13,7 @@ Use [docs/sitemap-v1.md](docs/sitemap-v1.md) as the canonical reference for:
 
 Supporting docs:
 - [docs/brainstorming.md](docs/brainstorming.md) for strategy context
-- [docs/landing-prototype.webp](docs/landing-prototype.webp) as a legacy visual reference only
+- [docs/landing-prototype-mini.webp](docs/landing-prototype-mini.webp) as the current temporary landing-page visual reference
 
 If another document conflicts with the sitemap, update the sitemap first or follow the sitemap as-is.
 
@@ -23,10 +23,12 @@ Implemented:
 - Hugo config in `hugo.yaml`
 - Hugo-native structure in `content/`, `layouts/`, `assets/`, and `archetypes/`
 - Shared base templates for home, list, and single pages
+- Prototype-driven landing page with custom home layout and page-level CSS
 - Data-driven `/projects/` section powered by `data/projects.yaml` and markdown description files
-- Minimal placeholder styling and mobile nav toggle
+- Shared component styling and mobile nav toggle
 - Markdown stubs for top-level sections and key About/Resources pages
 - `Justfile` commands for local development and maintenance
+- Local screenshot capture workflow for landing-page visual iteration
 
 Not implemented yet:
 - final design system
@@ -50,6 +52,7 @@ Not implemented yet:
 Requirements:
 - Hugo extended available as `hugo`
 - `just`
+- `node` and `npm` if you want local screenshot capture
 
 Start the dev server:
 
@@ -66,6 +69,7 @@ just build        # build into public/
 just serve        # run local dev server
 just test-serve   # short-lived server startup check
 just check        # fail on Hugo warnings
+just capture-landing # capture desktop/mobile landing-page screenshots
 just clean        # remove generated artifacts
 just maintenance  # clean + validate + show git status
 just cf-whoami    # verify Cloudflare auth
@@ -77,21 +81,39 @@ just new-event spring-school
 just new-project collaboration-x
 ```
 
+## Landing Screenshot Workflow
+
+Install JS dependencies once:
+
+```bash
+npm install
+npx playwright install chromium
+```
+
+Then, with the local Hugo server running, capture the landing page:
+
+```bash
+just capture-landing
+```
+
+Screenshots are written to `reports/landing/`.
+
 ## Editing Rules
 
 - Keep the implementation Hugo-native and reusable.
 - Prefer editing markdown content and front matter before creating custom templates.
 - For `/projects/`, edit `data/projects.yaml` for structure and item metadata, then edit the referenced markdown files under `content/projects/descriptions/` for long-form copy.
-- Keep CSS modular and provisional until the real design pass.
+- Keep CSS modular and straightforward while the landing-page design is being tightened against the current mockup.
 - Keep JS minimal and progressive.
 - Do not treat the prototype screenshot as a source of truth for IA.
+- For landing-page visual work, use `docs/landing-prototype-mini.webp`; the other `docs/landing*.*` files are obsolete unless explicitly requested.
 
 ## Browser Test
 
 1. Run `just serve`
 2. Open `http://localhost:1313/`
 3. Click through the top navigation
-4. Confirm the homepage resource cards and section pages render
+4. Confirm the prototype-driven homepage, support strip, and section pages render
 5. Stop the server with `Ctrl+C`
 
 ## Temporary Cloudflare Pages Deployment
@@ -112,5 +134,5 @@ Notes:
 ## Notes
 
 - Generated output lives in `public/` and should not be committed.
-- The current site is intentionally raw and placeholder-heavy so content and design can evolve cleanly.
+- The current site is still provisional, but the homepage is now under active visual refinement against `docs/landing-prototype-mini.webp`.
 - See [AGENTS.md](AGENTS.md) for repository-specific instructions used by coding agents.
