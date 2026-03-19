@@ -8,8 +8,8 @@ const outputDir = path.resolve("reports", "landing");
 const viewports = [
   {
     name: "desktop",
-    width: 551,
-    height: 761,
+    width: 1067,
+    height: 768,
     fullPage: true,
   },
   {

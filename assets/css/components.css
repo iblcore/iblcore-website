@@ -204,11 +204,11 @@
 }
 
 .page-home .site-header__inner {
-  padding: 1.5rem 0 0;
+  padding: 1.2rem 0 0;
 }
 
 .page-home .site-brand img {
-  height: 6.25rem;
+  height: 6.9rem;
 }
 
 .page-home .site-nav a {
@@ -235,11 +235,15 @@
 }
 
 .page-home .site-footer__inner {
-  padding: 2rem 0 3.2rem;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: start;
+  padding: 2.4rem 0 3.6rem;
 }
 
 .page-home .link-list {
   gap: 0.2rem;
+  justify-self: center;
 }
 
 .page-home .link-list a {
@@ -248,6 +252,10 @@
   border-radius: 0;
   color: #ffffff;
   background: transparent;
+}
+
+.page-home .site-brand--footer {
+  justify-self: start;
 }
 
 @media (max-width: 520px) {
@@ -305,6 +313,7 @@
   }
 
   .page-home .site-footer__inner {
+    grid-template-columns: 1fr auto;
     gap: 1.5rem;
   }
 
