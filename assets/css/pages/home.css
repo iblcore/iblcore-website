@@ -10,8 +10,8 @@
 .hero--landing {
   position: relative;
   overflow: hidden;
-  min-height: 43.4rem;
-  padding: 5rem 0 0;
+  min-height: 44.4rem;
+  padding: 7rem 0 0;
   background:
     radial-gradient(circle at 50% 58%, rgba(125, 62, 181, 0.14), transparent 16rem),
     linear-gradient(180deg, #004d89 0%, #062e68 58%, #081c4c 100%);
@@ -29,7 +29,7 @@
 
 .hero__inner {
   position: relative;
-  min-height: 38.4rem;
+  min-height: 18.4rem;
 }
 
 .hero__copy {
@@ -37,13 +37,13 @@
   z-index: 2;
   width: min(100%, 48.5rem);
   margin: 0 auto;
-  padding-top: 9.3rem;
+  padding-top: 7.3rem;
   text-align: center;
 }
 
 .hero__copy h1 {
   margin: 0;
-  font-size: clamp(2.2rem, 2.9vw, 3.18rem);
+  font-size: clamp(2.2rem, 2.7vw, 2.28rem);
   line-height: 0.97;
   font-weight: 400;
   letter-spacing: 0.005em;
@@ -60,7 +60,7 @@
 .hero__media {
   position: absolute;
   left: 50%;
-  bottom: -3.6rem;
+  bottom: -41vw;
   width: 100vw;
   display: flex;
   justify-content: center;
@@ -69,7 +69,7 @@
 }
 
 .hero__brain {
-  width: max(58rem, 103vw);
+  width: min(max(64rem, 114vw), 117vw);
   max-width: none;
   opacity: 0.96;
   filter: drop-shadow(0 0 28px rgba(229, 134, 255, 0.22));
@@ -78,7 +78,7 @@
 .hero__links {
   position: absolute;
   right: -0.1rem;
-  top: 55.5%;
+  bottom: 0;
   z-index: 2;
   display: grid;
   gap: 0.6rem;
@@ -120,7 +120,7 @@
 }
 
 .landing-band--intro {
-  margin-top: -8rem;
+  margin-top: -11rem;
   background: rgba(0, 159, 215, 0.92);
   border-top: 1px solid rgba(255, 255, 255, 0.16);
   border-bottom: 4px solid rgba(199, 247, 255, 0.95);

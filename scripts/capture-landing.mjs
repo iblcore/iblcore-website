@@ -13,6 +13,12 @@ const viewports = [
     fullPage: true,
   },
   {
+    name: "wide",
+    width: 1440,
+    height: 768,
+    fullPage: true,
+  },
+  {
     name: "mobile",
     width: 390,
     height: 844,
