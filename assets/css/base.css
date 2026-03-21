@@ -8,12 +8,14 @@ html {
   font-family: var(--font-sans);
   font-size: 120%;
   line-height: 1.5;
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
   background: var(--color-bg);
   color: var(--color-text);
+  overflow-x: clip;
 }
 
 img {

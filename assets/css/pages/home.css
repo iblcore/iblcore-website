@@ -30,6 +30,7 @@
 .hero__inner {
   position: relative;
   min-height: 18.4rem;
+  overflow: clip;
 }
 
 .hero__copy {
@@ -131,10 +132,11 @@
 }
 
 .landing-band__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  display: flex;
+  flex-wrap: wrap;
   gap: 1.35rem;
   align-items: center;
+  justify-content: space-between;
   padding: 1.2rem 0 1.15rem;
 }
 
@@ -161,8 +163,8 @@
 }
 
 .button--landing {
-  justify-self: end;
-  align-self: end;
+  flex: 0 0 auto;
+  align-self: flex-end;
   min-width: 7.3rem;
   min-height: 2.85rem;
   padding: 0.58rem 1.3rem;
@@ -184,6 +186,7 @@
 
 .support-section__header {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   gap: 0.9rem;
   padding: 0.85rem 0 0.72rem;
@@ -209,14 +212,15 @@
 
 .support-strip {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   justify-content: flex-start;
   padding: 0 0 1.3rem;
   gap: 2rem;
 }
 
 .support-strip__item {
-  flex: 0 0 7.3rem;
+  flex: 1 1 7.3rem;
+  max-width: 8.6rem;
   border: 0;
   border-radius: 0.15rem;
   background: rgba(255, 255, 255, 0.98);
@@ -244,13 +248,13 @@
   }
 
   .hero--landing {
-    min-height: 30rem;
-    padding-top: 5.2rem;
+    min-height: 34rem;
+    padding-top: 5.9rem;
   }
 
   .hero__copy {
     width: min(100%, 27rem);
-    padding-top: 3.5rem;
+    padding-top: 6.2rem;
   }
 
   .hero__copy h1 {
@@ -263,7 +267,7 @@
   }
 
   .hero__media {
-    bottom: -5.9rem;
+    bottom: -4.5rem;
   }
 
   .hero__brain {
@@ -284,8 +288,11 @@
   }
 
   .landing-band__inner {
-    grid-template-columns: 1fr;
-    justify-items: start;
+    align-items: flex-start;
+  }
+
+  .button--landing {
+    align-self: flex-start;
   }
 
   .support-section__header {
@@ -301,28 +308,29 @@
 
 @media (max-width: 420px) {
   .hero--landing {
-    min-height: 31rem;
-    padding-top: 5.6rem;
+    min-height: 35.5rem;
+    padding-top: 6.6rem;
   }
 
   .hero__inner {
-    min-height: 24rem;
+    min-height: 27rem;
   }
 
   .hero__copy {
-    padding-top: 1.8rem;
+    width: min(100%, 17rem);
+    padding-top: 6.5rem;
   }
 
   .hero__copy h1 {
-    font-size: clamp(2rem, 8vw, 3rem);
+    font-size: clamp(1.9rem, 8vw, 2.65rem);
   }
 
   .hero__media {
-    inset: auto 0 -1.35rem;
+    inset: auto 0 -1rem;
   }
 
   .hero__brain {
-    width: min(122vw, 29rem);
+    width: min(115vw, 26rem);
   }
 
   .hero__links {
@@ -330,7 +338,7 @@
     grid-auto-flow: column;
     justify-content: center;
     transform: none;
-    margin-top: 12.25rem;
+    margin-top: 13rem;
     padding-bottom: 1rem;
   }
 
@@ -339,6 +347,17 @@
   }
 
   .support-strip {
-    grid-template-columns: 1fr 1fr;
+    gap: 0.9rem;
+  }
+
+  .button--landing {
+    width: 100%;
+  }
+
+  .support-strip__item {
+    flex-basis: calc(50% - 0.45rem);
+    max-width: none;
+    min-height: 5.3rem;
+    padding: 0.55rem;
   }
 }

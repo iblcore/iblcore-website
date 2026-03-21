@@ -4,8 +4,13 @@
       <img src="{{ "images/ibl-core-logo.svg" | relURL }}" alt="IBL Core" width="124" height="79">
     </a>
 
-    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
-      Menu
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Toggle navigation">
+      <span class="nav-toggle__box" aria-hidden="true">
+        <span class="nav-toggle__line"></span>
+        <span class="nav-toggle__line"></span>
+        <span class="nav-toggle__line"></span>
+      </span>
+      <span class="nav-toggle__label">Menu</span>
     </button>
 
     <nav class="site-nav" id="site-nav" aria-label="Primary">
