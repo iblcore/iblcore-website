@@ -1,8 +1,8 @@
 {{ define "main" }}
-  {{ $projects := site.Data.projects }}
+  {{ $projects := hugo.Data.projects }}
 
   <section class="page-hero">
-    <div class="shell">
+    <div class="shell page-shell">
       <p class="eyebrow">Section</p>
       <h1>{{ .Title }}</h1>
       {{ with .Params.lead }}<p class="lead">{{ . }}</p>{{ end }}

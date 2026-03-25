@@ -18,6 +18,12 @@
     {{ if eq .Section "projects" }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/projects.css") }}
     {{ end }}
+    {{ if eq .Section "about" }}
+      {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/about.css") }}
+    {{ end }}
+    {{ if eq .Layout "faq" }}
+      {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/faq.css") }}
+    {{ end }}
     {{ if .IsHome }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/home.css") }}
     {{ end }}

@@ -1,6 +1,6 @@
 {{ define "main" }}
   <section class="page-hero">
-    <div class="shell">
+    <div class="shell page-shell">
       <p class="eyebrow">{{ if .CurrentSection }}{{ .CurrentSection.Title }}{{ else }}Page{{ end }}</p>
       <h1>{{ .Title }}</h1>
       {{ with .Params.lead }}<p class="lead">{{ . }}</p>{{ end }}
@@ -8,7 +8,7 @@
   </section>
 
   <section class="section">
-    <div class="shell narrow-shell prose">
+    <div class="shell page-shell prose">
       {{ .Content }}
     </div>
   </section>

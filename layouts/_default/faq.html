@@ -1,0 +1,40 @@
+{{ define "main" }}
+  {{ $faq := hugo.Data.faq }}
+
+  <section class="page-hero">
+    <div class="shell page-shell">
+      <p class="eyebrow">{{ if .CurrentSection }}{{ .CurrentSection.Title }}{{ else }}Page{{ end }}</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.lead }}<p class="lead">{{ . }}</p>{{ end }}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell page-shell">
+      <div class="faq-groups">
+        {{ range $faq.groups }}
+          <section class="faq-group">
+            <div class="section-heading">
+              <h2>{{ .title }}</h2>
+            </div>
+            <div class="faq-accordion">
+              {{ range .items }}
+                <details class="faq-accordion__item">
+                  <summary class="faq-accordion__summary">
+                    <div class="faq-accordion__heading">
+                      <h3>{{ .question }}</h3>
+                    </div>
+                    <span class="faq-accordion__toggle" aria-hidden="true"></span>
+                  </summary>
+                  <div class="faq-accordion__content prose">
+                    {{ .answer | markdownify }}
+                  </div>
+                </details>
+              {{ end }}
+            </div>
+          </section>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+{{ end }}

@@ -1,0 +1,47 @@
+.about-section-nav h2 {
+  margin-top: 0;
+}
+
+.about-page-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.about-page-list__item + .about-page-list__item {
+  margin-top: 0;
+}
+
+.about-page-list__link {
+  display: grid;
+  gap: 0.35rem;
+  padding: var(--space-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  background: var(--color-surface-muted);
+}
+
+.about-page-list__link:hover,
+.about-page-list__link:focus-visible {
+  border-color: var(--color-accent);
+  outline: none;
+}
+
+.about-page-list__title {
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
+.about-page-list__lead {
+  color: var(--color-text-soft);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 900px) {
+  .about-section-nav {
+    order: -1;
+  }
+}

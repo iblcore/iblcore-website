@@ -1,17 +1,22 @@
 {{ define "main" }}
-  <section class="hero hero--landing">
-    <div class="hero__panel">
-      <div class="hero__media" aria-hidden="true">
-        <img class="hero__brain" src="{{ "images/brain.png" | relURL }}" alt="">
-      </div>
-      <div class="shell hero__content">
-        <div class="hero__copy">
-          <h1>
-            Experimental &amp; theoretical neuroscientists
-            collaborating to understand brainwide
-            circuits for complex behavior
-          </h1>
+  <div class="landing-page">
+    <section class="hero hero--landing">
+      <div class="hero__panel">
+        <div class="hero__media" aria-hidden="true">
+          <img class="hero__brain" src="{{ "images/brain.png" | relURL }}" alt="">
         </div>
+        <div class="shell hero__content">
+          <div class="hero__copy">
+            <h1>
+              engineering team to help advance neuroscience research through standardised pipelines and analysis methods
+            </h1>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="hero__links-wrap">
+      <div class="shell hero__links-shell">
         <div class="hero__links" aria-label="External links">
           <a class="hero__link" href="https://github.com/int-brain-lab/" aria-label="IBL Core GitHub">
             <img src="{{ "images/github-light.svg" | relURL }}" alt="" width="22" height="22">
@@ -22,45 +27,45 @@
         </div>
       </div>
     </div>
-  </section>
 
-  <section class="landing-band landing-band--intro">
-    <div class="shell landing-band__inner">
-      <div class="landing-band__copy">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ut anim ad
-          minim veniam, quis nostrud ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        </p>
-        <p>
-          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, si deserunt mollit anim id est.
-        </p>
+    <section class="landing-band landing-band--intro">
+      <div class="shell landing-band__inner">
+        <div class="landing-band__copy">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ut anim ad
+            minim veniam, quis nostrud ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          </p>
+          <p>
+            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, si deserunt mollit anim id est.
+          </p>
+        </div>
+        <a class="button button--landing" href="{{ "/about/" | relURL }}">About us</a>
       </div>
-      <a class="button button--landing" href="{{ "/about/" | relURL }}">About us</a>
-    </div>
-  </section>
+    </section>
 
-  <section class="landing-band landing-band--support">
-    <div class="shell">
-      <div class="support-section__header">
-        <h2>Support</h2>
-        <p>IBL is grateful for financial support from the following organizations</p>
+    <section class="landing-band landing-band--support">
+      <div class="shell">
+        <div class="support-section__header">
+          <h2>Support</h2>
+          <p>IBL is grateful for financial support from the following organizations</p>
+        </div>
+        <div class="support-strip" aria-label="Support organizations">
+          <div class="support-strip__item">
+            <img src="{{ "images/simons.png" | relURL }}" alt="Simons Foundation logo" width="118" height="118">
+          </div>
+          <div class="support-strip__item">
+            <img src="{{ "images/incf.png" | relURL }}" alt="INCF logo" width="118" height="118">
+          </div>
+          <div class="support-strip__item">
+            <img src="{{ "images/wellcome.png" | relURL }}" alt="Wellcome logo" width="118" height="118">
+          </div>
+          <div class="support-strip__item">
+            <img src="{{ "images/nih.png" | relURL }}" alt="National Institutes of Health logo" width="118" height="118">
+          </div>
+        </div>
       </div>
-      <div class="support-strip" aria-label="Support organizations">
-        <div class="support-strip__item">
-          <img src="{{ "images/simons.png" | relURL }}" alt="Simons Foundation logo" width="118" height="118">
-        </div>
-        <div class="support-strip__item">
-          <img src="{{ "images/incf.png" | relURL }}" alt="INCF logo" width="118" height="118">
-        </div>
-        <div class="support-strip__item">
-          <img src="{{ "images/wellcome.png" | relURL }}" alt="Wellcome logo" width="118" height="118">
-        </div>
-        <div class="support-strip__item">
-          <img src="{{ "images/nih.png" | relURL }}" alt="National Institutes of Health logo" width="118" height="118">
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
+  </div>
 {{ end }}

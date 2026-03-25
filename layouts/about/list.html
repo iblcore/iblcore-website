@@ -1,0 +1,41 @@
+{{ define "main" }}
+  <section class="page-hero">
+    <div class="shell page-shell">
+      <p class="eyebrow">Section</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.lead }}<p class="lead">{{ . }}</p>{{ end }}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell page-shell">
+      <div class="content-layout">
+        <div class="prose">
+          {{ .Content }}
+        </div>
+
+        <aside class="section-panel about-section-nav" aria-labelledby="about-pages-title">
+          <h2 id="about-pages-title">Explore About</h2>
+          <ul class="about-page-list">
+            {{ range .RegularPages.ByWeight }}
+              {{ $hidden := false }}
+              {{ with .Params.build }}
+                {{ if eq .render "never" }}
+                  {{ $hidden = true }}
+                {{ end }}
+              {{ end }}
+              {{ if not $hidden }}
+                <li class="about-page-list__item">
+                  <a class="about-page-list__link" href="{{ .RelPermalink }}">
+                    <span class="about-page-list__title">{{ .Title }}</span>
+                    {{ with .Params.lead }}<span class="about-page-list__lead">{{ . }}</span>{{ end }}
+                  </a>
+                </li>
+              {{ end }}
+            {{ end }}
+          </ul>
+        </aside>
+      </div>
+    </div>
+  </section>
+{{ end }}
