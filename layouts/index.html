@@ -5,6 +5,18 @@
         <div class="hero__media" aria-hidden="true">
           <img class="hero__brain" src="{{ "images/brain.png" | relURL }}" alt="">
         </div>
+        <div class="hero__links-wrap">
+          <div class="shell hero__links-shell">
+            <div class="hero__links" aria-label="External links">
+              <a class="hero__link" href="https://github.com/int-brain-lab/" aria-label="IBL Core GitHub">
+                <img src="{{ (resources.Get "svg/icon_github.svg").RelPermalink }}" alt="" width="27" height="30">
+              </a>
+              <a class="hero__link" href="#" aria-label="IBL Core bot">
+                <img src="{{ (resources.Get "svg/icon_bot.svg").RelPermalink }}" alt="" width="31" height="31">
+              </a>
+            </div>
+          </div>
+        </div>
         <div class="shell hero__content">
           <div class="hero__copy">
             <h1>
@@ -15,19 +27,6 @@
         </div>
       </div>
     </section>
-
-    <div class="hero__links-wrap">
-      <div class="shell hero__links-shell">
-        <div class="hero__links" aria-label="External links">
-          <a class="hero__link" href="https://github.com/int-brain-lab/" aria-label="IBL Core GitHub">
-            <img src="{{ "images/github-light.svg" | relURL }}" alt="" width="22" height="22">
-          </a>
-          <a class="hero__link" href="#" aria-label="IBL Core bot">
-            <img src="{{ "images/bot-light.svg" | relURL }}" alt="" width="22" height="22">
-          </a>
-        </div>
-      </div>
-    </div>
 
     <section class="landing-band landing-band--intro">
       <div class="shell landing-band__inner">
