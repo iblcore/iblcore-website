@@ -6,6 +6,7 @@ enableRobotsTXT: true
 params:
   description: "IBL-Core public website built with Hugo, vanilla HTML, CSS, and minimal JavaScript."
   tagline: "Open neuroscience infrastructure, software, and collaboration."
+  fingerprintAssets: false
   funders:
     - "IBL"
     - "Open science partners"
