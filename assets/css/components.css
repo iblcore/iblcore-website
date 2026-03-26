@@ -272,7 +272,7 @@
 .site-footer__social {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 1rem;
   grid-column: 3;
   margin-top: -4.55rem;
 }
