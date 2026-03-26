@@ -1,6 +1,6 @@
 .page-home {
-  background: #145589;
-  color: #ffffff;
+  background: var(--color-home-bg);
+  color: var(--color-text-soft);
 }
 
 .page-home .shell {
@@ -14,26 +14,14 @@
 .hero--landing {
   position: relative;
   padding: 0;
-  background: linear-gradient(180deg, #145589 0%, #145589 100%);
+  background: linear-gradient(180deg, var(--color-home-bg) 0%, var(--color-home-bg) 100%);
 }
 
 .hero__panel {
   position: relative;
   overflow: hidden;
   min-height: 49rem;
-  background: #0a2c61;
-}
-
-.hero__panel::before {
-  display: none;
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(12, 75, 132, 0.76) 0%, rgba(8, 41, 95, 0.35) 22%, rgba(6, 19, 61, 0.18) 50%, rgba(5, 18, 59, 0.62) 100%),
-    radial-gradient(circle at 50% 86%, rgba(145, 72, 216, 0.16), transparent 18rem);
-  pointer-events: none;
-  z-index: 1;
+  background: var(--color-hero-panel);
 }
 
 .hero__content {
@@ -43,7 +31,6 @@
 }
 
 .hero__copy {
-  /* width: min(100%, 46rem); */
   margin: 0 auto;
   text-align: center;
 }
@@ -55,13 +42,8 @@
   font-weight: 400;
   letter-spacing: 0.005em;
   text-wrap: balance;
-  color: #f9fcff;
+  color: var(--color-text-bright);
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.26);
-}
-
-.hero__copy h1 span {
-  display: block;
-  white-space: nowrap;
 }
 
 .hero__media {
@@ -75,15 +57,12 @@
   height: 100%;
   object-fit: cover;
   object-position: center 28%;
-  /* opacity: 0.96; */
-  /* transform: scale(1.06); */
-  /* filter: drop-shadow(0 0 28px rgba(229, 134, 255, 0.22)); */
 }
 
 .hero__links-wrap {
   position: sticky;
   top: calc(6.1rem + var(--space-sm));
-  margin-top: -10.5rem;
+  margin-top: -22rem;
   z-index: 9;
   pointer-events: none;
 }
@@ -98,7 +77,7 @@
   gap: 0.35rem;
   padding: 0.35rem;
   border-radius: 999px;
-  background: #0a4f89;
+  background: var(--color-hero-links);
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
   pointer-events: auto;
 }
@@ -129,12 +108,12 @@
 .landing-band {
   position: relative;
   z-index: 3;
-  color: #ffffff;
+  color: var(--color-text-soft);
 }
 
 .landing-band--intro,
 .landing-band--what-we-do {
-  background: #009fd7;
+  background: var(--color-accent-soft);
 }
 
 .landing-band--intro {
@@ -171,7 +150,7 @@
   max-width: 42rem;
   font-size: var(--font-size-intro-copy);
   line-height: 1.2;
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--color-text-on-dark);
 }
 
 .landing-band__copy p {
@@ -226,9 +205,9 @@
   display: grid;
   place-items: center;
   min-height: 8.75rem;
-  padding: 0.85rem;
+  padding: 0.35rem;
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.98);
+  background: var(--color-white-strong);
 }
 
 .what-we-do__icon-card img {
@@ -259,30 +238,36 @@
 
 .button {
   display: inline-flex;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  text-decoration: none;
-}
-
-.button--landing {
-  flex: 0 0 auto;
-  align-self: flex-start;
-  min-width: 7.3rem;
   min-height: 2.85rem;
   padding: 0.58rem 1.3rem;
   border-radius: 999px;
-  background: #004d89;
-  color: #ffffff;
   font-size: var(--font-size-cta);
   letter-spacing: 0.03em;
+  text-decoration: none;
   text-transform: uppercase;
+}
+
+.button--landing,
+.button--support {
+  background: var(--color-accent);
+  color: var(--color-text-bright);
+}
+
+.button--landing {
+  align-self: flex-start;
+  min-width: 7.3rem;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 .button--landing:hover,
-.button--landing:focus-visible {
-  color: #004d89;
-  background: #ffffff;
+.button--landing:focus-visible,
+.button--support:hover,
+.button--support:focus-visible {
+  background: var(--color-surface);
+  color: var(--color-accent);
   outline: none;
 }
 
@@ -292,7 +277,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.9rem;
-  padding: 0.85rem 0 0.72rem;
+  padding: 1.5rem 0 1.35rem;
 }
 
 .support-section__heading {
@@ -315,29 +300,13 @@
 }
 
 .support-section__header p {
-  color: #ffffff;
+  color: var(--color-text-soft);
   font-size: var(--font-size-support-copy);
   white-space: nowrap;
 }
 
 .button--support {
-  flex: 0 0 auto;
   min-width: 11.5rem;
-  min-height: 2.85rem;
-  padding: 0.58rem 1.3rem;
-  border-radius: 999px;
-  background: var(--color-accent);
-  color: var(--color-text-bright);
-  font-size: var(--font-size-cta);
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-}
-
-.button--support:hover,
-.button--support:focus-visible {
-  background: #ffffff;
-  color: var(--color-accent);
-  outline: none;
 }
 
 .support-strip {
@@ -365,22 +334,17 @@
 .support-strip__item img {
   display: block;
   width: auto;
-  max-width: min(100%, 9.5rem);
+  max-width: min(100%, 8.75rem);
   height: auto;
   object-fit: contain;
-  background: rgba(255, 255, 255, 0.98);
-  padding: 0.45rem;
+  background: var(--color-white-strong);
+  padding: 0.3rem;
   border-radius: 0.15rem;
 }
 
 @media (max-width: 900px) {
   .hero__panel {
     min-height: 34rem;
-  }
-
-  .hero__content {
-    /* padding-top: 12.2rem; */
-    /* padding-bottom: 10.8rem; */
   }
 }
 
@@ -391,7 +355,7 @@
 
   .hero__links-wrap {
     top: calc(5.5rem + var(--space-xs));
-    margin-top: -15rem;
+    margin-top: -18rem;
   }
 
   .hero__panel {
@@ -399,7 +363,6 @@
   }
 
   .hero__content {
-    /* padding-top: 8rem; */
     padding-bottom: 0;
   }
 
@@ -412,13 +375,8 @@
     line-height: 1.05;
   }
 
-  .hero__copy h1 span {
-    white-space: normal;
-  }
-
   .hero__brain {
     opacity: 0.96;
-    transform: none;
   }
 
   .landing-band__copy {
@@ -435,14 +393,10 @@
   }
 
   .button--landing {
-    align-self: flex-start;
+    width: auto;
   }
 
-  .support-section__header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
+  .support-section__header,
   .support-section__heading {
     flex-direction: column;
     align-items: flex-start;
@@ -470,12 +424,9 @@
     min-height: 7rem;
   }
 
-  .what-we-do__body h3 {}
-
   .support-section__header p {
     white-space: normal;
   }
-
 }
 
 @media (max-width: 420px) {
@@ -485,7 +436,6 @@
 
   .hero__content {
     padding-top: 11.4rem;
-    /* padding-bottom: 0; */
   }
 
   .hero__media {
@@ -504,8 +454,6 @@
     opacity: 0.96;
   }
 
-  .landing-band__copy {}
-
   .what-we-do__item {
     gap: 0.8rem;
   }
@@ -513,7 +461,7 @@
   .what-we-do__icon-card {
     flex-basis: 5.85rem;
     min-height: 5.85rem;
-    padding: 0.6rem;
+    padding: 0.25rem;
   }
 
   .what-we-do__icon-card img {

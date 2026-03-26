@@ -8,11 +8,16 @@
   --color-text-soft: #ffffff;
   --color-text-bright: #f9fdfe;
   --color-text-muted: #6d96b7;
+  --color-text-on-dark: rgba(255, 255, 255, 0.9);
   --color-border: #ffffff;
   --color-accent: #004d89;
   --color-accent-soft: #009fd7;
   --color-support-band: #50bce3;
   --color-divider-soft: #d3eef8;
+  --color-hero-panel: #0a2c61;
+  --color-hero-links: #0a4f89;
+  --color-home-bg: #145589;
+  --color-white-strong: rgba(255, 255, 255, 0.98);
   --shadow-soft: none;
   --radius-sm: 0.5rem;
   --radius-md: 1rem;
