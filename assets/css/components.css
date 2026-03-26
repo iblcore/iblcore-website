@@ -263,6 +263,11 @@
   color: var(--color-text-bright);
 }
 
+.site-footer__nav-link--placeholder,
+.site-footer__legal-nav a[aria-disabled="true"] {
+  cursor: default;
+}
+
 .site-footer__legal {
   background: var(--color-accent-soft);
   color: var(--color-text-bright);

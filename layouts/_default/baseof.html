@@ -27,7 +27,8 @@
     {{ if .IsHome }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/home.css") }}
     {{ end }}
-    {{ if hugo.IsDevelopment }}
+    {{ $fingerprintAssets := .Site.Params.fingerprintAssets | default false }}
+    {{ if not $fingerprintAssets }}
       {{ range $baseStyles }}
         <link rel="stylesheet" href="{{ .RelPermalink }}">
       {{ end }}
@@ -42,8 +43,13 @@
         <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}">
       {{ end }}
     {{ end }}
-    {{ $js := resources.Get "js/main.js" | minify | fingerprint }}
-    <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+    {{ $js := resources.Get "js/main.js" | minify }}
+    {{ if $fingerprintAssets }}
+      {{ $js = $js | fingerprint }}
+      <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
+    {{ else }}
+      <script src="{{ $js.RelPermalink }}" defer></script>
+    {{ end }}
   </head>
   <body{{ if .IsHome }} class="page-home"{{ end }}>
     {{ partial "header.html" . }}
