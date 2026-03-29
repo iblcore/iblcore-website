@@ -44,7 +44,7 @@
 .about-hero__title {
   margin: 0;
   color: #ffffff;
-  font-size: 2.15rem;
+  font-size: var(--font-size-page-hero-title);
   line-height: 0.98;
   font-weight: 400;
 }
@@ -59,11 +59,11 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 1.5rem;
-  padding: 1.2rem 0 1.3rem;
+  padding: var(--section-pad-about-intro-y) 0;
 }
 
 .about-section__inner {
-  padding: 1.2rem 0 1.55rem;
+  padding: var(--section-pad-about-work-y) 0;
 }
 
 .about-section--work {
@@ -88,7 +88,7 @@
 .about-section__header h2 {
   margin: 0;
   color: #009fd7;
-  font-size: 2rem;
+  font-size: var(--font-size-section-title);
   line-height: 0.98;
   font-weight: 400;
 }
@@ -98,9 +98,9 @@
 }
 
 .about-copy {
-  max-width: 78rem;
-  font-size: 1.08rem;
-  line-height: 1.32;
+  max-width: var(--content-width-wide-copy);
+  font-size: var(--font-size-page-copy);
+  line-height: 1.28;
 }
 
 .about-copy p {
@@ -113,12 +113,12 @@
 
 .about-copy--intro {
   flex: 1 1 0;
-  max-width: 61rem;
+  max-width: var(--content-width-copy);
   min-width: 0;
 }
 
 .about-copy--work {
-  max-width: 63rem;
+  max-width: 1176px;
 }
 
 .about-copy--light {
@@ -135,7 +135,7 @@
   min-height: 2rem;
   padding: 0.35rem 0.9rem;
   border-radius: 999px;
-  font-size: 0.82rem;
+  font-size: calc(1rem * var(--type-scale-prototype));
   line-height: 1;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -154,6 +154,7 @@
 .button--about-intro {
   flex: 0 0 auto;
   align-self: flex-start;
+  margin-top: 0.15rem;
   background: #ffffff;
   color: #004d89;
 }
@@ -171,6 +172,7 @@
 .about-mission-panel {
   display: grid;
   gap: 0;
+  max-width: var(--content-width-panel);
   padding: 1.2rem 1.15rem 1.05rem;
   border-radius: 0.3rem;
   background: #009fd7;
@@ -185,7 +187,7 @@
 .about-mission-card h3 {
   margin: 0 0 0.55rem;
   color: #ffffff;
-  font-size: 1.45rem;
+  font-size: calc(2.0625rem * var(--type-scale-prototype));
   line-height: 1.02;
   font-weight: 400;
 }
@@ -193,8 +195,8 @@
 .about-mission-card p {
   margin: 0 0 0.5rem;
   color: #004d89;
-  font-size: 0.98rem;
-  line-height: 1.28;
+  font-size: var(--font-size-page-copy-compact);
+  line-height: 1.24;
 }
 
 .about-mission-card p:last-child {

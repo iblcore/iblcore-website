@@ -102,7 +102,7 @@
 
 .landing-band__copy {
   flex: 1 1 0;
-  max-width: 54rem;
+  max-width: var(--content-width-copy);
   min-width: 0;
   font-size: var(--font-size-intro-copy);
   line-height: 1.2;

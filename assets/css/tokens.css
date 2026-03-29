@@ -36,9 +36,17 @@
   --shell-width: 1280px;
   --shell-page: 1280px;
   --shell-narrow: 46rem;
+  --content-width-copy: 1040px;
+  --content-width-wide-copy: 1208px;
+  --content-width-panel: 1207px;
+  --section-pad-about-intro-y: 1.7rem;
+  --section-pad-about-work-y: 1.9rem;
   --font-sans: "Ubuntu Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-size-hero-title: calc(3.5rem * var(--type-scale-prototype));
+  --font-size-page-hero-title: calc(4.1rem * var(--type-scale-prototype));
   --font-size-intro-copy: calc(1.875rem * var(--type-scale-prototype));
+  --font-size-page-copy: calc(2rem * var(--type-scale-prototype));
+  --font-size-page-copy-compact: calc(1.625rem * var(--type-scale-prototype));
   --font-size-cta: calc(1.875rem * var(--type-scale-prototype));
   --font-size-section-title: calc(2.875rem * var(--type-scale-prototype));
   --font-size-section-copy: calc(1.875rem * var(--type-scale-prototype));
