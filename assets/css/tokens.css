@@ -57,6 +57,7 @@
   --button-pill-pad-x: calc(2.27rem * var(--type-scale-prototype));
   --button-pill-font-size: calc(2.35rem * var(--type-scale-prototype));
   --button-pill-letter-spacing: 0.04em;
+  --font-ratio-title-over-copy: 1.5333;
   --font-sans: "Ubuntu Condensed", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-size-hero-title: calc(3.5rem * var(--type-scale-prototype));
   --font-size-page-hero-title: calc(4.1rem * var(--type-scale-prototype));

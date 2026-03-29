@@ -91,7 +91,7 @@
 .about-section__header h2 {
   margin: 0;
   color: #009fd7;
-  font-size: var(--font-size-section-title);
+  font-size: calc(var(--font-size-page-copy) * var(--font-ratio-title-over-copy));
   line-height: 0.98;
   font-weight: 400;
 }
@@ -176,7 +176,7 @@
   gap: 0;
   width: 100%;
   padding: 1.2rem var(--content-inset-panel-x) 1.05rem;
-  border-radius: 0.3rem;
+  border-radius: 1rem;
   background: #009fd7;
 }
 
@@ -193,7 +193,7 @@
 .about-mission-card h3 {
   margin: 0 0 0.55rem;
   color: #ffffff;
-  font-size: calc(2.0625rem * var(--type-scale-prototype));
+  font-size: calc(var(--font-size-page-copy) * var(--font-ratio-title-over-copy));
   line-height: 1.02;
   font-weight: 400;
 }
@@ -201,7 +201,7 @@
 .about-mission-card p {
   margin: 0 0 0.5rem;
   color: #004d89;
-  font-size: var(--font-size-page-copy-compact);
+  font-size: var(--font-size-page-copy);
   line-height: 1.24;
 }
 
