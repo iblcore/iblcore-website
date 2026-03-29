@@ -1,5 +1,5 @@
 {{ define "main" }}
-  {{ $hero := resources.Get "img/ibl-neuron.jpg" }}
+  {{ $hero := resources.Get "img/ibl-neuron.webp" }}
   {{ $workURL := .Params.how_we_work_button_url }}
   {{ if and $workURL (not (hasPrefix $workURL "#")) }}
     {{ $workURL = $workURL | relURL }}
