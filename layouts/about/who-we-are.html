@@ -1,0 +1,78 @@
+{{ define "main" }}
+  {{ $hero := resources.Get "img/ibl-neuron.jpg" }}
+  {{ $workURL := .Params.how_we_work_button_url }}
+  {{ if and $workURL (not (hasPrefix $workURL "#")) }}
+    {{ $workURL = $workURL | relURL }}
+  {{ end }}
+  {{ $missionURL := .Params.mission_history_button_url }}
+  {{ if and $missionURL (not (hasPrefix $missionURL "#")) }}
+    {{ $missionURL = $missionURL | relURL }}
+  {{ end }}
+
+  <div class="about-page">
+    <section class="about-hero">
+      {{ with $hero }}
+        {{ $heroJpg := .Resize "1800x jpg q82" }}
+        {{ $heroWebp := .Resize "1800x webp q80" }}
+        <picture class="about-hero__media">
+          <source srcset="{{ $heroWebp.RelPermalink }}" type="image/webp">
+          <img
+            class="about-hero__image"
+            src="{{ $heroJpg.RelPermalink }}"
+            alt="{{ $.Params.hero_alt | default $.Title }}"
+            width="{{ $heroJpg.Width }}"
+            height="{{ $heroJpg.Height }}">
+        </picture>
+      {{ end }}
+
+      <div class="shell about-hero__inner">
+        <h1 class="about-hero__title">{{ .Params.hero_title | default .Title }}</h1>
+      </div>
+    </section>
+
+    <section class="about-band about-band--intro">
+      <div class="shell about-band__inner">
+        <div class="about-copy about-copy--light">
+          {{ range .Params.intro_paragraphs }}
+            <p>{{ . }}</p>
+          {{ end }}
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section about-section--work">
+      <div class="shell about-section__inner">
+        <div class="about-section__header">
+          <h2>{{ .Params.how_we_work_title }}</h2>
+          <a class="button button--about-solid" href="{{ $workURL }}">{{ .Params.how_we_work_button_text }}</a>
+        </div>
+
+        <div class="about-copy about-copy--dark">
+          {{ range .Params.how_we_work_paragraphs }}
+            <p>{{ . }}</p>
+          {{ end }}
+        </div>
+      </div>
+    </section>
+
+    <section class="about-section about-section--mission" id="mission-history">
+      <div class="shell about-section__inner">
+        <div class="about-section__header">
+          <h2>{{ .Params.mission_history_title }}</h2>
+          <a class="button button--about-ghost" href="{{ $missionURL }}">{{ .Params.mission_history_button_text }}</a>
+        </div>
+
+        <div class="about-mission-panel">
+          {{ range .Params.mission_history_cards }}
+            <article class="about-mission-card">
+              <h3>{{ .title }}</h3>
+              {{ range .body }}
+                <p>{{ . }}</p>
+              {{ end }}
+            </article>
+          {{ end }}
+        </div>
+      </div>
+    </section>
+  </div>
+{{ end }}

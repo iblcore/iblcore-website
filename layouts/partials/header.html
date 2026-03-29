@@ -15,9 +15,21 @@
 
     <nav class="site-nav" id="site-nav" aria-label="Primary">
       <ul>
-        <li class="site-nav__item"><a href="{{ "/about/" | relURL }}">About</a></li>
-        <li class="site-nav__item"><a href="{{ "/projects/" | relURL }}">Projects</a></li>
-        <li class="site-nav__item"><a href="{{ "/about/contact/" | relURL }}">Contact</a></li>
+        {{ $section := .Section }}
+        {{ $pagePath := .RelPermalink }}
+        {{ range slice
+          (dict "title" "About" "url" "/about/" "active" (and (eq $section "about") (ne $pagePath "/about/contact/")))
+          (dict "title" "Resources" "url" "/resources/" "active" (eq $section "resources"))
+          (dict "title" "Projects" "url" "/projects/" "active" (eq $section "projects"))
+          (dict "title" "Publications" "url" "/publications/" "active" (eq $section "publications"))
+          (dict "title" "Events" "url" "/events/" "active" (eq $section "events"))
+          (dict "title" "Contact" "url" "/about/contact/" "active" (eq $pagePath "/about/contact/"))
+          (dict "title" "News" "url" "/news/" "active" (eq $section "news"))
+        }}
+          <li class="site-nav__item">
+            <a href="{{ .url | relURL }}"{{ if .active }} aria-current="page"{{ end }}>{{ .title }}</a>
+          </li>
+        {{ end }}
       </ul>
     </nav>
   </div>

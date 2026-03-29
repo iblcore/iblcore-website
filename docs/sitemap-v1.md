@@ -32,12 +32,13 @@ Notes:
 ### 2.2 About (`/about/`)
 
 Includes:
-- Mission and History
+- Who We Are (`/about/`)
 - Team
-- Governance, policies
 - FAQ - general explanation of IBL Core
-- Join our Core Team
-- Contact us
+- Funding
+
+Notes:
+- Mission and history content currently lives within the `/about/` Who We Are page rather than as a separate subpage.
 
 ### 2.3 Resources (`/resources/`)
 
@@ -109,8 +110,7 @@ Home:
 - `content/_index.md`
 
 Standalone pages nested under About:
-- `content/about/join-us.md`
-- `content/about/contact.md`
+- none planned for v1 at the moment
 
 ### 3.2 Example File Tree
 
@@ -119,12 +119,9 @@ content/
   _index.md
   about/
     _index.md
-    mission-history.md
     team.md
-    governance-policies.md
     faq.md
-    join-us.md
-    contact.md
+    funding.md
   resources/
     _index.md
     data.md
@@ -220,6 +217,9 @@ Recommended order:
 3. Resource/news cards
 4. Generic content template
 5. Section pages populated from markdown
+
+Implementation note as of March 29, 2026:
+- `/about/` is now a custom-designed "Who We Are" landing page with embedded mission/history content and links into the Team / FAQ / Funding subpages.
 
 ## 8. Editorial and Migration Checklist
 

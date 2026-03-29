@@ -2,7 +2,7 @@
 title: "Team"
 description: "People, roles, and governance."
 lead: "Introduce the core team, their roles, and how governance is handled."
-weight: 20
+weight: 10
 ---
 
 The IBL Core brings together a multidisciplinary team of Research Software Engineers, data scientists, and scientific staff dedicated to building the infrastructure that enables modern, collaborative neuroscience.

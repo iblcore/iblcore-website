@@ -51,7 +51,14 @@
       <script src="{{ $js.RelPermalink }}" defer></script>
     {{ end }}
   </head>
-  <body{{ if .IsHome }} class="page-home"{{ end }}>
+  {{ $bodyClasses := slice }}
+  {{ if .IsHome }}
+    {{ $bodyClasses = $bodyClasses | append "page-home" }}
+  {{ end }}
+  {{ with .Params.body_class }}
+    {{ $bodyClasses = $bodyClasses | append . }}
+  {{ end }}
+  <body{{ with delimit $bodyClasses " " }} class="{{ . }}"{{ end }}>
     {{ partial "header.html" . }}
     <main id="main-content">
       {{ block "main" . }}{{ end }}

@@ -24,6 +24,7 @@ Implemented:
 - Hugo-native structure in `content/`, `layouts/`, `assets/`, and `archetypes/`
 - Shared base templates for home, list, and single pages
 - Prototype-driven landing page with custom home layout and page-level CSS
+- Custom-designed `/about/` Who We Are page with reusable shared header/footer and an optimized hero image workflow via Hugo assets
 - Data-driven `/projects/` section powered by `data/projects.yaml` and markdown description files
 - Shared component styling and mobile nav toggle
 - Markdown stubs for top-level sections and key About/Resources pages
@@ -135,4 +136,5 @@ Notes:
 
 - Generated output lives in `public/` and should not be committed.
 - The current site is still provisional, but the homepage is now under active visual refinement against `docs/landing-prototype-mini.webp`.
+- The About section IA for the current implementation is: Who We Are (`/about/`), Team (`/about/team/`), FAQ (`/about/faq/`), and Funding (`/about/funding/`).
 - See [AGENTS.md](AGENTS.md) for repository-specific instructions used by coding agents.
