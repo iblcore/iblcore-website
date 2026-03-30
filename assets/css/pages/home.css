@@ -14,7 +14,7 @@
 .hero--landing {
   position: relative;
   padding: 0;
-  background: linear-gradient(180deg, var(--color-home-bg) 0%, var(--color-home-bg) 100%);
+  background: var(--color-home-bg);
 }
 
 .hero__panel {
@@ -63,11 +63,6 @@
   position: relative;
   z-index: 3;
   color: var(--color-text-soft);
-}
-
-.landing-band--intro,
-.landing-band--what-we-do {
-  background: var(--color-accent-soft);
 }
 
 .landing-band--intro {

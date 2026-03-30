@@ -13,7 +13,7 @@
       (dict "title" "Funding" "url" "/about/funding/" "active" (eq $pagePath "/about/funding/"))
     )
   )
-  (dict "title" "Resources" "url" "/resources/" "active" (eq $section "resources"))
+  (dict "title" "Resources" "url" "#" "disabled" true)
   (dict
     "title" "Projects"
     "url" "/projects/"
@@ -23,10 +23,10 @@
       (dict "title" "New Partner Projects" "url" "/new-partner-projects/" "active" (eq $pagePath "/new-partner-projects/"))
     )
   )
-  (dict "title" "Publications" "url" "/publications/" "active" (eq $section "publications"))
-  (dict "title" "Events" "url" "/events/" "active" (eq $section "events"))
+  (dict "title" "Publications" "url" "#" "disabled" true)
+  (dict "title" "Events" "url" "#" "disabled" true)
   (dict "title" "Contact" "url" "/about/contact/" "active" (eq $pagePath "/about/contact/"))
-  (dict "title" "News" "url" "/news/" "active" (eq $section "news"))
+  (dict "title" "News" "url" "#" "disabled" true)
 }}
 <header class="site-header site-header--{{ $headerVariant }}">
   <div class="shell site-header__inner">
@@ -46,10 +46,12 @@
     <nav class="site-nav" id="site-nav" aria-label="Primary">
       <ul>
         {{ range $menuItems }}
-          {{ $children := .children | default (slice) }}
-          <li class="site-nav__item{{ if gt (len $children) 0 }} site-nav__item--has-children{{ end }}">
-            <a class="site-nav__link{{ if gt (len $children) 0 }} site-nav__link--has-children{{ end }}" href="{{ .url | relURL }}"{{ if .active }} aria-current="page"{{ end }}>{{ .title }}</a>
-            {{ if gt (len $children) 0 }}
+          {{ $item := . }}
+          {{ $children := $item.children | default (slice) }}
+          {{ $hasChildren := gt (len $children) 0 }}
+          <li class="site-nav__item{{ if $hasChildren }} site-nav__item--has-children{{ end }}">
+            <a class="site-nav__link{{ if $hasChildren }} site-nav__link--has-children{{ end }}" href="{{ if $item.disabled }}#{{ else }}{{ $item.url | relURL }}{{ end }}"{{ if $item.active }} aria-current="page"{{ end }}{{ if $item.disabled }} aria-disabled="true" title="Temporary placeholder link"{{ end }}>{{ $item.title }}</a>
+            {{ if $hasChildren }}
               <ul class="site-nav__submenu" aria-label="{{ .title }} submenu">
                 {{ range $children }}
                   <li>

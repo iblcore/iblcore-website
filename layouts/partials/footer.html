@@ -1,4 +1,41 @@
 {{ $footerVariant := .Params.footer_variant | default "non-landing" }}
+{{ $footerColumns := slice
+  (slice
+    (dict "label" "About" "url" "/about/" "active" true)
+    (dict "label" "Resources" "placeholder" true)
+    (dict "label" "Projects" "url" "/projects/" "active" true)
+    (dict "label" "Sitemap" "placeholder" true)
+  )
+  (slice
+    (dict "label" "Publications" "placeholder" true)
+    (dict "label" "Events" "placeholder" true)
+    (dict "label" "News" "placeholder" true)
+    (dict "label" "Team" "url" "/about/team/")
+  )
+  (slice
+    (dict "label" "Privacy Policy" "placeholder" true)
+    (dict "label" "Terms of Use" "placeholder" true)
+    (dict "label" "Cookie Policy" "placeholder" true)
+  )
+  (slice
+    (dict "label" "Accessibility Statement" "placeholder" true)
+    (dict "label" "Funding" "url" "/about/funding/")
+    (dict "label" "Legal Notice" "placeholder" true)
+  )
+}}
+{{ $socialLinks := slice
+  (dict "label" "International Brain Laboratory on GitHub" "url" "https://github.com/int-brain-lab/" "icon" "svg/icon_social_github.svg" "width" 47 "height" 45)
+  (dict "label" "International Brain Laboratory on YouTube" "url" "https://www.youtube.com/@intbrainlab" "icon" "svg/icon_social_youtube.svg" "width" 47 "height" 45)
+  (dict "label" "International Brain Laboratory on X" "url" "https://x.com/intbrainlab" "icon" "svg/icon_social_x.svg" "width" 47 "height" 45)
+}}
+{{ $legalLinks := slice
+  (dict "label" "Privacy Policy" "placeholder" true)
+  (dict "label" "Terms of Use" "placeholder" true)
+  (dict "label" "Cookie Policy" "placeholder" true)
+  (dict "label" "Accessibility" "placeholder" true)
+  (dict "label" "Funding Acknowledgement" "placeholder" true)
+  (dict "label" "Contact" "url" "/about/contact/")
+}}
 <footer class="site-footer site-footer--{{ $footerVariant }}">
   <div class="site-footer__primary">
     <div class="shell site-footer__inner">
@@ -7,42 +44,25 @@
       </a>
 
       <nav class="site-footer__nav" aria-label="Footer">
-        <ul class="site-footer__nav-column">
-          <li><a class="site-footer__nav-link site-footer__nav-link--active" href="{{ "/about/" | relURL }}">About</a></li>
-          <li><a class="site-footer__nav-link" href="{{ "/resources/" | relURL }}">Resources</a></li>
-          <li><a class="site-footer__nav-link site-footer__nav-link--active" href="{{ "/projects/" | relURL }}">Projects</a></li>
-          <li><a class="site-footer__nav-link site-footer__nav-link--placeholder" href="#" aria-disabled="true" title="Temporary placeholder link">Sitemap</a></li>
-        </ul>
-
-        <ul class="site-footer__nav-column">
-          <li><a class="site-footer__nav-link site-footer__nav-link--placeholder" href="#" aria-disabled="true" title="Temporary placeholder link">Publications</a></li>
-          <li><a class="site-footer__nav-link" href="{{ "/events/" | relURL }}">Events</a></li>
-          <li><a class="site-footer__nav-link" href="{{ "/news/" | relURL }}">News</a></li>
-          <li><a class="site-footer__nav-link" href="{{ "/about/team/" | relURL }}">Team</a></li>
-        </ul>
-
-        <ul class="site-footer__nav-column">
-          <li><a class="site-footer__nav-link site-footer__nav-link--placeholder" href="#" aria-disabled="true" title="Temporary placeholder link">Privacy Policy</a></li>
-          <li><a class="site-footer__nav-link site-footer__nav-link--placeholder" href="#" aria-disabled="true" title="Temporary placeholder link">Terms of Use</a></li>
-          <li><a class="site-footer__nav-link site-footer__nav-link--placeholder" href="#" aria-disabled="true" title="Temporary placeholder link">Cookie Policy</a></li>
-        </ul>
-
-        <ul class="site-footer__nav-column">
-          <li><a class="site-footer__nav-link site-footer__nav-link--placeholder" href="#" aria-disabled="true" title="Temporary placeholder link">Accessibility Statement</a></li>
-          <li><a class="site-footer__nav-link" href="{{ "/about/funding/" | relURL }}">Funding</a></li>
-          <li><a class="site-footer__nav-link site-footer__nav-link--placeholder" href="#" aria-disabled="true" title="Temporary placeholder link">Legal Notice</a></li>
-        </ul>
+        {{ range $footerColumns }}
+          <ul class="site-footer__nav-column">
+            {{ range . }}
+              <li>
+                <a
+                  class="site-footer__nav-link{{ if .active }} site-footer__nav-link--active{{ end }}{{ if .placeholder }} site-footer__nav-link--placeholder{{ end }}"
+                  href="{{ if .placeholder }}#{{ else }}{{ .url | relURL }}{{ end }}"
+                  {{ if .placeholder }}aria-disabled="true" title="Temporary placeholder link"{{ end }}>{{ .label }}</a>
+              </li>
+            {{ end }}
+          </ul>
+        {{ end }}
 
         <div class="site-footer__social" aria-label="International Brain Laboratory social links">
-          <a class="site-footer__social-link" href="https://github.com/int-brain-lab/" target="_blank" rel="noreferrer" aria-label="International Brain Laboratory on GitHub">
-            <img src="{{ (resources.Get "svg/icon_social_github.svg").RelPermalink }}" alt="" width="47" height="45">
-          </a>
-          <a class="site-footer__social-link" href="https://www.youtube.com/@intbrainlab" target="_blank" rel="noreferrer" aria-label="International Brain Laboratory on YouTube">
-            <img src="{{ (resources.Get "svg/icon_social_youtube.svg").RelPermalink }}" alt="" width="47" height="45">
-          </a>
-          <a class="site-footer__social-link" href="https://x.com/intbrainlab" target="_blank" rel="noreferrer" aria-label="International Brain Laboratory on X">
-            <img src="{{ (resources.Get "svg/icon_social_x.svg").RelPermalink }}" alt="" width="47" height="45">
-          </a>
+          {{ range $socialLinks }}
+            <a class="site-footer__social-link" href="{{ .url }}" target="_blank" rel="noreferrer" aria-label="{{ .label }}">
+              <img src="{{ (resources.Get .icon).RelPermalink }}" alt="" width="{{ .width }}" height="{{ .height }}">
+            </a>
+          {{ end }}
         </div>
       </nav>
     </div>
@@ -61,12 +81,9 @@
       </p>
 
       <nav class="site-footer__legal-nav" aria-label="Legal and policy links">
-        <a href="#" aria-disabled="true" title="Temporary placeholder link">Privacy Policy</a>
-        <a href="#" aria-disabled="true" title="Temporary placeholder link">Terms of Use</a>
-        <a href="#" aria-disabled="true" title="Temporary placeholder link">Cookie Policy</a>
-        <a href="#" aria-disabled="true" title="Temporary placeholder link">Accessibility</a>
-        <a href="#" aria-disabled="true" title="Temporary placeholder link">Funding Acknowledgement</a>
-        <a href="{{ "/about/contact/" | relURL }}">Contact</a>
+        {{ range $legalLinks }}
+          <a href="{{ if .placeholder }}#{{ else }}{{ .url | relURL }}{{ end }}"{{ if .placeholder }} aria-disabled="true" title="Temporary placeholder link"{{ end }}>{{ .label }}</a>
+        {{ end }}
       </nav>
     </div>
   </div>

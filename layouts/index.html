@@ -1,4 +1,17 @@
 {{ define "main" }}
+  {{ $capabilities := slice
+    (dict "icon" "svg/icon_data.svg" "title" "Data Infrastructure & Access" "copy" "Building tools for standardized data ingestion, organization and access." "width" 104 "height" 104)
+    (dict "icon" "svg/icon_pipelines.svg" "title" "Processing Pipelines" "copy" "Developing robust, scalable workflows for electrophysiology, imaging, behavior and video." "width" 150 "height" 150)
+    (dict "icon" "svg/icon_cloud.svg" "title" "Cloud & Web Platforms" "copy" "Creating shared infrastructure and web-based tools." "width" 124 "height" 117)
+    (dict "icon" "svg/icon_software.svg" "title" "Visualization & Software" "copy" "Designing user interfaces, applications and libraries." "width" 150 "height" 150)
+    (dict "icon" "svg/icon_hardware.svg" "title" "Hardware & Acquisition Support" "copy" "Providing guidance and solutions for experimental setups and data acquisition systems." "width" 150 "height" 150)
+    (dict "icon" "svg/icon_community.svg" "title" "Training & Community" "copy" "Supporting the broader community through workshops, documentation and open standards for best practices." "width" 150 "height" 150)
+  }}
+  {{ $supporters := slice
+    (dict "src" "images/simons.png" "alt" "Simons Foundation logo" "width" 118 "height" 118)
+    (dict "src" "images/wellcome.png" "alt" "Wellcome logo" "width" 118 "height" 118)
+    (dict "src" "images/nih.png" "alt" "National Institutes of Health logo" "width" 118 "height" 118)
+  }}
   <div class="landing-page">
     <section class="hero hero--landing">
       <div class="hero__panel">
@@ -40,65 +53,17 @@
         </div>
 
         <div class="what-we-do__grid" aria-label="IBL Core capabilities">
-          <article class="what-we-do__item">
-            <div class="what-we-do__icon-card" aria-hidden="true">
-              <img src="{{ (resources.Get "svg/icon_data.svg").RelPermalink }}" alt="" width="104" height="104">
-            </div>
-            <div class="what-we-do__body">
-              <h3>Data Infrastructure &amp; Access</h3>
-              <p>Building tools for standardized data ingestion, organization and access.</p>
-            </div>
-          </article>
-
-          <article class="what-we-do__item">
-            <div class="what-we-do__icon-card" aria-hidden="true">
-              <img src="{{ (resources.Get "svg/icon_pipelines.svg").RelPermalink }}" alt="" width="150" height="150">
-            </div>
-            <div class="what-we-do__body">
-              <h3>Processing Pipelines</h3>
-              <p>Developing robust, scalable workflows for electrophysiology, imaging, behavior and video.</p>
-            </div>
-          </article>
-
-          <article class="what-we-do__item">
-            <div class="what-we-do__icon-card" aria-hidden="true">
-              <img src="{{ (resources.Get "svg/icon_cloud.svg").RelPermalink }}" alt="" width="124" height="117">
-            </div>
-            <div class="what-we-do__body">
-              <h3>Cloud &amp; Web Platforms</h3>
-              <p>Creating shared infrastructure and web-based tools.</p>
-            </div>
-          </article>
-
-          <article class="what-we-do__item">
-            <div class="what-we-do__icon-card" aria-hidden="true">
-              <img src="{{ (resources.Get "svg/icon_software.svg").RelPermalink }}" alt="" width="150" height="150">
-            </div>
-            <div class="what-we-do__body">
-              <h3>Visualization &amp; Software</h3>
-              <p>Designing user interfaces, applications and libraries.</p>
-            </div>
-          </article>
-
-          <article class="what-we-do__item">
-            <div class="what-we-do__icon-card" aria-hidden="true">
-              <img src="{{ (resources.Get "svg/icon_hardware.svg").RelPermalink }}" alt="" width="150" height="150">
-            </div>
-            <div class="what-we-do__body">
-              <h3>Hardware &amp; Acquisition Support</h3>
-              <p>Providing guidance and solutions for experimental setups and data acquisition systems.</p>
-            </div>
-          </article>
-
-          <article class="what-we-do__item">
-            <div class="what-we-do__icon-card" aria-hidden="true">
-              <img src="{{ (resources.Get "svg/icon_community.svg").RelPermalink }}" alt="" width="150" height="150">
-            </div>
-            <div class="what-we-do__body">
-              <h3>Training &amp; Community</h3>
-              <p>Supporting the broader community through workshops, documentation and open standards for best practices.</p>
-            </div>
-          </article>
+          {{ range $capabilities }}
+            <article class="what-we-do__item">
+              <div class="what-we-do__icon-card" aria-hidden="true">
+                <img src="{{ (resources.Get .icon).RelPermalink }}" alt="" width="{{ .width }}" height="{{ .height }}">
+              </div>
+              <div class="what-we-do__body">
+                <h3>{{ .title }}</h3>
+                <p>{{ .copy }}</p>
+              </div>
+            </article>
+          {{ end }}
         </div>
       </div>
     </section>
@@ -113,15 +78,11 @@
           <a class="button button--support" href="{{ "/about/contact/" | relURL }}">Support us</a>
         </div>
         <div class="support-strip" aria-label="Support organizations">
-          <div class="support-strip__item">
-            <img src="{{ "images/simons.png" | relURL }}" alt="Simons Foundation logo" width="118" height="118">
-          </div>
-          <div class="support-strip__item">
-            <img src="{{ "images/wellcome.png" | relURL }}" alt="Wellcome logo" width="118" height="118">
-          </div>
-          <div class="support-strip__item">
-            <img src="{{ "images/nih.png" | relURL }}" alt="National Institutes of Health logo" width="118" height="118">
-          </div>
+          {{ range $supporters }}
+            <div class="support-strip__item">
+              <img src="{{ .src | relURL }}" alt="{{ .alt }}" width="{{ .width }}" height="{{ .height }}">
+            </div>
+          {{ end }}
         </div>
       </div>
     </section>

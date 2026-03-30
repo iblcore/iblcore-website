@@ -1,6 +1,6 @@
 .page-about-who {
-  background: #d5eef8;
-  color: #004d89;
+  background: var(--color-divider-soft);
+  color: var(--color-accent);
 }
 
 .about-hero {
@@ -50,8 +50,8 @@
 }
 
 .about-band--intro {
-  background: #004d89;
-  border-bottom: 4px solid #d3eef8;
+  background: var(--color-accent);
+  border-bottom: 4px solid var(--color-divider-soft);
 }
 
 .about-band__inner {
@@ -69,12 +69,12 @@
 }
 
 .about-section--work {
-  background: #ffffff;
-  border-bottom: 4px solid #d3eef8;
+  background: var(--color-surface);
+  border-bottom: 4px solid var(--color-divider-soft);
 }
 
 .about-section--mission {
-  background: #d5eef8;
+  background: var(--color-divider-soft);
   padding-bottom: 1.9rem;
 }
 
@@ -90,14 +90,14 @@
 
 .about-section__header h2 {
   margin: 0;
-  color: #009fd7;
+  color: var(--color-accent-soft);
   font-size: calc(var(--font-size-page-copy) * var(--font-ratio-title-over-copy));
   line-height: 0.98;
   font-weight: 400;
 }
 
 .about-section--mission .about-section__header h2 {
-  color: #004d89;
+  color: var(--color-accent);
 }
 
 .about-copy {
@@ -126,11 +126,11 @@
 }
 
 .about-copy--light {
-  color: #ffffff;
+  color: var(--color-surface);
 }
 
 .about-copy--dark {
-  color: #004d89;
+  color: var(--color-accent);
 }
 
 .button--about-solid,
@@ -140,13 +140,13 @@
 }
 
 .button--about-solid {
-  background: #004d89;
-  color: #ffffff;
+  background: var(--color-accent);
+  color: var(--color-surface);
 }
 
 .button--about-ghost {
-  background: #ffffff;
-  color: #004d89;
+  background: var(--color-surface);
+  color: var(--color-accent);
 }
 
 .button--about-intro {
@@ -157,8 +157,8 @@
   padding-left: 0;
   padding-right: 0;
   margin-top: 9px;
-  background: #ffffff;
-  color: #004d89;
+  background: var(--color-surface);
+  color: var(--color-accent);
 }
 
 .button--about-solid:hover,
@@ -177,7 +177,7 @@
   width: 100%;
   padding: 1.2rem var(--content-inset-panel-x) 1.05rem;
   border-radius: 1rem;
-  background: #009fd7;
+  background: var(--color-accent-soft);
 }
 
 .about-mission-card {
@@ -192,7 +192,7 @@
 
 .about-mission-card h3 {
   margin: 1rem 0 1.55rem;
-  color: #ffffff;
+  color: var(--color-surface);
   font-size: calc(var(--font-size-page-copy) * var(--font-ratio-title-over-copy));
   line-height: 1.02;
   font-weight: 400;
@@ -200,7 +200,7 @@
 
 .about-mission-card p {
   margin: 0 0 0.5rem;
-  color: #004d89;
+  color: var(--color-accent);
   font-size: var(--font-size-page-copy);
   line-height: 1.24;
 }
@@ -281,7 +281,7 @@
   }
 
   .about-band__inner {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
 
   .about-mission-panel {
