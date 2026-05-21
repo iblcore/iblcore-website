@@ -1,5 +1,5 @@
 {{ $footerVariant := .Params.footer_variant | default "non-landing" }}
-{{ $footerData := site.Data.footer }}
+{{ $footerData := hugo.Data.footer }}
 <footer class="site-footer site-footer--{{ $footerVariant }}">
   <div class="site-footer__primary">
     <div class="shell site-footer__inner">

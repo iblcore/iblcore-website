@@ -1,7 +1,7 @@
 {{ $section := .Section }}
 {{ $pagePath := .RelPermalink }}
 {{ $headerVariant := .Params.header_variant | default "non-landing" }}
-{{ $menuItems := site.Data.navigation.header }}
+{{ $menuItems := hugo.Data.navigation.header }}
 <header class="site-header site-header--{{ $headerVariant }}">
   <div class="shell site-header__inner">
     <a class="site-brand" href="{{ "/" | relURL }}">
