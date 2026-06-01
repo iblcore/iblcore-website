@@ -42,7 +42,7 @@
 .faq-group__header h2 {
   margin: 0;
   color: var(--color-surface);
-  font-size: var(--faq-title-size);
+  font-size: var(--font-size-prose-title);
   line-height: 1.02;
   font-weight: 400;
 }
@@ -61,7 +61,7 @@
 .faq-item__question {
   margin: 0 0 0.7rem;
   color: var(--color-accent);
-  font-size: var(--faq-question-size);
+  font-size: var(--font-size-prose-heading);
   line-height: 1.08;
   font-weight: 400;
 }
@@ -70,7 +70,7 @@
 .faq-item__answer p {
   margin: 0;
   color: var(--color-accent-soft);
-  font-size: var(--faq-answer-size);
+  font-size: var(--font-size-prose-copy);
   line-height: 1.28;
 }
 

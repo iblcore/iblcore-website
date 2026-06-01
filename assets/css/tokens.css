@@ -193,9 +193,6 @@
   --faq-group-pad-y: 2.15rem;
   --faq-surface-dark: rgba(0, 77, 137, 0.5);
   --faq-surface-light: rgba(213, 238, 248, 0.5);
-  --faq-title-size: calc(var(--font-size-page-copy) * var(--font-ratio-title-to-copy));
-  --faq-question-size: calc(var(--font-size-page-copy) * 1.12);
-  --faq-answer-size: var(--font-size-page-copy);
   --section-pad-about-work-y: 2.75rem;
 
   /* Typography */
@@ -219,6 +216,14 @@
   --font-size-support-copy: calc(1.875rem * var(--type-scale-base));
   --font-size-footer-nav: calc(1.75rem * var(--type-scale-base));
   --font-size-footer-legal: calc(0.9375rem * var(--type-scale-base));
+
+  /* Structured prose pages */
+  --font-size-prose-copy: var(--font-size-page-copy-compact);
+  --font-size-prose-title: calc(var(--font-size-prose-copy) * var(--font-ratio-title-to-copy));
+  --font-size-prose-heading: calc(var(--font-size-prose-copy) * 1.12);
+  --faq-title-size: var(--font-size-prose-title);
+  --faq-question-size: var(--font-size-prose-heading);
+  --faq-answer-size: var(--font-size-prose-copy);
 }
 
 @media (max-width: 700px) {

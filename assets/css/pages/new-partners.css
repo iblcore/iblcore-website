@@ -21,7 +21,7 @@
 .new-partners-affiliates__header h2 {
   margin: 0;
   color: var(--color-accent);
-  font-size: var(--faq-title-size);
+  font-size: var(--font-size-prose-title);
   line-height: 1.02;
   font-weight: 400;
 }
@@ -33,7 +33,7 @@
 .new-partners-card__authors {
   margin: 0 0 0.4rem;
   color: var(--color-accent-soft);
-  font-size: var(--faq-answer-size);
+  font-size: var(--font-size-prose-copy);
   line-height: 1.1;
   font-weight: 400;
   text-transform: none;
@@ -42,7 +42,7 @@
 .new-partners-card h3 {
   margin: 0 0 0.85rem;
   color: var(--color-accent);
-  font-size: var(--faq-question-size);
+  font-size: var(--font-size-prose-heading);
   line-height: 1.08;
   font-weight: 400;
 }
@@ -51,7 +51,7 @@
 .new-partners-card__body p,
 .new-partners-card__body li {
   color: var(--color-accent-soft);
-  font-size: var(--faq-answer-size);
+  font-size: var(--font-size-prose-copy);
   line-height: 1.28;
 }
 
@@ -80,7 +80,7 @@
   gap: 0.65rem 1rem;
   margin-top: 1.5rem;
   color: var(--color-accent);
-  font-size: calc(var(--faq-answer-size) * 1.15);
+  font-size: calc(var(--font-size-prose-copy) * 1.15);
   line-height: 1.3;
 }
 
