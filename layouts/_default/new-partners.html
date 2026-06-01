@@ -25,27 +25,46 @@
   {{ with $partnerSection }}
     <section class="new-partners-section" id="{{ .id }}" aria-label="New partner projects">
       <div class="shell">
-        <div class="new-partners-cards">
-          {{ range .items }}
+        <div class="new-partners-cards" data-accordion data-accordion-default-open="none">
+          {{ range $itemIndex, $item := .items }}
             {{ $fullTitle := or .title .name }}
             {{ $authorRaw := replaceRE "\\s*:\\s*.*$" "" $fullTitle }}
             {{ $author := title (lower (replace $authorRaw ", " " | ")) }}
             {{ $projectTitle := replaceRE "^[^:]+\\s*:\\s*" "" $fullTitle }}
-            <article class="new-partners-card">
+            {{ $itemId := printf "new-partner-project-%d" $itemIndex }}
+            <article class="new-partners-card accordion__item" data-accordion-item>
               <header class="new-partners-card__header">
                 <p class="new-partners-card__authors">{{ $author }}</p>
-                {{ if ne $projectTitle $fullTitle }}
-                  <h3>{{ upper $projectTitle }}</h3>
-                {{ end }}
+                <h3 class="new-partners-card__heading">
+                  <button
+                    class="new-partners-card__title accordion__button"
+                    type="button"
+                    id="{{ $itemId }}-button"
+                    aria-expanded="true"
+                    aria-controls="{{ $itemId }}-body"
+                    data-accordion-button
+                  >
+                    <span>{{ upper $projectTitle }}</span>
+                    <span class="new-partners-card__icon accordion__icon" aria-hidden="true"></span>
+                  </button>
+                </h3>
               </header>
-              <div class="new-partners-card__body prose">
-                {{ with .body_file }}
-                  {{ if fileExists . }}
-                    {{ readFile . | markdownify }}
-                  {{ else }}
-                    <p>Project description file not found: <code>{{ . }}</code></p>
+              <div
+                class="new-partners-card__body accordion__panel prose"
+                id="{{ $itemId }}-body"
+                role="region"
+                aria-labelledby="{{ $itemId }}-button"
+                data-accordion-panel
+              >
+                <div class="new-partners-card__body-inner accordion__panel-inner">
+                  {{ with $item.body_file }}
+                    {{ if fileExists . }}
+                      {{ readFile . | markdownify }}
+                    {{ else }}
+                      <p>Project description file not found: <code>{{ . }}</code></p>
+                    {{ end }}
                   {{ end }}
-                {{ end }}
+                </div>
               </div>
             </article>
           {{ end }}

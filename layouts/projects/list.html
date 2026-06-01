@@ -25,7 +25,7 @@
       {{ range where $projects.sections "id" "ibl-research-projects" }}
         <section class="projects-section" id="{{ .id }}">
           <header class="projects-section__header">
-            <h2>IBL Research Ongoing Projects</h2>
+            <h2>IBL Research Projects</h2>
             {{ with .description }}<p>{{ . }}</p>{{ end }}
           </header>
 
@@ -47,20 +47,42 @@
               </article>
             </div>
           {{ else }}
-            <div class="project-cards">
-              {{ range .items }}
-                <article class="project-card">
-                  <h3>{{ or .title .name }}</h3>
-                  <div class="project-card__body prose">
-                    {{ with .body_file }}
-                      {{ if fileExists . }}
-                        {{ readFile . | markdownify }}
+            <div class="project-cards" data-accordion data-accordion-default-open="none">
+              {{ $sectionId := .id }}
+              {{ range $itemIndex, $item := .items }}
+                {{ $itemId := printf "project-%s-%d" $sectionId $itemIndex }}
+                <article class="project-card accordion__item" data-accordion-item>
+                  <h3 class="project-card__heading">
+                    <button
+                      class="project-card__title accordion__button"
+                      type="button"
+                      id="{{ $itemId }}-button"
+                      aria-expanded="true"
+                      aria-controls="{{ $itemId }}-body"
+                      data-accordion-button
+                    >
+                      <span>{{ or $item.title $item.name }}</span>
+                      <span class="project-card__icon accordion__icon" aria-hidden="true"></span>
+                    </button>
+                  </h3>
+                  <div
+                    class="project-card__body accordion__panel prose"
+                    id="{{ $itemId }}-body"
+                    role="region"
+                    aria-labelledby="{{ $itemId }}-button"
+                    data-accordion-panel
+                  >
+                    <div class="project-card__body-inner accordion__panel-inner">
+                      {{ with $item.body_file }}
+                        {{ if fileExists . }}
+                          {{ readFile . | markdownify }}
+                        {{ else }}
+                          <p>Project description file not found: <code>{{ . }}</code></p>
+                        {{ end }}
                       {{ else }}
-                        <p>Project description file not found: <code>{{ . }}</code></p>
+                        <p>Add a markdown file path in <code>data/projects.yaml</code> to render this project description.</p>
                       {{ end }}
-                    {{ else }}
-                      <p>Add a markdown file path in <code>data/projects.yaml</code> to render this project description.</p>
-                    {{ end }}
+                    </div>
                   </div>
                 </article>
               {{ end }}

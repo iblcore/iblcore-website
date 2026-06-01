@@ -30,6 +30,10 @@
   background: var(--color-surface);
 }
 
+.new-partners-card.is-open {
+  box-shadow: 0 0.65rem 1.4rem rgba(1, 31, 70, 0.12);
+}
+
 .new-partners-card__authors {
   margin: 0 0 0.4rem;
   color: var(--color-accent-soft);
@@ -39,8 +43,11 @@
   text-transform: none;
 }
 
-.new-partners-card h3 {
-  margin: 0 0 0.85rem;
+.new-partners-card__heading {
+  margin: 0;
+}
+
+.new-partners-card__title {
   color: var(--color-accent);
   font-size: var(--font-size-prose-heading);
   line-height: 1.08;
@@ -55,11 +62,15 @@
   line-height: 1.28;
 }
 
-.new-partners-card__body > *:first-child {
+.new-partners-card__body {
   margin-top: 0.45rem;
 }
 
-.new-partners-card__body > *:last-child {
+.new-partners-card__body-inner > *:first-child {
+  margin-top: 0;
+}
+
+.new-partners-card__body-inner > *:last-child {
   margin-bottom: 0.45rem;
 }
 
@@ -112,6 +123,18 @@
   .new-partners-affiliates__list span:not(:last-child)::after {
     content: "";
     margin: 0;
+  }
+}
+
+@media (hover: hover) {
+  .new-partners-card:hover {
+    transform: translateY(-0.08rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .new-partners-card:hover {
+    transform: none;
   }
 }
 

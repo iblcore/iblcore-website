@@ -52,6 +52,94 @@
   gap: var(--space-xl);
 }
 
+.accordion__item {
+  transition:
+    background-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.accordion__button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.accordion__button:focus-visible {
+  outline: 0.12rem solid var(--color-accent-soft);
+  outline-offset: 0.35rem;
+}
+
+.accordion__icon {
+  position: relative;
+  flex: 0 0 1.15rem;
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 0.1rem solid currentColor;
+  border-radius: 50%;
+}
+
+.accordion__icon::before,
+.accordion__icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.55rem;
+  height: 0.08rem;
+  border-radius: 999px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  transition: transform 180ms ease;
+}
+
+.accordion__icon::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.accordion__item.is-open .accordion__icon::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.accordion__panel {
+  display: grid;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition:
+    grid-template-rows 240ms ease,
+    opacity 180ms ease,
+    margin-top 240ms ease;
+}
+
+.accordion__panel-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.accordion-ready .accordion__item:not(.is-open) .accordion__panel {
+  grid-template-rows: 0fr;
+  margin-top: 0;
+  opacity: 0;
+}
+
+.accordion__panel-inner > *:first-child {
+  margin-top: 0;
+}
+
+.accordion__panel-inner > *:last-child {
+  margin-bottom: 0;
+}
+
 .page-controller {
   position: fixed;
   top: var(--controller-top-offset);
@@ -95,13 +183,26 @@
 
 @media (max-width: 700px) {
   .page-controller {
+    position: relative;
     top: auto;
-    right: 0.85rem;
-    bottom: 0.85rem;
+    right: auto;
+    bottom: auto;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 1rem 1rem;
   }
 
   .page-controller__links {
     grid-auto-flow: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion__item,
+  .accordion__panel,
+  .accordion__icon::before,
+  .accordion__icon::after {
+    transition: none;
   }
 }
 

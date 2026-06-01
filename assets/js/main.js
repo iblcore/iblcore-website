@@ -8,36 +8,37 @@ if (toggle && nav) {
   });
 }
 
-document.querySelectorAll("[data-faq-accordion]").forEach((accordion) => {
-  const items = accordion.querySelectorAll(".faq-item");
+document.querySelectorAll("[data-accordion]").forEach((accordion) => {
+  const items = Array.from(accordion.querySelectorAll("[data-accordion-item]"));
+  const defaultOpen = accordion.dataset.accordionDefaultOpen || "none";
 
   const setOpen = (item, isOpen) => {
-    const button = item.querySelector(".faq-item__question");
-    const answer = item.querySelector(".faq-item__answer");
+    const button = item.querySelector("[data-accordion-button]");
+    const panel = item.querySelector("[data-accordion-panel]");
 
-    if (!button || !answer) {
+    if (!button || !panel) {
       return;
     }
 
     item.classList.toggle("is-open", isOpen);
     button.setAttribute("aria-expanded", String(isOpen));
-    answer.setAttribute("aria-hidden", String(!isOpen));
-    answer.inert = !isOpen;
+    panel.setAttribute("aria-hidden", String(!isOpen));
+    panel.inert = !isOpen;
   };
 
-  items.forEach((item) => {
-    const button = item.querySelector(".faq-item__question");
+  items.forEach((item, index) => {
+    const button = item.querySelector("[data-accordion-button]");
 
     if (!button) {
       return;
     }
 
-    setOpen(item, false);
+    setOpen(item, defaultOpen === "all" || (defaultOpen === "first" && index === 0));
 
     button.addEventListener("click", () => {
       setOpen(item, !item.classList.contains("is-open"));
     });
   });
 
-  accordion.classList.add("faq-accordion-ready");
+  accordion.classList.add("accordion-ready");
 });
