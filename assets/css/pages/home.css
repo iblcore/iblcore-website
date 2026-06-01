@@ -75,7 +75,7 @@
 }
 
 .landing-band--intro {
-  background: var(--color-surface);
+  background: var(--color-home-bg);
   border-top: 1px solid var(--color-brand-light);
   border-bottom: 4px solid var(--color-divider-soft);
 }
@@ -107,11 +107,11 @@
 }
 
 .landing-band--intro .landing-band__copy {
-  color: var(--color-accent);
+  color: var(--color-text-on-dark);
 }
 
 .landing-band--intro .landing-band__copy h2 {
-  color: var(--color-accent);
+  color: var(--color-text-bright);
 }
 
 .landing-band__copy {
@@ -276,6 +276,8 @@
   align-self: flex-start;
   flex: 0 0 auto;
   min-width: var(--button-width-landing);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
   box-shadow: inset 0 0 0 1px var(--color-button-inset-light);
 }
 
