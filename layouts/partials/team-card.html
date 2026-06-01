@@ -1,0 +1,18 @@
+{{ $member := . }}
+{{ $name := printf "%s %s" $member.first_name $member.last_name }}
+{{ $cropX := $member.crop_x | default "50%" }}
+{{ $cropY := $member.crop_y | default "24%" }}
+{{ $cropZoom := $member.crop_zoom | default 1 }}
+
+<figure class="team-card">
+  <div class="team-card__frame">
+    <img
+      class="team-card__image"
+      src="{{ printf "/images/team/headshots-webp/%s" $member.image | relURL }}"
+      alt="{{ $name }}"
+      style="--team-image-x: {{ $cropX }}; --team-image-y: {{ $cropY }}; --team-image-zoom: {{ $cropZoom }};"
+      loading="lazy"
+      decoding="async">
+  </div>
+  <figcaption class="team-card__name">{{ $name }}</figcaption>
+</figure>

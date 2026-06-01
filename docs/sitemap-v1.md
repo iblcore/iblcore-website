@@ -34,7 +34,7 @@ Notes:
 
 Includes:
 - Who We Are (`/about/`)
-- Our Team (`/about/our-team/`)
+- Our Team (`/about/our-team/`) - staff, PI scientific board, and contact prompt
 - History (`/about/history/`)
 - FAQ (`/about/faq/`) - general explanation of IBL Core
 - Support (`/about/support/`) - includes funding

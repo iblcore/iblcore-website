@@ -137,6 +137,6 @@ Notes:
 
 - Generated output lives in `public/` and should not be committed.
 - The current site is still provisional, but the homepage is now under active visual refinement against `docs/landing-prototype-mini.webp`.
-- The About section IA for the current implementation is: Who We Are (`/about/`), Our Team (`/about/our-team/`), History (`/about/history/`), FAQ (`/about/faq/`), and Support (`/about/support/`).
+- The About section IA for the current implementation is: Who We Are (`/about/`), Our Team (`/about/our-team/`, grouped into staff and PI scientific board with a contact prompt), History (`/about/history/`), FAQ (`/about/faq/`), and Support (`/about/support/`).
 - The top navigation is: About, Resources (`/#resources`), Projects, Publications (`/#publications`), Events disabled, News disabled, and Contact (`/#contact`). The footer mirrors that menu and adds Legal Notice.
 - See [AGENTS.md](AGENTS.md) for repository-specific instructions used by coding agents.

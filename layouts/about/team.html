@@ -1,5 +1,6 @@
 {{ define "main" }}
-  {{ $headshots := sort (readDir "static/images/team/headshots-webp") "Name" }}
+  {{ $staff := sort (where hugo.Data.team.members "group" "staff") "last_name" }}
+  {{ $pis := sort (where hugo.Data.team.members "group" "pi") "last_name" }}
 
   <div class="team-page">
     <section class="team-hero section-hero">
@@ -19,24 +20,33 @@
       </div>
     </section>
 
-    <section class="team-grid-section">
+    <section class="team-grid-section team-grid-section--staff" aria-label="Staff">
       <div class="shell">
         <div class="team-grid" aria-label="Team members">
-          {{ range $headshots }}
-            {{ $name := replace (replaceRE "\\.[^.]+$" "" .Name) "_" " " }}
-            <figure class="team-card">
-              <div class="team-card__frame">
-                <img
-                  class="team-card__image"
-                  src="{{ printf "/images/team/headshots-webp/%s" .Name | relURL }}"
-                  alt="{{ $name }}"
-                  loading="lazy"
-                  decoding="async">
-              </div>
-              <figcaption class="team-card__name">{{ $name }}</figcaption>
-            </figure>
+          {{ range $staff }}
+            {{ partial "team-card.html" . }}
           {{ end }}
         </div>
+      </div>
+    </section>
+
+    <section class="team-grid-section team-grid-section--pi" aria-label="Principal investigators">
+      <div class="shell">
+        <div class="team-grid" aria-label="Principal investigators">
+          {{ range $pis }}
+            {{ partial "team-card.html" . }}
+          {{ end }}
+        </div>
+      </div>
+    </section>
+
+    <section class="team-contact-section" aria-labelledby="team-contact-title">
+      <div class="shell team-contact-section__inner">
+        <h2 id="team-contact-title">Contact Us</h2>
+        <p>
+          For any enquiries about partnerships or our resources, please contact us at
+          <a href="mailto:info@iblcore.org">info@iblcore.org</a>. We welcome interest from the community and are happy to discuss potential opportunities to work together.
+        </p>
       </div>
     </section>
   </div>

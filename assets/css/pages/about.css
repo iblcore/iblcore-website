@@ -353,6 +353,15 @@
   background: var(--color-surface-deep);
 }
 
+.team-grid-section--staff {
+  background: var(--color-surface-deep);
+}
+
+.team-grid-section--pi {
+  padding-top: 2rem;
+  background: #b1e1f2;
+}
+
 .team-grid {
   display: flex;
   flex-wrap: wrap;
@@ -369,7 +378,7 @@
 .team-card__frame {
   position: relative;
   overflow: hidden;
-  border: 1.5px solid var(--color-team-border);
+  border: 3px solid #009fd7;
   border-radius: 1.1rem;
   background:
     linear-gradient(180deg, var(--color-team-card-surface-top), var(--color-team-card-surface-bottom)),
@@ -381,8 +390,10 @@
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: var(--team-image-x, center) var(--team-image-y, 24%);
   filter: grayscale(1);
+  transform: scale(var(--team-image-zoom, 1));
+  transform-origin: var(--team-image-x, center) var(--team-image-y, 24%);
 }
 
 .team-card__name {
@@ -391,6 +402,47 @@
   font-size: var(--font-size-page-copy-compact);
   line-height: 1.05;
   text-align: left;
+}
+
+.team-grid-section--pi .team-card__name {
+  color: var(--color-accent);
+}
+
+.team-contact-section {
+  background: #68c6f2;
+  color: var(--color-accent);
+}
+
+.team-contact-section__inner {
+  display: grid;
+  grid-template-columns: minmax(10rem, 14rem) minmax(0, 1fr);
+  gap: var(--space-lg);
+  align-items: start;
+  padding: 2.25rem 0 2.6rem;
+}
+
+.team-contact-section h2 {
+  margin: 0;
+  color: var(--color-accent);
+  font-size: var(--font-size-section-title);
+  line-height: 1;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.team-contact-section p {
+  margin: 0;
+  max-width: 68rem;
+  color: var(--color-accent);
+  font-size: var(--font-size-section-copy);
+  line-height: 1.2;
+}
+
+.team-contact-section a {
+  color: var(--color-accent);
+  text-decoration-color: var(--color-text-bright);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.14em;
 }
 
 @media (max-width: 1100px) {
@@ -409,6 +461,11 @@
   .team-card {
     flex-basis: calc((100% - (2 * 1rem)) / 3);
     max-width: calc((100% - (2 * 1rem)) / 3);
+  }
+
+  .team-contact-section__inner {
+    grid-template-columns: 1fr;
+    gap: 0.9rem;
   }
 }
 
