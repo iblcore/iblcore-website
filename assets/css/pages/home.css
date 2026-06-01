@@ -14,7 +14,7 @@
   --home-button-pad-y: 0.45rem;
   --home-button-pad-x: 1.15rem;
   --home-button-pad-bottom: 0.5rem;
-  --home-what-we-do-label-size: clamp(1.1rem, 1.6vw, 1.5rem);
+  --home-what-we-do-label-size: clamp(1.0rem, 1.1vw, 1.5rem);
   --home-what-we-do-label-line-height: 1.05;
   --home-publication-title-size: var(--font-size-card-title);
   --home-publication-meta-size: var(--font-size-card-copy);
@@ -163,8 +163,8 @@
 
 .what-we-do__row {
   display: grid;
-  grid-template-columns: minmax(10rem, 14rem) minmax(0, 1fr);
-  align-items: center;
+  grid-template-columns: minmax(10rem, 12rem) minmax(0, 1fr);
+  align-items: flex-start;
   gap: var(--space-lg);
 }
 
@@ -195,7 +195,7 @@
 .what-we-do__expertise-item img {
   display: block;
   width: auto;
-  height: clamp(4.7rem, 7vw, 6.7rem);
+  height: clamp(4.7rem, 7vw, 5.5rem);
   max-width: 100%;
 }
 
