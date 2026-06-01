@@ -19,7 +19,7 @@
             <header class="faq-group__header">
               <h2>{{ $group.title }}</h2>
             </header>
-            <div class="faq-group__items" data-accordion data-accordion-default-open="none">
+            <div class="faq-group__items accordion-ready" data-accordion data-accordion-default-open="none">
               {{ range $itemIndex, $item := $group.items }}
                 {{ $itemId := printf "faq-%d-%d" $index $itemIndex }}
                 <article class="faq-item accordion__item" data-accordion-item>
@@ -28,7 +28,7 @@
                       class="faq-item__question accordion__button"
                       type="button"
                       id="{{ $itemId }}-button"
-                      aria-expanded="true"
+                      aria-expanded="false"
                       aria-controls="{{ $itemId }}-answer"
                       data-accordion-button
                     >
@@ -41,6 +41,8 @@
                     id="{{ $itemId }}-answer"
                     role="region"
                     aria-labelledby="{{ $itemId }}-button"
+                    aria-hidden="true"
+                    inert
                     data-accordion-panel
                   >
                     <div class="faq-item__answer-inner accordion__panel-inner">

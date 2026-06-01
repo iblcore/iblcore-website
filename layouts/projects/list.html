@@ -47,7 +47,7 @@
               </article>
             </div>
           {{ else }}
-            <div class="project-cards" data-accordion data-accordion-default-open="none">
+            <div class="project-cards accordion-ready" data-accordion data-accordion-default-open="none">
               {{ $sectionId := .id }}
               {{ range $itemIndex, $item := .items }}
                 {{ $itemId := printf "project-%s-%d" $sectionId $itemIndex }}
@@ -57,7 +57,7 @@
                       class="project-card__title accordion__button"
                       type="button"
                       id="{{ $itemId }}-button"
-                      aria-expanded="true"
+                      aria-expanded="false"
                       aria-controls="{{ $itemId }}-body"
                       data-accordion-button
                     >
@@ -70,6 +70,8 @@
                     id="{{ $itemId }}-body"
                     role="region"
                     aria-labelledby="{{ $itemId }}-button"
+                    aria-hidden="true"
+                    inert
                     data-accordion-panel
                   >
                     <div class="project-card__body-inner accordion__panel-inner">
