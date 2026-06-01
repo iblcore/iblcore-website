@@ -1,6 +1,7 @@
 .page-faq {
   --page-backdrop-image: url("/images/faq-background.webp");
   --page-backdrop-size: cover;
+  --faq-text-color: #009FD7;
 }
 
 .faq-hero__inner {
@@ -25,6 +26,8 @@
 .faq-group__panel {
   padding-block: var(--faq-group-pad-y);
   padding-inline: max(calc((100vw - var(--shell-width)) / 2), 1rem);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
 }
 
 .faq-group__header {
@@ -83,7 +86,7 @@
 }
 
 .faq-item__question {
-  color: var(--color-accent);
+  color: var(--faq-text-color);
   font-size: var(--font-size-prose-heading);
   line-height: 1.08;
   font-weight: 400;
@@ -92,7 +95,7 @@
 .faq-item__answer,
 .faq-item__answer p {
   margin: 0;
-  color: var(--color-accent-soft);
+  color: var(--faq-text-color);
   font-size: var(--font-size-prose-copy);
   line-height: 1.28;
 }
