@@ -75,8 +75,8 @@
 }
 
 .landing-band--intro {
-  background: var(--color-accent-soft);
-  border-top: 1px solid var(--color-border-soft);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-brand-light);
   border-bottom: 4px solid var(--color-divider-soft);
 }
 
@@ -104,6 +104,14 @@
 
 .landing-band--intro .landing-band__inner {
   padding: var(--space-xl) 0 1.95rem;
+}
+
+.landing-band--intro .landing-band__copy {
+  color: var(--color-accent);
+}
+
+.landing-band--intro .landing-band__copy h2 {
+  color: var(--color-accent);
 }
 
 .landing-band__copy {
