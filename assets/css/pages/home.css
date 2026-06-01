@@ -80,6 +80,10 @@
   background: #60c0e5;
 }
 
+.landing-band--publications {
+  background: var(--color-home-bg);
+}
+
 .landing-band__inner {
   display: flex;
   flex-wrap: wrap;
@@ -245,6 +249,7 @@
 }
 
 .button--landing,
+.button--publications,
 .button--support {
   background: var(--color-accent);
   color: var(--color-text-bright);
@@ -261,11 +266,89 @@
 
 .button--landing:hover,
 .button--landing:focus-visible,
+.button--publications:hover,
+.button--publications:focus-visible,
 .button--support:hover,
 .button--support:focus-visible {
   background: var(--color-surface);
   color: var(--color-accent);
   outline: none;
+}
+
+.publications-section {
+  padding: 2.1rem 0 2.6rem;
+}
+
+.publications-section h2 {
+  margin: 0 0 1.4rem;
+  color: var(--color-text-bright);
+  font-size: var(--font-size-section-title);
+  line-height: 0.98;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+
+.publications-section__list {
+  display: grid;
+  gap: 1.45rem;
+}
+
+.publication-item {
+  color: var(--color-text-on-dark);
+}
+
+.publication-item h3 {
+  display: inline;
+  margin: 0;
+  font-size: clamp(1.35rem, 2.05vw, 1.9rem);
+  line-height: 1.1;
+  font-weight: 400;
+}
+
+.publication-item h3 a {
+  color: var(--color-text-bright);
+  text-decoration: none;
+}
+
+.publication-item h3 a:hover,
+.publication-item h3 a:focus-visible {
+  color: var(--color-accent-soft);
+  outline: none;
+}
+
+.publication-item__meta {
+  display: inline;
+  margin: 0;
+  color: var(--color-accent-soft);
+  font-size: clamp(1.2rem, 1.75vw, 1.65rem);
+  line-height: 1.1;
+}
+
+.publication-item__meta::before {
+  content: " | ";
+}
+
+.publication-item__summary {
+  margin: 0.35rem 0 0;
+  max-width: 76rem;
+  color: var(--color-text-on-dark);
+  font-size: clamp(1.1rem, 1.55vw, 1.45rem);
+  line-height: 1.16;
+}
+
+.publications-section__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.25rem;
+}
+
+.button--publications {
+  min-width: 9rem;
+  min-height: 2.55rem;
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
 }
 
 .support-section__header {
@@ -388,6 +471,23 @@
     align-items: flex-start;
   }
 
+  .publications-section {
+    padding: 1.75rem 0 2rem;
+  }
+
+  .publication-item h3,
+  .publication-item__meta {
+    display: block;
+  }
+
+  .publication-item__meta {
+    margin-top: 0.15rem;
+  }
+
+  .publication-item__meta::before {
+    content: none;
+  }
+
   .what-we-do {
     padding: 1.5rem 0 1.85rem;
   }
@@ -479,6 +579,14 @@
   .button--support {
     width: 100%;
     min-width: 0;
+  }
+
+  .publications-section__actions {
+    justify-content: stretch;
+  }
+
+  .button--publications {
+    width: 100%;
   }
 
   .button--landing {

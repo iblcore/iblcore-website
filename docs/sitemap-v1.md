@@ -20,9 +20,9 @@ Intended stack: Hugo static site generator, modern vanilla HTML/CSS, minimal van
 
 Sections:
 - Hero (prototype-like, mostly informational)
-- Intro text block
-- Highlight Resources cards (Data, Modalities, Analysis, Visualisation)
-- News & Updates preview
+- Mission text block
+- What We Do block (expertise, modalities, tools)
+- Major Publications preview
 - Funders/Support strip (home + footer only)
 - Footer navigation
 

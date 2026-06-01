@@ -24,6 +24,7 @@ Implemented:
 - Hugo-native structure in `content/`, `layouts/`, `assets/`, and `archetypes/`
 - Shared base templates for home, list, and single pages
 - Prototype-driven landing page with custom home layout and page-level CSS
+- Homepage What We Do and Major Publications sections
 - Custom-designed `/about/` Who We Are page with reusable shared header/footer and an optimized hero image workflow via Hugo assets
 - Data-driven `/projects/` section powered by `data/projects.yaml` and markdown description files
 - Shared component styling and mobile nav toggle

@@ -21,6 +21,27 @@
     (dict "title" "Lightning Pose" "url" "https://lightning-pose.readthedocs.io/en/latest/")
     (dict "title" "Datoviz" "url" "https://datoviz.org/")
   }}
+  {{ $publications := slice
+    (dict
+      "title" "Standardized and reproducible measurement of decision-making in mice"
+      "url" "https://elifesciences.org/articles/63711"
+      "meta" "International Brain Laboratory | Aguillon-Rodriguez et al. | eLife, 2021"
+      "summary" "A coordinated multi-lab study establishing a standardized behavioral task, shared dataset, and open tools for reproducible mouse decision-making research."
+    )
+    (dict
+      "title" "Reproducibility of in vivo electrophysiological measurements in mice"
+      "url" "https://elifesciences.org/articles/100840"
+      "meta" "International Brain Laboratory | eLife, 2025"
+      "summary" "A large-scale repeated-site electrophysiology study testing how reliably neural activity can be measured across animals, laboratories, and recording sessions."
+    )
+    (dict
+      "title" "Brain-wide representations of prior information in mouse decision-making"
+      "url" "https://www.nature.com/articles/s41586-025-09226-1"
+      "meta" "Findling, Hubert, International Brain Laboratory et al. | Nature, 2025"
+      "summary" "A brain-wide analysis of how prior expectations are represented across neural populations during a standardized decision-making task."
+    )
+  }}
+  {{ $scholarURL := "https://scholar.google.com/citations?view_op=search_authors&mauthors=%22International%20Brain%20Laboratory%22&hl=en" }}
   {{ $supporters := slice
     (dict "src" "images/simons.png" "alt" "Simons Foundation logo" "width" 118 "height" 118)
     (dict "src" "images/wellcome.png" "alt" "Wellcome logo" "width" 118 "height" 118)
@@ -94,7 +115,23 @@
       </div>
     </section>
 
-    <section class="landing-band landing-band--publications" id="publications" aria-label="Publications"></section>
+    <section class="landing-band landing-band--publications" id="publications" aria-labelledby="home-publications-title">
+      <div class="shell publications-section">
+        <h2 id="home-publications-title">Major Publications</h2>
+        <div class="publications-section__list">
+          {{ range $publications }}
+            <article class="publication-item">
+              <h3><a href="{{ .url }}">{{ .title }}</a></h3>
+              <p class="publication-item__meta">{{ .meta }}</p>
+              <p class="publication-item__summary">{{ .summary }}</p>
+            </article>
+          {{ end }}
+        </div>
+        <div class="publications-section__actions">
+          <a class="button button--publications" href="{{ $scholarURL }}">See more</a>
+        </div>
+      </div>
+    </section>
 
     <section class="landing-band landing-band--support" id="contact">
       <div class="shell">
