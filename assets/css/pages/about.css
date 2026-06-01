@@ -251,6 +251,115 @@
   font-size: var(--space-text-xl);
 }
 
+.page-about-history {
+  background: var(--color-surface-dark);
+  color: var(--color-surface);
+}
+
+.page-about-history main {
+  min-height: auto;
+}
+
+.about-single-page {
+  position: relative;
+  z-index: 1;
+}
+
+.about-single-hero {
+  background: var(--color-surface-dark);
+}
+
+.about-single-hero__media {
+  background:
+    linear-gradient(180deg, rgba(1, 18, 43, 0.1) 0%, rgba(1, 18, 43, 0.36) 100%),
+    var(--color-surface-dark);
+}
+
+.about-single-hero__copy {
+  max-width: var(--content-width-copy);
+}
+
+.about-single-hero h1 {
+  margin: 0;
+  color: var(--color-surface);
+  font-size: var(--font-size-page-hero-title);
+  line-height: 0.98;
+  font-weight: 400;
+}
+
+.about-single-content {
+  padding: 2.75rem 0 4.25rem;
+  background: var(--color-divider-soft);
+  color: var(--color-accent);
+}
+
+.about-single-prose {
+  display: grid;
+  gap: 1.5rem;
+  max-width: var(--content-width-copy);
+  color: var(--color-accent);
+  font-size: var(--font-size-page-copy);
+  line-height: 1.28;
+}
+
+.about-content-block {
+  padding: 1.45rem 1.65rem 1.55rem;
+  border-radius: 0.6rem;
+  background: var(--color-surface);
+}
+
+.about-content-block--1 {
+  background: var(--color-accent-soft);
+  color: var(--color-surface);
+}
+
+.about-content-block--2 {
+  background: var(--color-surface);
+  color: var(--color-accent);
+}
+
+.about-content-block--0 {
+  background: var(--color-accent);
+  color: var(--color-surface);
+}
+
+.about-content-block h2 {
+  margin: 0 0 1rem;
+  color: var(--color-accent);
+  font-size: calc(var(--font-size-page-copy) * var(--font-ratio-title-to-copy));
+  line-height: 1.02;
+  font-weight: 400;
+}
+
+.about-content-block--1 h2 {
+  color: var(--color-accent);
+}
+
+.about-content-block--0 h2 {
+  color: var(--color-accent-soft);
+}
+
+.about-content-block p,
+.about-content-block ul,
+.about-content-block ol {
+  margin-bottom: 0;
+}
+
+.about-content-block > * + * {
+  margin-top: 1rem;
+}
+
+.about-content-block a {
+  color: inherit;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.14em;
+}
+
+.about-content-block li + li {
+  margin-top: 0.35rem;
+}
+
 @media (max-width: 900px) {
   .about-section-nav {
     order: -1;
@@ -286,6 +395,19 @@
 
   .about-mission-panel {
     padding: var(--space-md) 0.9rem 0.9rem;
+  }
+
+  .about-single-content {
+    padding: 2rem 0 3rem;
+  }
+
+  .about-single-prose {
+    gap: 1rem;
+    font-size: var(--font-size-section-copy);
+  }
+
+  .about-content-block {
+    padding: 1rem;
   }
 }
 
