@@ -13,6 +13,11 @@
   --home-button-pad-y: 0.45rem;
   --home-button-pad-x: 1.15rem;
   --home-button-pad-bottom: 0.5rem;
+  --home-what-we-do-label-size: clamp(1.1rem, 1.6vw, 1.5rem);
+  --home-what-we-do-label-line-height: 1.05;
+  --home-publication-title-size: var(--font-size-card-title);
+  --home-publication-meta-size: calc(var(--font-size-section-copy) * 0.95);
+  --home-publication-summary-size: var(--font-size-section-copy);
 }
 
 .hero--landing {
@@ -189,8 +194,8 @@
 .what-we-do__expertise-item h4 {
   margin: 0;
   color: var(--color-accent);
-  font-size: clamp(1.1rem, 1.65vw, 1.55rem);
-  line-height: 0.98;
+  font-size: var(--home-what-we-do-label-size);
+  line-height: var(--home-what-we-do-label-line-height);
   font-weight: 400;
   text-transform: uppercase;
   text-wrap: balance;
@@ -208,8 +213,8 @@
 
 .what-we-do__modalities li {
   color: var(--color-accent);
-  font-size: clamp(1.05rem, 1.55vw, 1.45rem);
-  line-height: 1.1;
+  font-size: var(--home-what-we-do-label-size);
+  line-height: var(--home-what-we-do-label-line-height);
   font-weight: 400;
   text-transform: uppercase;
   text-align: center;
@@ -236,8 +241,8 @@
   border-radius: 999px;
   background: var(--color-accent);
   color: var(--color-text-bright);
-  font-size: clamp(1.05rem, 1.55vw, 1.45rem);
-  line-height: 1;
+  font-size: var(--home-what-we-do-label-size);
+  line-height: var(--home-what-we-do-label-line-height);
   font-weight: 400;
   text-decoration: none;
   text-transform: uppercase;
@@ -309,7 +314,7 @@
 .publication-item h3 {
   display: inline;
   margin: 0;
-  font-size: clamp(1.05rem, 1.45vw, 1.35rem);
+  font-size: var(--home-publication-title-size);
   line-height: 1.18;
   font-weight: 400;
 }
@@ -329,7 +334,7 @@
   display: inline;
   margin: 0;
   color: var(--color-accent-soft);
-  font-size: clamp(1rem, 1.35vw, 1.25rem);
+  font-size: var(--home-publication-meta-size);
   line-height: 1.18;
 }
 
@@ -341,8 +346,8 @@
   margin: 0.35rem 0 0;
   max-width: 76rem;
   color: var(--color-text-on-dark);
-  font-size: clamp(0.95rem, 1.2vw, 1.12rem);
-  line-height: 1.22;
+  font-size: var(--home-publication-summary-size);
+  line-height: 1.24;
 }
 
 .publications-section__actions {
