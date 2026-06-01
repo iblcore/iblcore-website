@@ -9,6 +9,10 @@
 
 .landing-page {
   position: relative;
+  --home-button-min-height: 2.9rem;
+  --home-button-pad-y: 0.45rem;
+  --home-button-pad-x: 1.15rem;
+  --home-button-pad-bottom: 0.5rem;
 }
 
 .hero--landing {
@@ -226,9 +230,9 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.9rem;
+  min-height: var(--home-button-min-height);
   min-width: 5.8rem;
-  padding: 0.45rem 1.15rem 0.5rem;
+  padding: var(--home-button-pad-y) var(--home-button-pad-x) var(--home-button-pad-bottom);
   border-radius: 999px;
   background: var(--color-accent);
   color: var(--color-text-bright);
@@ -259,9 +263,14 @@
   align-self: flex-start;
   flex: 0 0 auto;
   min-width: var(--button-width-landing);
-  padding-left: var(--space-sm);
-  padding-right: var(--space-sm);
   box-shadow: inset 0 0 0 1px var(--color-button-inset-light);
+}
+
+.button--landing,
+.button--publications,
+.button--support {
+  min-height: var(--home-button-min-height);
+  padding: var(--home-button-pad-y) var(--home-button-pad-x) var(--home-button-pad-bottom);
 }
 
 .button--landing:hover,
@@ -344,9 +353,6 @@
 
 .button--publications {
   min-width: 9rem;
-  min-height: 2.55rem;
-  padding-left: var(--space-md);
-  padding-right: var(--space-md);
   background: var(--color-accent-soft);
   color: var(--color-accent);
 }
@@ -387,8 +393,6 @@
 
 .button--support {
   min-width: var(--button-width-support);
-  padding-left: var(--space-panel-md);
-  padding-right: var(--space-panel-md);
 }
 
 .support-strip {
