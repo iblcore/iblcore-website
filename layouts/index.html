@@ -1,11 +1,25 @@
 {{ define "main" }}
-  {{ $capabilities := slice
-    (dict "icon" "svg/icon_data.svg" "title" "Data Infrastructure & Access" "copy" "Building tools for standardized data ingestion, organization and access." "width" 104 "height" 104)
-    (dict "icon" "svg/icon_pipelines.svg" "title" "Processing Pipelines" "copy" "Developing robust, scalable workflows for electrophysiology, imaging, behavior and video." "width" 150 "height" 150)
-    (dict "icon" "svg/icon_cloud.svg" "title" "Cloud & Web Platforms" "copy" "Creating shared infrastructure and web-based tools." "width" 124 "height" 117)
-    (dict "icon" "svg/icon_software.svg" "title" "Visualization & Software" "copy" "Designing user interfaces, applications and libraries." "width" 150 "height" 150)
-    (dict "icon" "svg/icon_hardware.svg" "title" "Hardware & Acquisition Support" "copy" "Providing guidance and solutions for experimental setups and data acquisition systems." "width" 150 "height" 150)
-    (dict "icon" "svg/icon_community.svg" "title" "Training & Community" "copy" "Supporting the broader community through workshops, documentation and open standards for best practices." "width" 150 "height" 150)
+  {{ $expertise := slice
+    (dict "icon" "svg/expertise_hardware.svg" "title" "Hardware" "width" 94 "height" 94)
+    (dict "icon" "svg/expertise_data_infrastructure.svg" "title" "Data Infrastructure" "width" 91 "height" 91)
+    (dict "icon" "svg/expertise_analysis.svg" "title" "Analysis" "width" 98 "height" 90)
+    (dict "icon" "svg/expertise_processing_pipelines.svg" "title" "Processing Pipelines" "width" 90 "height" 90)
+    (dict "icon" "svg/expertise_visualisation.svg" "title" "Visualisation" "width" 108 "height" 108)
+    (dict "icon" "svg/expertise_datasets.svg" "title" "Datasets" "width" 100 "height" 100)
+  }}
+  {{ $modalities := slice
+    "Neuropixels"
+    "Mesoscope"
+    "Fiberphotometry"
+    "Widefield"
+    "Behavior"
+    "Video"
+  }}
+  {{ $tools := slice
+    (dict "title" "Alyx" "url" "https://alyx.readthedocs.io/en/latest/")
+    (dict "title" "IBL Sorter" "url" "https://github.com/int-brain-lab/ibl-sorter")
+    (dict "title" "Lightning Pose" "url" "https://lightning-pose.readthedocs.io/en/latest/")
+    (dict "title" "Datoviz" "url" "https://datoviz.org/")
   }}
   {{ $supporters := slice
     (dict "src" "images/simons.png" "alt" "Simons Foundation logo" "width" 118 "height" 118)
@@ -42,26 +56,40 @@
 
     <section class="landing-band landing-band--what-we-do" id="resources">
       <div class="shell what-we-do">
-        <div class="what-we-do__intro">
+        <div class="what-we-do__header">
           <h2>What We Do</h2>
-          <p>
-            The core team develops and maintains the technical foundations that make collaborative
-            neuroscience possible:
-          </p>
         </div>
 
-        <div class="what-we-do__grid" aria-label="IBL Core capabilities">
-          {{ range $capabilities }}
-            <article class="what-we-do__item">
-              <div class="what-we-do__icon-card" aria-hidden="true">
-                <img src="{{ (resources.Get .icon).RelPermalink }}" alt="" width="{{ .width }}" height="{{ .height }}">
-              </div>
-              <div class="what-we-do__body">
-                <h3>{{ .title }}</h3>
-                <p>{{ .copy }}</p>
-              </div>
-            </article>
-          {{ end }}
+        <div class="what-we-do__matrix">
+          <div class="what-we-do__row what-we-do__row--expertise">
+            <h3 class="what-we-do__row-title">Our Expertise</h3>
+            <div class="what-we-do__expertise-list" aria-label="IBL Core expertise">
+              {{ range $expertise }}
+                <article class="what-we-do__expertise-item">
+                  <img src="{{ (resources.Get .icon).RelPermalink }}" alt="" width="{{ .width }}" height="{{ .height }}">
+                  <h4>{{ .title }}</h4>
+                </article>
+              {{ end }}
+            </div>
+          </div>
+
+          <div class="what-we-do__row what-we-do__row--modalities">
+            <h3 class="what-we-do__row-title">Modalities</h3>
+            <ul class="what-we-do__modalities" aria-label="Supported modalities">
+              {{ range $modalities }}
+                <li>{{ . }}</li>
+              {{ end }}
+            </ul>
+          </div>
+
+          <div class="what-we-do__row what-we-do__row--tools">
+            <h3 class="what-we-do__row-title">Tools</h3>
+            <ul class="what-we-do__tools" aria-label="IBL tools">
+              {{ range $tools }}
+                <li><a href="{{ .url }}">{{ .title }}</a></li>
+              {{ end }}
+            </ul>
+          </div>
         </div>
       </div>
     </section>
