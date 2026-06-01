@@ -19,12 +19,31 @@
             <header class="faq-group__header">
               <h2>{{ $group.title }}</h2>
             </header>
-            <div class="faq-group__items">
-              {{ range $group.items }}
+            <div class="faq-group__items" data-faq-accordion>
+              {{ range $itemIndex, $item := $group.items }}
+                {{ $itemId := printf "faq-%d-%d" $index $itemIndex }}
                 <article class="faq-item">
-                  <h3 class="faq-item__question">{{ .question }}</h3>
-                  <div class="faq-item__answer prose">
-                    {{ .answer | markdownify }}
+                  <h3 class="faq-item__heading">
+                    <button
+                      class="faq-item__question"
+                      type="button"
+                      id="{{ $itemId }}-button"
+                      aria-expanded="true"
+                      aria-controls="{{ $itemId }}-answer"
+                    >
+                      <span>{{ $item.question }}</span>
+                      <span class="faq-item__icon" aria-hidden="true"></span>
+                    </button>
+                  </h3>
+                  <div
+                    class="faq-item__answer prose"
+                    id="{{ $itemId }}-answer"
+                    role="region"
+                    aria-labelledby="{{ $itemId }}-button"
+                  >
+                    <div class="faq-item__answer-inner">
+                      {{ $item.answer | markdownify }}
+                    </div>
                   </div>
                 </article>
               {{ end }}
