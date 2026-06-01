@@ -104,6 +104,14 @@
   color: var(--color-text-on-dark);
 }
 
+.landing-band__copy h2 {
+  margin: 0 0 var(--space-text-md);
+  color: var(--color-accent-strong);
+  font-size: var(--font-size-section-title);
+  line-height: 0.98;
+  font-weight: 400;
+}
+
 .landing-band__copy p {
   margin-bottom: var(--space-text-lg);
 }
