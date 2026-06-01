@@ -2,35 +2,20 @@ columns:
   - links:
       - label: About
         url: /about/
-        active: true
       - label: Resources
-        placeholder: true
+        url: /#resources
       - label: Projects
         url: /projects/
-        active: true
-      - label: Sitemap
-        placeholder: true
   - links:
       - label: Publications
-        placeholder: true
+        url: /#publications
       - label: Events
         placeholder: true
       - label: News
         placeholder: true
-      - label: Team
-        url: /about/team/
+      - label: Contact
+        url: /#contact
   - links:
-      - label: Privacy Policy
-        placeholder: true
-      - label: Terms of Use
-        placeholder: true
-      - label: Cookie Policy
-        placeholder: true
-  - links:
-      - label: Accessibility Statement
-        placeholder: true
-      - label: Funding
-        url: /about/funding/
       - label: Legal Notice
         placeholder: true
 
@@ -52,15 +37,5 @@ social_links:
     height: 45
 
 legal_links:
-  - label: Privacy Policy
+  - label: Legal Notice
     placeholder: true
-  - label: Terms of Use
-    placeholder: true
-  - label: Cookie Policy
-    placeholder: true
-  - label: Accessibility
-    placeholder: true
-  - label: Funding Acknowledgement
-    placeholder: true
-  - label: Contact
-    url: /about/contact/

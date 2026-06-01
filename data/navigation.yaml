@@ -3,17 +3,17 @@ header:
     title: About
     url: /about/
     children:
-      - title: Who We Are
-        url: /about/
-      - title: The Team
-        url: /about/team/
+      - title: Our Team
+        url: /about/our-team/
+      - title: History
+        url: /about/history/
       - title: FAQ
         url: /about/faq/
-      - title: Funding
-        url: /about/funding/
+      - title: Support
+        url: /about/support/
   - key: resources
     title: Resources
-    disabled: true
+    url: /#resources
   - key: projects
     title: Projects
     url: /projects/
@@ -24,13 +24,13 @@ header:
         url: /new-partner-projects/
   - key: publications
     title: Publications
-    disabled: true
+    url: /#publications
   - key: events
     title: Events
-    disabled: true
-  - key: contact
-    title: Contact
     disabled: true
   - key: news
     title: News
     disabled: true
+  - key: contact
+    title: Contact
+    url: /#contact

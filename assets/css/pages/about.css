@@ -429,12 +429,14 @@
 }
 
 
-.page-about-funding {
+.page-about-funding,
+.page-about-support {
   background: var(--color-surface-darker) url("/images/ibl-funding.webp") center top / cover no-repeat;
   color: var(--color-accent);
 }
 
-.page-about-funding main {
+.page-about-funding main,
+.page-about-support main {
   min-height: auto;
 }
 

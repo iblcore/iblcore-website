@@ -2,7 +2,7 @@
 title: "FAQ"
 description: "General explanation of IBL Core."
 lead: "Common questions about partnering with the IBL Core, expectations for collaboration, and the open-science model that supports our work."
-weight: 20
+weight: 30
 layout: "faq"
 body_class: "page-faq"
 header_variant: "landing"

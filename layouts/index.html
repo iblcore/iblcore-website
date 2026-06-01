@@ -39,7 +39,7 @@
       </div>
     </section>
 
-    <section class="landing-band landing-band--what-we-do">
+    <section class="landing-band landing-band--what-we-do" id="resources">
       <div class="shell what-we-do">
         <div class="what-we-do__intro">
           <h2>What We Do</h2>
@@ -65,14 +65,16 @@
       </div>
     </section>
 
-    <section class="landing-band landing-band--support">
+    <section class="landing-band landing-band--publications" id="publications" aria-label="Publications"></section>
+
+    <section class="landing-band landing-band--support" id="contact">
       <div class="shell">
         <div class="support-section__header">
           <div class="support-section__heading">
             <h2>Support</h2>
             <p>IBL is grateful for financial support from the following organizations</p>
           </div>
-          <a class="button button--support" href="{{ "/about/contact/" | relURL }}">Support us</a>
+          <a class="button button--support" href="mailto:info@iblcore.org">Contact us</a>
         </div>
         <div class="support-strip" aria-label="Support organizations">
           {{ range $supporters }}

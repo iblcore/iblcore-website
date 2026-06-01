@@ -7,11 +7,12 @@ Intended stack: Hugo static site generator, modern vanilla HTML/CSS, minimal van
 
 1. Home (`/`)
 2. About (`/about/`)
-3. Resources (`/resources/`)
+3. Resources (`/#resources`)
 4. Projects (`/projects/`)
-5. Publications (`/publications/`)
-6. Events (`/events/`)
-7. News (`/news/`)
+5. Publications (`/#publications`)
+6. Events (`/events/`, disabled in navigation for now)
+7. News (`/news/`, disabled in navigation for now)
+8. Contact (`/#contact`)
 
 ## 2. Information Architecture (Detailed)
 
@@ -33,12 +34,13 @@ Notes:
 
 Includes:
 - Who We Are (`/about/`)
-- Team
-- FAQ - general explanation of IBL Core
-- Funding
+- Our Team (`/about/our-team/`)
+- History (`/about/history/`)
+- FAQ (`/about/faq/`) - general explanation of IBL Core
+- Support (`/about/support/`) - includes funding
 
 Notes:
-- Mission and history content currently lives within the `/about/` Who We Are page rather than as a separate subpage.
+- The top-level About page remains the overview page. The About dropdown children are Our Team, History, FAQ, and Support.
 
 ### 2.3 Resources (`/resources/`)
 
@@ -110,7 +112,10 @@ Home:
 - `content/_index.md`
 
 Standalone pages nested under About:
-- none planned for v1 at the moment
+- Our Team
+- History
+- FAQ
+- Support
 
 ### 3.2 Example File Tree
 
@@ -119,9 +124,10 @@ content/
   _index.md
   about/
     _index.md
-    team.md
+    our-team.md
+    history.md
     faq.md
-    funding.md
+    support.md
   resources/
     _index.md
     data.md
@@ -219,7 +225,7 @@ Recommended order:
 5. Section pages populated from markdown
 
 Implementation note as of March 29, 2026:
-- `/about/` is now a custom-designed "Who We Are" landing page with embedded mission/history content and links into the Team / FAQ / Funding subpages.
+- `/about/` is now a custom-designed "Who We Are" landing page with links into the Our Team / History / FAQ / Support subpages.
 
 ## 8. Editorial and Migration Checklist
 

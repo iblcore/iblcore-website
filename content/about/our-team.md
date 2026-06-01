@@ -1,5 +1,5 @@
 ---
-title: "The Team"
+title: "Our Team"
 description: "People, roles, and governance."
 lead: "Introduce the core team, their roles, and how governance is handled."
 layout: "team"
