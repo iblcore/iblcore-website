@@ -52,7 +52,7 @@
 }
 
 .site-footer__nav-link {
-  color: var(--color-text-muted);
+  color: var(--color-text-bright);
   text-decoration: none;
   font-size: var(--font-size-footer-nav);
   letter-spacing: 0.03em;
@@ -60,14 +60,11 @@
   white-space: nowrap;
 }
 
-.site-footer__nav-link--active {
-  color: var(--color-text-bright);
-}
-
 .site-footer__nav-link--placeholder,
 .site-footer__legal-nav a[aria-disabled="true"] {
-  color: var(--color-footer-disabled);
+  color: var(--color-text-bright);
   cursor: default;
+  opacity: 0.42;
   pointer-events: none;
 }
 
