@@ -86,7 +86,7 @@
 }
 
 .faq-item__question {
-  color: var(--faq-text-color);
+  color: var(--color-accent);
   font-size: var(--font-size-prose-heading);
   line-height: 1.08;
   font-weight: 400;
