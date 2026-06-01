@@ -1,2 +1,4 @@
-/about /about/our-team/ 301
-/about/ /about/our-team/ 301
+/about /about/team/ 301
+/about/ /about/team/ 301
+/about/our-team /about/team/ 301
+/about/our-team/ /about/team/ 301

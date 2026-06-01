@@ -1,10 +1,10 @@
 header:
   - key: about
     title: About
-    url: /about/our-team/
+    url: /about/team/
     children:
       - title: Our Team
-        url: /about/our-team/
+        url: /about/team/
       - title: History
         url: /about/history/
       - title: FAQ

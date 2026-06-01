@@ -6,7 +6,7 @@ Intended stack: Hugo static site generator, modern vanilla HTML/CSS, minimal van
 ## 1. Top-Level Navigation
 
 1. Home (`/`)
-2. About (`/about/our-team/`; `/about/` redirects here)
+2. About (`/about/team/`; `/about/` redirects here)
 3. Resources (`/#resources`)
 4. Projects (`/projects/`)
 5. Publications (`/#publications`)
@@ -30,16 +30,16 @@ Notes:
 - Keep close to current prototype for now.
 - No persistent top-right CTA in header for v1.
 
-### 2.2 About (`/about/our-team/`)
+### 2.2 About (`/about/team/`)
 
 Includes:
-- Our Team (`/about/our-team/`) - staff, PI scientific board, and contact prompt
+- Our Team (`/about/team/`) - staff, PI scientific board, and contact prompt
 - History (`/about/history/`)
 - FAQ (`/about/faq/`) - general explanation of IBL Core
 - Support (`/about/support/`) - includes funding
 
 Notes:
-- `/about/` redirects to `/about/our-team/`; there is no separate About overview page.
+- `/about/` redirects to `/about/team/`; there is no separate About overview page.
 - The About dropdown children are Our Team, History, FAQ, and Support.
 
 ### 2.3 Resources (`/resources/`)
@@ -123,8 +123,8 @@ Standalone pages nested under About:
 content/
   _index.md
   about/
-    _index.md  # redirect to our-team.md
-    our-team.md
+    _index.md  # redirect to team.md
+    team.md
     history.md
     faq.md
     support.md
@@ -225,7 +225,7 @@ Recommended order:
 5. Section pages populated from markdown
 
 Implementation note as of June 1, 2026:
-- `/about/` redirects to `/about/our-team/`; the custom "Who We Are" overview page has been removed from the live IA.
+- `/about/` redirects to `/about/team/`; the custom "Who We Are" overview page has been removed from the live IA.
 
 ## 8. Editorial and Migration Checklist
 

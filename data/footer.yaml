@@ -1,7 +1,7 @@
 columns:
   - links:
       - label: About
-        url: /about/our-team/
+        url: /about/team/
       - label: Resources
         url: /#resources
       - label: Projects

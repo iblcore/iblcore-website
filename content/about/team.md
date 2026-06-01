@@ -7,6 +7,8 @@ body_class: "page-about-team page-about-brain-bg"
 header_variant: "landing"
 hero_alt: "Stylized brain illustration"
 weight: 10
+aliases:
+  - /about/our-team/
 ---
 
 The IBL Core brings together a multidisciplinary team of research software engineers, data scientists, and scientific staff dedicated to building the infrastructure that enables modern, collaborative neuroscience.

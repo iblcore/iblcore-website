@@ -5,7 +5,7 @@ layout: "redirect"
 body_class: "page-about-redirect"
 header_variant: "landing"
 footer_variant: "non-landing"
-redirect_to: "/about/our-team/"
+redirect_to: "/about/team/"
 redirect_label: "Our Team"
 sitemap:
   disable: true
