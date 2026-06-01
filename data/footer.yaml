@@ -13,11 +13,9 @@ columns:
         placeholder: true
       - label: News
         placeholder: true
+  - links:
       - label: Contact
         url: /#contact
-  - links:
-      - label: Legal Notice
-        placeholder: true
 
 social_links:
   - label: International Brain Laboratory on GitHub
@@ -36,6 +34,4 @@ social_links:
     width: 47
     height: 45
 
-legal_links:
-  - label: Legal Notice
-    placeholder: true
+legal_links: []

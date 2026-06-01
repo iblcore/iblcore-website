@@ -34,21 +34,19 @@
 
   <div class="site-footer__legal">
     <div class="shell site-footer__legal-inner">
-      <p class="site-footer__legal-meta">© 2026 IBL Core. All rights reserved.</p>
+      <p class="site-footer__legal-meta">© 2026 IBL Core</p>
       <p class="site-footer__legal-copy">
-        IBL Core is committed to advancing open science and collaborative neuroscience research. The
-        content and resources provided on this website are intended for informational and research
-        purposes only and do not constitute medical, legal, or professional advice. IBL Core is not
-        responsible for the content of external websites linked from this platform. Website © 2026 by
-        International Brain Laboratory is licensed under
+        Website licensed under
         <a href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noreferrer">CC BY-NC 4.0</a>
       </p>
 
-      <nav class="site-footer__legal-nav" aria-label="Legal and policy links">
-        {{ range $footerData.legal_links }}
-          <a href="{{ if .placeholder }}#{{ else }}{{ .url | relURL }}{{ end }}"{{ if .placeholder }} aria-disabled="true" title="Temporary placeholder link"{{ end }}>{{ .label }}</a>
-        {{ end }}
-      </nav>
+      {{ with $footerData.legal_links }}
+        <nav class="site-footer__legal-nav" aria-label="Legal and policy links">
+          {{ range . }}
+            <a href="{{ if .placeholder }}#{{ else }}{{ .url | relURL }}{{ end }}"{{ if .placeholder }} aria-disabled="true" title="Temporary placeholder link"{{ end }}>{{ .label }}</a>
+          {{ end }}
+        </nav>
+      {{ end }}
     </div>
   </div>
 </footer>
