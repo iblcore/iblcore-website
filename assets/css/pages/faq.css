@@ -27,16 +27,32 @@
   padding-inline: max(calc((100vw - var(--shell-width)) / 2), 1rem);
 }
 
-.faq-group--base .faq-group__panel {
-  background: var(--faq-surface-dark);
-}
-
-.faq-group--alt .faq-group__panel {
-  background: var(--faq-surface-light);
-}
-
 .faq-group__header {
   margin-bottom: 1.75rem;
+}
+
+.faq-group__shell:nth-child(1) .faq-group__panel {
+  background: #004D8966;
+}
+
+.faq-group__shell:nth-child(2) .faq-group__panel {
+  background: #009FD780;
+}
+
+.faq-group__shell:nth-child(3) .faq-group__panel {
+  background: #004D8966;
+}
+
+.faq-group__shell:nth-child(4) .faq-group__panel {
+  background: #009FD7B2;
+}
+
+.faq-group__shell:nth-child(5) .faq-group__panel {
+  background: #004D89B2;
+}
+
+.faq-group__shell:nth-child(6) .faq-group__panel {
+  background: #009FD780;
 }
 
 .faq-group__header h2 {
