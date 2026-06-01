@@ -86,7 +86,7 @@
 }
 
 .landing-band--what-we-do {
-  background: #60c0e5;
+  background: var(--color-brand-sky);
 }
 
 .landing-band--publications {

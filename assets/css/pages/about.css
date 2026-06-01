@@ -270,7 +270,7 @@
 
 .about-single-hero__media {
   background:
-    linear-gradient(180deg, rgba(1, 18, 43, 0.1) 0%, rgba(1, 18, 43, 0.36) 100%),
+    linear-gradient(180deg, rgba(0, 77, 137, 0.1) 0%, rgba(0, 77, 137, 0.36) 100%),
     var(--color-surface-dark);
 }
 
@@ -481,7 +481,7 @@
 
 .team-grid-section--pi {
   padding-top: 2rem;
-  background: #b1e1f2;
+  background: var(--color-brand-light);
 }
 
 .team-grid {
@@ -500,7 +500,7 @@
 .team-card__frame {
   position: relative;
   overflow: hidden;
-  border: 3px solid #009fd7;
+  border: 3px solid var(--color-brand-sky);
   border-radius: 1.1rem;
   background:
     linear-gradient(180deg, var(--color-team-card-surface-top), var(--color-team-card-surface-bottom)),
@@ -531,7 +531,7 @@
 }
 
 .team-contact-section {
-  background: #68c6f2;
+  background: var(--color-brand-sky);
   color: var(--color-accent);
 }
 

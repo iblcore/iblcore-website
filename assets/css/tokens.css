@@ -7,64 +7,67 @@
      - text*: foreground text colors
      - accent*: brand blues
      - dark/deeper: dark page surfaces */
+  --color-brand-dark: #004d89;
+  --color-brand-light: #b1e1f2;
+  --color-brand-sky: #68c6f2;
   --color-bg: #ffffff;
   --color-surface: #ffffff;
   --color-surface-strong: rgba(255, 255, 255, 0.98);
   --color-surface-muted: #ffffff;
-  --color-surface-accent: #009fd7;
-  --color-surface-dark: #06264b;
-  --color-surface-darker: #071f46;
-  --color-surface-deep: #01021e;
-  --color-text: #004d89;
+  --color-surface-accent: var(--color-brand-sky);
+  --color-surface-dark: var(--color-brand-dark);
+  --color-surface-darker: var(--color-brand-dark);
+  --color-surface-deep: var(--color-brand-dark);
+  --color-text: var(--color-brand-dark);
   --color-text-soft: #ffffff;
   --color-text-bright: #f9fdfe;
-  --color-text-muted: #6d96b7;
+  --color-text-muted: var(--color-brand-light);
   --color-text-on-dark: rgba(255, 255, 255, 0.9);
-  --color-text-on-dark-muted: #7fa6c4;
+  --color-text-on-dark-muted: var(--color-brand-light);
   --color-border-soft: rgba(255, 255, 255, 0.16);
   --color-border: #ffffff;
-  --color-accent: #004d89;
-  --color-accent-soft: #009fd7;
-  --color-support-band: #50bce3;
-  --color-divider-soft: #d3eef8;
-  --color-home-bg: #145589;
-  --color-home-hero-panel: #0a2c61;
+  --color-accent: var(--color-brand-dark);
+  --color-accent-soft: var(--color-brand-sky);
+  --color-support-band: var(--color-brand-sky);
+  --color-divider-soft: var(--color-brand-light);
+  --color-home-bg: var(--color-brand-dark);
+  --color-home-hero-panel: var(--color-brand-dark);
   --color-shadow-soft: rgba(0, 0, 0, 0.18);
 
   /* Navigation and footer */
-  --color-nav-submenu-border: rgba(124, 151, 180, 0.4);
+  --color-nav-submenu-border: rgba(177, 225, 242, 0.4);
   --color-nav-submenu-bg: rgba(255, 255, 255, 0.5);
-  --color-nav-submenu-shadow: rgba(4, 27, 62, 0.28);
+  --color-nav-submenu-shadow: rgba(0, 77, 137, 0.28);
   --color-nav-disabled: rgba(0, 77, 137, 0.45);
   --color-landing-nav-inset: rgba(255, 255, 255, 0.06);
   --color-landing-nav-disabled: rgba(255, 255, 255, 0.78);
   --color-landing-nav-disabled-bg: rgba(0, 77, 137, 0.5);
   --color-nav-toggle-border: rgba(255, 255, 255, 0.28);
-  --color-nav-toggle-bg: rgba(6, 46, 104, 0.28);
+  --color-nav-toggle-bg: rgba(0, 77, 137, 0.28);
   --color-nav-toggle-hover: rgba(255, 255, 255, 0.16);
   --color-nav-mobile-divider: rgba(255, 255, 255, 0.24);
   --color-landing-mobile-nav-border: rgba(255, 255, 255, 0.16);
-  --color-landing-mobile-nav-bg: rgba(3, 36, 88, 0.74);
+  --color-landing-mobile-nav-bg: rgba(0, 77, 137, 0.74);
   --color-footer-disabled: rgba(249, 253, 254, 0.62);
-  --color-controller-bg: #0a4f89;
+  --color-controller-bg: var(--color-brand-dark);
   --color-controller-inset: rgba(0, 77, 137, 0.14);
-  --color-home-footer-top: #13558f;
-  --color-home-footer-bottom: #155589;
-  --color-home-footer-border: rgba(196, 247, 255, 0.9);
+  --color-home-footer-top: var(--color-brand-dark);
+  --color-home-footer-bottom: var(--color-brand-dark);
+  --color-home-footer-border: rgba(177, 225, 242, 0.9);
 
   /* Page imagery and overlays */
-  --color-about-hero-bg: #07264d;
-  --color-about-hero-overlay-top: rgba(1, 18, 43, 0.18);
-  --color-about-hero-overlay-mid: rgba(1, 18, 43, 0.1);
-  --color-about-hero-overlay-bottom: rgba(0, 17, 43, 0.56);
-  --color-team-border: #8fdcff;
-  --color-team-overlay-top: rgba(2, 18, 45, 0.12);
-  --color-team-overlay-faint: rgba(2, 18, 45, 0.04);
-  --color-team-overlay-mid: rgba(2, 18, 45, 0.28);
-  --color-team-overlay-bottom: rgba(2, 18, 45, 0.42);
-  --color-team-overlay-soft-top: rgba(1, 16, 39, 0.06);
-  --color-team-overlay-soft: rgba(1, 16, 39, 0.2);
-  --color-team-banner-border: rgba(173, 225, 255, 0.18);
+  --color-about-hero-bg: var(--color-brand-dark);
+  --color-about-hero-overlay-top: rgba(0, 77, 137, 0.18);
+  --color-about-hero-overlay-mid: rgba(0, 77, 137, 0.1);
+  --color-about-hero-overlay-bottom: rgba(0, 77, 137, 0.56);
+  --color-team-border: var(--color-brand-sky);
+  --color-team-overlay-top: rgba(0, 77, 137, 0.12);
+  --color-team-overlay-faint: rgba(0, 77, 137, 0.04);
+  --color-team-overlay-mid: rgba(0, 77, 137, 0.28);
+  --color-team-overlay-bottom: rgba(0, 77, 137, 0.42);
+  --color-team-overlay-soft-top: rgba(0, 77, 137, 0.06);
+  --color-team-overlay-soft: rgba(0, 77, 137, 0.2);
+  --color-team-banner-border: rgba(177, 225, 242, 0.18);
   --color-team-banner-surface-top: rgba(255, 255, 255, 0.12);
   --color-team-banner-surface-bottom: rgba(255, 255, 255, 0.06);
   --color-team-banner-inset: rgba(255, 255, 255, 0.08);
@@ -72,11 +75,11 @@
   --color-team-card-surface-bottom: rgba(255, 255, 255, 0.02);
   --color-funding-banner-bg: rgba(255, 255, 255, 0.8);
   --color-funding-logo-bg: rgba(255, 255, 255, 0.96);
-  --color-page-overlay-top: rgba(2, 18, 45, 0.2);
-  --color-page-overlay-bottom: rgba(2, 18, 45, 0.42);
-  --color-page-overlay-soft-top: rgba(1, 16, 39, 0.08);
-  --color-page-overlay-soft-bottom: rgba(1, 16, 39, 0.22);
-  --color-page-banner-overlay-bottom: rgba(1, 18, 43, 0.58);
+  --color-page-overlay-top: rgba(0, 77, 137, 0.2);
+  --color-page-overlay-bottom: rgba(0, 77, 137, 0.42);
+  --color-page-overlay-soft-top: rgba(0, 77, 137, 0.08);
+  --color-page-overlay-soft-bottom: rgba(0, 77, 137, 0.22);
+  --color-page-banner-overlay-bottom: rgba(0, 77, 137, 0.58);
   --color-transparent: rgba(0, 0, 0, 0);
   --color-home-hero-shadow: rgba(0, 0, 0, 0.26);
   --color-button-inset-light: rgba(255, 255, 255, 0.08);
@@ -192,7 +195,7 @@
   --faq-group-gap: 2.5rem;
   --faq-group-pad-y: 2.15rem;
   --faq-surface-dark: rgba(0, 77, 137, 0.5);
-  --faq-surface-light: rgba(213, 238, 248, 0.5);
+  --faq-surface-light: rgba(177, 225, 242, 0.5);
   --section-pad-about-work-y: 2.75rem;
 
   /* Typography */
