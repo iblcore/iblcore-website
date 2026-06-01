@@ -54,7 +54,7 @@
 
 .section-banner__copy,
 .section-banner__copy p {
-  margin: 0;
+  /* margin: 0; */
   color: var(--color-surface);
   font-size: var(--font-size-page-copy);
   line-height: 1.28;
@@ -104,6 +104,7 @@
 }
 
 @media (max-width: 760px) {
+
   .section-hero,
   .section-hero__inner {
     min-height: 27rem;
@@ -116,6 +117,7 @@
 }
 
 @media (max-width: 520px) {
+
   .section-hero,
   .section-hero__inner {
     min-height: 22rem;
@@ -143,6 +145,7 @@
 }
 
 @media (max-width: 700px) {
+
   :is(.faq-hero, .projects-hero, .new-partners-hero),
   :is(.faq-hero__inner, .projects-hero__inner, .new-partners-hero__inner) {
     min-height: 27rem;
