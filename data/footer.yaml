@@ -15,7 +15,7 @@ columns:
         placeholder: true
   - links:
       - label: Contact
-        url: /#contact
+        url: /about/team/#contact
 
 social_links:
   - label: International Brain Laboratory on GitHub

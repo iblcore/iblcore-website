@@ -33,4 +33,4 @@ header:
     disabled: true
   - key: contact
     title: Contact
-    url: /#contact
+    url: /about/team/#contact
