@@ -21,7 +21,7 @@ news_items:
     link: "/news/posts/2026-03-foundation-update/"
   - title: "Content migration ready"
     description: "Top-level sections and key About subpages are ready for real markdown content."
-    link: "/about/"
+    link: "/about/our-team/"
 footer_links:
   - title: "Contact us"
     link: "/#contact"

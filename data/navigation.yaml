@@ -1,7 +1,7 @@
 header:
   - key: about
     title: About
-    url: /about/
+    url: /about/our-team/
     children:
       - title: Our Team
         url: /about/our-team/

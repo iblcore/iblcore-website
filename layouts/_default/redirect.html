@@ -1,0 +1,11 @@
+{{ define "main" }}
+  {{ $target := .Params.redirect_to | default "/" }}
+  <section class="section">
+    <div class="shell page-shell prose">
+      <p>Redirecting to <a href="{{ $target | relURL }}">{{ .Params.redirect_label | default $target }}</a>.</p>
+      <script>
+        window.location.replace("{{ $target | relURL }}");
+      </script>
+    </div>
+  </section>
+{{ end }}
