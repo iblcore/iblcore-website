@@ -215,8 +215,8 @@
   --font-size-card-copy: calc(1.4375rem * var(--type-scale-base));
   --font-size-support-title: calc(2.875rem * var(--type-scale-base));
   --font-size-support-copy: calc(1.875rem * var(--type-scale-base));
-  --font-size-footer-nav: calc(1.75rem * var(--type-scale-base));
-  --font-size-footer-legal: calc(0.9375rem * var(--type-scale-base));
+  --font-size-footer-nav: calc(2rem * var(--type-scale-base));
+  --font-size-footer-legal: calc(1.125rem * var(--type-scale-base));
 
   /* Structured prose pages */
   --font-size-prose-copy: var(--font-size-page-copy-compact);

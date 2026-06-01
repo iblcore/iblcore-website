@@ -78,6 +78,7 @@
 
 .landing-band--intro {
   background: var(--color-home-bg);
+  border-top: 0;
 }
 
 .landing-band--support {
