@@ -300,8 +300,8 @@
 .publication-item h3 {
   display: inline;
   margin: 0;
-  font-size: clamp(1.35rem, 2.05vw, 1.9rem);
-  line-height: 1.1;
+  font-size: clamp(1.05rem, 1.45vw, 1.35rem);
+  line-height: 1.18;
   font-weight: 400;
 }
 
@@ -320,8 +320,8 @@
   display: inline;
   margin: 0;
   color: var(--color-accent-soft);
-  font-size: clamp(1.2rem, 1.75vw, 1.65rem);
-  line-height: 1.1;
+  font-size: clamp(1rem, 1.35vw, 1.25rem);
+  line-height: 1.18;
 }
 
 .publication-item__meta::before {
@@ -332,8 +332,8 @@
   margin: 0.35rem 0 0;
   max-width: 76rem;
   color: var(--color-text-on-dark);
-  font-size: clamp(1.1rem, 1.55vw, 1.45rem);
-  line-height: 1.16;
+  font-size: clamp(0.95rem, 1.2vw, 1.12rem);
+  line-height: 1.22;
 }
 
 .publications-section__actions {
