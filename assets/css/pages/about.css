@@ -251,11 +251,6 @@
   font-size: var(--space-text-xl);
 }
 
-.page-about-history {
-  background: var(--color-surface-dark);
-  color: var(--color-surface);
-}
-
 .page-about-history main {
   min-height: auto;
 }
@@ -267,6 +262,10 @@
 
 .about-single-hero {
   background: var(--color-surface-dark);
+}
+
+.page-about-brain-bg .about-single-hero {
+  background: transparent;
 }
 
 .about-single-hero__media {
@@ -411,22 +410,22 @@
   }
 }
 
-.page-about-team {
+.page-about-brain-bg {
   position: relative;
   background: var(--color-surface-dark);
   color: var(--color-surface);
 }
 
-.page-about-team::before {
+.page-about-brain-bg::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -2;
   background: linear-gradient(180deg, var(--color-team-overlay-top) 0%, var(--color-team-overlay-mid) 38%, var(--color-team-overlay-bottom) 100%),
-    url("/images/team/ibl-brain.webp") center -24% / 100% auto no-repeat;
+    url("/images/team/ibl-brain.webp") center 0 / 100% auto no-repeat;
 }
 
-.page-about-team::after {
+.page-about-brain-bg::after {
   content: "";
   position: fixed;
   inset: 0;
@@ -434,7 +433,7 @@
   background: linear-gradient(180deg, var(--color-team-overlay-soft-top) 0%, var(--color-team-overlay-soft) 100%);
 }
 
-.page-about-team .site-footer {
+.page-about-brain-bg .site-footer {
   position: relative;
   z-index: 1;
 }
@@ -453,7 +452,8 @@
   -webkit-backdrop-filter: blur(14px) saturate(135%);
 }
 
-.team-hero__media {
+.team-hero__media,
+.page-about-brain-bg .about-single-hero__media {
   background: linear-gradient(180deg, var(--color-team-overlay-faint) 0%, var(--color-team-overlay-top) 58%, var(--color-team-overlay-bottom) 100%);
 }
 

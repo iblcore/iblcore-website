@@ -3,7 +3,7 @@ title: "History"
 description: "Why IBL-Core exists and how it continues the earlier IBL work."
 lead: "Explain the continuity from IBL 1.0 to IBL-Core, the mission, and the role of RSE work in open science."
 weight: 20
-body_class: "page-about-history"
+body_class: "page-about-history page-about-brain-bg"
 header_variant: "landing"
 footer_variant: "non-landing"
 ---
