@@ -82,6 +82,11 @@ main {
   font-size: 1.125rem;
 }
 
+.prose {
+  font-size: var(--font-size-prose-copy);
+  line-height: 1.28;
+}
+
 .prose>*+* {
   margin-top: var(--space-md);
 }

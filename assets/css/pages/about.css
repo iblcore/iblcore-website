@@ -91,7 +91,7 @@
 .about-section__header h2 {
   margin: 0;
   color: var(--color-accent-soft);
-  font-size: calc(var(--font-size-page-copy) * var(--font-ratio-title-to-copy));
+  font-size: var(--font-size-prose-title);
   line-height: 0.98;
   font-weight: 400;
 }
@@ -102,8 +102,8 @@
 
 .about-copy {
   max-width: var(--content-width-wide-copy);
-  font-size: var(--font-size-page-copy);
-  line-height: 1.3334;
+  font-size: var(--font-size-prose-copy);
+  line-height: 1.28;
 }
 
 .about-copy p {
@@ -118,7 +118,7 @@
   flex: 1 1 0;
   max-width: var(--content-width-copy);
   min-width: 0;
-  line-height: var(--about-intro-copy-line-height);
+  line-height: 1.28;
 }
 
 .about-copy--work {
@@ -193,7 +193,7 @@
 .about-mission-card h3 {
   margin: var(--space-md) 0 1.55rem;
   color: var(--color-surface);
-  font-size: calc(var(--font-size-page-copy) * var(--font-ratio-title-to-copy));
+  font-size: var(--font-size-prose-title);
   line-height: 1.02;
   font-weight: 400;
 }
@@ -201,8 +201,8 @@
 .about-mission-card p {
   margin: 0 0 var(--space-xs);
   color: var(--color-accent);
-  font-size: var(--font-size-page-copy);
-  line-height: 1.24;
+  font-size: var(--font-size-prose-copy);
+  line-height: 1.28;
 }
 
 .about-mission-card p:last-child {
@@ -297,7 +297,7 @@
   gap: 1.5rem;
   max-width: var(--content-width-copy);
   color: var(--color-accent);
-  font-size: var(--font-size-page-copy);
+  font-size: var(--font-size-prose-copy);
   line-height: 1.28;
 }
 
@@ -325,7 +325,7 @@
 .about-content-block h2 {
   margin: 0 0 1rem;
   color: var(--color-accent);
-  font-size: calc(var(--font-size-page-copy) * var(--font-ratio-title-to-copy));
+  font-size: var(--font-size-prose-title);
   line-height: 1.02;
   font-weight: 400;
 }
@@ -402,7 +402,7 @@
 
   .about-single-prose {
     gap: 1rem;
-    font-size: var(--font-size-section-copy);
+    font-size: var(--font-size-prose-copy);
   }
 
   .about-content-block {
@@ -556,8 +556,8 @@
   margin: 0;
   max-width: 68rem;
   color: var(--color-accent);
-  font-size: var(--font-size-section-copy);
-  line-height: 1.2;
+  font-size: var(--font-size-prose-copy);
+  line-height: 1.28;
 }
 
 .team-contact-section a {
@@ -641,8 +641,8 @@
 .funding-banner__content p {
   max-width: 100%;
   color: var(--color-accent);
-  font-size: clamp(1.05rem, 1.7vw, 1.45rem);
-  line-height: 1.38;
+  font-size: var(--font-size-prose-copy);
+  line-height: 1.28;
 }
 
 .funding-banner__content>*+* {
@@ -684,6 +684,6 @@
   }
 
   .funding-banner__content {
-    line-height: 1.24;
+    line-height: 1.28;
   }
 }
