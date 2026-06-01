@@ -344,7 +344,7 @@
   margin-bottom: 0;
 }
 
-.about-content-block > * + * {
+.about-content-block>*+* {
   margin-top: 1rem;
 }
 
@@ -355,7 +355,7 @@
   text-underline-offset: 0.14em;
 }
 
-.about-content-block li + li {
+.about-content-block li+li {
   margin-top: 0.35rem;
 }
 
@@ -422,7 +422,7 @@
   inset: 0;
   z-index: -2;
   background: linear-gradient(180deg, var(--color-team-overlay-top) 0%, var(--color-team-overlay-mid) 38%, var(--color-team-overlay-bottom) 100%),
-    url("/images/team/ibl-brain.webp") center 0 / 100% auto no-repeat;
+    url("/images/team/ibl-brain.webp") center 28% / 100% auto no-repeat;
 }
 
 .page-about-brain-bg::after {

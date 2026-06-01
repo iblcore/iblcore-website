@@ -76,7 +76,7 @@
     var(--page-backdrop-image);
   background-position: center top;
   background-repeat: no-repeat;
-  background-size: var(--page-backdrop-size, cover);
+  /* background-size: var(--page-backdrop-size, cover); */
   background-color: var(--color-surface-dark);
 }
 
