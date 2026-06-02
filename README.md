@@ -122,7 +122,7 @@ Screenshots are written to `reports/landing/`.
 ## Cloudflare Pages Deployment
 
 Current Pages project:
-- `iblcore-website-preview`
+- `iblcore`
 
 Deployment workflow:
 1. Run `wrangler login` once on this machine
@@ -132,7 +132,8 @@ Deployment workflow:
 Notes:
 - This setup currently uses direct upload deployment from the local repo
 - The production build uses `https://iblcore.org/` as the Hugo base URL
-- Use `just pages-deploy-preview` only when deploying against `https://iblcore-website-preview.pages.dev/`
+- The Cloudflare Pages project is named `iblcore`; its Cloudflare-assigned fallback URL is still `https://iblcore-website-preview.pages.dev/`
+- Use `just pages-deploy-preview` only when deploying against the temporary `pages.dev` fallback URL
 - If you later want GitHub-driven preview deployments, create a separate Cloudflare Pages project with Git integration
 
 ## Notes

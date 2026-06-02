@@ -48,12 +48,12 @@ cf-whoami:
 pages-build base_url="https://iblcore.org":
   hugo -b {{base_url}}
 
-pages-deploy project="iblcore-website-preview" branch="main" base_url="https://iblcore.org":
+pages-deploy project="iblcore" branch="main" base_url="https://iblcore.org":
   just pages-build {{base_url}}
   npx wrangler pages deploy public --project-name {{project}} --branch {{branch}} --commit-dirty=true
 
-pages-deploy-preview project="iblcore-website-preview" branch="main":
-  just pages-deploy {{project}} {{branch}} https://{{project}}.pages.dev
+pages-deploy-preview project="iblcore" branch="main" base_url="https://iblcore-website-preview.pages.dev":
+  just pages-deploy {{project}} {{branch}} {{base_url}}
 
 pages-list:
   npx wrangler pages project list
