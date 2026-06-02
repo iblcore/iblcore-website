@@ -16,12 +16,12 @@ header:
     url: /#resources
   - key: projects
     title: Projects
-    url: /projects/
+    url: /new-partner-projects/
     children:
-      - title: Ongoing Projects
-        url: /projects/#ibl-research-projects
       - title: New Partner Projects
         url: /new-partner-projects/
+      - title: Ongoing Projects
+        url: /projects/#ibl-research-projects
   - key: publications
     title: Publications
     url: /#publications
