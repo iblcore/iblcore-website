@@ -31,11 +31,11 @@ Implemented:
 - Markdown stubs for top-level sections and key About/Resources pages
 - `Justfile` commands for local development and maintenance
 - Local screenshot capture workflow for landing-page visual iteration
+- Direct-upload Cloudflare Pages deployment to `https://iblcore.org/`
 
 Not implemented yet:
 - final design system
 - migrated production content
-- deployment pipeline
 - search, forms, and other richer site features
 
 ## Repo Map
@@ -75,8 +75,9 @@ just capture-landing # capture desktop/mobile landing-page screenshots
 just clean        # remove generated artifacts
 just maintenance  # clean + validate + show git status
 just cf-whoami    # verify Cloudflare auth
-just pages-build  # build with the default Cloudflare Pages URL
+just pages-build  # build with the production base URL
 just pages-deploy # deploy to the default Cloudflare Pages project
+just pages-deploy-preview # deploy with the temporary pages.dev base URL
 just pages-list   # list Pages projects
 just new-news my-update
 just new-event spring-school
@@ -118,19 +119,20 @@ Screenshots are written to `reports/landing/`.
 4. Confirm the prototype-driven homepage, support strip, and section pages render
 5. Stop the server with `Ctrl+C`
 
-## Temporary Cloudflare Pages Deployment
+## Cloudflare Pages Deployment
 
-Current temporary Pages project:
+Current Pages project:
 - `iblcore-website-preview`
 
 Deployment workflow:
 1. Run `wrangler login` once on this machine
 2. Run `just pages-deploy`
-3. Share either the stable project URL `https://iblcore-website-preview.pages.dev/` or the deployment-specific URL printed by Wrangler
+3. Verify `https://iblcore.org/`
 
 Notes:
 - This setup currently uses direct upload deployment from the local repo
-- It is suitable for provisional sharing
+- The production build uses `https://iblcore.org/` as the Hugo base URL
+- Use `just pages-deploy-preview` only when deploying against `https://iblcore-website-preview.pages.dev/`
 - If you later want GitHub-driven preview deployments, create a separate Cloudflare Pages project with Git integration
 
 ## Notes

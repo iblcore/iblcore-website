@@ -45,12 +45,15 @@ maintenance:
 cf-whoami:
   npx wrangler whoami
 
-pages-build project="iblcore-website-preview":
-  hugo -b https://{{project}}.pages.dev
+pages-build base_url="https://iblcore.org":
+  hugo -b {{base_url}}
 
-pages-deploy project="iblcore-website-preview" branch="main":
-  just pages-build {{project}}
+pages-deploy project="iblcore-website-preview" branch="main" base_url="https://iblcore.org":
+  just pages-build {{base_url}}
   npx wrangler pages deploy public --project-name {{project}} --branch {{branch}} --commit-dirty=true
+
+pages-deploy-preview project="iblcore-website-preview" branch="main":
+  just pages-deploy {{project}} {{branch}} https://{{project}}.pages.dev
 
 pages-list:
   npx wrangler pages project list
