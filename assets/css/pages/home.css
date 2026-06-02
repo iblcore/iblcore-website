@@ -14,7 +14,7 @@
   --home-button-pad-y: 0.45rem;
   --home-button-pad-x: 1.15rem;
   --home-button-pad-bottom: 0.5rem;
-  --home-what-we-do-label-size: clamp(1.0rem, 1.1vw, 1.5rem);
+  --home-what-we-do-label-size: 1.2rem;
   --home-what-we-do-label-line-height: 1.05;
   --home-publication-title-size: var(--font-size-card-title);
   --home-publication-meta-size: var(--font-size-card-copy);
@@ -451,6 +451,19 @@
   .hero__panel {
     min-height: var(--hero-min-height-home-md);
   }
+
+  .hero__brain {
+    filter: blur(2px);
+    transform: scale(1.1);
+  }
+
+  .hero__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 18, 52, 0.5);
+  }
+
 }
 
 @media (max-width: 700px) {
@@ -551,7 +564,7 @@
   }
 
   .hero__media {
-    height: 43%;
+    /* height: 43%; */
   }
 
   .hero__copy {
