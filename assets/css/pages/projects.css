@@ -103,6 +103,10 @@
   padding: 0 var(--space-panel-3xl) var(--space-panel-3xl);
 }
 
+.accordion-ready .project-card:not(.is-open) .project-card__body-inner {
+  padding-bottom: 0;
+}
+
 .project-card__body-inner > *:first-child {
   margin-top: 0;
 }

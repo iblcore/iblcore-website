@@ -108,6 +108,10 @@
   padding: 0 var(--space-panel-3xl) var(--space-panel-3xl);
 }
 
+.accordion-ready .new-partners-card:not(.is-open) .new-partners-card__body-inner {
+  padding-bottom: 0;
+}
+
 .new-partners-card__body-inner > *:first-child {
   margin-top: 0;
 }
