@@ -32,7 +32,18 @@
           <li class="site-nav__item{{ if $hasChildren }} site-nav__item--has-children{{ end }}">
             <a class="site-nav__link{{ if $hasChildren }} site-nav__link--has-children{{ end }}" href="{{ if $item.disabled }}#{{ else }}{{ $item.url | relURL }}{{ end }}"{{ if $itemActive }} aria-current="page"{{ end }}{{ if $item.disabled }} aria-disabled="true" title="Temporary placeholder link"{{ end }}>{{ $item.title }}</a>
             {{ if $hasChildren }}
-              <ul class="site-nav__submenu" aria-label="{{ $item.title }} submenu">
+              {{ $submenuId := printf "site-nav-submenu-%s" $item.key }}
+              <button
+                class="site-nav__submenu-toggle{{ if $itemActive }} site-nav__submenu-toggle--active{{ end }}"
+                type="button"
+                aria-expanded="false"
+                aria-controls="{{ $submenuId }}"
+                data-nav-submenu-toggle
+              >
+                <span>{{ $item.title }}</span>
+                <span class="site-nav__submenu-toggle-icon" aria-hidden="true"></span>
+              </button>
+              <ul class="site-nav__submenu" id="{{ $submenuId }}" aria-label="{{ $item.title }} submenu">
                 {{ range $children }}
                   {{ $childActive := or (eq $pagePath .url) (and (eq .title "Ongoing Projects") (or (eq $pagePath "/projects/") (hasPrefix $pagePath "/projects/descriptions/"))) }}
                   <li>
