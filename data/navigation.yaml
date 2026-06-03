@@ -21,7 +21,7 @@ header:
       - title: New Partner Projects
         url: /new-partner-projects/
       - title: Ongoing Projects
-        url: /projects/#ibl-research-projects
+        url: /projects/
   - key: publications
     title: Publications
     url: /#publications
