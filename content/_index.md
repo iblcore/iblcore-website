@@ -1,6 +1,6 @@
 ---
 title: "IBL-Core"
-description: "Provisional homepage for the new IBL-Core website."
+description: "IBL-Core"
 header_variant: "landing"
 resource_cards:
   - title: "Data"
