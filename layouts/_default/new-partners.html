@@ -33,22 +33,22 @@
             {{ $projectTitle := replaceRE "^[^:]+\\s*:\\s*" "" $fullTitle }}
             {{ $itemId := printf "new-partner-project-%d" $itemIndex }}
             <article class="new-partners-card accordion__item" data-accordion-item>
-              <header class="new-partners-card__header">
-                <p class="new-partners-card__authors">{{ $author }}</p>
-                <h3 class="new-partners-card__heading">
-                  <button
-                    class="new-partners-card__title accordion__button"
-                    type="button"
-                    id="{{ $itemId }}-button"
-                    aria-expanded="false"
-                    aria-controls="{{ $itemId }}-body"
-                    data-accordion-button
-                  >
-                    <span>{{ upper $projectTitle }}</span>
-                    <span class="new-partners-card__icon accordion__icon" aria-hidden="true"></span>
-                  </button>
-                </h3>
-              </header>
+              <button
+                class="new-partners-card__header accordion__button"
+                type="button"
+                id="{{ $itemId }}-button"
+                aria-expanded="false"
+                aria-controls="{{ $itemId }}-body"
+                data-accordion-button
+              >
+                <span class="new-partners-card__header-copy">
+                  <span class="new-partners-card__authors">{{ $author }}</span>
+                  <span class="new-partners-card__heading" role="heading" aria-level="3">
+                    <span class="new-partners-card__title">{{ upper $projectTitle }}</span>
+                  </span>
+                </span>
+                <span class="new-partners-card__icon accordion__icon" aria-hidden="true"></span>
+              </button>
               <div
                 class="new-partners-card__body accordion__panel prose"
                 id="{{ $itemId }}-body"

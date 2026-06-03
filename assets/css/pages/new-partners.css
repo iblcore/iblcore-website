@@ -27,11 +27,23 @@
 }
 
 .new-partners-card {
+  padding: 0;
   background: var(--color-surface);
+  overflow: hidden;
 }
 
 .new-partners-card.is-open {
   box-shadow: 0 0.65rem 1.4rem rgba(0, 77, 137, 0.12);
+}
+
+.new-partners-card__header {
+  align-items: flex-start;
+  padding: var(--space-panel-3xl) var(--space-panel-3xl) var(--space-panel-xl);
+}
+
+.new-partners-card__header-copy {
+  display: grid;
+  gap: 0.4rem;
 }
 
 .new-partners-section__actions {
@@ -58,7 +70,8 @@
 }
 
 .new-partners-card__authors {
-  margin: 0 0 0.4rem;
+  display: block;
+  margin: 0;
   color: var(--color-accent-soft);
   font-size: var(--font-size-prose-copy);
   line-height: 1.1;
@@ -67,10 +80,12 @@
 }
 
 .new-partners-card__heading {
+  display: block;
   margin: 0;
 }
 
 .new-partners-card__title {
+  display: block;
   color: var(--color-accent);
   font-size: var(--font-size-prose-heading);
   line-height: 1.08;
@@ -86,7 +101,11 @@
 }
 
 .new-partners-card__body {
-  margin-top: 0.45rem;
+  margin-top: 0;
+}
+
+.new-partners-card__body-inner {
+  padding: 0 var(--space-panel-3xl) var(--space-panel-3xl);
 }
 
 .new-partners-card__body-inner > *:first-child {

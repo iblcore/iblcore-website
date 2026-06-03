@@ -66,7 +66,9 @@
 }
 
 .project-card {
+  padding: 0;
   background: var(--color-accent-soft);
+  overflow: hidden;
 }
 
 .project-card.is-open {
@@ -78,6 +80,7 @@
 }
 
 .project-card__title {
+  padding: var(--space-panel-3xl) var(--space-panel-3xl) var(--space-panel-xl);
   color: var(--color-accent);
   font-size: var(--font-size-prose-heading);
   line-height: 1.08;
@@ -93,7 +96,11 @@
 }
 
 .project-card__body {
-  margin-top: 0.85rem;
+  margin-top: 0;
+}
+
+.project-card__body-inner {
+  padding: 0 var(--space-panel-3xl) var(--space-panel-3xl);
 }
 
 .project-card__body-inner > *:first-child {
