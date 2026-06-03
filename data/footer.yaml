@@ -33,5 +33,10 @@ social_links:
     icon: svg/icon_social_x.svg
     width: 47
     height: 45
+  - label: International Brain Laboratory on LinkedIn
+    url: https://www.linkedin.com/company/international-brain-lab/
+    icon: svg/icon_social_linkedin.svg
+    width: 47
+    height: 45
 
 legal_links: []
