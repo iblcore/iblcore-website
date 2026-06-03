@@ -34,6 +34,29 @@
   box-shadow: 0 0.65rem 1.4rem rgba(0, 77, 137, 0.12);
 }
 
+.new-partners-section__actions {
+  margin-top: 2rem;
+}
+
+.button--new-partners {
+  min-height: 3.2rem;
+  padding: 0.55rem 1.25rem;
+  background: var(--color-surface);
+  color: var(--color-accent);
+  font-size: 1rem;
+  letter-spacing: 0;
+  box-shadow: inset 0 0 0 1px rgba(0, 77, 137, 0.12);
+}
+
+.button--new-partners:hover,
+.button--new-partners:focus-visible {
+  outline: none;
+  transform: translateY(-1px);
+  box-shadow:
+    0 0.35rem 0.8rem rgba(0, 77, 137, 0.18),
+    inset 0 0 0 1px rgba(0, 77, 137, 0.16);
+}
+
 .new-partners-card__authors {
   margin: 0 0 0.4rem;
   color: var(--color-accent-soft);
