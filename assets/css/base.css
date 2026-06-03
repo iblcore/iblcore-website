@@ -4,6 +4,14 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: "Ubuntu Condensed";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/ubuntu-condensed-v17-regular.ttf") format("truetype");
+}
+
 html {
   font-family: var(--font-sans);
   font-size: 120%;

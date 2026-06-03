@@ -10,9 +10,7 @@
       <meta http-equiv="refresh" content="0; url={{ . | relURL }}">
       <link rel="canonical" href="{{ . | absURL }}">
     {{ end }}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap">
+    <link rel="preload" href="{{ "fonts/ubuntu-condensed-v17-regular.ttf" | relURL }}" as="font" type="font/ttf" crossorigin>
     {{ $baseStyles := slice
       (resources.Get "css/tokens.css")
       (resources.Get "css/base.css")
