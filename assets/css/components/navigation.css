@@ -423,6 +423,7 @@
     min-height: var(--nav-touch-target-mobile);
     padding: var(--space-xs) var(--space-panel-lg);
     font-size: 0.88rem;
+    font-weight: inherit;
     text-align: left;
     white-space: normal;
   }
