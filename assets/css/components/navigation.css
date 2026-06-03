@@ -139,7 +139,7 @@
   border-radius: 999px;
   white-space: nowrap;
   font-size: 0.95rem;
-  font-weight: 700;
+  font-weight: inherit;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   text-align: center;
