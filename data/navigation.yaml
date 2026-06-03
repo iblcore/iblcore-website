@@ -27,7 +27,7 @@ header:
     url: /#publications
   - key: events
     title: Events
-    disabled: true
+    url: /events/
   - key: news
     title: News
     disabled: true

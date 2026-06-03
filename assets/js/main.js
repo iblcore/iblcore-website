@@ -89,3 +89,74 @@ document.querySelectorAll("[data-accordion]").forEach((accordion) => {
 
   accordion.classList.add("accordion-ready");
 });
+
+document.querySelectorAll("[data-carousel]").forEach((carousel) => {
+  const track = carousel.querySelector("[data-carousel-track]");
+  const slides = Array.from(carousel.querySelectorAll("[data-carousel-slide]"));
+  const dots = Array.from(carousel.querySelectorAll("[data-carousel-dot]"));
+  const prev = carousel.querySelector("[data-carousel-prev]");
+  const next = carousel.querySelector("[data-carousel-next]");
+
+  if (!track || slides.length === 0) {
+    return;
+  }
+
+  let currentIndex = 0;
+
+  const setCurrent = (index, shouldScroll = true) => {
+    currentIndex = Math.max(0, Math.min(index, slides.length - 1));
+
+    if (shouldScroll) {
+      track.scrollTo({
+        left: slides[currentIndex].offsetLeft - track.offsetLeft,
+        behavior: "smooth",
+      });
+    }
+
+    dots.forEach((dot, dotIndex) => {
+      const isCurrent = dotIndex === currentIndex;
+
+      if (isCurrent) {
+        dot.setAttribute("aria-current", "true");
+      } else {
+        dot.removeAttribute("aria-current");
+      }
+    });
+
+    if (prev) {
+      prev.disabled = currentIndex === 0;
+    }
+
+    if (next) {
+      next.disabled = currentIndex === slides.length - 1;
+    }
+  };
+
+  prev?.addEventListener("click", () => {
+    setCurrent(currentIndex - 1);
+  });
+
+  next?.addEventListener("click", () => {
+    setCurrent(currentIndex + 1);
+  });
+
+  dots.forEach((dot, dotIndex) => {
+    dot.addEventListener("click", () => {
+      setCurrent(dotIndex);
+    });
+  });
+
+  track.addEventListener("scroll", () => {
+    window.requestAnimationFrame(() => {
+      const slideWidth = slides[0].getBoundingClientRect().width;
+
+      if (slideWidth <= 0) {
+        return;
+      }
+
+      setCurrent(Math.round(track.scrollLeft / slideWidth), false);
+    });
+  });
+
+  setCurrent(0, false);
+});

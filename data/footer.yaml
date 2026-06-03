@@ -10,7 +10,7 @@ columns:
       - label: Publications
         url: /#publications
       - label: Events
-        placeholder: true
+        url: /events/
       - label: News
         placeholder: true
   - links:

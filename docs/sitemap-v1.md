@@ -10,7 +10,7 @@ Intended stack: Hugo static site generator, modern vanilla HTML/CSS, minimal van
 3. Resources (`/#resources`)
 4. Projects (`/projects/`)
 5. Publications (`/#publications`)
-6. Events (`/events/`, disabled in navigation for now)
+6. Events (`/events/`)
 7. News (`/news/`, disabled in navigation for now)
 8. Contact (`/#contact`)
 
@@ -88,6 +88,10 @@ Format:
 
 Includes:
 - Upcoming events with dates, locations, information
+
+Implementation note as of June 3, 2026:
+- `/events/` is enabled in the top navigation and footer.
+- The page uses a reusable section layout with four editable event cards defined in front matter.
 
 ### 2.7 News (`/news/`)
 

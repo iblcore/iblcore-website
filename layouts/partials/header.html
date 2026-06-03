@@ -23,12 +23,8 @@
           {{ $item := . }}
           {{ $children := $item.children | default (slice) }}
           {{ $hasChildren := gt (len $children) 0 }}
-          {{ $itemActive := false }}
-          {{ if eq $item.key "about" }}
-            {{ $itemActive = eq $section "about" }}
-          {{ else if eq $item.key "projects" }}
-            {{ $itemActive = eq $section "projects" }}
-          {{ end }}
+          {{ $itemUrl := $item.url | default "" }}
+          {{ $itemActive := or (eq $section $item.key) (eq $pagePath $itemUrl) }}
           <li class="site-nav__item{{ if $hasChildren }} site-nav__item--has-children{{ end }}">
             <a class="site-nav__link{{ if $hasChildren }} site-nav__link--has-children{{ end }}" href="{{ if $item.disabled }}#{{ else }}{{ $item.url | relURL }}{{ end }}"{{ if $itemActive }} aria-current="page"{{ end }}{{ if $item.disabled }} aria-disabled="true" title="Temporary placeholder link"{{ end }}>{{ $item.title }}</a>
             {{ if $hasChildren }}

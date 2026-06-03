@@ -1,0 +1,55 @@
+{{ define "main" }}
+  <section class="events-hero" aria-labelledby="events-title">
+    <div class="shell events-hero__inner">
+      <h1 id="events-title">{{ .Title }}</h1>
+    </div>
+  </section>
+
+  {{ with .Content }}
+    <section class="events-intro">
+      <div class="shell events-intro__inner">
+        <div class="events-intro__copy prose">
+          {{ . }}
+        </div>
+      </div>
+    </section>
+  {{ end }}
+
+  {{ with .Params.events }}
+    <section class="events-section" aria-label="Upcoming events">
+      <div class="shell">
+        <div class="events-carousel" data-carousel>
+          <div class="events-carousel__viewport">
+            <div class="events-carousel__track" role="list" data-carousel-track>
+              {{ range $index, $event := . }}
+                <article class="events-card" id="event-slide-{{ add $index 1 }}" role="listitem" data-carousel-slide>
+                  {{ with $event.date }}<p class="events-card__date">{{ . }}</p>{{ end }}
+                  <h2 class="events-card__title">{{ $event.title }}</h2>
+                  {{ with $event.location }}<p class="events-card__location">{{ . }}</p>{{ end }}
+                  {{ with $event.summary }}<p class="events-card__summary">{{ . }}</p>{{ end }}
+                </article>
+              {{ end }}
+            </div>
+          </div>
+
+          <div class="events-carousel__controls" aria-label="Event carousel controls">
+            <button class="events-carousel__button events-carousel__button--prev" type="button" aria-label="Previous event" data-carousel-prev></button>
+            <div class="events-carousel__dots" aria-label="Select event">
+              {{ range $index, $event := . }}
+                <button
+                  class="events-carousel__dot"
+                  type="button"
+                  aria-label="Show event {{ add $index 1 }}: {{ $event.title }}"
+                  aria-controls="event-slide-{{ add $index 1 }}"
+                  {{ if eq $index 0 }}aria-current="true"{{ end }}
+                  data-carousel-dot
+                ></button>
+              {{ end }}
+            </div>
+            <button class="events-carousel__button events-carousel__button--next" type="button" aria-label="Next event" data-carousel-next></button>
+          </div>
+        </div>
+      </div>
+    </section>
+  {{ end }}
+{{ end }}
