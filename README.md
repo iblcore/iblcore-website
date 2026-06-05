@@ -28,6 +28,7 @@ Implemented:
 - `/about/` redirect to `/about/team/`, with reusable shared header/footer and an optimized team/about hero image workflow via Hugo assets
 - Data-driven `/projects/` section powered by `data/projects.yaml` and markdown description files
 - Events landing page at `/events/` with four front-matter-driven event cards
+- Templates review page at `/templates/` with three reusable mock layout sections for graphic/design review
 - Shared component styling and mobile nav toggle
 - Markdown stubs for top-level sections and key About/Resources pages
 - `Justfile` commands for local development and maintenance
@@ -142,5 +143,5 @@ Notes:
 - Generated output lives in `public/` and should not be committed.
 - The current site is still provisional, but the homepage is now under active visual refinement against `docs/landing-prototype-mini.webp`.
 - The About section IA for the current implementation is: Our Team (`/about/team/`, grouped into staff and PI scientific board with a contact prompt), History (`/about/history/`), FAQ (`/about/faq/`), and Support (`/about/support/`). `/about/` redirects to Our Team.
-- The top navigation is: About, Resources (`/#resources`), Projects, Publications (`/#publications`), Events (`/events/`), News disabled, and Contact (`/#contact`). The footer mirrors that menu and adds Legal Notice.
+- The top navigation is: About, Resources (`/#resources`), Projects, Publications (`/#publications`), Templates (`/templates/`), Events (`/events/`), News disabled, and Contact (`/#contact`). The footer mirrors that menu and adds Legal Notice.
 - See [AGENTS.md](AGENTS.md) for repository-specific instructions used by coding agents.

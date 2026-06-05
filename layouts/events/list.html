@@ -1,14 +1,17 @@
 {{ define "main" }}
-  <section class="events-hero" aria-labelledby="events-title">
-    <div class="shell events-hero__inner">
-      <h1 id="events-title">{{ .Title }}</h1>
+  <section class="events-hero section-hero" aria-labelledby="events-title">
+    <div class="events-hero__media section-hero__media" aria-hidden="true"></div>
+    <div class="shell page-shell events-hero__inner section-hero__inner">
+      <div class="events-hero__copy section-hero__copy">
+        <h1 id="events-title">{{ .Title }}</h1>
+      </div>
     </div>
   </section>
 
   {{ with .Content }}
-    <section class="events-intro">
-      <div class="shell events-intro__inner">
-        <div class="events-intro__copy prose">
+    <section class="events-intro section-banner">
+      <div class="shell page-shell events-intro__inner section-banner__inner">
+        <div class="events-intro__copy section-banner__copy prose">
           {{ . }}
         </div>
       </div>

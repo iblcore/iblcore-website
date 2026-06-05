@@ -11,8 +11,20 @@
 }
 
 .events-hero {
-  padding: calc(var(--landing-header-top-pad) + var(--header-logo-height-landing) + 1.7rem) 0 3rem;
-  background: var(--color-accent);
+  overflow: hidden;
+}
+
+.events-hero__media {
+  background:
+    linear-gradient(180deg, rgba(0, 77, 137, 0.08) 0%, rgba(0, 77, 137, 0.22) 34%, rgba(0, 77, 137, 0.62) 100%),
+    url("/images/projects-background.webp");
+  background-position: center 28%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.events-intro {
+  background: var(--color-accent-soft);
 }
 
 .events-hero h1 {
@@ -21,15 +33,6 @@
   font-size: var(--font-size-page-hero-title);
   line-height: 1;
   font-weight: 400;
-}
-
-.events-intro {
-  background: var(--color-accent-soft);
-}
-
-.events-intro__inner {
-  padding-top: var(--section-banner-pad-y);
-  padding-bottom: var(--section-banner-pad-y);
 }
 
 .events-intro__copy,
@@ -210,11 +213,6 @@
 }
 
 @media (max-width: 700px) {
-  .events-hero {
-    padding-top: calc(var(--landing-header-top-pad-sm) + var(--header-logo-height-landing-sm) + 2rem);
-    padding-bottom: 2rem;
-  }
-
   .events-intro__inner,
   .events-section {
     padding-top: 2rem;

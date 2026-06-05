@@ -26,6 +26,9 @@
     {{ if eq .Section "events" }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/events.css") }}
     {{ end }}
+    {{ if eq .Section "templates" }}
+      {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/templates.css") }}
+    {{ end }}
     {{ if eq .Layout "new-partners" }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/new-partners.css") }}
     {{ end }}

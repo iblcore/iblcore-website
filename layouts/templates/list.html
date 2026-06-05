@@ -1,0 +1,173 @@
+{{ define "main" }}
+  <section class="page-hero template-review-hero">
+    <div class="shell page-shell template-review-hero__inner">
+      <p class="eyebrow">Internal Review</p>
+      <h1>{{ .Title }}</h1>
+      {{ with .Params.lead }}<p class="lead">{{ . }}</p>{{ end }}
+
+      <nav class="template-selector" aria-label="Template selector">
+        <a class="button template-selector__button" href="#template-grid">Template 01</a>
+        <a class="button template-selector__button" href="#template-feature">Template 02</a>
+        <a class="button template-selector__button" href="#template-editorial">Template 03</a>
+      </nav>
+    </div>
+  </section>
+
+  <section class="landing-band landing-band--intro template-review-intro">
+    <div class="shell page-shell prose template-review-intro__inner">
+      {{ .Content }}
+    </div>
+  </section>
+
+  <section class="landing-band landing-band--what-we-do template-section template-section--sky" id="template-grid" aria-labelledby="template-grid-title">
+    <div class="shell page-shell">
+      <div class="template-section__header">
+        <p class="eyebrow">Template 01</p>
+        <h2 id="template-grid-title">Text Intro + 2x2 Visual Grid</h2>
+        <p class="template-section__summary">A direct two-part page structure: concise text at the top, followed by four square visual cards in a 2x2 layout with supporting copy below each image block.</p>
+      </div>
+
+      <div class="template-panel template-panel--intro">
+        <div>
+          <p class="template-kicker">Section overview</p>
+          <h3>Designed for concise explanation before a visual catalogue.</h3>
+        </div>
+        <div>
+          <p>This pattern works well for resources, teams, capability overviews, or any landing page that needs a short editorial setup before people scan a structured set of options.</p>
+          <a class="button template-action" href="#template-feature">See another template</a>
+        </div>
+      </div>
+
+      <div class="template-grid template-grid--two-by-two">
+        <article class="template-card">
+          <div class="template-card__media template-card__media--sky"><span>Data</span></div>
+          <div class="template-card__body">
+            <h3>Dataset Access</h3>
+            <p>Square visual area with a short text block below for summary copy and a future link.</p>
+          </div>
+        </article>
+        <article class="template-card">
+          <div class="template-card__media template-card__media--mint"><span>Image</span></div>
+          <div class="template-card__body">
+            <h3>Imaging Workflows</h3>
+            <p>Useful when each item needs equal visual weight and the layout should stay calm and balanced.</p>
+          </div>
+        </article>
+        <article class="template-card">
+          <div class="template-card__media template-card__media--gold"><span>Tool</span></div>
+          <div class="template-card__body">
+            <h3>Analysis Tools</h3>
+            <p>The square proportion makes room for photography, illustration, diagrams, or abstract artwork.</p>
+          </div>
+        </article>
+        <article class="template-card">
+          <div class="template-card__media template-card__media--coral"><span>Team</span></div>
+          <div class="template-card__body">
+            <h3>Partner Support</h3>
+            <p>Text stays below the image field to keep the review focused on graphic composition first.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-band landing-band--publications template-section template-section--navy" id="template-feature" aria-labelledby="template-feature-title">
+    <div class="shell page-shell">
+      <div class="template-section__header">
+        <p class="eyebrow">Template 02</p>
+        <h2 id="template-feature-title">Editorial Lead + Feature / Sidebar Cards</h2>
+        <p class="template-section__summary">A stronger narrative top section followed by an asymmetric lower layout with one anchor story and two supporting cards.</p>
+      </div>
+
+      <div class="template-editorial-top">
+        <div>
+          <p class="template-kicker">Narrative-first</p>
+          <h3>Built for pages where one idea should lead and the rest should support it.</h3>
+        </div>
+        <p>This format gives the designer more room to establish hierarchy with a dominant visual block, a clear message, and a secondary column for related content.</p>
+      </div>
+
+      <div class="template-feature-layout">
+        <article class="template-feature-card template-feature-card--large">
+          <div class="template-feature-card__media template-card__media--navy"><span>Lead</span></div>
+          <div class="template-feature-card__body">
+            <h3>Primary Feature</h3>
+            <p>Large image area for one hero concept, case study, or key project with more generous body copy.</p>
+          </div>
+        </article>
+
+        <div class="template-feature-stack">
+          <article class="template-feature-card">
+            <div class="template-feature-card__media template-card__media--sky"><span>Card A</span></div>
+            <div class="template-feature-card__body">
+              <h3>Supporting Card A</h3>
+              <p>Shorter supporting module for related updates, tools, or outcomes.</p>
+            </div>
+          </article>
+          <article class="template-feature-card">
+            <div class="template-feature-card__media template-card__media--mint"><span>Card B</span></div>
+            <div class="template-feature-card__body">
+              <h3>Supporting Card B</h3>
+              <p>The stacked format makes it easy to compare two secondary items against one lead story.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="landing-band landing-band--support template-section template-section--support" id="template-editorial" aria-labelledby="template-editorial-title">
+    <div class="shell page-shell">
+      <div class="template-section__header">
+        <p class="eyebrow">Template 03</p>
+        <h2 id="template-editorial-title">Text Banner + Three-Column Collection</h2>
+        <p class="template-section__summary">A flexible overview band on top, followed by a three-column collection for mixed content such as publications, initiatives, or calls to action.</p>
+      </div>
+
+      <div class="template-banner">
+        <div>
+          <p class="template-kicker">Flexible collection</p>
+          <h3>A useful middle-ground between a strict grid and a story-led landing page.</h3>
+        </div>
+        <div class="template-banner__stats" aria-label="Sample review metrics">
+          <div>
+            <strong>03</strong>
+            <span>content lanes</span>
+          </div>
+          <div>
+            <strong>01</strong>
+            <span>intro band</span>
+          </div>
+          <div>
+            <strong>∞</strong>
+            <span>reuse options</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="template-collection">
+        <article class="template-collection-card">
+          <div class="template-collection-card__media template-card__media--gold"><span>01</span></div>
+          <div class="template-collection-card__body">
+            <h3>Column One</h3>
+            <p>Can hold a publication spotlight, a resource category, or a partner-facing invitation.</p>
+          </div>
+        </article>
+        <article class="template-collection-card">
+          <div class="template-collection-card__media template-card__media--coral"><span>02</span></div>
+          <div class="template-collection-card__body">
+            <h3>Column Two</h3>
+            <p>Designed to support equal-width modules without forcing the page into a rigid square-card system.</p>
+          </div>
+        </article>
+        <article class="template-collection-card">
+          <div class="template-collection-card__media template-card__media--navy"><span>03</span></div>
+          <div class="template-collection-card__body">
+            <h3>Column Three</h3>
+            <p>Works well when the designer wants clearer rhythm between image, heading, and descriptive text.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+{{ end }}

@@ -10,9 +10,10 @@ Intended stack: Hugo static site generator, modern vanilla HTML/CSS, minimal van
 3. Resources (`/#resources`)
 4. Projects (`/projects/`)
 5. Publications (`/#publications`)
-6. Events (`/events/`)
-7. News (`/news/`, disabled in navigation for now)
-8. Contact (`/#contact`)
+6. Templates (`/templates/`) - internal review gallery for section layout mockups
+7. Events (`/events/`)
+8. News (`/news/`, disabled in navigation for now)
+9. Contact (`/#contact`)
 
 ## 2. Information Architecture (Detailed)
 
@@ -93,7 +94,24 @@ Implementation note as of June 3, 2026:
 - `/events/` is enabled in the top navigation and footer.
 - The page uses a reusable section layout with four editable event cards defined in front matter.
 
-### 2.7 News (`/news/`)
+### 2.7 Templates (`/templates/`)
+
+Format:
+- 1 page, no subtabs
+
+Includes:
+- internal design-review templates
+- anchor navigation to alternate layout patterns
+- reusable section mockups for future content pages
+
+Implementation note as of June 5, 2026:
+- `/templates/` is enabled in the top navigation for internal review.
+- The page currently contains three template subsections:
+  - top text + 2x2 image grid
+  - editorial lead + feature/sidebar layout
+  - text banner + three-column collection
+
+### 2.8 News (`/news/`)
 
 Includes:
 - News updates
@@ -108,6 +126,7 @@ Use one Hugo section per top-level nav item:
 - `content/about/`
 - `content/resources/`
 - `content/projects/`
+- `content/templates/`
 - `content/publications/`
 - `content/events/`
 - `content/news/`
@@ -139,6 +158,8 @@ content/
     analysis.md
     visualisation.md
   projects/
+    _index.md
+  templates/
     _index.md
   publications/
     _index.md

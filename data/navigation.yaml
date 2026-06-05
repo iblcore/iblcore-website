@@ -25,6 +25,9 @@ header:
   - key: publications
     title: Publications
     url: /#publications
+  - key: templates
+    title: Templates
+    url: /templates/
   - key: events
     title: Events
     url: /events/
