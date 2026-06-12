@@ -1,0 +1,17 @@
+{{- $refs := slice -}}
+{{- range (slice "requires" "uses" "datasets" "methods" "learning" "workflows" "next_steps") -}}
+  {{- with index $.Params . -}}
+    {{- $refs = $refs | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- with .Params.steps -}}
+  {{- range . -}}
+    {{- $step := . -}}
+    {{- range (slice "requires" "uses" "datasets" "methods" "learning" "workflows" "next_steps") -}}
+      {{- with index $step . -}}
+        {{- $refs = $refs | append . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return ($refs | uniq) -}}

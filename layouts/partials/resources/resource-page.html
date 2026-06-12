@@ -1,0 +1,8 @@
+{{- $target := .id -}}
+{{- $found := false -}}
+{{- range where .site.RegularPages "Params.resource_type" "!=" nil -}}
+  {{- if eq (partial "resources/id.html" .) $target -}}
+    {{- $found = . -}}
+  {{- end -}}
+{{- end -}}
+{{- return $found -}}

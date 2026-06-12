@@ -14,6 +14,10 @@ test-serve:
 
 check:
   hugo --panicOnWarning
+  just validate-resources
+
+validate-resources:
+  if rg -q "is-missing" public/resources; then rg "is-missing" public/resources; exit 1; fi
 
 capture-landing:
   npm run capture:landing

@@ -1,0 +1,27 @@
+{{- with .Params.steps -}}
+  <section class="workflow-steps" aria-labelledby="workflow-steps-title">
+    <h2 id="workflow-steps-title">Workflow Steps</h2>
+    <ol>
+      {{- range . -}}
+        {{- $step := . -}}
+        <li>
+          <h3>{{ $step.title }}</h3>
+          {{ with $step.summary }}<p>{{ . }}</p>{{ end }}
+          {{- $linked := slice -}}
+          {{- range (slice "uses" "datasets" "methods" "learning") -}}
+            {{- with index $step . -}}
+              {{- $linked = $linked | append . -}}
+            {{- end -}}
+          {{- end -}}
+          {{- with ($linked | uniq) -}}
+            <div class="workflow-steps__links">
+              {{- range . -}}
+                {{ partial "resources/resource-link.html" (dict "site" $.Site "id" . "class" "resource-chip") }}
+              {{- end -}}
+            </div>
+          {{- end -}}
+        </li>
+      {{- end -}}
+    </ol>
+  </section>
+{{- end -}}

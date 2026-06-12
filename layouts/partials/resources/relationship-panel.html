@@ -1,0 +1,23 @@
+{{- $page := . -}}
+{{- $id := partial "resources/id.html" . -}}
+{{- $usedBy := slice -}}
+{{- range where .Site.RegularPages "Params.resource_type" "!=" nil -}}
+  {{- if ne (partial "resources/id.html" .) $id -}}
+    {{- if in (partial "resources/refs.html" .) $id -}}
+      {{- $usedBy = $usedBy | append (partial "resources/id.html" .) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+<div class="relationship-panel">
+  <h2>Resource Map</h2>
+  {{ partial "resources/link-list.html" (dict "page" $page "title" "Requires" "ids" .Params.requires) }}
+  {{ partial "resources/link-list.html" (dict "page" $page "title" "Uses" "ids" .Params.uses) }}
+  {{ partial "resources/link-list.html" (dict "page" $page "title" "Datasets" "ids" .Params.datasets) }}
+  {{ partial "resources/link-list.html" (dict "page" $page "title" "Methods" "ids" .Params.methods) }}
+  {{ partial "resources/link-list.html" (dict "page" $page "title" "Learning" "ids" .Params.learning) }}
+  {{ partial "resources/link-list.html" (dict "page" $page "title" "Related Workflows" "ids" .Params.workflows) }}
+  {{ partial "resources/link-list.html" (dict "page" $page "title" "Next Recommended Steps" "ids" .Params.next_steps) }}
+  {{ partial "resources/link-list.html" (dict "page" $page "title" "Used By" "ids" $usedBy) }}
+  <p class="relationship-panel__note">Forward links are maintained in front matter. Reverse links are generated automatically.</p>
+</div>

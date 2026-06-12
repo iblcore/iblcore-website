@@ -1,0 +1,11 @@
+{{- $ids := .ids | default slice -}}
+{{- if $ids -}}
+  <section class="relationship-panel__group">
+    <h2>{{ .title }}</h2>
+    <ul class="relationship-list">
+      {{- range $ids -}}
+        <li>{{ partial "resources/resource-link.html" (dict "site" $.page.Site "id" .) }}</li>
+      {{- end -}}
+    </ul>
+  </section>
+{{- end -}}

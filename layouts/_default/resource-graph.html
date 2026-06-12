@@ -1,0 +1,45 @@
+{{- $resources := where .Site.RegularPages "Params.resource_type" "!=" nil -}}
+{{- $nodes := slice -}}
+{{- range $page := $resources -}}
+  {{- $id := partial "resources/id.html" $page -}}
+  {{- $usedBy := slice -}}
+  {{- range $other := $resources -}}
+    {{- if ne (partial "resources/id.html" $other) $id -}}
+      {{- if in (partial "resources/refs.html" $other) $id -}}
+        {{- $usedBy = $usedBy | append (partial "resources/id.html" $other) -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $steps := slice -}}
+  {{- with $page.Params.steps -}}
+    {{- range . -}}
+      {{- $steps = $steps | append (dict
+        "title" .title
+        "summary" (.summary | default "")
+        "uses" (.uses | default slice)
+        "datasets" (.datasets | default slice)
+        "methods" (.methods | default slice)
+        "learning" (.learning | default slice)
+      ) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $nodes = $nodes | append (dict
+    "id" $id
+    "title" $page.Title
+    "type" $page.Params.resource_type
+    "url" $page.RelPermalink
+    "description" ($page.Description | default "")
+    "difficulty" ($page.Params.difficulty | default "")
+    "learning_type" ($page.Params.learning_type | default "")
+    "requires" ($page.Params.requires | default slice)
+    "uses" ($page.Params.uses | default slice)
+    "datasets" ($page.Params.datasets | default slice)
+    "methods" ($page.Params.methods | default slice)
+    "learning" ($page.Params.learning | default slice)
+    "workflows" ($page.Params.workflows | default slice)
+    "next_steps" ($page.Params.next_steps | default slice)
+    "steps" $steps
+    "used_by" ($usedBy | uniq)
+  ) -}}
+{{- end -}}
+{{- dict "version" 1 "generated_by" "hugo" "resources" $nodes | jsonify (dict "indent" "  ") -}}

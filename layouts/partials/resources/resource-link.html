@@ -1,0 +1,7 @@
+{{- $class := .class | default "resource-link" -}}
+{{- $resource := partial "resources/resource-page.html" (dict "site" .site "id" .id) -}}
+{{- if $resource -}}
+  <a class="{{ $class }}" href="{{ $resource.RelPermalink }}">{{ $resource.Title }}</a>
+{{- else -}}
+  <span class="{{ $class }} is-missing">{{ .id }}</span>
+{{- end -}}

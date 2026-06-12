@@ -45,28 +45,45 @@ Notes:
 
 ### 2.3 Resources (`/resources/`)
 
-- Data
-  - Brainwide map — within it, access + colab tutorials
-  - Other flagship datasets
-  - Personal project datasets
-- Modalities
-  - Neuropixels
-    - Chronic Neuropixels
-    - Spike sorting
-    - Surgical Protocols
-    - IBL ephys rig
-  - Mesoscope
-  - Fiberphotometry
-  - Widefield
-  - Behavior
-    - IBL behaviour rig
-  - Video
-- Analysis
-  - Brainbox
-  - Model of Zoe
-- Visualisation
-  - Datoviz
-  - Website renderer
+Resources use a workflow-first IA. The navigation tree helps humans browse; resource front matter defines the knowledge graph used to render relationships and machine-readable outputs.
+
+Top-level Resources sections:
+- Start Here (`/resources/start-here/`) - goal-based onboarding routes into workflows
+- Workflows (`/resources/workflows/`) - researcher journeys that connect datasets, tools, methods, and learning
+- Datasets (`/resources/datasets/`) - curated IBL datasets and access paths
+- Tools (`/resources/tools/`) - software, services, viewers, and reusable infrastructure
+- Methods (`/resources/methods/`) - experimental and analytical methods, rigs, protocols, and modalities
+- Learning (`/resources/learning/`) - quickstarts, tutorials, Colabs, courses, FAQs, and glossary material
+
+Starter workflow pages:
+- Explore Brainwide Map
+- Analyse Neuropixels Data
+- Run Behaviour Experiment
+- Spike Sorting Pipeline
+- Anatomical Localisation
+- Reproduce Publication Results
+- Build Custom Analysis
+- Visualise Results
+
+Relationship rules:
+- Authors maintain forward relationships only in page front matter.
+- Do not maintain reverse relationships such as `used_by` manually.
+- Templates compute reverse relationships automatically.
+- Stable resource IDs are derived from page filenames unless a page explicitly sets `resource_id`.
+
+Common relationship fields:
+- `requires` - hard dependencies
+- `uses` - resources used by a workflow or tutorial
+- `datasets` - related datasets
+- `methods` - related scientific or technical methods
+- `learning` - tutorials, quickstarts, Colabs, courses, FAQs, or glossary pages
+- `workflows` - related workflows
+- `next_steps` - recommended follow-up workflows
+
+Implementation notes:
+- Resource templates live under `layouts/resources/` and `layouts/partials/resources/`.
+- Resource archetypes cover workflows, tools, datasets, methods, and learning pages.
+- The machine-readable graph is generated at `/resource-graph.json` from Hugo content and front matter.
 
 ### 2.4 Projects (`/projects/`)
 
@@ -153,10 +170,26 @@ content/
     support.md
   resources/
     _index.md
-    data.md
-    modalities.md
-    analysis.md
-    visualisation.md
+    start-here/
+      _index.md
+    workflows/
+      _index.md
+      analyse-neuropixels-data.md
+      explore-brainwide-map.md
+    datasets/
+      _index.md
+      brainwide-map.md
+    tools/
+      _index.md
+      one.md
+      viewephys.md
+    methods/
+      _index.md
+      neuropixels.md
+    learning/
+      _index.md
+      one-quickstart.md
+  resource-graph.md  # renders /resource-graph.json
   projects/
     _index.md
   templates/
@@ -177,6 +210,11 @@ Add archetypes for repeatable content:
 - `archetypes/news.md`
 - `archetypes/project.md` (if project entries become individual pages later)
 - `archetypes/publication.md` (if publications become structured entries)
+- `archetypes/workflow.md`
+- `archetypes/tool.md`
+- `archetypes/dataset.md`
+- `archetypes/method.md`
+- `archetypes/learning.md`
 
 ## 4. Template Strategy (Design + Reuse)
 
@@ -257,7 +295,7 @@ Implementation note as of June 1, 2026:
 From old site -> new site:
 
 Port first:
-- Resources (data, modalities, analysis, visualisation)
+- Resources (workflow-first Start Here, Workflows, Datasets, Tools, Methods, Learning)
 - Projects
 - Publications and impact references
 - Team and core about content

@@ -1,0 +1,6 @@
+<article class="resource-card">
+  <p class="resource-card__type">{{ .Params.resource_type | humanize }}</p>
+  <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+  {{ with .Description }}<p>{{ . }}</p>{{ end }}
+  {{ partial "resources/resource-meta.html" . }}
+</article>

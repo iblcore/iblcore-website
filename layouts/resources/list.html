@@ -1,0 +1,62 @@
+{{ define "main" }}
+  <section class="resource-hero section-hero" aria-labelledby="resource-title">
+    <div class="resource-hero__media section-hero__media" aria-hidden="true"></div>
+    <div class="shell page-shell resource-hero__inner section-hero__inner">
+      <div class="resource-hero__copy section-hero__copy">
+        <h1 id="resource-title">{{ .Title }}</h1>
+      </div>
+    </div>
+  </section>
+
+  {{ if or .Params.lead .Content }}
+    <section class="resource-intro section-banner">
+      <div class="shell page-shell resource-intro__inner section-banner__inner">
+        <div class="resource-intro__copy section-banner__copy prose">
+          {{ with .Params.lead }}<p>{{ . }}</p>{{ end }}
+          {{ with .Content }}{{ . }}{{ end }}
+        </div>
+      </div>
+    </section>
+  {{ end }}
+
+  <section class="resource-section">
+    <div class="shell page-shell">
+      {{ with .Params.start_entries }}
+        <div class="resource-card-grid resource-card-grid--start">
+          {{ range . }}
+            <article class="resource-card">
+              <p class="resource-card__type">Start here</p>
+              <h2>{{ .title }}</h2>
+              {{ with .summary }}<p>{{ . }}</p>{{ end }}
+              {{ with .workflows }}
+                <div class="resource-card__links">
+                  {{ range . }}
+                    {{ partial "resources/resource-link.html" (dict "site" $.Site "id" . "class" "resource-chip") }}
+                  {{ end }}
+                </div>
+              {{ end }}
+            </article>
+          {{ end }}
+        </div>
+      {{ else with .Params.resource_sections }}
+        <div class="resource-card-grid">
+          {{ range . }}
+            <article class="resource-card">
+              <p class="resource-card__type">Resources</p>
+              <h2><a href="{{ .url | relURL }}">{{ .title }}</a></h2>
+              {{ with .summary }}<p>{{ . }}</p>{{ end }}
+            </article>
+          {{ end }}
+        </div>
+      {{ else }}
+        <div class="resource-card-grid">
+          {{ range sort .RegularPagesRecursive "Weight" "asc" }}
+            {{ if .Params.resource_type }}
+              {{ partial "resources/resource-card.html" . }}
+            {{ end }}
+          {{ end }}
+        </div>
+      {{ end }}
+    </div>
+  </section>
+{{ end }}

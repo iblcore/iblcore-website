@@ -1,0 +1,33 @@
+{{ define "main" }}
+  <section class="resource-hero section-hero" aria-labelledby="resource-title">
+    <div class="resource-hero__media section-hero__media" aria-hidden="true"></div>
+    <div class="shell page-shell resource-hero__inner section-hero__inner">
+      <div class="resource-hero__copy section-hero__copy">
+        <h1 id="resource-title">{{ .Title }}</h1>
+      </div>
+    </div>
+  </section>
+
+  {{ if or .Params.lead .Params.difficulty .Params.learning_type .Params.audience .Params.modality }}
+    <section class="resource-intro section-banner">
+      <div class="shell page-shell resource-intro__inner section-banner__inner">
+        <div class="resource-intro__copy section-banner__copy prose">
+          {{ with .Params.lead }}<p>{{ . }}</p>{{ end }}
+          {{ partial "resources/resource-meta.html" . }}
+        </div>
+      </div>
+    </section>
+  {{ end }}
+
+  <section class="resource-section">
+    <div class="shell page-shell resource-detail">
+      <article class="prose resource-detail__main">
+        {{ partial "resources/workflow-steps.html" . }}
+        {{ .Content }}
+      </article>
+      <aside class="resource-detail__aside" aria-label="Resource relationships">
+        {{ partial "resources/relationship-panel.html" . }}
+      </aside>
+    </div>
+  </section>
+{{ end }}
