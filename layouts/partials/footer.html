@@ -13,7 +13,7 @@
             {{ range .links }}
               <li>
                 <a
-                  class="site-footer__nav-link{{ if .active }} site-footer__nav-link--active{{ end }}{{ if .placeholder }} site-footer__nav-link--placeholder{{ end }}"
+                  class="site-footer__nav-link{{ if .active }} site-footer__nav-link--active{{ end }}{{ if .placeholder }} site-footer__nav-link--placeholder{{ end }}{{ if .button }} site-footer__nav-link--button{{ end }}"
                   href="{{ if .placeholder }}#{{ else }}{{ .url | relURL }}{{ end }}"
                   {{ if .placeholder }}aria-disabled="true" title="Temporary placeholder link"{{ end }}>{{ .label }}</a>
               </li>

@@ -60,6 +60,27 @@
   white-space: nowrap;
 }
 
+.site-footer__nav-link--button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 2.35rem;
+  padding: 0.35rem 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: calc(var(--font-size-footer-nav) * 0.78);
+  line-height: 1;
+}
+
+.site-footer__nav-link--button:hover,
+.site-footer__nav-link--button:focus-visible {
+  background: var(--color-surface);
+  color: var(--color-accent);
+  outline: none;
+}
+
 .site-footer__nav-link--placeholder,
 .site-footer__legal-nav a[aria-disabled="true"] {
   color: var(--color-text-bright);

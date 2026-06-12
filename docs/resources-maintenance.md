@@ -630,7 +630,7 @@ just validate-resources
 If `just` is unavailable, run the validation command directly:
 
 ```bash
-if rg -q "is-missing" public/resources; then rg "is-missing" public/resources; exit 1; fi
+if rg -q '<span class=("[^"]*"|[^>]*)is-missing' public/resources; then rg '<span class=("[^"]*"|[^>]*)is-missing' public/resources; exit 1; fi
 ```
 
 This catches relationship IDs that point to pages that do not exist.

@@ -3,7 +3,7 @@ columns:
       - label: About
         url: /about/team/
       - label: Resources
-        url: /#resources
+        url: /resources/
       - label: Projects
         url: /projects/
   - links:
@@ -16,6 +16,9 @@ columns:
   - links:
       - label: Contact
         url: /about/team/#contact
+      - label: Developer Guide
+        url: /resources/developer-guide/
+        button: true
 
 social_links:
   - label: International Brain Laboratory on GitHub

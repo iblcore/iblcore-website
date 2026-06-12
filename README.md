@@ -184,5 +184,6 @@ Notes:
 - The About section IA for the current implementation is: Our Team (`/about/team/`, grouped into staff and PI scientific board with a contact prompt), History (`/about/history/`), FAQ (`/about/faq/`), and Support (`/about/support/`). `/about/` redirects to Our Team.
 - The Resources section IA is: Start Here, Workflows, Datasets, Tools, Methods, and Learning. Resource front matter feeds automatic relationship panels and `/resource-graph.json`.
 - `/resources/ai-assistant-guide/` provides a compact routing guide for AI assistants and automated clients.
+- `/resources/developer-guide/` provides contribution guidance for developers adding Resources pages and graph relationships.
 - The top navigation is: About, Resources (`/resources/`), Projects, Publications (`/#publications`), Templates (`/templates/`), Events (`/events/`), News disabled, and Contact (`/#contact`). The footer mirrors that menu and adds Legal Notice.
 - See [AGENTS.md](AGENTS.md) for repository-specific instructions used by coding agents.
