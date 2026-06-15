@@ -1,6 +1,8 @@
 members:
   - first_name: Gaelle
     last_name: Chapuis
+    title: Director of Operations and Outreach
+    location: Geneva, CH
     group: staff
     image: Chapuis_Gaelle.webp
     crop_x: 50%
@@ -20,6 +22,8 @@ members:
     crop_y: 20%
   - first_name: Vani
     last_name: Pariyadath
+    title: Executive Director
+    location: Rockville, US
     group: staff
     image: Pariyadath_Vani.webp
     crop_x: 50%
