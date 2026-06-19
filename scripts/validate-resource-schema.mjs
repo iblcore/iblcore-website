@@ -105,6 +105,7 @@ const allowedModalities = await loadAllowedModalities();
 const files = await collectMarkdownFiles(resourcesRoot);
 const errors = [];
 const canonicalNames = new Map();
+const titles = new Map();
 
 for (const file of files) {
   const baseName = path.basename(file);
@@ -165,6 +166,20 @@ for (const file of files) {
       canonicalNames.set(key, file);
     }
   }
+
+  const title = String(frontMatter.title || '').trim();
+  if (!title) {
+    errors.push(`${relativeFile}: missing title`);
+  } else {
+    const key = title.toLowerCase();
+    if (titles.has(key)) {
+      errors.push(
+        `${relativeFile}: duplicate title "${title}" also used by ${path.relative(repoRoot, titles.get(key))}`
+      );
+    } else {
+      titles.set(key, file);
+    }
+  }
 }
 
 if (errors.length > 0) {
@@ -175,4 +190,6 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
-console.log(`Validated ${files.length} resource markdown files against ${allowedModalities.size} allowed modalities.`);
+console.log(
+  `Validated ${files.length} resource markdown files against ${allowedModalities.size} allowed modalities, ${canonicalNames.size} canonical names, and ${titles.size} titles.`
+);
