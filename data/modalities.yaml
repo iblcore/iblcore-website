@@ -1,0 +1,19 @@
+modalities:
+  - slug: behaviour
+    label: Behaviour
+    description: Behavioural tasks, rig control, and related measurements.
+  - slug: histology
+    label: Histology
+    description: Tissue processing, probe track alignment, and anatomical reconstruction.
+  - slug: mesoscope
+    label: Mesoscope
+    description: Mesoscope imaging and analysis resources.
+  - slug: neuropixels
+    label: Neuropixels
+    description: Neuropixels electrophysiology resources and related analysis.
+  - slug: video
+    label: Video
+    description: Video acquisition, pose tracking, and motion analysis.
+  - slug: widefield
+    label: Widefield
+    description: Widefield imaging and analysis resources.

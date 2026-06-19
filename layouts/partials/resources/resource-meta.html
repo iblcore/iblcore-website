@@ -1,12 +1,44 @@
 {{- $items := slice -}}
-{{- with .Params.difficulty }}{{ $items = $items | append (printf "Difficulty: %s" .) }}{{ end -}}
-{{- with .Params.learning_type }}{{ $items = $items | append (printf "Type: %s" (. | humanize)) }}{{ end -}}
-{{- with .Params.audience }}{{ $items = $items | append (printf "Audience: %s" (delimit . ", ")) }}{{ end -}}
-{{- with .Params.modality }}{{ $items = $items | append (printf "Modality: %s" (delimit . ", ")) }}{{ end -}}
+{{- with .Params.difficulty }}{{ $items = $items | append (dict "label" "Difficulty" "value" .) }}{{ end -}}
+{{- with .Params.learning_type }}{{ $items = $items | append (dict "label" "Type" "value" (. | humanize)) }}{{ end -}}
+{{- with .Params.audience }}{{ $items = $items | append (dict "label" "Audience" "value" (delimit . ", ")) }}{{ end -}}
+{{- with .Params.modality_scope }}{{ $items = $items | append (dict "label" "Scope" "value" (. | humanize)) }}{{ end -}}
+{{- $modalities := slice -}}
+{{- with .Params.modalities -}}
+  {{- $modalities = . -}}
+{{- else with .Params.modality -}}
+  {{- $modalities = . -}}
+{{- end -}}
+{{- if $modalities -}}
+  {{- $labels := slice -}}
+  {{- range $slug := $modalities -}}
+    {{- $label := $slug | humanize -}}
+    {{- range hugo.Data.modalities.modalities -}}
+      {{- if eq .slug $slug -}}
+        {{- $label = .label -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $labels = $labels | append $label -}}
+  {{- end -}}
+  {{- $items = $items | append (dict "label" "Modality" "value" (delimit $labels ", ")) -}}
+{{- end -}}
+{{- with .Params.reference }}{{ $items = $items | append (dict "label" "Reference" "value" .) }}{{ end -}}
+{{- with .Params.citation }}
+  {{- $citation := . -}}
+  {{- $href := "" -}}
+  {{- if or (hasPrefix $citation "http://") (hasPrefix $citation "https://") -}}
+    {{- $href = $citation -}}
+  {{- else if hasPrefix $citation "doi:" -}}
+    {{- $href = printf "https://doi.org/%s" (replaceRE "^doi:" "" $citation) -}}
+  {{- else if hasPrefix $citation "10." -}}
+    {{- $href = printf "https://doi.org/%s" $citation -}}
+  {{- end -}}
+  {{- $items = $items | append (dict "label" "Citation" "value" $citation "href" $href) -}}
+{{- end -}}
 {{- if $items -}}
   <ul class="resource-meta" aria-label="Resource metadata">
     {{- range $items -}}
-      <li>{{ . }}</li>
+      <li>{{ .label }}: {{- if .href }} <a href="{{ .href }}">{{ .value }}</a>{{- else }} {{ .value }}{{- end }}</li>
     {{- end -}}
   </ul>
 {{- end -}}

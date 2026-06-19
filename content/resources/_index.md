@@ -29,11 +29,16 @@ resource_sections:
   - title: "Learning"
     url: "/resources/learning/"
     summary: "Quickstarts, tutorials, Colabs, courses, FAQs, and glossary material."
+  - title: "Ecosystem Graph"
+    url: "/resources/ecosystem/"
+    summary: "Mermaid dependency view of the core IBL software repositories."
 ---
 
 ## A Workflow-First Map
 
 Resources are organized around what researchers are trying to accomplish. The page tree helps people browse; the front matter on each resource page describes relationships between workflows, datasets, tools, methods, and learning material.
+
+The ecosystem graph shows how the core repositories depend on each other.
 
 Authors maintain only forward links such as `uses`, `requires`, `datasets`, `methods`, `learning`, and `next_steps`. The site computes reverse links such as "Used by" automatically.
 

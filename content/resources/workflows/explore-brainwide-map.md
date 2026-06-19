@@ -1,8 +1,11 @@
 ---
 title: "Explore Brainwide Map"
+resource_type: workflow
+reference: 
+citation: 
 description: "A first path for discovering Brainwide Map data and tutorials."
 lead: "Use this workflow when you want to understand what the Brainwide Map contains and how to begin exploring it."
-resource_type: workflow
+citations: []
 difficulty: beginner
 audience:
   - new IBL user

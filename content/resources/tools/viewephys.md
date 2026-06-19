@@ -1,8 +1,11 @@
 ---
 title: "ViewEphys"
+resource_type: tool
+reference: 
+citation: 
 description: "Viewer for electrophysiology recordings and quality-control inspection."
 lead: "Use ViewEphys to inspect Neuropixels recordings before or after processing."
-resource_type: tool
+citations: []
 requires:
   - one
 datasets:

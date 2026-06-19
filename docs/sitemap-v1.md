@@ -54,12 +54,13 @@ Top-level Resources sections:
 - Tools (`/resources/tools/`) - software, services, viewers, and reusable infrastructure
 - Methods (`/resources/methods/`) - experimental and analytical methods, rigs, protocols, and modalities
 - Learning (`/resources/learning/`) - quickstarts, tutorials, Colabs, courses, FAQs, and glossary material
+- Ecosystem Graph (`/resources/ecosystem/`) - Mermaid dependency graph for the core IBL repositories
 
 Starter workflow pages:
 - Explore Brainwide Map
 - Analyse Neuropixels Data
 - Run Behaviour Experiment
-- Spike Sorting Pipeline
+- Spike Sorting Workflow
 - Anatomical Localisation
 - Reproduce Publication Results
 - Build Custom Analysis

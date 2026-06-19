@@ -8,7 +8,7 @@
     </div>
   </section>
 
-  {{ if or .Params.lead .Params.difficulty .Params.learning_type .Params.audience .Params.modality }}
+  {{ if or .Params.lead .Params.difficulty .Params.learning_type .Params.audience .Params.modalities .Params.modality .Params.reference .Params.citation }}
     <section class="resource-intro section-banner">
       <div class="shell page-shell resource-intro__inner section-banner__inner">
         <div class="resource-intro__copy section-banner__copy prose">
@@ -27,6 +27,7 @@
       </article>
       <aside class="resource-detail__aside" aria-label="Resource relationships">
         {{ partial "resources/relationship-panel.html" . }}
+        {{ partial "resources/citation-panel.html" . }}
       </aside>
     </div>
   </section>

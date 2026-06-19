@@ -1,8 +1,11 @@
 ---
 title: "Video"
+resource_type: method
+reference: 
+citation: 
 description: "Method page for video resources."
 lead: "Use this page to collect video acquisition and analysis resources."
-resource_type: method
+citations: []
 learning:
   - glossary
 ---

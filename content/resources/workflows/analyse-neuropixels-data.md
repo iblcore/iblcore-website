@@ -1,8 +1,11 @@
 ---
 title: "Analyse Neuropixels Data"
+resource_type: workflow
+reference: 
+citation: 
 description: "Find, inspect, analyse, and visualise Neuropixels recordings."
 lead: "Use this workflow to move from session discovery to analysis-ready Neuropixels data."
-resource_type: workflow
+citations: []
 difficulty: intermediate
 audience:
   - electrophysiologist

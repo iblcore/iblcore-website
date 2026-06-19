@@ -1,8 +1,11 @@
 ---
 title: "Build Custom Analysis"
+resource_type: workflow
+reference: 
+citation: 
 description: "Use IBL tools and datasets as reusable building blocks for new analyses."
 lead: "Use this workflow when you know the resources you need and want to assemble a custom analysis path."
-resource_type: workflow
+citations: []
 difficulty: advanced
 audience:
   - computational neuroscientist

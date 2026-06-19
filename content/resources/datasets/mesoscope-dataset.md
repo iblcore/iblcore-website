@@ -1,11 +1,15 @@
 ---
 title: "Mesoscope Dataset"
+resource_type: dataset
+reference: 
+citation: 
 description: "Dataset entry point for mesoscope resources."
 lead: "Use this page to collect access paths and workflows for mesoscope data."
-resource_type: dataset
+citations: []
 difficulty: intermediate
-modality:
-  - Mesoscope
+modality_scope: specific
+modalities:
+  - mesoscope
 requires:
   - one
 methods:

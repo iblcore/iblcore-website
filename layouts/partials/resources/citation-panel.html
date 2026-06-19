@@ -1,0 +1,37 @@
+{{- $page := . -}}
+{{- $items := slice -}}
+{{- range partial "resources/citation-items.html" $page -}}
+  {{- $items = $items | append . -}}
+{{- end -}}
+{{- if eq $page.Params.resource_type "workflow" -}}
+  {{- range partial "resources/refs.html" $page -}}
+    {{- with partial "resources/resource-page.html" (dict "site" $page.Site "id" .) -}}
+      {{- range partial "resources/citation-items.html" . -}}
+        {{- $items = $items | append . -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $items = $items | uniq -}}
+{{- if $items -}}
+  <section class="relationship-panel__group">
+    <h2>How To Cite</h2>
+    <ul class="relationship-list">
+      {{- range $items -}}
+        {{- $parts := split . "||" -}}
+        {{- $label := index $parts 0 -}}
+        {{- $url := index $parts 1 -}}
+        {{- $note := "" -}}
+        {{- if ge (len $parts) 3 -}}
+          {{- $note = index $parts 2 -}}
+        {{- end -}}
+        <li>
+          <a href="{{ $url }}">{{ $label }}</a>{{ with $note }}<span> - {{ . }}</span>{{ end }}
+        </li>
+      {{- end -}}
+    </ul>
+    {{- if eq $page.Params.resource_type "workflow" -}}
+      <p class="relationship-panel__note">This list aggregates citations from the resources used by this workflow.</p>
+    {{- end -}}
+  </section>
+{{- end -}}

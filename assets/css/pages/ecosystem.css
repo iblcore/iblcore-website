@@ -1,0 +1,75 @@
+.ecosystem-hero .resource-hero__media {
+  background:
+    linear-gradient(180deg, rgba(4, 32, 56, 0.08) 0%, rgba(4, 32, 56, 0.22) 40%, rgba(4, 32, 56, 0.72) 100%),
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.22), transparent 42%),
+    url("/images/projects-background.webp");
+  background-position: center 28%;
+}
+
+.resource-hero__eyebrow {
+  margin: 0 0 var(--space-xs);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.ecosystem-intro {
+  background: linear-gradient(180deg, var(--color-accent-soft) 0%, #275c82 100%);
+}
+
+.ecosystem-section {
+  padding-top: 0;
+}
+
+.ecosystem-panel {
+  display: grid;
+  gap: var(--space-lg);
+  padding: var(--space-xl);
+  border: 1px solid var(--color-border);
+  border-radius: var(--space-panel-lg);
+  background: var(--color-surface);
+  color: var(--color-accent);
+  box-shadow: var(--shadow-soft);
+}
+
+.ecosystem-panel__header h2 {
+  margin: 0 0 var(--space-xs);
+  font-size: var(--font-size-prose-heading);
+  text-transform: uppercase;
+}
+
+.ecosystem-panel__header p,
+.ecosystem-panel__legend p {
+  margin: 0;
+}
+
+.ecosystem-diagram {
+  min-height: 36rem;
+  overflow-x: auto;
+  padding: var(--space-md);
+  border: 1px solid rgba(0, 77, 137, 0.12);
+  border-radius: var(--space-panel-md);
+  background: #f8fbfd;
+}
+
+.ecosystem-diagram .node rect,
+.ecosystem-diagram .node polygon,
+.ecosystem-diagram .node path {
+  rx: 10;
+  ry: 10;
+}
+
+.ecosystem-diagram .edgePath path {
+  stroke-width: 2px;
+}
+
+@media (max-width: 900px) {
+  .ecosystem-panel {
+    padding: var(--space-lg);
+  }
+
+  .ecosystem-diagram {
+    min-height: 28rem;
+  }
+}

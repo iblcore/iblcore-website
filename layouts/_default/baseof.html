@@ -41,6 +41,9 @@
     {{ if .IsHome }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/home.css") }}
     {{ end }}
+    {{ if eq .Layout "ecosystem" }}
+      {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/ecosystem.css") }}
+    {{ end }}
     {{ $fingerprintAssets := .Site.Params.fingerprintAssets | default false }}
     {{ if not $fingerprintAssets }}
       {{ range $baseStyles }}

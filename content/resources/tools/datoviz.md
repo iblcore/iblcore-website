@@ -1,8 +1,11 @@
 ---
 title: "Datoviz"
+resource_type: tool
+reference: 
+citation: 
 description: "Interactive visualisation tool for scientific data."
 lead: "Use Datoviz when analysis outputs need interactive visual inspection."
-resource_type: tool
+citations: []
 requires:
   - brainbox
 learning:

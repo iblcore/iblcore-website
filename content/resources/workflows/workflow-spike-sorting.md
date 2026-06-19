@@ -1,8 +1,11 @@
 ---
-title: "Spike Sorting Pipeline"
-description: "Move raw Neuropixels recordings through spike sorting and inspection."
-lead: "Use this workflow to understand where spike sorting fits in the IBL electrophysiology pipeline."
+title: "Spike Sorting Workflow"
 resource_type: workflow
+reference: 
+citation: 
+description: "Overview of how raw Neuropixels recordings move through spike sorting and inspection."
+lead: "Use this workflow to understand where spike sorting fits in the IBL electrophysiology pipeline."
+citations: []
 difficulty: advanced
 audience:
   - electrophysiologist
@@ -36,5 +39,7 @@ steps:
     uses:
       - brainbox
 ---
+
+This page is the user journey. It explains when spike sorting belongs in the broader electrophysiology workflow, which resources are involved, and what you should do after the outputs are ready.
 
 Keep implementation details in the linked tool and tutorial pages so this workflow remains an overview.

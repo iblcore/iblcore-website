@@ -31,6 +31,7 @@ Implemented:
 - Events landing page at `/events/` with four front-matter-driven event cards
 - Templates review page at `/templates/` with three reusable mock layout sections for graphic/design review
 - Workflow-first `/resources/` section with generated relationship panels and `/resource-graph.json`
+- Mermaid ecosystem graph page at `/resources/ecosystem/` driven by `data/ecosystem.yaml`
 - Shared component styling and mobile nav toggle
 - Markdown stubs for top-level sections, key About pages, and resource workflow/template pages
 - `Justfile` commands for local development and maintenance
@@ -75,6 +76,8 @@ just build        # build into public/
 just serve        # run local dev server
 just test-serve   # short-lived server startup check
 just check        # fail on Hugo warnings
+just validate-requires # fail on missing resource IDs in requires front matter
+just validate-resource-schema # fail on invalid modality slugs or duplicate canonical names
 just validate-resources # fail on unresolved resource graph references
 just capture-landing # capture desktop/mobile landing-page screenshots
 just clean        # remove generated artifacts
@@ -112,6 +115,8 @@ Screenshots are written to `reports/landing/`.
 - Prefer editing markdown content and front matter before creating custom templates.
 - For `/projects/`, edit `data/projects.yaml` for structure and item metadata, then edit the referenced markdown files under `content/projects/descriptions/` for long-form copy.
 - For `/resources/`, edit resource pages under `content/resources/`. Maintain forward relationships only in front matter; templates calculate reverse links and `/resource-graph.json`.
+- Run `just validate-requires` when editing resource dependencies so `requires` IDs stay pointed at existing resources.
+- Run `just validate-resource-schema` when editing resource metadata so modality slugs and canonical names stay consistent.
 - See [docs/resources-maintenance.md](docs/resources-maintenance.md) before adding new tools, datasets, workflows, methods, or learning pages.
 - Keep CSS modular and straightforward while the landing-page design is being tightened against the current mockup.
 - Keep JS minimal and progressive.
@@ -149,6 +154,7 @@ Run after editing:
 
 ```bash
 hugo --panicOnWarning --cleanDestinationDir
+just validate-requires
 just validate-resources
 ```
 
@@ -183,6 +189,12 @@ Notes:
 - The current site is still provisional, but the homepage is now under active visual refinement against `docs/landing-prototype-mini.webp`.
 - The About section IA for the current implementation is: Our Team (`/about/team/`, grouped into staff and PI scientific board with a contact prompt), History (`/about/history/`), FAQ (`/about/faq/`), and Support (`/about/support/`). `/about/` redirects to Our Team.
 - The Resources section IA is: Start Here, Workflows, Datasets, Tools, Methods, and Learning. Resource front matter feeds automatic relationship panels and `/resource-graph.json`.
+- The Resources section also includes a Mermaid ecosystem graph page generated from `data/ecosystem.yaml`.
+- Maintain the ecosystem graph by editing `data/ecosystem.yaml`:
+  - `depends_on` for code or import dependencies
+  - `runtime_requires` for runtime-only needs
+  - `source_requires` for source/development environments
+  - `supports` for umbrella environments that cover multiple repos
 - `/resources/ai-assistant-guide/` provides a compact routing guide for AI assistants and automated clients.
 - `/resources/developer-guide/` provides contribution guidance for developers adding Resources pages and graph relationships.
 - The top navigation is: About, Resources (`/resources/`), Projects, Publications (`/#publications`), Templates (`/templates/`), Events (`/events/`), News disabled, and Contact (`/#contact`). The footer mirrors that menu and adds Legal Notice.

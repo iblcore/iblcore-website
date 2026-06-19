@@ -1,8 +1,11 @@
 ---
 title: "Run Behaviour Experiment"
+resource_type: workflow
+reference: 
+citation: 
 description: "Prepare behavioural tasks and acquisition resources before data analysis."
 lead: "Use this workflow when planning or reviewing an IBL-style behavioural experiment."
-resource_type: workflow
+citations: []
 difficulty: intermediate
 audience:
   - experimentalist

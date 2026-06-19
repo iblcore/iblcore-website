@@ -2,7 +2,9 @@
   "name": "iblcore-website",
   "private": true,
   "scripts": {
-    "capture:landing": "node scripts/capture-landing.mjs"
+    "capture:landing": "node scripts/capture-landing.mjs",
+    "validate:requires": "node scripts/validate-requires.mjs",
+    "validate:resource-schema": "node scripts/validate-resource-schema.mjs"
   },
   "devDependencies": {
     "playwright": "^1.54.2",

@@ -1,8 +1,11 @@
 ---
 title: "Behaviour"
+resource_type: method
+reference: 
+citation: 
 description: "Method page for behavioural tasks, rigs, and outputs."
 lead: "Use this page to connect behaviour methods to experiments, datasets, and analysis workflows."
-resource_type: method
+citations: []
 datasets:
   - behaviour-dataset
 learning:

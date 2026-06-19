@@ -1,8 +1,11 @@
 ---
 title: "Glossary"
+resource_type: learning
+reference: 
+citation: 
 description: "Shared vocabulary for IBL resources."
 lead: "Use this page to define terms used across datasets, tools, methods, workflows, and tutorials."
-resource_type: learning
+citations: []
 learning_type: glossary
 ---
 

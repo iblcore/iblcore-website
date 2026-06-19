@@ -1,8 +1,11 @@
 ---
 title: "ONE"
+resource_type: tool
+reference: 
+citation: 
 description: "IBL data access client."
 lead: "Use ONE to discover and access IBL sessions and associated data objects."
-resource_type: tool
+citations: []
 requires:
   - alyx
 learning:

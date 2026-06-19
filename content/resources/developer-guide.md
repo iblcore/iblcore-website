@@ -1,8 +1,10 @@
+reference: ""
+citation: ""
 ---
 title: "Developer Guide"
 description: "How developers should add, connect, and validate Resources pages."
 lead: "Use this guide when contributing new workflows, tools, datasets, methods, tutorials, or dependency relationships to the Resources section."
-resource_type: learning
+citations: []
 learning_type: guide
 workflows:
   - analyse-neuropixels-data
@@ -171,12 +173,44 @@ next_steps  recommended follow-up workflows
 
 Do not invent new relationship names unless the schema is deliberately updated.
 
+## Common Metadata Fields
+
+Pages may also use these plain metadata fields when they need a canonical source or citation:
+
+| Field | Meaning |
+| --- | --- |
+| `reference` | Short human-readable reference name, such as a paper title, repository name, or project label. |
+| `citation` | The canonical external citation link, such as a DOI URL or repository URL. |
+| `citations` | A machine-readable list of citation records used for page display and workflow aggregation. |
+| `canonical_name` | A stable canonical name used by validation to detect duplicate resource names. |
+| `modality_scope` | Whether the page is `specific` or `cross_modal`. |
+| `modalities` | A list of canonical modality slugs from `data/modalities.yaml`. |
+
+Example:
+
+```yaml
+---
+title: "Spike Sorting Pipeline"
+canonical_name: "Spike Sorting Pipeline"
+resource_type: tool
+reference: "ibl-sorter"
+citation: "https://github.com/int-brain-lab/ibl-sorter"
+citations:
+  - label: "ibl-sorter"
+    url: "https://github.com/int-brain-lab/ibl-sorter"
+---
+```
+
+New resource archetypes should include these fields as empty defaults so editors see the citation slots immediately when creating a page.
+
 ## Validation
 
 Before handing off a Resources change, run:
 
 ```bash
 hugo --panicOnWarning --cleanDestinationDir
+just validate-requires
+just validate-resource-schema
 just validate-resources
 ```
 
@@ -197,5 +231,8 @@ Then check that `/resource-graph.json` contains the new resource.
 - A tutorial or quickstart was added if the resource needs onboarding.
 - No manual `used_by` field was added.
 - The Hugo build passes.
+- `requires` only points to existing resource IDs.
+- `just validate-requires` passes.
+- `just validate-resource-schema` passes.
 - Resource validation passes.
 - The page appears in `/resource-graph.json`.

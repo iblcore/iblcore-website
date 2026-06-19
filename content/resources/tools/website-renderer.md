@@ -1,8 +1,11 @@
 ---
 title: "Website Renderer"
+resource_type: tool
+reference: 
+citation: 
 description: "Renderer for creating website-ready visual outputs."
 lead: "Use the website renderer when analysis outputs need to become reusable web visualisations."
-resource_type: tool
+citations: []
 requires:
   - datoviz
 learning:

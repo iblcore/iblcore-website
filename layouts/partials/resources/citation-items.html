@@ -1,0 +1,17 @@
+{{- $page := . -}}
+{{- $items := slice -}}
+{{- with $page.Params.citations -}}
+  {{- range . -}}
+    {{- $label := .label | default $page.Title -}}
+    {{- $url := .url | default "" -}}
+    {{- $note := .note | default "" -}}
+    {{- if $url -}}
+      {{- $items = $items | append (printf "%s||%s||%s" $label $url $note) -}}
+    {{- end -}}
+  {{- end -}}
+{{- else with $page.Params.citation -}}
+  {{- $label := $page.Params.reference | default $page.Title -}}
+  {{- $note := $page.Params.citation_note | default "" -}}
+  {{- $items = $items | append (printf "%s||%s||%s" $label . $note) -}}
+{{- end -}}
+{{- return $items -}}

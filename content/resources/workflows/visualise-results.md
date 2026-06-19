@@ -1,8 +1,11 @@
 ---
 title: "Visualise Results"
+resource_type: workflow
+reference: 
+citation: 
 description: "Move from analysis outputs to visual inspection and communication."
 lead: "Use this workflow when analysis outputs are ready and need to be inspected, shared, or embedded."
-resource_type: workflow
+citations: []
 difficulty: intermediate
 audience:
   - researcher

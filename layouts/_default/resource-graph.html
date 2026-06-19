@@ -23,14 +23,35 @@
       ) -}}
     {{- end -}}
   {{- end -}}
+  {{- $citations := slice -}}
+  {{- with $page.Params.citations -}}
+    {{- range . -}}
+      {{- $citations = $citations | append (dict
+        "label" (.label | default $page.Title)
+        "url" (.url | default "")
+        "note" (.note | default "")
+      ) -}}
+    {{- end -}}
+  {{- else with $page.Params.citation -}}
+    {{- $citations = $citations | append (dict
+      "label" ($page.Params.reference | default $page.Title)
+      "url" .
+      "note" ($page.Params.citation_note | default "")
+    ) -}}
+  {{- end -}}
   {{- $nodes = $nodes | append (dict
     "id" $id
     "title" $page.Title
+    "canonical_name" ($page.Params.canonical_name | default $page.Title)
     "type" $page.Params.resource_type
     "url" $page.RelPermalink
     "description" ($page.Description | default "")
     "difficulty" ($page.Params.difficulty | default "")
     "learning_type" ($page.Params.learning_type | default "")
+    "reference" ($page.Params.reference | default "")
+    "citation" ($page.Params.citation | default "")
+    "modality_scope" ($page.Params.modality_scope | default "")
+    "modalities" ($page.Params.modalities | default ($page.Params.modality | default slice))
     "requires" ($page.Params.requires | default slice)
     "uses" ($page.Params.uses | default slice)
     "datasets" ($page.Params.datasets | default slice)
@@ -39,6 +60,7 @@
     "workflows" ($page.Params.workflows | default slice)
     "next_steps" ($page.Params.next_steps | default slice)
     "steps" $steps
+    "citations" $citations
     "used_by" ($usedBy | uniq)
   ) -}}
 {{- end -}}

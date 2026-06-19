@@ -1,0 +1,118 @@
+{{ define "main" }}
+  <section class="resource-hero section-hero ecosystem-hero" aria-labelledby="resource-title">
+    <div class="resource-hero__media section-hero__media" aria-hidden="true"></div>
+    <div class="shell page-shell resource-hero__inner section-hero__inner">
+      <div class="resource-hero__copy section-hero__copy">
+        <p class="resource-hero__eyebrow">Resources</p>
+        <h1 id="resource-title">{{ .Title }}</h1>
+      </div>
+    </div>
+  </section>
+
+  <section class="resource-intro section-banner ecosystem-intro">
+    <div class="shell page-shell resource-intro__inner section-banner__inner">
+      <div class="resource-intro__copy section-banner__copy prose">
+        {{ with .Params.lead }}<p>{{ . }}</p>{{ end }}
+        {{ .Content }}
+      </div>
+    </div>
+  </section>
+
+  <section class="resource-section ecosystem-section">
+    <div class="shell page-shell">
+      <div class="ecosystem-panel">
+        <div class="ecosystem-panel__header">
+          <h2>Dependency graph</h2>
+          <p>Primary dependencies use solid arrows. Runtime requirements use dashed arrows.</p>
+        </div>
+        <div class="ecosystem-diagram mermaid">
+{{- $repos := hugo.Data.ecosystem.repositories -}}
+{{- $types := dict
+  "infrastructure" "ecosystem-infrastructure"
+  "core-library" "ecosystem-core-library"
+  "application-framework" "ecosystem-application-framework"
+  "application" "ecosystem-application"
+  "visualization" "ecosystem-visualization"
+  "hardware-support" "ecosystem-hardware-support"
+  "analysis" "ecosystem-analysis"
+  "acquisition" "ecosystem-acquisition"
+  "environment" "ecosystem-environment"
+-}}
+{{- $typeLabels := dict
+  "infrastructure" "Infrastructure"
+  "core-library" "Core library"
+  "application-framework" "App framework"
+  "application" "Application"
+  "visualization" "Visualization"
+  "hardware-support" "Hardware support"
+  "analysis" "Analysis"
+  "acquisition" "Acquisition"
+  "environment" "Environment"
+-}}
+{{- $edgeLabels := dict
+  "depends_on" "depends on"
+  "runtime_requires" "runtime requires"
+  "source_requires" "source requires"
+  "supports" "supports"
+-}}
+{{- $graph := newScratch -}}
+{{- $graph.Add "diagram" "graph LR\n" -}}
+{{- range $name, $repo := $repos -}}
+{{- $nodeID := printf "repo_%s" (replaceRE "[^A-Za-z0-9]+" "_" $name) -}}
+{{- $label := printf "%s<br/>%s" $name (index $typeLabels ($repo.type | default "analysis")) -}}
+{{- $graph.Add "diagram" (printf "%s[\"%s\"]\n" $nodeID $label) -}}
+{{- end -}}
+{{- $graph.Add "diagram" "\n" -}}
+{{- range $name, $repo := $repos -}}
+{{- $from := printf "repo_%s" (replaceRE "[^A-Za-z0-9]+" "_" $name) -}}
+{{- range $dep := ($repo.depends_on | default slice) -}}
+{{- $to := printf "repo_%s" (replaceRE "[^A-Za-z0-9]+" "_" $dep) -}}
+{{- $graph.Add "diagram" (printf "%s -->|%s| %s\n" $from (index $edgeLabels "depends_on") $to) -}}
+{{- end -}}
+{{- range $dep := ($repo.runtime_requires | default slice) -}}
+{{- $to := printf "repo_%s" (replaceRE "[^A-Za-z0-9]+" "_" $dep) -}}
+{{- $graph.Add "diagram" (printf "%s -.->|%s| %s\n" $from (index $edgeLabels "runtime_requires") $to) -}}
+{{- end -}}
+{{- range $dep := ($repo.source_requires | default slice) -}}
+{{- $to := printf "repo_%s" (replaceRE "[^A-Za-z0-9]+" "_" $dep) -}}
+{{- $graph.Add "diagram" (printf "%s -.->|%s| %s\n" $from (index $edgeLabels "source_requires") $to) -}}
+{{- end -}}
+{{- range $dep := ($repo.supports | default slice) -}}
+{{- $to := printf "repo_%s" (replaceRE "[^A-Za-z0-9]+" "_" $dep) -}}
+{{- $graph.Add "diagram" (printf "%s -->|%s| %s\n" $from (index $edgeLabels "supports") $to) -}}
+{{- end -}}
+{{- end -}}
+{{- $graph.Add "diagram" "\n" -}}
+{{- range $name, $repo := $repos -}}
+{{- $nodeID := printf "repo_%s" (replaceRE "[^A-Za-z0-9]+" "_" $name) -}}
+{{- $class := index $types ($repo.type | default "analysis") -}}
+{{- $graph.Add "diagram" (printf "class %s %s\n" $nodeID $class) -}}
+{{- end -}}
+{{ $graph.Get "diagram" | safeHTML }}
+        </div>
+        <div class="ecosystem-panel__legend">
+          <p><strong>Legend:</strong> dependency arrows show code/build dependencies, runtime arrows show software required to execute, source arrows show the environment used when developing or launching from source.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "base",
+      flowchart: {
+        curve: "basis",
+        nodeSpacing: 40,
+        rankSpacing: 70,
+      },
+      themeVariables: {
+        fontFamily: '"Ubuntu Condensed", sans-serif',
+        primaryTextColor: "#10202b",
+        lineColor: "#8c97a3",
+      },
+    });
+  </script>
+{{ end }}

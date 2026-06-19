@@ -1,8 +1,11 @@
 ---
 title: "Histology Alignment GUI"
+resource_type: tool
+reference: 
+citation: 
 description: "Tool for aligning probe tracks and anatomical locations."
 lead: "Use the histology alignment GUI when connecting electrophysiology recordings to brain anatomy."
-resource_type: tool
+citations: []
 methods:
   - histology
   - neuropixels

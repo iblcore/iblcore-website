@@ -1,8 +1,11 @@
 ---
 title: "Neuropixels"
+resource_type: method
+reference: 
+citation: 
 description: "High-density electrophysiology method used across IBL resources."
 lead: "Use this page as the hub for Neuropixels recordings, protocols, datasets, tools, and workflows."
-resource_type: method
+citations: []
 uses:
   - viewephys
   - spike-sorting-pipeline

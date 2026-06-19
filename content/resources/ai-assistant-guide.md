@@ -1,8 +1,11 @@
 ---
 title: "AI Assistant Guide"
+resource_type: learning
+reference: 
+citation: 
 description: "A compact guide for AI assistants that need to route users through IBL resources."
 lead: "Use this guide to answer practical questions by starting from workflows, then following the resource graph into tools, datasets, methods, and tutorials."
-resource_type: learning
+citations: []
 learning_type: guide
 uses:
   - one

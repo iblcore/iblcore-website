@@ -1,11 +1,15 @@
 ---
 title: "Brainwide Map"
+resource_type: dataset
+reference: 
+citation: 
 description: "A flagship IBL dataset for brain-wide Neuropixels analyses."
 lead: "Use Brainwide Map when exploring large-scale IBL electrophysiology data across brain areas."
-resource_type: dataset
+citations: []
 difficulty: intermediate
-modality:
-  - Neuropixels
+modality_scope: specific
+modalities:
+  - neuropixels
 requires:
   - one
 learning:

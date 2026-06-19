@@ -1,8 +1,11 @@
 ---
 title: "Brainbox"
+resource_type: tool
+reference: 
+citation: 
 description: "Analysis utilities for IBL data."
 lead: "Use Brainbox for reusable analysis utilities built around IBL data structures."
-resource_type: tool
+citations: []
 requires:
   - one
 learning:

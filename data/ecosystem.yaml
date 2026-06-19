@@ -1,0 +1,98 @@
+version: 1
+
+repositories:
+
+  Alyx:
+    type: infrastructure
+    description: Laboratory information management system and metadata database
+
+  one:
+    type: core-library
+    description: Data access layer for Alyx and local caches
+    depends_on:
+      - Alyx
+
+  ibllib:
+    type: core-library
+    description: Core IBL analysis and data-processing library
+    depends_on:
+      - one
+
+  iblapps:
+    type: application-framework
+    description: Collection of IBL desktop and workflow applications
+    depends_on:
+      - ibllib
+
+  ibl-alignment-gui:
+    type: application
+    description: Histology and electrophysiology alignment GUI
+    depends_on:
+      - iblapps
+    runtime_requires:
+      - Alyx
+    source_requires:
+      - ibl-alignment
+
+  ibl-datoviz:
+    type: visualization
+    description: Datoviz-based visualization tools for IBL data
+    depends_on:
+      - ibllib
+      - one
+
+  ibl-neuropixel:
+    type: hardware-support
+    description: Neuropixels probe utilities and support code
+    depends_on:
+      - ibllib
+
+  iblvideo:
+    type: analysis
+    description: Video processing and analysis tools
+    depends_on:
+      - ibllib
+      - one
+
+  ibleatools:
+    type: analysis
+    description: Electrophysiology analysis tools
+    depends_on:
+      - ibllib
+      - one
+
+  iblrig:
+    type: acquisition
+    description: Behavioral rig control and experiment acquisition software
+    depends_on:
+      - ibllib
+      - one
+    runtime_requires:
+      - Alyx
+
+  ibl-ai-agent:
+    type: application
+    description: AI-assisted interaction with IBL data and infrastructure
+    depends_on:
+      - one
+      - ibllib
+
+  iblenv:
+    type: environment
+    description: Shared environment and deployment configuration
+    supports:
+      - one
+      - ibllib
+      - iblapps
+      - ibl-datoviz
+      - ibl-neuropixel
+      - iblvideo
+      - ibleatools
+      - iblrig
+      - ibl-ai-agent
+
+  ibl-alignment:
+    type: environment
+    description: Source and development environment for the alignment GUI
+    supports:
+      - ibl-alignment-gui

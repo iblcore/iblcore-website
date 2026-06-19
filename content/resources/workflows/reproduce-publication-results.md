@@ -1,8 +1,11 @@
 ---
 title: "Reproduce Publication Results"
+resource_type: workflow
+reference: 
+citation: 
 description: "Find publication-linked datasets, tools, and notebooks."
 lead: "Use this workflow when starting from an IBL paper and moving toward reproducible analysis."
-resource_type: workflow
+citations: []
 difficulty: intermediate
 audience:
   - researcher

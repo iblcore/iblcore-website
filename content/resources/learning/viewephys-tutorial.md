@@ -1,8 +1,11 @@
 ---
 title: "ViewEphys Tutorial"
+resource_type: learning
+reference: 
+citation: 
 description: "Tutorial for inspecting Neuropixels recordings with ViewEphys."
 lead: "Use this tutorial when a workflow asks you to inspect electrophysiology recordings."
-resource_type: learning
+citations: []
 learning_type: tutorial
 uses:
   - viewephys

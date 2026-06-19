@@ -105,6 +105,59 @@ Use this controlled vocabulary:
 
 Prefer these fields over inventing new names such as `related_tools`, `related_tutorials`, or `used_by`.
 
+## Common Metadata Fields
+
+Use these optional metadata fields when a page needs a source reference or a canonical citation:
+
+| Field | Meaning |
+| --- | --- |
+| `reference` | Short human-readable reference name, such as a paper title, repository name, or project label. |
+| `citation` | The canonical external citation link, such as a DOI URL or repository URL. |
+| `citations` | A machine-readable list of citation records used for page display and workflow aggregation. |
+| `canonical_name` | A stable canonical name used by validation to detect duplicate resource names. |
+| `modality_scope` | Whether the page is `specific` or `cross_modal`. |
+| `modalities` | A list of canonical modality slugs from `data/modalities.yaml`. |
+
+Example:
+
+```yaml
+---
+title: "Spike Sorting Pipeline"
+canonical_name: "Spike Sorting Pipeline"
+resource_type: tool
+reference: "ibl-sorter"
+citation: "https://github.com/int-brain-lab/ibl-sorter"
+citations:
+  - label: "ibl-sorter"
+    url: "https://github.com/int-brain-lab/ibl-sorter"
+---
+```
+
+## Ecosystem Graph Maintenance
+
+The ecosystem graph is driven by `data/ecosystem.yaml` and rendered on `/resources/ecosystem/`.
+
+Use these rules when editing it:
+
+| Field | Use when |
+| --- | --- |
+| `depends_on` | A repository imports or builds on another repository. |
+| `runtime_requires` | A repository needs another project or service at execution time. |
+| `source_requires` | A repository is installed, launched, or developed from a separate source environment. |
+| `supports` | An umbrella environment covers multiple repositories. |
+
+Maintenance guidelines:
+
+- Prefer one edge type per relationship and keep the meaning consistent.
+- Add environment nodes explicitly instead of reusing a generic environment for every install path.
+- If a repository changes install method, update the YAML and rebuild the site.
+- Keep the Mermaid page text aligned with the schema so readers understand the edge labels.
+- Do not duplicate the same relationship in multiple fields unless it truly has different meanings.
+- Use `citations` when a page needs machine-readable how-to-cite data that can be aggregated on workflows.
+- Keep the resource archetypes in sync so new pages start with empty `reference`, `citation`, and `citations` fields by default.
+- Keep `canonical_name` available for validation when a display title is not a unique stable identifier.
+- Keep modality names in `data/modalities.yaml` and use those slugs in `modalities`.
+
 ## Resource Types
 
 Every resource page should include:
@@ -449,8 +502,9 @@ description: ""
 lead: ""
 resource_type: dataset
 difficulty: intermediate
-modality:
-  - Neuropixels
+modality_scope: specific
+modalities:
+  - neuropixels
 requires:
   - one
 methods:
@@ -624,7 +678,15 @@ Before finishing a Resources edit, run:
 
 ```bash
 hugo --panicOnWarning --cleanDestinationDir
+just validate-requires
+just validate-resource-schema
 just validate-resources
+```
+
+If you want to run only the dependency check:
+
+```bash
+npm run validate:requires
 ```
 
 If `just` is unavailable, run the validation command directly:
@@ -646,6 +708,9 @@ Before opening a pull request or handing off a Resources change:
 - A workflow was updated if the new resource belongs to a researcher journey.
 - A tutorial or quickstart was added if the resource needs onboarding.
 - `hugo --panicOnWarning --cleanDestinationDir` passes.
+- `requires` only points to existing resource IDs.
+- `just validate-requires` passes.
+- `just validate-resource-schema` passes.
 - `just validate-resources` or the equivalent `rg` command passes.
 - `/resource-graph.json` includes the new resource.
 

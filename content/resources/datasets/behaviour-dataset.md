@@ -1,11 +1,15 @@
 ---
 title: "Behaviour Dataset"
+resource_type: dataset
+reference: 
+citation: 
 description: "Dataset entry point for behavioural data."
 lead: "Use this page to describe behaviour data access, prerequisites, and downstream analysis paths."
-resource_type: dataset
+citations: []
 difficulty: beginner
-modality:
-  - Behaviour
+modality_scope: specific
+modalities:
+  - behaviour
 requires:
   - one
 methods:

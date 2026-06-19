@@ -1,8 +1,11 @@
 ---
 title: "Anatomical Localisation"
+resource_type: workflow
+reference: 
+citation: 
 description: "Connect recordings to anatomical locations and histology workflows."
 lead: "Use this workflow when you need to align recordings with brain anatomy."
-resource_type: workflow
+citations: []
 difficulty: advanced
 audience:
   - electrophysiologist

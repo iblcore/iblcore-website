@@ -14,7 +14,15 @@ test-serve:
 
 check:
   hugo --panicOnWarning
+  just validate-requires
+  just validate-resource-schema
   just validate-resources
+
+validate-requires:
+  npm run validate:requires
+
+validate-resource-schema:
+  npm run validate:resource-schema
 
 validate-resources:
   if rg -q '<span class=("[^"]*"|[^>]*)is-missing' public/resources; then rg '<span class=("[^"]*"|[^>]*)is-missing' public/resources; exit 1; fi

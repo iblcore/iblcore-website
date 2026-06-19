@@ -1,11 +1,15 @@
 ---
 title: "Reproducible Ephys"
+resource_type: dataset
+reference: 
+citation: 
 description: "Dataset entry point for reproducible electrophysiology analyses."
 lead: "Use this dataset when following IBL reproducible electrophysiology examples or publications."
-resource_type: dataset
+citations: []
 difficulty: intermediate
-modality:
-  - Neuropixels
+modality_scope: specific
+modalities:
+  - neuropixels
 requires:
   - one
 learning:

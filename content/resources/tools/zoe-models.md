@@ -1,8 +1,11 @@
 ---
 title: "Zoe Models"
+resource_type: tool
+reference: 
+citation: 
 description: "Model resources for IBL analysis workflows."
 lead: "Use this page to describe Zoe model resources and where they fit into analysis."
-resource_type: tool
+citations: []
 requires:
   - brainbox
 learning:
