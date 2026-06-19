@@ -1,6 +1,7 @@
 ---
 title: "Datoviz"
 resource_type: tool
+modality: []
 reference: 
 citation: 
 description: "Interactive visualisation tool for scientific data."

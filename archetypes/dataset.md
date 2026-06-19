@@ -5,8 +5,7 @@ lead: ""
 resource_type: dataset
 canonical_name: ""
 difficulty: ""
-modality_scope: ""
-modalities: []
+modality: []
 requires: []
 methods: []
 learning: []

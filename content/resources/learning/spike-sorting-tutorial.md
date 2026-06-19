@@ -1,6 +1,7 @@
 ---
 title: "Spike Sorting Tutorial"
 resource_type: learning
+modality: []
 reference: 
 citation: 
 description: "Tutorial for understanding spike sorting pipeline inputs and outputs."

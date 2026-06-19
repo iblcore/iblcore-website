@@ -1,6 +1,7 @@
 ---
 title: "Behaviour"
 resource_type: method
+modality: []
 reference: 
 citation: 
 description: "Method page for behavioural tasks, rigs, and outputs."

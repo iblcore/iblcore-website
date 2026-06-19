@@ -1,6 +1,7 @@
 ---
 title: "Visualise Results"
 resource_type: workflow
+modality: []
 reference: 
 citation: 
 description: "Move from analysis outputs to visual inspection and communication."

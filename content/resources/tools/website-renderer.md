@@ -1,6 +1,7 @@
 ---
 title: "Website Renderer"
 resource_type: tool
+modality: []
 reference: 
 citation: 
 description: "Renderer for creating website-ready visual outputs."

@@ -1,6 +1,7 @@
 ---
 title: "Brainwide Map Colab"
 resource_type: learning
+modality: []
 reference: 
 citation: 
 description: "Notebook entry point for exploring Brainwide Map data."

@@ -1,6 +1,7 @@
 ---
 title: "Analyse Neuropixels Data"
 resource_type: workflow
+modality: []
 reference: 
 citation: 
 description: "Find, inspect, analyse, and visualise Neuropixels recordings."

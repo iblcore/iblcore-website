@@ -1,6 +1,7 @@
 ---
 title: "Glossary"
 resource_type: learning
+modality: []
 reference: 
 citation: 
 description: "Shared vocabulary for IBL resources."

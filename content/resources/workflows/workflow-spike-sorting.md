@@ -1,6 +1,7 @@
 ---
 title: "Spike Sorting Workflow"
 resource_type: workflow
+modality: []
 reference: 
 citation: 
 description: "Overview of how raw Neuropixels recordings move through spike sorting and inspection."

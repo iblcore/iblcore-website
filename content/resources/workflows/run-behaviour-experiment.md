@@ -1,6 +1,7 @@
 ---
 title: "Run Behaviour Experiment"
 resource_type: workflow
+modality: []
 reference: 
 citation: 
 description: "Prepare behavioural tasks and acquisition resources before data analysis."

@@ -6,6 +6,7 @@ description: "How developers should add, connect, and validate Resources pages."
 lead: "Use this guide when contributing new workflows, tools, datasets, methods, tutorials, or dependency relationships to the Resources section."
 citations: []
 learning_type: guide
+modality: []
 workflows:
   - analyse-neuropixels-data
   - visualise-results
@@ -183,8 +184,7 @@ Pages may also use these plain metadata fields when they need a canonical source
 | `citation` | The canonical external citation link, such as a DOI URL or repository URL. |
 | `citations` | A machine-readable list of citation records used for page display and workflow aggregation. |
 | `canonical_name` | A stable canonical name used by validation to detect duplicate resource names. |
-| `modality_scope` | Whether the page is `specific` or `cross_modal`. |
-| `modalities` | A list of canonical modality slugs from `data/modalities.yaml`. |
+| `modality` | A list of canonical modality slugs from `data/modalities.yaml`. Use one slug for single-modality pages and multiple relevant slugs for cross-modal pages. |
 
 Example:
 
@@ -202,6 +202,13 @@ citations:
 ```
 
 New resource archetypes should include these fields as empty defaults so editors see the citation slots immediately when creating a page.
+
+Recommended modality pattern:
+
+- Use `modality` as a list.
+- Put one slug in the list for single-modality resources.
+- Put several slugs in the list for cross-modal resources.
+- Keep the modality vocabulary centralized in `data/modalities.yaml`.
 
 ## Validation
 

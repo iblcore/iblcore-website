@@ -1,6 +1,7 @@
 ---
 title: "ViewEphys Tutorial"
 resource_type: learning
+modality: []
 reference: 
 citation: 
 description: "Tutorial for inspecting Neuropixels recordings with ViewEphys."

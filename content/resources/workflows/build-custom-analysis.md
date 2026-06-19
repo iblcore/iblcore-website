@@ -1,6 +1,7 @@
 ---
 title: "Build Custom Analysis"
 resource_type: workflow
+modality: []
 reference: 
 citation: 
 description: "Use IBL tools and datasets as reusable building blocks for new analyses."

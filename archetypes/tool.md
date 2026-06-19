@@ -4,8 +4,7 @@ description: ""
 lead: ""
 resource_type: tool
 canonical_name: ""
-modality_scope: ""
-modalities: []
+modality: []
 requires: []
 datasets: []
 methods: []

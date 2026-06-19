@@ -7,8 +7,7 @@ description: "Dataset entry point for mesoscope resources."
 lead: "Use this page to collect access paths and workflows for mesoscope data."
 citations: []
 difficulty: intermediate
-modality_scope: specific
-modalities:
+modality:
   - mesoscope
 requires:
   - one

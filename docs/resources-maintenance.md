@@ -115,8 +115,7 @@ Use these optional metadata fields when a page needs a source reference or a can
 | `citation` | The canonical external citation link, such as a DOI URL or repository URL. |
 | `citations` | A machine-readable list of citation records used for page display and workflow aggregation. |
 | `canonical_name` | A stable canonical name used by validation to detect duplicate resource names. |
-| `modality_scope` | Whether the page is `specific` or `cross_modal`. |
-| `modalities` | A list of canonical modality slugs from `data/modalities.yaml`. |
+| `modality` | A list of canonical modality slugs from `data/modalities.yaml`. Use one slug for single-modality resources and as many relevant slugs as needed for cross-modal resources. |
 
 Example:
 
@@ -156,7 +155,9 @@ Maintenance guidelines:
 - Use `citations` when a page needs machine-readable how-to-cite data that can be aggregated on workflows.
 - Keep the resource archetypes in sync so new pages start with empty `reference`, `citation`, and `citations` fields by default.
 - Keep `canonical_name` available for validation when a display title is not a unique stable identifier.
-- Keep modality names in `data/modalities.yaml` and use those slugs in `modalities`.
+- Keep modality names in `data/modalities.yaml` and use those slugs in `modality`.
+- Use `modality` as a list. A single modality means one slug; a cross-modal resource means several slugs.
+- For cross-modal datasets, list all relevant modality slugs on the page so downstream tools can aggregate them in one pass.
 
 ## Resource Types
 
@@ -502,13 +503,16 @@ description: ""
 lead: ""
 resource_type: dataset
 difficulty: intermediate
-modality_scope: specific
-modalities:
+modality:
   - neuropixels
+  - video
+  - behaviour
 requires:
   - one
 methods:
   - neuropixels
+  - video
+  - behaviour
 learning:
   - one-quickstart
 ---
@@ -521,6 +525,7 @@ Dataset pages should include:
 - expected prerequisites
 - citation or publication guidance
 - workflows that use the dataset, generated automatically through reverse links
+- if the dataset is cross-modal, every relevant modality slug so the graph and filters stay accurate
 
 ## Adding A Method
 

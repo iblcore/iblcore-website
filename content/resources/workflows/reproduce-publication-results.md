@@ -1,6 +1,7 @@
 ---
 title: "Reproduce Publication Results"
 resource_type: workflow
+modality: []
 reference: 
 citation: 
 description: "Find publication-linked datasets, tools, and notebooks."

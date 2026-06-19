@@ -1,6 +1,7 @@
 ---
 title: "Zoe Models"
 resource_type: tool
+modality: []
 reference: 
 citation: 
 description: "Model resources for IBL analysis workflows."

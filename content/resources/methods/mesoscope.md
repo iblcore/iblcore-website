@@ -1,6 +1,7 @@
 ---
 title: "Mesoscope"
 resource_type: method
+modality: []
 reference: 
 citation: 
 description: "Method page for mesoscope resources."

@@ -1,6 +1,7 @@
 ---
 title: "Neuropixels"
 resource_type: method
+modality: []
 reference: 
 citation: 
 description: "High-density electrophysiology method used across IBL resources."

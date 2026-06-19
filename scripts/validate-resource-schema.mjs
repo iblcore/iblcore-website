@@ -33,7 +33,7 @@ function parseFrontMatter(markdown) {
     'learning',
     'workflows',
     'next_steps',
-    'modalities',
+    'modality',
   ]);
 
   let currentKey = null;
@@ -49,7 +49,7 @@ function parseFrontMatter(markdown) {
       const [, key, rawValue] = keyMatch;
       const value = rawValue.trim();
 
-      if (value === '') {
+      if (value === '' || (arrayKeys.has(key) && value === '[]')) {
         currentKey = arrayKeys.has(key) ? key : null;
         data[key] = currentKey ? [] : '';
       } else {
@@ -126,16 +126,20 @@ for (const file of files) {
     continue;
   }
 
-  if ('modality' in frontMatter) {
-    errors.push(`${relativeFile}: use modalities instead of the deprecated modality field`);
+  if (!('modality' in frontMatter)) {
+    errors.push(`${relativeFile}: missing modality`);
   }
 
-  const scope = frontMatter.modality_scope || '';
-  const modalities = Array.isArray(frontMatter.modalities) ? frontMatter.modalities : [];
-
-  if (scope && !['specific', 'cross_modal'].includes(scope)) {
-    errors.push(`${relativeFile}: invalid modality_scope "${scope}"`);
+  if ('modality_scope' in frontMatter || 'modalities' in frontMatter) {
+    errors.push(`${relativeFile}: use modality instead of modality_scope/modalities`);
   }
+
+  const modalityValue = frontMatter.modality;
+  const modalities = Array.isArray(modalityValue)
+    ? modalityValue
+    : modalityValue
+      ? [modalityValue]
+      : [];
 
   for (const modality of modalities) {
     if (!allowedModalities.has(modality)) {
@@ -143,14 +147,6 @@ for (const file of files) {
         `${relativeFile}: invalid modality "${modality}" - allowed values are ${Array.from(allowedModalities).sort().join(', ')}`
       );
     }
-  }
-
-  if (scope === 'cross_modal' && modalities.length > 0) {
-    errors.push(`${relativeFile}: cross_modal resources should not list specific modalities`);
-  }
-
-  if (scope === 'specific' && modalities.length === 0) {
-    errors.push(`${relativeFile}: specific resources should list at least one modality`);
   }
 
   const canonicalName = String(frontMatter.canonical_name || frontMatter.title || '').trim();

@@ -1,6 +1,7 @@
 ---
 title: "ONE Quickstart"
 resource_type: learning
+modality: []
 reference: 
 citation: 
 description: "First steps for discovering and loading IBL data with ONE."

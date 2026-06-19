@@ -4,6 +4,7 @@ description: ""
 lead: ""
 resource_type: learning
 learning_type: tutorial
+modality: []
 uses: []
 datasets: []
 methods: []

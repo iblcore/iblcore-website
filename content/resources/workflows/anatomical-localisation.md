@@ -1,6 +1,7 @@
 ---
 title: "Anatomical Localisation"
 resource_type: workflow
+modality: []
 reference: 
 citation: 
 description: "Connect recordings to anatomical locations and histology workflows."

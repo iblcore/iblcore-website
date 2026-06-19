@@ -7,9 +7,10 @@ description: "A flagship IBL dataset for brain-wide Neuropixels analyses."
 lead: "Use Brainwide Map when exploring large-scale IBL electrophysiology data across brain areas."
 citations: []
 difficulty: intermediate
-modality_scope: specific
-modalities:
+modality:
   - neuropixels
+  - video
+  - behaviour
 requires:
   - one
 learning:

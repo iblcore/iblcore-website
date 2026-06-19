@@ -1,6 +1,7 @@
 ---
 title: "ViewEphys"
 resource_type: tool
+modality: []
 reference: 
 citation: 
 description: "Viewer for electrophysiology recordings and quality-control inspection."

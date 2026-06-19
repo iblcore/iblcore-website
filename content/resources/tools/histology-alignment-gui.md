@@ -1,6 +1,7 @@
 ---
 title: "Histology Alignment GUI"
 resource_type: tool
+modality: []
 reference: 
 citation: 
 description: "Tool for aligning probe tracks and anatomical locations."

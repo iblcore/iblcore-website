@@ -5,8 +5,7 @@ lead: ""
 resource_type: learning
 canonical_name: ""
 learning_type: tutorial
-modality_scope: ""
-modalities: []
+modality: []
 uses: []
 datasets: []
 methods: []

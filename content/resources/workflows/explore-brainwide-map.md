@@ -1,6 +1,7 @@
 ---
 title: "Explore Brainwide Map"
 resource_type: workflow
+modality: []
 reference: 
 citation: 
 description: "A first path for discovering Brainwide Map data and tutorials."

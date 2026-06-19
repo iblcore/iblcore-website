@@ -7,8 +7,7 @@ description: "Dataset entry point for reproducible electrophysiology analyses."
 lead: "Use this dataset when following IBL reproducible electrophysiology examples or publications."
 citations: []
 difficulty: intermediate
-modality_scope: specific
-modalities:
+modality:
   - neuropixels
 requires:
   - one

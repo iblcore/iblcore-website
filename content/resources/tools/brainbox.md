@@ -1,6 +1,7 @@
 ---
 title: "Brainbox"
 resource_type: tool
+modality: []
 reference: 
 citation: 
 description: "Analysis utilities for IBL data."

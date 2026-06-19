@@ -1,6 +1,7 @@
 ---
 title: "AI Assistant Guide"
 resource_type: learning
+modality: []
 reference: 
 citation: 
 description: "A compact guide for AI assistants that need to route users through IBL resources."

@@ -1,6 +1,7 @@
 ---
 title: "Histology Alignment Tutorial"
 resource_type: learning
+modality: []
 reference: 
 citation: 
 description: "Tutorial for anatomical localisation and histology alignment."

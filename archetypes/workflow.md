@@ -7,8 +7,7 @@ canonical_name: ""
 difficulty: ""
 audience:
   - ""
-modality_scope: ""
-modalities: []
+modality: []
 requires: []
 uses: []
 datasets: []

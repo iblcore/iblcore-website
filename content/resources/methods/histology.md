@@ -1,6 +1,7 @@
 ---
 title: "Histology"
 resource_type: method
+modality: []
 reference: 
 citation: 
 description: "Method page for anatomical registration and histology workflows."

@@ -7,8 +7,7 @@ description: "Dataset entry point for behavioural data."
 lead: "Use this page to describe behaviour data access, prerequisites, and downstream analysis paths."
 citations: []
 difficulty: beginner
-modality_scope: specific
-modalities:
+modality:
   - behaviour
 requires:
   - one

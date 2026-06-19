@@ -1,6 +1,7 @@
 ---
 title: "Chronic Neuropixels"
 resource_type: method
+modality: []
 reference: 
 citation: 
 description: "Method page for chronic Neuropixels recordings."

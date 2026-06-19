@@ -1,6 +1,7 @@
 ---
 title: "Video"
 resource_type: method
+modality: []
 reference: 
 citation: 
 description: "Method page for video resources."

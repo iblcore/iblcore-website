@@ -2,16 +2,9 @@
 {{- with .Params.difficulty }}{{ $items = $items | append (dict "label" "Difficulty" "value" .) }}{{ end -}}
 {{- with .Params.learning_type }}{{ $items = $items | append (dict "label" "Type" "value" (. | humanize)) }}{{ end -}}
 {{- with .Params.audience }}{{ $items = $items | append (dict "label" "Audience" "value" (delimit . ", ")) }}{{ end -}}
-{{- with .Params.modality_scope }}{{ $items = $items | append (dict "label" "Scope" "value" (. | humanize)) }}{{ end -}}
-{{- $modalities := slice -}}
-{{- with .Params.modalities -}}
-  {{- $modalities = . -}}
-{{- else with .Params.modality -}}
-  {{- $modalities = . -}}
-{{- end -}}
-{{- if $modalities -}}
+{{- with .Params.modality -}}
   {{- $labels := slice -}}
-  {{- range $slug := $modalities -}}
+  {{- range $slug := . -}}
     {{- $label := $slug | humanize -}}
     {{- range hugo.Data.modalities.modalities -}}
       {{- if eq .slug $slug -}}
