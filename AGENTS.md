@@ -71,13 +71,48 @@ Avoid pixel-perfect overfitting that makes templates hard to maintain.
 
 - Follow `docs/editing-guide.md` for agent-assisted colleague edits and
   `CONTRIBUTING.md` for the shared publishing lifecycle and manual workflow.
-- Unless the user explicitly requests otherwise, create a focused branch and
-  open a draft pull request rather than pushing a website edit to `main`.
-- Before committing, show or summarize the diff in plain language and run
-  `just check`.
-- Preview affected pages locally and give the user their local URLs.
-- In the pull request, complete **Where to look** with exact page paths and
-  concrete review instructions. Include desktop and mobile screenshots for
-  visual changes when practical.
-- Return the pull request URL and the Cloudflare preview URL when available.
-- Do not merge without explicit authorization from an administrator.
+- Treat a short ordinary-language request such as "change this text" as enough
+  to start the complete agent-assisted workflow. Do not require the colleague
+  to mention Git, branches, Hugo, previews, diffs, commits, or pull requests.
+- Unless the user explicitly asks for a manual workflow, the agent owns the
+  technical process below.
+
+### Before approval
+
+1. Inspect the repository and locate the affected content. Ask a question only
+   when essential content or intent cannot be inferred safely.
+2. Preserve unrelated work. From a clean, current `main`, create a focused
+   branch automatically. Never make a colleague manage branches or commands.
+3. Implement only the requested change and run `just check`.
+4. Start the local preview with `just preview "/affected/path/"`. This command
+   prints a clickable local URL, attempts to open it in the default browser, and
+   keeps Hugo running. If the browser does not open, the printed URL is the
+   fallback.
+5. Give the colleague the clickable local URL again, say what to inspect, and
+   mention that they can click it if the browser did not open. Do not make them
+   request a diff or the next workflow step. End with: "Type `approve` if this
+   looks right, or tell me what you would like changed."
+6. If the colleague requests changes, update the same branch, rerun the check,
+   and reopen or refresh the preview. Repeat until they approve.
+
+Do not commit, push, or create a pull request before the colleague approves the
+local result. Their message `approve` is explicit authorization for the
+post-approval steps below.
+
+### After approval
+
+1. Stop the local preview server when practical. Review the complete diff,
+   exclude unrelated files, and run `just check` again.
+2. Commit only the approved change, push the branch, and open a pull request
+   ready for review (not a draft).
+3. Complete **What changed** and **Where to look** with exact page paths and
+   concrete review instructions. Include screenshots when they materially help
+   an administrator review a visual change; do not ask the colleague to create
+   or upload them.
+4. Wait for the pull-request build and preview deployment. Verify that both pass
+   and that the automatic preview comment exists. Repair failures that are
+   within the scope of the requested change.
+5. Do not merge the pull request. End with a simple handoff such as: "Thank you
+   - your change is ready. An administrator will now review and publish it."
+   The PR URL may be included for reference, but do not give the colleague more
+   tasks unless something genuinely blocks administrator review.

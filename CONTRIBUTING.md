@@ -11,7 +11,8 @@ Most changes follow the same path:
 2. Make the change and preview it locally.
 3. Review the diff and run `just check`.
 4. Commit and push the branch.
-5. Open a draft pull request (PR).
+5. Open a pull request (PR). Agent-assisted changes are marked ready for review
+   after the colleague approves the local preview.
 6. Review the automatic Cloudflare preview and the pages listed under
    **Where to look** in the PR description.
 7. An administrator approves and merges the PR.
@@ -23,8 +24,8 @@ live website; production changes only when a commit reaches `main`.
 
 ## Manual workflow
 
-Install Git, Hugo Extended 0.164.0 or a compatible version, and `just`. Install
-GitHub CLI (`gh`) if you want to open PRs from the terminal.
+Install Git, Hugo Extended 0.164.0 or a compatible version, `just`, and Node.js
+20 or newer. Install GitHub CLI (`gh`) if you want to open PRs from the terminal.
 
 ```bash
 git switch main

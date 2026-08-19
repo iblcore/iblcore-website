@@ -1,161 +1,93 @@
 # How to update the IBL-Core website
 
-This guide is for IBL colleagues who need to change text, links, people,
+This guide is for IBL colleagues who want to change text, links, people,
 projects, images, or other website content. You do not need web-development
-experience or Cloudflare access. A coding agent such as Claude Code or Codex can
-guide you through the technical steps.
+experience or Cloudflare access. Claude Code, Codex, or another configured
+coding agent handles the technical workflow for you.
 
-## The short version
+## What you do
 
-1. Open the website repository with your agent.
-2. Describe the change in ordinary language.
-3. Review the updated page locally and ask for any corrections.
-4. Ask the agent to explain the changed files.
-5. Approve the change and ask the agent to open a draft pull request (PR).
-6. Open the temporary website link posted on the PR.
-7. Ask an administrator to review and merge it.
+Open the `iblcore-website` repository with the agent and describe the change in
+ordinary language. A prompt can be as short as:
 
-Nothing becomes public until the PR is approved and merged. After merging,
-GitHub publishes the update to [iblcore.org](https://iblcore.org/) automatically.
-
-## Before your first edit
-
-Ask a website administrator to confirm that:
-
-- you have access to the `iblcore/iblcore-website` repository on GitHub;
-- Git and a supported coding agent are installed;
-- the repository has been cloned onto your computer; and
-- the agent is opened in the repository folder.
-
-The repository folder is named `iblcore-website`. You should not need to install
-or configure Cloudflare.
-
-## Ask the agent to make a change
-
-Describe the outcome, the affected page, and the source material. Be explicit
-about anything that must remain unchanged.
-
-For example:
-
-> Update the text on the Support page using the text below. Keep the current
-> layout and styling. Create a branch for the work. Show me the updated page
-> locally and explain the changes before committing anything.
+> Change Gaelle's role to "...".
 
 Or:
 
-> Correct Gaelle's role on the Team page to "...". Do not change any other team
-> member. Preview the result locally and wait for my approval before committing.
+> Replace the Support page introduction with this: "...".
 
-You can paste final wording, provide a link as source material, or attach an
-image that belongs on the site. Tell the agent not to guess when names, dates,
-links, or wording are uncertain.
+That is enough. You do not need to ask the agent to create a branch, edit files,
+run commands, start the website, commit, or open a pull request.
 
-## Review the local preview
+## What the agent does
 
-The agent should start the local website and give you a URL such as:
+The agent will:
 
-```text
-http://localhost:1313/about/team/
-```
+1. locate the right website content;
+2. create a safe working branch;
+3. make the requested change;
+4. run the website checks;
+5. start a private copy of the website on your computer;
+6. give you a clickable link and open the affected page in your browser; and
+7. ask you to review it.
 
-Open that URL in your browser. This is a private copy running on your computer;
-it does not affect the public website.
+The local preview does not affect the public website. If the browser does not
+open automatically, click the local link in the agent's message.
 
-Check:
+## Review and revise
 
-- the wording, spelling, names, dates, and links;
-- the page on both a wide and narrow browser window;
-- nearby content that might have moved or changed unexpectedly; and
-- any other page the agent says is affected by a shared component.
+Look at the page the agent opened. Check the wording, names, dates, links, and
+general appearance. Resize the browser if you want to check a narrow layout.
 
-Ask for revisions in ordinary language. For example:
+If something needs changing, simply describe it:
 
-> The wording is correct, but the new paragraph is too long. Split it into two
-> short paragraphs without changing its meaning, then refresh the preview.
+> Make the first paragraph shorter.
 
-Repeat until you are satisfied.
+The agent updates the same branch, checks it again, and reopens or refreshes the
+preview. Repeat this until the result is correct.
 
-## Review what will be committed
+When you are satisfied, type only:
 
-Before approving publication, ask:
+> approve
 
-> Show me the diff and explain it in plain language. Confirm that no unrelated
-> files changed and run the website checks. Do not commit yet.
+## What happens after approval
 
-The agent should describe which files changed, why each change was necessary,
-and whether the automated check passed. If anything looks unrelated, ask the
-agent to stop and explain it.
+The agent will then:
 
-## Open the pull request
+1. review the changed files and exclude unrelated work;
+2. run the final website check;
+3. commit and push the change;
+4. open a pull request with clear review instructions;
+5. wait for the automated website preview and checks; and
+6. hand the pull request to the website administrators.
 
-When the local result and diff are correct, say:
+The agent will confirm that the request is ready for administrator review. You
+do not need to deploy the website or manage Cloudflare.
 
-> I approve the change. Commit only these files, push the branch, and open a
-> draft pull request. In the PR, explain what changed and list the exact pages
-> reviewers should inspect under "Where to look". Include desktop and mobile
-> screenshots if they help review this visual change. Return the PR URL.
+An administrator reviews and merges the pull request. Only that merge publishes
+the change to [iblcore.org](https://iblcore.org/).
 
-The agent should return a GitHub PR link. Opening a PR does not publish the
-change.
+## Before your first edit
 
-## Review the temporary website
+Ask a website administrator to help with the one-time setup. You need:
 
-Two automated jobs run on the PR:
+- access to the `iblcore/iblcore-website` repository on GitHub;
+- Git and a supported coding agent installed;
+- the repository cloned onto your computer; and
+- the agent opened in the `iblcore-website` folder.
 
-- **build** checks that the Hugo website can be generated successfully;
-- **deploy** creates a temporary Cloudflare copy of the complete website.
+After that setup, future edits begin with only a description of the change.
 
-After the deploy job finishes, a bot adds a **Website preview** comment to the
-PR. Open its preview link, then visit every path listed under **Where to look**.
-The preview updates automatically when more changes are pushed to the branch.
-
-The link is more useful than screenshots because you can navigate and resize the
-real site. Screenshots are optional supporting evidence for visual changes.
-
-If the preview is wrong, describe the problem to the agent, ask it to update the
-same branch, and review the refreshed preview. Do not open a second PR.
-
-## Request review and publication
-
-When the preview is correct:
-
-1. Mark the draft PR **Ready for review**, or ask the agent to do it.
-2. Ask a website administrator to review it.
-3. Respond to any requested changes using the same branch and PR.
-4. Wait for the build check and one approval.
-5. An administrator merges the PR.
-
-Merging triggers the production deployment. The update normally appears on
-[iblcore.org](https://iblcore.org/) within a few minutes.
-
-## Make an edit without an agent
-
-If you are comfortable editing files directly, follow the manual workflow in
-[CONTRIBUTING.md](../CONTRIBUTING.md). The review and publication stages are the
-same whether an agent or a person edits the files.
-
-## Safety and troubleshooting
+## Safety and help
 
 - Never paste passwords, API tokens, private keys, or other credentials into an
-  agent prompt, website file, commit, or PR.
-- Do not give a contributor Cloudflare credentials. GitHub handles previews and
-  production publishing.
-- If a command fails, give the full error to the agent and ask it to diagnose
-  the problem before retrying.
+  agent prompt.
+- If the agent needs essential missing content, it may ask one short question.
+- If a command fails, the agent should diagnose it and explain what is needed.
+- If you change your mind before typing `approve`, ask the agent to discard the
+  change.
 - If the public site looks wrong after a merge, contact an administrator and
-  link the PR. Cloudflare retains earlier deployments for recovery.
-- If you are unsure whether a change is appropriate, leave the PR as a draft.
-  Draft PRs are safe and can be closed without publishing anything.
+  link the pull request.
 
-## A reusable prompt
-
-Copy and adapt this prompt for most website edits:
-
-> Make the following change to the IBL-Core website: [describe the change and
-> paste the approved content]. Create a focused branch and preserve unrelated
-> files. Follow AGENTS.md and the repository documentation. Preview every
-> affected page locally and give me the URLs. Wait while I review and request
-> revisions. Before committing, explain the diff in plain language and run the
-> website checks. After I explicitly approve, commit, push, and open a draft PR.
-> Complete "What changed" and "Where to look" with concrete review instructions,
-> and return the PR URL. Do not merge the PR.
+If you prefer to edit files and run commands yourself, use the manual workflow
+in [CONTRIBUTING.md](../CONTRIBUTING.md).

@@ -26,7 +26,8 @@ Requirements:
 
 - Hugo Extended 0.164.0 or a compatible version
 - `just`
-- Node.js and npm only for Playwright-based screenshot capture
+- Node.js 20 or newer for the cross-platform preview helper and Playwright
+  tooling
 
 Start the development server:
 
@@ -42,6 +43,10 @@ just check
 
 Run `just --list` to see the other available maintenance, content, screenshot,
 and administrator commands.
+
+`just preview "/page/path/"` starts Hugo, prints a clickable URL, and attempts to
+open that local page. It is primarily used by agents during the colleague
+editing workflow.
 
 ## Repository map
 

@@ -1,4 +1,5 @@
 set shell := ["bash", "-cu"]
+set windows-shell := ["powershell.exe", "-NoLogo", "-NoProfile", "-Command"]
 
 default:
   @just --list
@@ -8,6 +9,10 @@ build:
 
 serve:
   hugo server --buildDrafts --buildFuture --disableFastRender
+
+# Start Hugo and open an affected page in the default browser.
+preview path="/":
+  node scripts/open-preview.mjs "{{path}}"
 
 test-serve:
   timeout 8s hugo server --buildDrafts --buildFuture --disableFastRender; code=$?; if [ "$code" -ne 0 ] && [ "$code" -ne 124 ]; then exit "$code"; fi
