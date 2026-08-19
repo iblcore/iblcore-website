@@ -19,10 +19,6 @@ Use the canonical pages below for current public information about IBL-Core. Eve
 ## Resources
 
 - [Resources overview](https://iblcore.org/#resources): Public software, data, analysis, and visualisation resources.
-- [Data](https://iblcore.org/resources/data/): Datasets and data access resources.
-- [Modalities](https://iblcore.org/resources/modalities/): Experimental modalities and associated tools.
-- [Analysis](https://iblcore.org/resources/analysis/): Analysis packages and workflows.
-- [Visualisation](https://iblcore.org/resources/visualisation/): Visualisation software and tools.
 
 ## Projects and publications
 

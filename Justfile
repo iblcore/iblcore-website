@@ -18,7 +18,7 @@ test-serve:
   timeout 8s hugo server --buildDrafts --buildFuture --disableFastRender; code=$?; if [ "$code" -ne 0 ] && [ "$code" -ne 124 ]; then exit "$code"; fi
 
 check:
-  hugo --panicOnWarning
+  hugo --panicOnWarning --cleanDestinationDir
   node scripts/check-llms.mjs
 
 capture-landing:
