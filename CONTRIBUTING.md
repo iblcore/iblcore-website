@@ -12,7 +12,7 @@ Most changes follow the same path:
 3. Review the diff and run `just check`.
 4. Commit and push the branch.
 5. Open a pull request (PR). Agent-assisted changes are marked ready for review
-   after the colleague approves the local preview.
+   after the user approves the local preview.
 6. Review the automatic Cloudflare preview and the pages listed under
    **Where to look** in the PR description.
 7. An administrator approves and merges the PR.

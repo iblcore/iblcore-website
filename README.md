@@ -10,10 +10,11 @@ Choose the guide that matches what you want to do:
 
 - **Update the website:** read
   [How to update the IBL-Core website](docs/editing-guide.md). This is the
-  recommended starting point for IBL colleagues and includes an agent-assisted
+  recommended starting point for IBL members and includes an agent-assisted
   workflow that does not require web-development experience.
-- **Set up a colleague's computer:** follow the
-  [one-time workstation setup](docs/workstation-setup.md).
+- **Set up your computer:** follow the optional
+  [one-time setup details](docs/setup.md). The agent normally guides this setup
+  automatically.
 - **Contribute code or work manually:** read [CONTRIBUTING.md](CONTRIBUTING.md).
 - **Maintain publishing and hosting:** read
   [Deployment administration](docs/admin-deployment.md).
@@ -47,8 +48,8 @@ Run `just --list` to see the other available maintenance, content, screenshot,
 and administrator commands.
 
 `just preview "/page/path/"` starts Hugo, prints a clickable URL, and attempts to
-open that local page. It is primarily used by agents during the colleague
-editing workflow.
+open that local page. It is primarily used by agents during the website editing
+workflow.
 
 ## Repository map
 

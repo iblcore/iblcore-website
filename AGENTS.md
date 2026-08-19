@@ -69,22 +69,22 @@ Avoid pixel-perfect overfitting that makes templates hard to maintain.
 
 ## Contributor Publishing Workflow
 
-- Follow `docs/editing-guide.md` for agent-assisted colleague edits and
+- Follow `docs/editing-guide.md` for agent-assisted website edits and
   `CONTRIBUTING.md` for the shared publishing lifecycle and manual workflow.
 - Treat a short ordinary-language request such as "change this text" as enough
-  to start the complete agent-assisted workflow. Do not require the colleague
+  to start the complete agent-assisted workflow. Do not require the user
   to mention Git, branches, Hugo, previews, diffs, commits, or pull requests.
 - Unless the user explicitly asks for a manual workflow, the agent owns the
   technical process below.
 
-### Workstation setup requests
+### Computer setup requests
 
 - If a user asks to set up a computer for website editing, follow
-  `docs/workstation-setup.md` and run `node scripts/check-contributor-setup.mjs`.
+  `docs/setup.md` and run `node scripts/check-contributor-setup.mjs`.
 - Guide the user through missing items one at a time. Prefer browser-based
   `gh auth login --web --git-protocol https`; never ask the user to paste a
   GitHub token into chat or an agent prompt.
-- Verify that `gh auth status` identifies the colleague's own account and that
+- Verify that `gh auth status` identifies the user's own account and that
   the setup checker confirms repository write access before declaring setup
   complete.
 - Do not begin a website edit until the checker passes, unless the user
@@ -93,27 +93,27 @@ Avoid pixel-perfect overfitting that makes templates hard to maintain.
 ### Before approval
 
 1. Run `node scripts/check-contributor-setup.mjs` before starting the edit. If it
-   passes, continue without asking the colleague about setup. If it fails, tell
-   them this computer needs a one-time setup, switch to the workstation setup
+   passes, continue without asking the user about setup. If it fails, tell them
+   this computer needs a one-time setup, switch to the computer setup
    workflow above, and guide them through each missing item. Resume the original
    edit automatically after the check passes.
 2. Inspect the repository and locate the affected content. Ask a question only
    when essential content or intent cannot be inferred safely.
 3. Preserve unrelated work. From a clean, current `main`, create a focused
-   branch automatically. Never make a colleague manage branches or commands.
+   branch automatically. Never make the user manage branches or commands.
 4. Implement only the requested change and run `just check`.
 5. Start the local preview with `just preview "/affected/path/"`. This command
    prints a clickable local URL, attempts to open it in the default browser, and
    keeps Hugo running. If the browser does not open, the printed URL is the
    fallback.
-6. Give the colleague the clickable local URL again, say what to inspect, and
+6. Give the user the clickable local URL again, say what to inspect, and
    mention that they can click it if the browser did not open. Do not make them
    request a diff or the next workflow step. End with: "Type `approve` if this
    looks right, or tell me what you would like changed."
-7. If the colleague requests changes, update the same branch, rerun the check,
+7. If the user requests changes, update the same branch, rerun the check,
    and reopen or refresh the preview. Repeat until they approve.
 
-Do not commit, push, or create a pull request before the colleague approves the
+Do not commit, push, or create a pull request before the user approves the
 local result. Their message `approve` is explicit authorization for the
 post-approval steps below.
 
@@ -125,12 +125,12 @@ post-approval steps below.
    ready for review (not a draft).
 3. Complete **What changed** and **Where to look** with exact page paths and
    concrete review instructions. Include screenshots when they materially help
-   an administrator review a visual change; do not ask the colleague to create
+   an administrator review a visual change; do not ask the user to create
    or upload them.
 4. Wait for the pull-request build and preview deployment. Verify that both pass
    and that the automatic preview comment exists. Repair failures that are
    within the scope of the requested change.
 5. Do not merge the pull request. End with a simple handoff such as: "Thank you
    - your change is ready. An administrator will now review and publish it."
-   The PR URL may be included for reference, but do not give the colleague more
+   The PR URL may be included for reference, but do not give the user more
    tasks unless something genuinely blocks administrator review.
