@@ -19,6 +19,11 @@ Or:
 That is enough. You do not need to ask the agent to create a branch, edit files,
 run commands, start the website, commit, or open a pull request.
 
+The first time the agent runs on a computer, it checks the required tools,
+GitHub login, repository access, and commit identity. If anything is missing, it
+pauses the edit and guides you through the one-time setup. When the check passes,
+it continues your original request automatically.
+
 ## What the agent does
 
 The agent will:
@@ -69,12 +74,10 @@ the change to [iblcore.org](https://iblcore.org/).
 
 ## Before your first edit
 
-Ask a website administrator to help with the one-time setup. You need:
-
-- access to the `iblcore/iblcore-website` repository on GitHub;
-- Git and a supported coding agent installed;
-- the repository cloned onto your computer; and
-- the agent opened in the `iblcore-website` folder.
+Ask a website administrator to help with the
+[one-time workstation setup](workstation-setup.md). It covers repository access,
+installing an agent and local tools, signing GitHub in as you, cloning the
+repository, and checking that the agent can create pull requests safely.
 
 After that setup, future edits begin with only a description of the change.
 

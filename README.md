@@ -12,6 +12,8 @@ Choose the guide that matches what you want to do:
   [How to update the IBL-Core website](docs/editing-guide.md). This is the
   recommended starting point for IBL colleagues and includes an agent-assisted
   workflow that does not require web-development experience.
+- **Set up a colleague's computer:** follow the
+  [one-time workstation setup](docs/workstation-setup.md).
 - **Contribute code or work manually:** read [CONTRIBUTING.md](CONTRIBUTING.md).
 - **Maintain publishing and hosting:** read
   [Deployment administration](docs/admin-deployment.md).

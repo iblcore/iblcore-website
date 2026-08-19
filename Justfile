@@ -42,6 +42,10 @@ doctor:
   just check-hugo
   just status
 
+# Verify tools, GitHub identity, permissions, and repository configuration.
+setup-check:
+  node scripts/check-contributor-setup.mjs
+
 maintenance:
   just clean
   just check

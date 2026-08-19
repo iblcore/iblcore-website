@@ -77,22 +77,40 @@ Avoid pixel-perfect overfitting that makes templates hard to maintain.
 - Unless the user explicitly asks for a manual workflow, the agent owns the
   technical process below.
 
+### Workstation setup requests
+
+- If a user asks to set up a computer for website editing, follow
+  `docs/workstation-setup.md` and run `node scripts/check-contributor-setup.mjs`.
+- Guide the user through missing items one at a time. Prefer browser-based
+  `gh auth login --web --git-protocol https`; never ask the user to paste a
+  GitHub token into chat or an agent prompt.
+- Verify that `gh auth status` identifies the colleague's own account and that
+  the setup checker confirms repository write access before declaring setup
+  complete.
+- Do not begin a website edit until the checker passes, unless the user
+  explicitly chooses to continue with a known limitation.
+
 ### Before approval
 
-1. Inspect the repository and locate the affected content. Ask a question only
+1. Run `node scripts/check-contributor-setup.mjs` before starting the edit. If it
+   passes, continue without asking the colleague about setup. If it fails, tell
+   them this computer needs a one-time setup, switch to the workstation setup
+   workflow above, and guide them through each missing item. Resume the original
+   edit automatically after the check passes.
+2. Inspect the repository and locate the affected content. Ask a question only
    when essential content or intent cannot be inferred safely.
-2. Preserve unrelated work. From a clean, current `main`, create a focused
+3. Preserve unrelated work. From a clean, current `main`, create a focused
    branch automatically. Never make a colleague manage branches or commands.
-3. Implement only the requested change and run `just check`.
-4. Start the local preview with `just preview "/affected/path/"`. This command
+4. Implement only the requested change and run `just check`.
+5. Start the local preview with `just preview "/affected/path/"`. This command
    prints a clickable local URL, attempts to open it in the default browser, and
    keeps Hugo running. If the browser does not open, the printed URL is the
    fallback.
-5. Give the colleague the clickable local URL again, say what to inspect, and
+6. Give the colleague the clickable local URL again, say what to inspect, and
    mention that they can click it if the browser did not open. Do not make them
    request a diff or the next workflow step. End with: "Type `approve` if this
    looks right, or tell me what you would like changed."
-6. If the colleague requests changes, update the same branch, rerun the check,
+7. If the colleague requests changes, update the same branch, rerun the check,
    and reopen or refresh the preview. Repeat until they approve.
 
 Do not commit, push, or create a pull request before the colleague approves the
