@@ -69,6 +69,10 @@ workflow.
 page scope, content hierarchy, Hugo structure, and migration priorities.
 [docs/brainstorming.md](docs/brainstorming.md) provides strategy context.
 
+The site exposes a curated agent-readable index at `/llms.txt`. See
+[Agent-readable website content](docs/agent-readable-content.md) for its scope
+and validation policy.
+
 For landing-page visual work, use `docs/landing-prototype-mini.webp` as the
 temporary reference. Other `docs/landing*.*` files are obsolete unless a task
 explicitly says otherwise.

@@ -32,6 +32,8 @@ jobs:
           extended: true
       - name: Build production website
         run: hugo --panicOnWarning --minify --baseURL https://iblcore.org/
+      - name: Validate agent-readable index
+        run: node scripts/check-llms.mjs
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
         with:

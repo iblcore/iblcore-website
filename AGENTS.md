@@ -56,6 +56,8 @@ Avoid pixel-perfect overfitting that makes templates hard to maintain.
 - If changing IA/content structure:
   - Update `docs/sitemap-v1.md`.
   - Reflect key changes in `README.md`.
+  - Update `static/llms.txt` when public canonical pages or navigation
+    destinations change.
 - If creating templates:
   - Ensure Hugo layouts/partials are reusable and documented.
 - If adding style system:

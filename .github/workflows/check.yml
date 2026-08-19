@@ -23,6 +23,8 @@ jobs:
           extended: true
       - name: Build and treat warnings as errors
         run: hugo --panicOnWarning --minify
+      - name: Validate agent-readable index
+        run: node scripts/check-llms.mjs
       - name: Upload built website
         uses: actions/upload-artifact@v6
         with:

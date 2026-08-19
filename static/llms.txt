@@ -1,0 +1,35 @@
+# IBL-Core
+
+> IBL-Core develops and supports open neuroscience software, data infrastructure, experimental tools, and collaborative research projects.
+
+Use the canonical pages below for current public information about IBL-Core. Events and News are not listed while those sections remain disabled in the main navigation.
+
+## Main
+
+- [IBL-Core home](https://iblcore.org/): Mission, areas of work, major publications, funders, and contact information.
+
+## About
+
+- [Our Team](https://iblcore.org/about/team/): IBL-Core staff and the principal investigator scientific board.
+- [History](https://iblcore.org/about/history/): Background and development of IBL-Core.
+- [FAQ](https://iblcore.org/about/faq/): Frequently asked questions about IBL-Core.
+- [Support](https://iblcore.org/about/support/): Funding and support information.
+- [Contact](https://iblcore.org/about/team/#contact): How to contact IBL-Core.
+
+## Resources
+
+- [Resources overview](https://iblcore.org/#resources): Public software, data, analysis, and visualisation resources.
+- [Data](https://iblcore.org/resources/data/): Datasets and data access resources.
+- [Modalities](https://iblcore.org/resources/modalities/): Experimental modalities and associated tools.
+- [Analysis](https://iblcore.org/resources/analysis/): Analysis packages and workflows.
+- [Visualisation](https://iblcore.org/resources/visualisation/): Visualisation software and tools.
+
+## Projects and publications
+
+- [Ongoing projects](https://iblcore.org/projects/): Current IBL research and partner projects.
+- [New partner projects](https://iblcore.org/new-partner-projects/): Partnership opportunities and application information.
+- [Major publications](https://iblcore.org/#publications): Selected publications and scientific outputs.
+
+## Optional
+
+- [International Brain Laboratory GitHub](https://github.com/int-brain-lab/): Public source code and technical repositories.

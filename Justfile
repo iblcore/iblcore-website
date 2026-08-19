@@ -19,6 +19,7 @@ test-serve:
 
 check:
   hugo --panicOnWarning
+  node scripts/check-llms.mjs
 
 capture-landing:
   npm run capture:landing

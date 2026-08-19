@@ -32,6 +32,8 @@ jobs:
           extended: true
       - name: Build preview
         run: hugo --panicOnWarning --minify
+      - name: Validate agent-readable index
+        run: node scripts/check-llms.mjs
       - name: Deploy to Cloudflare Pages
         id: deploy
         uses: cloudflare/wrangler-action@v3
