@@ -1,153 +1,69 @@
 # IBL-Core Website
 
-Hugo site for the new IBL-Core public website.
+The source code and content for the IBL-Core website at
+[iblcore.org](https://iblcore.org/). The site is built with Hugo, vanilla HTML
+and CSS, and minimal JavaScript.
 
-## Source Of Truth
+## Start here
 
-Use [docs/sitemap-v1.md](docs/sitemap-v1.md) as the canonical reference for:
-- navigation
-- page scope
-- section hierarchy
-- Hugo content structure
-- migration priorities
+Choose the guide that matches what you want to do:
 
-Supporting docs:
-- [docs/brainstorming.md](docs/brainstorming.md) for strategy context
-- [docs/landing-prototype-mini.webp](docs/landing-prototype-mini.webp) as the current temporary landing-page visual reference
+- **Update the website:** read
+  [How to update the IBL-Core website](docs/editing-guide.md). This is the
+  recommended starting point for IBL colleagues and includes an agent-assisted
+  workflow that does not require web-development experience.
+- **Contribute code or work manually:** read [CONTRIBUTING.md](CONTRIBUTING.md).
+- **Maintain publishing and hosting:** read
+  [Deployment administration](docs/admin-deployment.md).
 
-If another document conflicts with the sitemap, update the sitemap first or follow the sitemap as-is.
+Website changes normally use a pull request. GitHub builds a complete temporary
+preview for review, and an approved merge automatically publishes the change.
+Contributors do not need Cloudflare credentials.
 
-## Current State
-
-Implemented:
-- Hugo config in `hugo.yaml`
-- Hugo-native structure in `content/`, `layouts/`, `assets/`, and `archetypes/`
-- Shared base templates for home, list, and single pages
-- Prototype-driven landing page with custom home layout and page-level CSS
-- Homepage What We Do and Major Publications sections
-- `/about/` redirect to `/about/team/`, with reusable shared header/footer and an optimized team/about hero image workflow via Hugo assets
-- Data-driven `/projects/` section powered by `data/projects.yaml` and markdown description files
-- Shared component styling and mobile nav toggle
-- Markdown stubs for top-level sections and key About/Resources pages
-- `Justfile` commands for local development and maintenance
-- Local screenshot capture workflow for landing-page visual iteration
-- Pull-request checks and Cloudflare preview deployments
-- Automatic Cloudflare Pages production deployment after changes reach `main`
-
-Not implemented yet:
-- final design system
-- migrated production content
-- search, forms, and other richer site features
-
-## Repo Map
-
-- `content/`: markdown content and front matter
-- `data/`: structured site data used to generate pages such as `/projects/`
-- `layouts/`: Hugo templates and partials
-- `assets/css/`: tokens, base styles, components, page-level CSS
-- `assets/js/`: minimal progressive JavaScript
-- `archetypes/`: templates for new content entries
-- `docs/`: sitemap, planning notes, and legacy visual references
-- `Justfile`: local workflow commands
-
-## Quick Start
+## Developer quick start
 
 Requirements:
-- Hugo extended available as `hugo`
-- `just`
-- `node` and `npm` if you want local screenshot capture
 
-Start the dev server:
+- Hugo Extended 0.164.0 or a compatible version
+- `just`
+- Node.js and npm only for Playwright-based screenshot capture
+
+Start the development server:
 
 ```bash
 just serve
 ```
 
-Then open `http://localhost:1313/`.
-
-For the complete manual and agent-assisted editing workflow, see
-[CONTRIBUTING.md](CONTRIBUTING.md). Deployment administrators should also read
-[docs/admin-deployment.md](docs/admin-deployment.md).
-
-## Common Commands
+Open <http://localhost:1313/>. Validate the site with:
 
 ```bash
-just build        # build into public/
-just serve        # run local dev server
-just test-serve   # short-lived server startup check
-just check        # fail on Hugo warnings
-just capture-landing # capture desktop/mobile landing-page screenshots
-just clean        # remove generated artifacts
-just maintenance  # clean + validate + show git status
-just cf-whoami    # verify Cloudflare auth
-just pages-build  # build with the production base URL
-just pages-deploy # deploy to the default Cloudflare Pages project
-just pages-deploy-preview # deploy with the temporary pages.dev base URL
-just pages-list   # list Pages projects
-just new-news my-update
-just new-event spring-school
-just new-project collaboration-x
+just check
 ```
 
-## Landing Screenshot Workflow
+Run `just --list` to see the other available maintenance, content, screenshot,
+and administrator commands.
 
-Install JS dependencies once:
+## Repository map
 
-```bash
-npm install
-npx playwright install chromium
-```
+- `content/`: Markdown pages and their metadata
+- `data/`: structured information such as projects and team data
+- `layouts/`: Hugo templates and reusable partials
+- `assets/css/`: tokens, base, component, and page styles
+- `assets/js/`: progressive JavaScript
+- `archetypes/`: templates for new content entries
+- `docs/`: editing, architecture, strategy, and administration guides
+- `.github/workflows/`: validation, preview, and production automation
+- `Justfile`: common local commands
 
-Then, with the local Hugo server running, capture the landing page:
+## Project direction
 
-```bash
-just capture-landing
-```
+[docs/sitemap-v1.md](docs/sitemap-v1.md) is the source of truth for navigation,
+page scope, content hierarchy, Hugo structure, and migration priorities.
+[docs/brainstorming.md](docs/brainstorming.md) provides strategy context.
 
-Screenshots are written to `reports/landing/`.
+For landing-page visual work, use `docs/landing-prototype-mini.webp` as the
+temporary reference. Other `docs/landing*.*` files are obsolete unless a task
+explicitly says otherwise.
 
-## Editing Rules
-
-- Keep the implementation Hugo-native and reusable.
-- Prefer editing markdown content and front matter before creating custom templates.
-- For `/projects/`, edit `data/projects.yaml` for structure and item metadata, then edit the referenced markdown files under `content/projects/descriptions/` for long-form copy.
-- Keep CSS modular and straightforward while the landing-page design is being tightened against the current mockup.
-- Keep JS minimal and progressive.
-- Do not treat the prototype screenshot as a source of truth for IA.
-- For landing-page visual work, use `docs/landing-prototype-mini.webp`; the other `docs/landing*.*` files are obsolete unless explicitly requested.
-
-## Browser Test
-
-1. Run `just serve`
-2. Open `http://localhost:1313/`
-3. Click through the top navigation
-4. Confirm the prototype-driven homepage, support strip, and section pages render
-5. Stop the server with `Ctrl+C`
-
-## Cloudflare Pages Deployment
-
-Current Pages project:
-- `iblcore`
-
-Normal deployment workflow:
-1. Open a pull request and review its automatic preview deployment.
-2. Merge the approved pull request into `main`.
-3. GitHub Actions deploys the resulting site to `https://iblcore.org/`.
-
-Notes:
-- The Cloudflare project remains a Direct Upload project, driven by GitHub
-  Actions rather than contributor computers
-- GitHub repository secrets and branch protection must be configured as
-  described in `docs/admin-deployment.md`
-- The production build uses `https://iblcore.org/` as the Hugo base URL
-- The Cloudflare Pages project is named `iblcore`; its Cloudflare-assigned fallback URL is still `https://iblcore-website-preview.pages.dev/`
-- Use `just pages-deploy-preview` only when deploying against the temporary `pages.dev` fallback URL
-- `just pages-deploy` remains an administrator-only emergency fallback
-
-## Notes
-
-- Generated output lives in `public/` and should not be committed.
-- The current site is still provisional, but the homepage is now under active visual refinement against `docs/landing-prototype-mini.webp`.
-- The About section IA for the current implementation is: Our Team (`/about/team/`, grouped into staff and PI scientific board with a contact prompt), History (`/about/history/`), FAQ (`/about/faq/`), and Support (`/about/support/`). `/about/` redirects to Our Team.
-- The top navigation is: About, Resources (`/#resources`), Projects, Publications (`/#publications`), Events disabled, News disabled, and Contact (`/#contact`). The footer mirrors that menu and adds Legal Notice.
-- See [AGENTS.md](AGENTS.md) for repository-specific instructions used by coding agents.
+See [AGENTS.md](AGENTS.md) for repository-specific instructions used by coding
+agents.

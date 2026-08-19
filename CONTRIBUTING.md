@@ -1,34 +1,30 @@
-# Editing and publishing the IBL-Core website
+# Contributing to the IBL-Core website
 
-Website changes follow the same safe path whether you edit files yourself or ask
-an agent such as Claude Code or Codex to help:
+For a plain-language, agent-assisted process, start with
+[How to update the IBL-Core website](docs/editing-guide.md).
 
-1. Create a branch for the change.
-2. Edit and preview the website locally.
-3. Review the diff, commit, and push the branch.
-4. Open a pull request (PR).
-5. Review the automatic website preview and screenshots.
-6. An administrator approves and merges the PR; the live site then deploys
-   automatically.
+## Publishing lifecycle
 
-Production Cloudflare credentials are not needed on contributor computers.
+Most changes follow the same path:
 
-## First-time setup
+1. Create a focused branch from the latest `main`.
+2. Make the change and preview it locally.
+3. Review the diff and run `just check`.
+4. Commit and push the branch.
+5. Open a draft pull request (PR).
+6. Review the automatic Cloudflare preview and the pages listed under
+   **Where to look** in the PR description.
+7. An administrator approves and merges the PR.
+8. GitHub Actions publishes the merged version to
+   [iblcore.org](https://iblcore.org/).
+
+Contributors do not need Cloudflare access. A branch or PR never changes the
+live website; production changes only when a commit reaches `main`.
+
+## Manual workflow
 
 Install Git, Hugo Extended 0.164.0 or a compatible version, and `just`. Install
-GitHub CLI (`gh`) if you want to create PRs from the terminal. Clone this
-repository, then check your tools:
-
-```bash
-just doctor
-gh auth login
-```
-
-Node.js and `npm install` are only required for automated local screenshots.
-
-## Make a change manually
-
-Start from the latest website and create a clearly named branch:
+GitHub CLI (`gh`) if you want to open PRs from the terminal.
 
 ```bash
 git switch main
@@ -37,66 +33,39 @@ git switch -c edit/short-description
 just serve
 ```
 
-Open <http://localhost:1313/>. Hugo refreshes the browser after saved changes.
-Edit Markdown in `content/`, structured information in `data/`, and only edit
-templates or styles when the change requires it.
-
-Before publishing, stop the server with `Ctrl+C`, then review and validate:
+Open <http://localhost:1313/> and make the change. Hugo refreshes the page after
+saved edits. When finished, stop the server with `Ctrl+C`, then validate and
+review:
 
 ```bash
-git diff
 just check
+git diff
 git status --short
 ```
 
-Commit, push, and create a PR:
+Stage only the intended files, commit, push, and open a draft PR:
 
 ```bash
-git add path/to/the/files-you-changed
+git add path/to/changed-file
 git commit -m "Describe the website change"
 git push -u origin HEAD
 gh pr create --draft --web
 ```
 
-In the PR, explain the change and complete **Where to look** with affected page
-paths and review instructions. Add desktop and mobile screenshots for visual
-changes. Automation adds a comment linking to a temporary version of the entire
-website. The preview is updated after every push to the branch.
+Complete **What changed** and **Where to look** in the PR template. Give exact
+page paths and concrete review instructions. Include desktop and mobile
+screenshots when they help explain a visual change.
 
-When the checks pass and the preview looks right, mark the PR ready for review.
-Merging into `main` deploys the change to <https://iblcore.org/>.
+## Implementation conventions
 
-## Work with an agent
+- Treat `docs/sitemap-v1.md` as the source of truth for information
+  architecture and page scope.
+- Prefer Markdown and existing structured data for content changes.
+- Keep templates reusable, CSS modular, and JavaScript minimal.
+- Preserve responsive behavior from the beginning.
+- Do not commit generated `public/` or `resources/` output.
+- Preserve unrelated changes in the working tree.
 
-Give the agent the desired outcome and enough source material to avoid guessing.
-For example:
-
-> Update the support page with the attached text. Keep its current design. Show
-> me the local page and explain the diff. Do not commit until I approve it. Once
-> approved, commit, push, and open a draft PR. In the PR, link reviewers to the
-> affected page and include desktop and mobile screenshots.
-
-The agent should follow `AGENTS.md` and this document. Ask it to:
-
-- create a branch rather than edit `main`;
-- preserve unrelated local changes;
-- run `just check`;
-- serve the site locally and tell you the page URL;
-- summarize the diff in plain language before committing;
-- identify the exact pages reviewers should inspect;
-- add screenshots when the result is visual;
-- open a draft PR and return both the PR and preview links.
-
-You remain responsible for approving the wording and visual result. An agent
-should not merge its own PR unless an administrator explicitly requests it.
-
-## Review a pull request
-
-1. Read **What changed** and **Where to look** in the PR description.
-2. Open the preview link posted by the deployment bot.
-3. Visit each listed path and check desktop and mobile widths.
-4. Compare screenshots when provided.
-5. Review the Files changed tab, or ask an agent to explain the diff.
-6. Approve and merge only after the required checks pass.
-
-See `docs/admin-deployment.md` for repository and Cloudflare configuration.
+Repository administrators should read
+[Deployment administration](docs/admin-deployment.md) before changing GitHub or
+Cloudflare configuration.

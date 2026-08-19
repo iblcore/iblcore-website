@@ -69,7 +69,8 @@ Avoid pixel-perfect overfitting that makes templates hard to maintain.
 
 ## Contributor Publishing Workflow
 
-- Follow `CONTRIBUTING.md` for normal website edits.
+- Follow `docs/editing-guide.md` for agent-assisted colleague edits and
+  `CONTRIBUTING.md` for the shared publishing lifecycle and manual workflow.
 - Unless the user explicitly requests otherwise, create a focused branch and
   open a draft pull request rather than pushing a website edit to `main`.
 - Before committing, show or summarize the diff in plain language and run

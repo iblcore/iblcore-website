@@ -3,39 +3,26 @@
 The repository uses GitHub Actions and the existing Cloudflare Pages Direct
 Upload project, `iblcore`.
 
-## One-time GitHub configuration
+## Current configuration
 
-Create a Cloudflare API token limited to Pages deployment for the relevant
-account. Add these GitHub Actions repository secrets:
+GitHub Actions has a Cloudflare API token limited to Pages deployment. The
+repository contains these Actions secrets:
 
 - `CLOUDFLARE_API_TOKEN`
 - `CLOUDFLARE_ACCOUNT_ID`
 
-After both secrets are present, create the repository Actions variable
-`CLOUDFLARE_DEPLOY_ENABLED` with the value `true`. Preview and production jobs
-remain safely skipped until that variable is enabled. Trigger `Deploy
-production` manually once to verify the configuration.
+The repository variable `CLOUDFLARE_DEPLOY_ENABLED` is `true`. Preview and
+production deployments remain safely skipped if an administrator disables or
+deletes this variable.
 
-Create a GitHub environment named `production`. It can optionally require an
-administrator's approval, although normal production deployment happens only
-after a change reaches `main`.
-
-Protect `main` in the repository settings:
-
-- require a pull request before merging;
-- require at least one approval;
-- require the `Check website / build` status check;
-- dismiss stale approvals when new commits are pushed;
-- prevent contributors from bypassing these rules.
+The production workflow uses the GitHub environment named `production`. Normal
+production deployment happens only after a commit reaches `main`.
 
 The repository is configured with the active `Protect main` ruleset. It requires
 one approval, resolved review conversations, and a successful `build` check for
 normal changes. It also blocks deletion and force pushes. The `rossant` account
 has an explicit always-allow bypass so the administrator can push directly to
 `main` when necessary.
-
-The Cloudflare secrets and `CLOUDFLARE_DEPLOY_ENABLED=true` repository variable
-are configured. Automatic preview and production deployments are active.
 
 The repository's Actions workflow permissions must allow the preview workflow
 to comment on pull requests. The workflow itself requests only the permissions
@@ -60,6 +47,9 @@ Automation knows the preview URL but cannot reliably infer which pages matter:
 a single change to CSS or a shared template may affect many URLs. The PR author
 therefore lists the relevant paths and review instructions in **Where to look**.
 Screenshots complement the live preview; they do not replace it.
+
+For the contributor-facing process, see
+[How to update the IBL-Core website](editing-guide.md).
 
 ## Recovery
 
