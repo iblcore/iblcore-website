@@ -31,7 +31,8 @@ Implemented:
 - Markdown stubs for top-level sections and key About/Resources pages
 - `Justfile` commands for local development and maintenance
 - Local screenshot capture workflow for landing-page visual iteration
-- Direct-upload Cloudflare Pages deployment to `https://iblcore.org/`
+- Pull-request checks and Cloudflare preview deployments
+- Automatic Cloudflare Pages production deployment after changes reach `main`
 
 Not implemented yet:
 - final design system
@@ -63,6 +64,10 @@ just serve
 ```
 
 Then open `http://localhost:1313/`.
+
+For the complete manual and agent-assisted editing workflow, see
+[CONTRIBUTING.md](CONTRIBUTING.md). Deployment administrators should also read
+[docs/admin-deployment.md](docs/admin-deployment.md).
 
 ## Common Commands
 
@@ -124,17 +129,20 @@ Screenshots are written to `reports/landing/`.
 Current Pages project:
 - `iblcore`
 
-Deployment workflow:
-1. Run `wrangler login` once on this machine
-2. Run `just pages-deploy`
-3. Verify `https://iblcore.org/`
+Normal deployment workflow:
+1. Open a pull request and review its automatic preview deployment.
+2. Merge the approved pull request into `main`.
+3. GitHub Actions deploys the resulting site to `https://iblcore.org/`.
 
 Notes:
-- This setup currently uses direct upload deployment from the local repo
+- The Cloudflare project remains a Direct Upload project, driven by GitHub
+  Actions rather than contributor computers
+- GitHub repository secrets and branch protection must be configured as
+  described in `docs/admin-deployment.md`
 - The production build uses `https://iblcore.org/` as the Hugo base URL
 - The Cloudflare Pages project is named `iblcore`; its Cloudflare-assigned fallback URL is still `https://iblcore-website-preview.pages.dev/`
 - Use `just pages-deploy-preview` only when deploying against the temporary `pages.dev` fallback URL
-- If you later want GitHub-driven preview deployments, create a separate Cloudflare Pages project with Git integration
+- `just pages-deploy` remains an administrator-only emergency fallback
 
 ## Notes
 

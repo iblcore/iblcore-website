@@ -1,0 +1,31 @@
+name: Check website
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+env:
+  HUGO_VERSION: "0.164.0"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+      - name: Build and treat warnings as errors
+        run: hugo --panicOnWarning --minify
+      - name: Upload built website
+        uses: actions/upload-artifact@v6
+        with:
+          name: website-${{ github.sha }}
+          path: public/
+          retention-days: 7

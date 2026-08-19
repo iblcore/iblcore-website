@@ -1,0 +1,41 @@
+name: Deploy production
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+concurrency:
+  group: production
+  cancel-in-progress: false
+
+env:
+  HUGO_VERSION: "0.164.0"
+
+jobs:
+  deploy:
+    if: vars.CLOUDFLARE_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://iblcore.org/
+    steps:
+      - uses: actions/checkout@v6
+      - name: Install Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+      - name: Build production website
+        run: hugo --panicOnWarning --minify --baseURL https://iblcore.org/
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy public --project-name=iblcore --branch=main
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

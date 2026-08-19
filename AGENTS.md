@@ -66,3 +66,17 @@ Avoid pixel-perfect overfitting that makes templates hard to maintain.
 - Use ASCII unless existing files require Unicode.
 - Prefer small, reviewable commits/patches.
 - Run lightweight checks/build commands when available before finishing.
+
+## Contributor Publishing Workflow
+
+- Follow `CONTRIBUTING.md` for normal website edits.
+- Unless the user explicitly requests otherwise, create a focused branch and
+  open a draft pull request rather than pushing a website edit to `main`.
+- Before committing, show or summarize the diff in plain language and run
+  `just check`.
+- Preview affected pages locally and give the user their local URLs.
+- In the pull request, complete **Where to look** with exact page paths and
+  concrete review instructions. Include desktop and mobile screenshots for
+  visual changes when practical.
+- Return the pull request URL and the Cloudflare preview URL when available.
+- Do not merge without explicit authorization from an administrator.
