@@ -28,9 +28,14 @@ Protect `main` in the repository settings:
 - dismiss stale approvals when new commits are pushed;
 - prevent contributors from bypassing these rules.
 
-At the time this workflow was added, the repository did not yet have the two
-secrets or branch protection configured. An administrator must complete these
-one-time settings before automatic previews and deployments begin.
+The repository is configured with the active `Protect main` ruleset. It requires
+one approval, resolved review conversations, and a successful `build` check for
+normal changes. It also blocks deletion and force pushes. The `rossant` account
+has an explicit always-allow bypass so the administrator can push directly to
+`main` when necessary.
+
+The Cloudflare secrets and `CLOUDFLARE_DEPLOY_ENABLED=true` repository variable
+are configured. Automatic preview and production deployments are active.
 
 The repository's Actions workflow permissions must allow the preview workflow
 to comment on pull requests. The workflow itself requests only the permissions
