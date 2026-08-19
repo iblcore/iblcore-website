@@ -140,7 +140,7 @@ credentials.
 
 You can now begin with a short request such as:
 
-> Change Gaelle's role to "...".
+> Update the About page introduction to "...".
 
 See [How to update the IBL-Core website](editing-guide.md) for the rest of the
 workflow.

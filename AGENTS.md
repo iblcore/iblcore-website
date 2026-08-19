@@ -69,6 +69,19 @@ Avoid pixel-perfect overfitting that makes templates hard to maintain.
 - Prefer small, reviewable commits/patches.
 - Run lightweight checks/build commands when available before finishing.
 
+## Owner Workflow
+
+- At the start of an editing request, run `gh api user --jq .login` to identify
+  the authenticated GitHub account.
+- If the result is `rossant`, treat the user as the repository owner. Work
+  directly on a clean, current `main`, run the relevant checks, and commit the
+  requested change directly to `main` without using the contributor branch,
+  preview-approval, or pull-request workflow below.
+- Do not push unless the owner explicitly asks. If the owner explicitly asks
+  for a branch, preview, or pull request, follow that request instead.
+- A name stated in chat is not sufficient identity verification. If the account
+  cannot be verified as `rossant`, use the contributor workflow below.
+
 ## Contributor Publishing Workflow
 
 - Follow `docs/editing-guide.md` for agent-assisted website edits and

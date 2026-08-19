@@ -10,7 +10,7 @@ handles the technical workflow for you.
 Open the `iblcore-website` repository with the agent and describe the change in
 ordinary language. A prompt can be as short as:
 
-> Change Gaelle's role to "...".
+> Update the About page introduction to "...".
 
 Or:
 
