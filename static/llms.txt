@@ -6,7 +6,7 @@ Use the canonical pages below for current public information about IBL-Core. Eve
 
 ## Main
 
-- [IBL-Core home](https://iblcore.org/): Mission, areas of work, major publications, funders, and contact information.
+- [IBL-Core home](https://iblcore.org/): Mission, areas of work, selected major publications, funders, and contact information.
 
 ## About
 
@@ -24,7 +24,7 @@ Use the canonical pages below for current public information about IBL-Core. Eve
 
 - [Ongoing projects](https://iblcore.org/projects/): Current IBL research and partner projects.
 - [New partner projects](https://iblcore.org/new-partner-projects/): Partnership opportunities and application information.
-- [Major publications](https://iblcore.org/#publications): Selected publications and scientific outputs.
+- [Publications](https://iblcore.org/publications/): Selected scientific and technical publications, with keyword filters.
 
 ## Optional
 

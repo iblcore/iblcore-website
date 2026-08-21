@@ -1,0 +1,73 @@
+archive_url: "https://www.internationalbrainlab.com/publications"
+
+keywords:
+  - key: major
+    label: Major publication
+  - key: science
+    label: Science
+  - key: technique
+    label: Technique
+
+items:
+  - title: "A Brain-Wide Map of Neural Activity during Complex Behaviour"
+    read_article: "https://www.nature.com/articles/s41586-025-09235-0"
+    code_repository: "https://github.com/int-brain-lab/paper-brain-wide-map"
+    data_access: "https://int-brain-lab.github.io/iblenv/notebooks_external/data_release_brainwidemap.html"
+    data_explorer: "https://viz.internationalbrainlab.org"
+    date: 2025-09-03
+    display_date: "3 September 2025"
+    journal: "Nature"
+    authors: "International Brain Laboratory et al."
+    doi: "10.1038/s41586-025-09235-0"
+    summary: "A brain-wide recording study mapping neural activity during a complex decision-making task across hundreds of brain areas."
+    keywords:
+      - major
+      - science
+      - technique
+
+  - title: "Brain-wide representations of prior information in mouse decision-making"
+    read_article: "https://www.nature.com/articles/s41586-025-09226-1"
+    code_repository: "https://github.com/int-brain-lab/prior-localization/tree/main"
+    data_access: "https://int-brain-lab.github.io/iblenv/notebooks_external/data_release_brainwidemap.html"
+    data_explorer: ""
+    date: 2025-09-03
+    display_date: "3 September 2025"
+    journal: "Nature"
+    authors: "Findling, Hubert, International Brain Laboratory et al."
+    doi: "10.1038/s41586-025-09226-1"
+    summary: "A brain-wide analysis of how prior expectations are represented across neural populations during a standardized decision-making task."
+    keywords:
+      - major
+      - science
+
+  - title: "Reproducibility of in vivo electrophysiological measurements in mice"
+    read_article: "https://elifesciences.org/articles/100840"
+    code_repository: "https://github.com/int-brain-lab/paper-reproducible-ephys"
+    data_access: "https://int-brain-lab.github.io/iblenv/notebooks_external/data_release_repro_ephys.html"
+    data_explorer: "https://viz.internationalbrainlab.org/app"
+    date: 2025-05-12
+    display_date: "12 May 2025"
+    journal: "eLife"
+    authors: "International Brain Laboratory et al."
+    doi: "10.7554/eLife.100840"
+    summary: "A large-scale repeated-site electrophysiology study testing how reliably neural activity can be measured across animals, laboratories, and recording sessions."
+    keywords:
+      - major
+      - science
+      - technique
+
+  - title: "Standardized and reproducible measurement of decision-making in mice"
+    read_article: "https://elifesciences.org/articles/63711"
+    code_repository: "https://github.com/int-brain-lab/paper-behavior"
+    data_access: "https://data.internationalbrainlab.org"
+    data_explorer: ""
+    date: 2021-05-20
+    display_date: "20 May 2021"
+    journal: "eLife"
+    authors: "International Brain Laboratory et al."
+    doi: "10.7554/eLife.63711"
+    summary: "A coordinated multi-lab study establishing a standardized behavioral task, shared dataset, and open tools for reproducible mouse decision-making research."
+    keywords:
+      - major
+      - science
+      - technique

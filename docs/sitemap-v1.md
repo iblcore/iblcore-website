@@ -9,7 +9,7 @@ Intended stack: Hugo static site generator, modern vanilla HTML/CSS, minimal van
 2. About (`/about/team/`; `/about/` redirects here)
 3. Resources (`/#resources`)
 4. Projects (`/projects/`)
-5. Publications (`/#publications`)
+5. Publications (`/publications/`)
 6. Events (`/events/`, disabled in navigation for now)
 7. News (`/news/`, disabled in navigation for now)
 8. Contact (`/#contact`)
@@ -77,7 +77,10 @@ Includes:
 ### 2.5 Publications (`/publications/`)
 
 Includes:
-- Our publication papers
+- Our publication papers, maintained in `data/publications.yaml`
+  - Fixed keywords: `major`, `science`, and `technique`
+  - Date-first display with category controls that retain newest-first ordering
+  - Accordion rows show title and journal/date; expanded details render authors, DOI, summary, and optional article/code/data links from the same data file
   - Button to link to publication IBL 1.0 https://www.internationalbrainlab.com/publications
 - Press
 
@@ -227,6 +230,10 @@ Recommended order:
 Implementation note as of June 1, 2026:
 - `/about/` redirects to `/about/team/`; the custom "Who We Are" overview page has been removed from the live IA.
 
+Implementation note as of August 21, 2026:
+- `/publications/` is the canonical Publications navigation destination.
+- Publication records, dates, and the fixed keyword list are maintained in `data/publications.yaml`; the homepage renders records tagged `major` from the same source.
+
 ## 8. Editorial and Migration Checklist
 
 From old site -> new site:
@@ -250,7 +257,6 @@ Validation checks:
 ## 9. Open Decisions for v2
 
 - Whether to split Projects into individual entries later.
-- Publication data source (manual markdown vs external bib/JSON import).
 - Analytics method for tool usage feedback (form/poll design).
 
 ## 10. Execution Next Steps (Practical)

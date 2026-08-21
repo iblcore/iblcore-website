@@ -89,3 +89,39 @@ document.querySelectorAll("[data-accordion]").forEach((accordion) => {
 
   accordion.classList.add("accordion-ready");
 });
+
+document.querySelectorAll("[data-publication-browser]").forEach((browser) => {
+  const filters = Array.from(browser.querySelectorAll("[data-publication-filter]"));
+  const publications = Array.from(browser.querySelectorAll("[data-publication-item]"));
+  const status = browser.querySelector("[data-publication-status]");
+
+  const applyFilter = (selectedFilter) => {
+    let visibleCount = 0;
+
+    publications.forEach((publication) => {
+      const keywords = publication.dataset.publicationKeywords?.split(" ") || [];
+      const isVisible = selectedFilter === "date" || keywords.includes(selectedFilter);
+
+      publication.hidden = !isVisible;
+      if (isVisible) visibleCount += 1;
+    });
+
+    filters.forEach((filter) => {
+      const isActive = filter.dataset.publicationFilter === selectedFilter;
+      filter.classList.toggle("is-active", isActive);
+      filter.setAttribute("aria-pressed", String(isActive));
+    });
+
+    if (status) {
+      status.textContent = `${visibleCount} publication${visibleCount === 1 ? "" : "s"} shown.`;
+    }
+  };
+
+  filters.forEach((filter) => {
+    filter.addEventListener("click", () => {
+      applyFilter(filter.dataset.publicationFilter || "date");
+    });
+  });
+
+  applyFilter("date");
+});

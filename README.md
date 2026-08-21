@@ -54,7 +54,7 @@ workflow.
 ## Repository map
 
 - `content/`: Markdown pages and their metadata
-- `data/`: structured information such as projects and team data
+- `data/`: structured information such as projects, publications, and team data
 - `layouts/`: Hugo templates and reusable partials
 - `assets/css/`: tokens, base, component, and page styles
 - `assets/js/`: progressive JavaScript
@@ -72,6 +72,10 @@ page scope, content hierarchy, Hugo structure, and migration priorities.
 The site exposes a curated agent-readable index at `/llms.txt`. See
 [Agent-readable website content](docs/agent-readable-content.md) for its scope
 and validation policy.
+
+Publication records and filter keywords are maintained in
+`data/publications.yaml`. The homepage and `/publications/` page render from this
+shared source.
 
 For landing-page visual work, use `docs/landing-prototype-mini.webp` as the
 temporary reference. Other `docs/landing*.*` files are obsolete unless a task

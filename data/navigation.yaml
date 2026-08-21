@@ -24,7 +24,7 @@ header:
         url: /projects/
   - key: publications
     title: Publications
-    url: /#publications
+    url: /publications/
   - key: events
     title: Events
     disabled: true
