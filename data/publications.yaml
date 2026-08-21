@@ -9,6 +9,20 @@ keywords:
     label: Technique
 
 items:
+  - title: "Age-related changes in behavioural and neural variability in a decision-making task"
+    read_article: "https://www.nature.com/articles/s41467-026-74227-1"
+    code_repository: "https://github.com/Fenying-Zang/Ageing_behavioral_and_neural_variability"
+    data_access: "https://www.internationalbrainlab.com/data"
+    data_explorer: ""
+    date: 2026-06-30
+    display_date: "30 June 2026"
+    journal: "Nature Communications"
+    authors: "Zang, Khanal, Förster, International Brain Laboratory et al."
+    doi: "10.1038/s41467-026-74227-1"
+    summary: "A large-scale study of younger and older mice showing how ageing changes behavioural response-time variability, neural firing rates, and neural variability across brain regions."
+    keywords:
+      - science
+
   - title: "A Brain-Wide Map of Neural Activity during Complex Behaviour"
     read_article: "https://www.nature.com/articles/s41586-025-09235-0"
     code_repository: "https://github.com/int-brain-lab/paper-brain-wide-map"
