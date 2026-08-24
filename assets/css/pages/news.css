@@ -1,0 +1,58 @@
+.page-news {
+  position: relative;
+  background: var(--color-home-bg);
+  color: var(--color-text-on-dark);
+}
+
+.page-news::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(180deg, var(--color-team-overlay-top) 0%, var(--color-team-overlay-mid) 38%, var(--color-team-overlay-bottom) 100%),
+    url("/images/team/ibl-brain.webp") center 28% / 100% auto no-repeat;
+}
+
+.page-news::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(180deg, var(--color-team-overlay-soft-top) 0%, var(--color-team-overlay-soft) 100%);
+}
+
+.page-news .site-footer {
+  position: relative;
+  z-index: 1;
+}
+
+.news-hero {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  color: var(--color-text-on-dark);
+}
+
+.news-hero__inner {
+  align-items: flex-end;
+}
+
+.news-hero__media {
+  background: linear-gradient(180deg, var(--color-team-overlay-faint) 0%, var(--color-team-overlay-top) 58%, var(--color-team-overlay-bottom) 100%);
+}
+
+.news-hero h1 {
+  margin: 0;
+  color: var(--color-text-bright);
+  font-size: var(--font-size-page-hero-title);
+  line-height: 0.98;
+  font-weight: 400;
+}
+
+.news-page {
+  position: relative;
+  min-height: 24rem;
+  padding: var(--space-lg) 0 var(--space-2xl);
+  background: var(--color-home-bg);
+}

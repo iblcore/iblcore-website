@@ -11,7 +11,7 @@ Intended stack: Hugo static site generator, modern vanilla HTML/CSS, minimal van
 4. Projects (`/projects/`)
 5. Publications (`/publications/`)
 6. Events (`/events/`, disabled in navigation for now)
-7. News (`/news/`, disabled in navigation for now)
+7. News (`/news/`)
 8. Contact (`/#contact`)
 
 ## 2. Information Architecture (Detailed)
@@ -97,7 +97,7 @@ Includes:
 Includes:
 - News updates
 - Events
-- Press
+- Press, maintained as page bundles in `content/news/posts/` with structured source and external-link metadata
 
 ## 3. Hugo Content Model (Suggested)
 

@@ -30,6 +30,8 @@
             {{ $itemActive = eq $section "projects" }}
           {{ else if eq $item.key "publications" }}
             {{ $itemActive = eq $section "publications" }}
+          {{ else if eq $item.key "news" }}
+            {{ $itemActive = eq $section "news" }}
           {{ end }}
           <li class="site-nav__item{{ if $hasChildren }} site-nav__item--has-children{{ end }}">
             <a class="site-nav__link{{ if $hasChildren }} site-nav__link--has-children{{ end }}" href="{{ if $item.disabled }}#{{ else }}{{ $item.url | relURL }}{{ end }}"{{ if $itemActive }} aria-current="page"{{ end }}{{ if $item.disabled }} aria-disabled="true" title="Temporary placeholder link"{{ end }}>{{ $item.title }}</a>

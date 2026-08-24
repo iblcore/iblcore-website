@@ -1,6 +1,11 @@
 ---
 title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
+description: ""
+category: "news"
+source: "International Brain Laboratory"
+author: ""
+external_url: ""
 draft: true
 ---
 

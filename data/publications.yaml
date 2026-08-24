@@ -12,7 +12,7 @@ items:
   - title: "Age-related changes in behavioural and neural variability in a decision-making task"
     read_article: "https://www.nature.com/articles/s41467-026-74227-1"
     code_repository: "https://github.com/Fenying-Zang/Ageing_behavioral_and_neural_variability"
-    data_access: "https://www.internationalbrainlab.com/data"
+    data_access: "https://github.com/Fenying-Zang/Ageing_behavioral_and_neural_variability/blob/main/query_example_notebook.ipynb"
     data_explorer: ""
     date: 2026-06-30
     display_date: "30 June 2026"

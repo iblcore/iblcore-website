@@ -1,0 +1,37 @@
+{{ $page := .page }}
+{{ $cardId := .cardId }}
+<article class="publication-card accordion__item" data-accordion-item>
+  <h2 class="publication-card__heading">
+    <button
+      class="publication-card__button accordion__button"
+      type="button"
+      id="{{ $cardId }}-button"
+      aria-expanded="false"
+      aria-controls="{{ $cardId }}-details"
+      data-accordion-button
+    >
+      <span class="publication-card__line">
+        <span class="publication-card__title">{{ $page.Title }}</span>
+        <span class="publication-card__citation">{{ $page.Params.source }}, {{ $page.Date.Format "2 January 2006" }}</span>
+      </span>
+      <span class="publication-card__icon accordion__icon" aria-hidden="true"></span>
+    </button>
+  </h2>
+  <div
+    class="publication-card__details accordion__panel"
+    id="{{ $cardId }}-details"
+    role="region"
+    aria-labelledby="{{ $cardId }}-button"
+    aria-hidden="true"
+    inert
+    data-accordion-panel
+  >
+    <div class="publication-card__details-inner accordion__panel-inner">
+      {{ with $page.Params.author }}<p class="publication-card__metadata"><span>{{ . }}</span></p>{{ end }}
+      {{ with $page.Description }}<p class="publication-card__summary">{{ . }}</p>{{ end }}
+      <ul class="publication-card__links" aria-label="Press article link">
+        <li><a class="button publication-card__link" href="{{ $page.Params.external_url }}" target="_blank" rel="noreferrer">Read article</a></li>
+      </ul>
+    </div>
+  </div>
+</article>

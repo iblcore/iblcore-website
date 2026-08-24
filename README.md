@@ -54,6 +54,7 @@ workflow.
 ## Repository map
 
 - `content/`: Markdown pages and their metadata
+- `content/news/posts/`: page bundles for news, events, and press coverage
 - `data/`: structured information such as projects, publications, and team data
 - `layouts/`: Hugo templates and reusable partials
 - `assets/css/`: tokens, base, component, and page styles
@@ -76,6 +77,9 @@ and validation policy.
 Publication records and filter keywords are maintained in
 `data/publications.yaml`. The homepage and `/publications/` page render from this
 shared source.
+
+News and press entries are maintained as page bundles in `content/news/posts/`
+and are published through `/news/`.
 
 For landing-page visual work, use `docs/landing-prototype-mini.webp` as the
 temporary reference. Other `docs/landing*.*` files are obsolete unless a task

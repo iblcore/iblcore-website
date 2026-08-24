@@ -23,8 +23,11 @@
     {{ if eq .Section "projects" }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/projects.css") }}
     {{ end }}
-    {{ if eq .Section "publications" }}
+    {{ if or (eq .Section "publications") (eq .Section "news") }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/publications.css") }}
+    {{ end }}
+    {{ if eq .Section "news" }}
+      {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/news.css") }}
     {{ end }}
     {{ if eq .Layout "new-partners" }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/new-partners.css") }}
