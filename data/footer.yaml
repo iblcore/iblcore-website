@@ -8,7 +8,7 @@ columns:
         url: /projects/
   - links:
       - label: Publications
-        url: /#publications
+        url: /publications/
       - label: Events
         placeholder: true
       - label: News

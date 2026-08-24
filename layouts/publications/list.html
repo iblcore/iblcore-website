@@ -1,0 +1,101 @@
+{{ define "main" }}
+  {{ $publicationData := hugo.Data.publications }}
+  {{ $publications := sort $publicationData.items "date" "desc" }}
+
+  <section class="publications-hero section-hero">
+    <div class="publications-hero__media section-hero__media" aria-hidden="true"></div>
+    <div class="shell page-shell publications-hero__inner section-hero__inner">
+      <h1>{{ .Title }}</h1>
+    </div>
+  </section>
+
+  {{ with .Params.lead }}
+    <section class="publications-intro-banner section-banner">
+      <div class="shell page-shell section-banner__inner">
+        <p class="publications-intro-banner__copy">{{ . }}</p>
+      </div>
+    </section>
+  {{ end }}
+
+  <section class="publications-page section" aria-labelledby="publications-list-title" data-publication-browser>
+    <div class="shell page-shell">
+      <h2 class="visually-hidden" id="publications-list-title">Publication list</h2>
+
+      <div class="publication-filters" aria-label="Filter publications">
+        <span class="publication-filters__label">Sort by:</span>
+        <div class="publication-filters__buttons">
+          <button
+            class="publication-filter is-active"
+            type="button"
+            data-publication-filter="date"
+            aria-pressed="true"
+          >Date</button>
+          {{ range $publicationData.keywords }}
+            <button
+              class="publication-filter"
+              type="button"
+              data-publication-filter="{{ .key }}"
+              aria-pressed="false"
+            >{{ .label }}</button>
+          {{ end }}
+        </div>
+      </div>
+
+      <p class="visually-hidden" aria-live="polite" data-publication-status></p>
+
+      <div class="publications-page__list accordion-ready" data-accordion data-accordion-default-open="none">
+        {{ range $publicationIndex, $publication := $publications }}
+          {{ $publicationId := printf "publication-%d" $publicationIndex }}
+          <article class="publication-card accordion__item" data-publication-item data-publication-keywords="{{ delimit $publication.keywords " " }}" data-accordion-item>
+            <h3 class="publication-card__heading">
+              <button
+                class="publication-card__button accordion__button"
+                type="button"
+                id="{{ $publicationId }}-button"
+                aria-expanded="false"
+                aria-controls="{{ $publicationId }}-details"
+                data-accordion-button
+              >
+                <span class="publication-card__line">
+                  <span class="publication-card__title">{{ $publication.title }}</span>
+                  <span class="publication-card__citation">{{ $publication.journal }}, {{ $publication.display_date }}</span>
+                </span>
+                <span class="publication-card__icon accordion__icon" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <div
+              class="publication-card__details accordion__panel"
+              id="{{ $publicationId }}-details"
+              role="region"
+              aria-labelledby="{{ $publicationId }}-button"
+              aria-hidden="true"
+              inert
+              data-accordion-panel
+            >
+              <div class="publication-card__details-inner accordion__panel-inner">
+                <p class="publication-card__metadata">
+                  <span>{{ $publication.authors }}</span>
+                  <span aria-hidden="true">—</span>
+                  <a href="https://doi.org/{{ $publication.doi }}">{{ $publication.doi }}</a>
+                </p>
+                <p class="publication-card__summary">{{ $publication.summary }}</p>
+                {{ if or (or $publication.read_article $publication.code_repository) (or $publication.data_access $publication.data_explorer) }}
+                  <ul class="publication-card__links" aria-label="Article and resources">
+                    {{ with $publication.read_article }}<li><a class="button publication-card__link" href="{{ . }}">Read article</a></li>{{ end }}
+                    {{ with $publication.code_repository }}<li><a class="button publication-card__link" href="{{ . }}">Code repository</a></li>{{ end }}
+                    {{ with $publication.data_access }}<li><a class="button publication-card__link" href="{{ . }}">Data access</a></li>{{ end }}
+                    {{ with $publication.data_explorer }}<li><a class="button publication-card__link" href="{{ . }}">Data explorer</a></li>{{ end }}
+                  </ul>
+                {{ end }}
+              </div>
+            </div>
+          </article>
+        {{ end }}
+      </div>
+
+      <div class="publications-page__actions">
+        <a class="button publications-page__archive-link" href="{{ $publicationData.archive_url }}">More IBL 1.0 Publications</a>
+      </div>
+    </div>
+  </section>
+{{ end }}
