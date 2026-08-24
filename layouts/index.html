@@ -24,7 +24,8 @@
   {{ $majorPublications := where hugo.Data.publications.items "keywords" "intersect" (slice "major") }}
   {{ $publications := sort $majorPublications "date" "desc" }}
   {{ $supporters := slice
-    (dict "src" "images/simons.png" "alt" "Simons Foundation logo" "width" 118 "height" 118)
+    (dict "src" "images/funders/simons-foundation-international.png" "alt" "Simons Foundation International logo" "width" 118 "height" 118)
+    (dict "src" "images/funders/simons-foundation.png" "alt" "Simons Foundation logo" "width" 118 "height" 118)
     (dict "src" "images/wellcome.png" "alt" "Wellcome logo" "width" 118 "height" 118)
     (dict "src" "images/nih.png" "alt" "National Institutes of Health logo" "width" 118 "height" 118)
   }}
@@ -119,7 +120,7 @@
         <div class="support-section__header">
           <div class="support-section__heading">
             <h2>Support</h2>
-            <p>IBL is grateful for financial support from the following organizations</p>
+            <p>IBL is grateful for financial and other support from the following organizations:</p>
           </div>
           <!-- <a class="button button--support" href="mailto:info@iblcore.org">Contact us</a> -->
         </div>
