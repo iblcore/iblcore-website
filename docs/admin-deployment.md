@@ -20,9 +20,10 @@ production deployment happens only after a commit reaches `main`.
 
 The repository is configured with the active `Protect main` ruleset. It requires
 one approval, resolved review conversations, and a successful `build` check for
-normal changes. It also blocks deletion and force pushes. The `rossant` account
-has an explicit always-allow bypass so the administrator can push directly to
-`main` when necessary.
+normal changes. It also blocks deletion and force pushes. The ruleset grants
+explicit always-allow bypasses to the `rossant` and `GaelleChapuis`
+accounts so either administrator can merge or push directly to `main` when
+necessary.
 
 The repository's Actions workflow permissions must allow the preview workflow
 to comment on pull requests. The workflow itself requests only the permissions
