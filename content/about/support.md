@@ -8,6 +8,6 @@ body_class: "page-about-support"
 header_variant: "landing"
 ---
 
-We are grateful for the generous support of the funders who make the IBL Core's scientific, technical, and community work possible.
+IBL is grateful for financial and other support from the following organizations:
 
-IBL is supported by five-year funding towards the IBL Core from the Simons Foundation (active through 2030). Our community engagement and methodology dissemination efforts are supported by a three-year grant from the Wellcome Trust (active through 2028). In addition, a number of ongoing projects are supported by the NIH BRAIN Initiative through a U19 award.
+Simons Foundation International provides five-year funding for the IBL Core through 2030. The Simons Foundation provides administrative and programmatic support in connection with this funding. Our community engagement and methodology dissemination efforts are supported by a three-year grant from Wellcome through 2028. In addition, ongoing projects are supported by the NIH BRAIN Initiative through a U19 award.
