@@ -1,0 +1,21 @@
+{{ define "main" }}
+  {{ $press := where .RegularPagesRecursive "Params.category" "press" }}
+
+  <section class="news-hero section-hero">
+    <div class="news-hero__media section-hero__media" aria-hidden="true"></div>
+    <div class="shell page-shell news-hero__inner section-hero__inner">
+      <h1>Press</h1>
+    </div>
+  </section>
+
+  <section class="news-page section" aria-labelledby="press-title">
+    <div class="shell page-shell">
+      <h2 class="visually-hidden" id="press-title">Press articles</h2>
+      <div class="publications-page__list accordion-ready" data-accordion data-accordion-default-open="none">
+        {{ range $pressIndex, $pressItem := sort $press "Date" "desc" }}
+          {{ partial "news-card.html" (dict "page" $pressItem "cardId" (printf "press-%d" $pressIndex)) }}
+        {{ end }}
+      </div>
+    </div>
+  </section>
+{{ end }}

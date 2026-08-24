@@ -30,7 +30,7 @@ header:
     disabled: true
   - key: news
     title: News
-    disabled: true
+    url: /news/
   - key: contact
     title: Contact
     url: /about/team/#contact
