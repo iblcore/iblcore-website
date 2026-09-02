@@ -1,0 +1,16 @@
+{{- $media := .media -}}
+{{- with $media -}}
+  <div class="new-partners-team{{ if eq (len .) 1 }} new-partners-team--single{{ end }}{{ if gt (len .) 2 }} new-partners-team--portraits{{ end }}">
+    {{ range . }}
+      <figure class="new-partners-team__item{{ if .full_width }} new-partners-team__item--full{{ end }}">
+        <img
+          class="new-partners-team__image{{ if eq .image_fit "contain" }} new-partners-team__image--contain{{ end }}"
+          src="{{ .image | relURL }}"
+          alt="{{ .alt }}"
+          loading="lazy"
+        >
+        {{ with .caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+      </figure>
+    {{ end }}
+  </div>
+{{- end -}}

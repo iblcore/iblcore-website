@@ -1,0 +1,26 @@
+{{- $people := . -}}
+{{- $sharedAffiliation := "" -}}
+{{- if reflect.IsMap . -}}
+  {{- $people = .people -}}
+  {{- $sharedAffiliation = .shared_affiliation | default "" -}}
+{{- end -}}
+{{- with $people -}}
+  <span class="new-partners-people{{ if eq (len .) 2 }} new-partners-people--pair{{ end }}{{ if gt (len .) 2 }} new-partners-people--grid{{ end }}{{ with $sharedAffiliation }} new-partners-people--shared-affiliation{{ end }}">
+    {{- range . -}}
+      <span class="new-partners-person">
+        <img
+          class="new-partners-person__image{{ if eq .image_fit "contain" }} new-partners-person__image--contain{{ end }}"
+          src="{{ .image | relURL }}"
+          alt=""
+          loading="lazy"
+          title="{{ .name }}{{ with .role }} - {{ . }}{{ end }}"
+        >
+        <span class="new-partners-person__details">
+          <span class="new-partners-person__name">{{ .name }}</span>
+          {{ if not $sharedAffiliation }}{{ with .affiliation }}<span class="new-partners-person__affiliation">{{ . }}</span>{{ end }}{{ end }}
+        </span>
+      </span>
+    {{- end -}}
+    {{- with $sharedAffiliation }}<span class="new-partners-people__shared-affiliation">{{ . }}</span>{{ end -}}
+  </span>
+{{- end -}}

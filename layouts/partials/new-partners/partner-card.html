@@ -1,0 +1,52 @@
+{{- $item := .item -}}
+{{- $itemIndex := .index -}}
+{{- $idPrefix := .id_prefix | default "new-partner-project" -}}
+{{- $fullTitle := or $item.title $item.name -}}
+{{- $authorRaw := replaceRE "\\s*:\\s*.*$" "" $fullTitle -}}
+{{- $author := title (lower (replace $authorRaw ", " " | ")) -}}
+{{- $projectTitle := replaceRE "^[^:]+\\s*:\\s*" "" $fullTitle -}}
+{{- $itemId := printf "%s-%d" $idPrefix $itemIndex -}}
+<article class="new-partners-card accordion__item" data-accordion-item>
+  <button
+    class="new-partners-card__header accordion__button"
+    type="button"
+    id="{{ $itemId }}-button"
+    aria-expanded="false"
+    aria-controls="{{ $itemId }}-body"
+    data-accordion-button
+  >
+    <span class="new-partners-card__header-copy">
+      {{ if not $item.people }}<span class="new-partners-card__authors">{{ $author }}</span>{{ end }}
+      <span class="new-partners-card__heading" role="heading" aria-level="3">
+        <span class="new-partners-card__title">{{ $projectTitle }}</span>
+      </span>
+    </span>
+    {{ partial "new-partners/people.html" $item.people }}
+    <span class="new-partners-card__icon accordion__icon" aria-hidden="true"></span>
+  </button>
+  <div
+    class="new-partners-card__body accordion__panel prose"
+    id="{{ $itemId }}-body"
+    role="region"
+    aria-labelledby="{{ $itemId }}-button"
+    aria-hidden="true"
+    inert
+    data-accordion-panel
+  >
+    <div class="new-partners-card__body-inner accordion__panel-inner">
+      <div class="new-partners-card__content-grid">
+        <div class="new-partners-project-copy">
+          <p class="new-partners-card__eyebrow">IBL collaboration</p>
+          {{ with $item.body_file }}
+            {{ if fileExists . }}
+              {{ readFile . | markdownify }}
+            {{ else }}
+              <p>Project description file not found: <code>{{ . }}</code></p>
+            {{ end }}
+          {{ end }}
+        </div>
+        {{ partial "new-partners/lab-details.html" (dict "item" $item "hide_heading" false) }}
+      </div>
+    </div>
+  </div>
+</article>

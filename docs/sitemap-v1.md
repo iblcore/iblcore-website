@@ -70,7 +70,24 @@ Notes:
 ### 2.4 Projects (`/projects/`)
 
 Includes:
-- List of projects ongoing
+- IBL Research Projects as the single page heading, followed directly by the project content
+- New partner projects (`/new-partner-projects/`)
+  - Map view is the default; the hero-positioned List/Map control switches between an interactive world view and the complete project list
+  - Map view uses a concise Partner and Affiliate Projects introduction; the New Partner Projects heading and introduction appear only in List view
+  - Map markers group cities within a 175 km radius and show the number of local records, using global category tokens for IBL blue Partners and IBL Core logo-pink Affiliates, with connection lines for collaborations spanning multiple geographic clusters
+  - Hovering or focusing a marker previews its records; selecting it presents titles and PI portraits before opening the relevant accordion
+  - Partner and Affiliate selections both expand directly below the map; the standalone Affiliate section remains part of List view only
+  - In List view, the Affiliate heading and Affiliate Programme introduction share one banner
+  - Both List and Map presentations end with a centered `IBL internal projects` CTA banner
+  - Hover-only question-mark popovers in the legend reuse the canonical Partner introduction and Affiliate programme copy rather than duplicating it
+  - Partner and Affiliate legend labels switch to List view and navigate to the corresponding section banner
+  - Marker tooltips use one bullet per location and collaboration in `City: project title` format, emphasizing the city and using category-colored bullets with screen-reader labels
+  - Partner and Affiliate hover entries use concise lab or collaboration names; multi-city records may define a different lab label per location
+  - Map selection buttons use the concise lab or collaboration name associated with the selected city, while expanded Partner accordions retain the full project title
+  - Partner-project accordions keep the IBL collaboration description primary
+  - Lead investigators or project contacts appear in the closed accordion row
+  - Expanded rows may add team imagery and a short, clearly separated research-group profile with reference links
+  - Affiliate programme introduction and profile accordions with contact imagery, group summaries, team imagery, and reference links
 - Apply to become a partner
   - FAQ to become partner - take from https://www.internationalbrainlab.com/ibl-core-apply
 

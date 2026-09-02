@@ -1,0 +1,6 @@
+{{- $path := .Get 0 -}}
+{{- if fileExists $path -}}
+  {{- readFile $path | markdownify -}}
+{{- else -}}
+  {{- errorf "Shared Markdown file not found: %s" $path -}}
+{{- end -}}

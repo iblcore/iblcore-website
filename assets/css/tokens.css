@@ -10,6 +10,8 @@
   --color-brand-dark: #004d89;
   --color-brand-light: #b1e1f2;
   --color-brand-sky: #68c6f2;
+  --color-category-partner: var(--color-brand-dark);
+  --color-category-affiliate: #ce2c97;
   --color-bg: #ffffff;
   --color-surface: #ffffff;
   --color-surface-strong: rgba(255, 255, 255, 0.98);

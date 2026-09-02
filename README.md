@@ -78,6 +78,94 @@ Publication records and filter keywords are maintained in
 `data/publications.yaml`. The homepage and `/publications/` page render from this
 shared source.
 
+Project and affiliate records are maintained in `data/projects.yaml`. The
+`/new-partner-projects/` layout uses reusable profile and research-group
+partials. Partner records also store one or more city coordinates for the
+page's List/Map switcher, with Map as the default view. The map clusters Partner and Affiliate records by
+geographic proximity (within 175 km), uses IBL blue for Partners and the IBL Core logo pink for Affiliates, and draws connections between cities belonging
+to the same collaboration, and uses locally pinned D3,
+TopoJSON, and Natural Earth-derived world geometry under `static/vendor/` and
+`static/data/`. Map selections open both Partner and Affiliate accordions directly
+beneath the map; the standalone Affiliate section is shown only in List view.
+The List/Map control occupies the page hero position. The New Partner Projects
+heading is grouped with its shared introduction banner in List view. Map view
+uses the shared `content/projects/descriptions/map-overview.md` introduction.
+The Affiliate
+heading is grouped with the Affiliate Programme introduction in List view.
+Both presentations end with the same centered `IBL internal projects` CTA
+banner linking to `/projects/#ibl-research-projects`.
+Map legend information popovers render the same page introduction and Affiliate
+programme Markdown used by the visible List sections, so this copy has one
+canonical source. Shared content-page copy is included with the reusable
+`shared-markdown` shortcode; the Partner overview lives at
+`content/projects/descriptions/partners-overview.md`.
+The map's Partner and Affiliate legend labels switch to List view and scroll to
+the matching introduction banner; hovering their adjacent question marks shows
+the shared-copy popovers without a click state.
+Marker tooltips list one bullet per location and collaboration in the concise
+`City: project title` format. City names are emphasized, while each bullet uses
+the global Partner or Affiliate category color and exposes the category to
+screen readers.
+Affiliate map labels come from each record's concise `map_title`, using only a
+lab or collaboration name rather than an individual person's name.
+Partner hover labels follow the same convention, with optional location-level
+overrides when a multi-city project connects different labs. Map selection
+buttons use the lab associated with the selected city; full project titles remain
+in the expanded accordions.
+Partner and Affiliate colors are defined once as site-wide category tokens in
+`assets/css/tokens.css` and referenced by all map treatments.
+Keep the complete project title in the card heading, omit redundant
+prefixes such as `Project:`, and center lead portraits in the right-hand
+research-group column with names, institutions, and cities underneath. Partner
+rows omit a separate PI line when the portrait caption already identifies that
+person. Expanded Partner cards retain the `Research group` label without
+repeating the lab name and institution beneath it. The Affiliate section uses
+square lead-portrait tiles rather than repeating a lab heading; co-led
+collaborations may show both leads, and an open tile spans the grid for its
+summary, links, and team imagery. The title column ends where the expanded
+card's research-group divider begins.
+Affiliate reference buttons sit centered directly below the PI portrait area
+in expanded cards. One-to-one reference sets align to their corresponding PI
+portrait columns; a shared reference for a two-person collaboration remains
+centered between both portraits.
+Portrait and reference columns must use the same centralized Affiliate column
+width and gap variables so this alignment remains exact in both List and Map
+accordions.
+Two-person Affiliate groups with a shared affiliation use an explicit two-column
+portrait grid, keeping both headshots side by side in closed and expanded states.
+For the Hantman Lab, Adam Hantman is the lead portrait and Kevin Cross appears
+beside the lab image inside the expanded accordion as the IBL Core correspondent.
+Expanded cards keep the IBL collaboration copy separate from concise lab
+details, sources, and team imagery. Optimized project images are stored under
+`static/images/new-partners/`. Accordion typography uses normal title casing
+and a compact, consistent type scale across headings, body copy, and metadata.
+Affiliate portrait circles match the Partner portrait size, and expanded-card
+imagery uses a non-cropping fit so the complete supplied image remains visible.
+Multi-lead consortium tiles may use a 2-by-2 portrait arrangement. A single
+Partner expanded-card image fills the width of its content column.
+Affiliate team imagery uses one shared compact frame width and a non-cropping
+4:3 presentation so portrait and landscape source photos remain similarly sized
+without removing anyone near an image edge.
+When a consortium is better identified by its shared name, the closed tile may
+use that name as its main title and move member portraits into the expanded
+panel.
+Team portraits are assigned to their Partner group in `data/projects.yaml`;
+featured science imagery may span the full media grid above those portraits.
+Consortium summaries and reference links should prefer authoritative funding or
+institutional project records when available.
+ARC keeps exactly one authoritative reference per consortium member, ordered to
+align with the four portrait columns.
+Closed accordion rows use compact vertical spacing, and Affiliate portrait
+tiles use a tighter five-column grid on wide screens.
+Partner rows share a consistent desktop height. Co-PI portraits have added
+horizontal separation, and institution-city captions remain on one line until
+the responsive layout stacks.
+
+The `/projects/` page uses the single page title `IBL Research Projects`
+without a second introduction or repeated section heading. A planned IBL
+network map must read verified city coordinates from `data/team.yaml`; the
+repository currently contains locations for only a subset of team members.
+
 News and press entries are maintained as page bundles in `content/news/posts/`
 and are published through `/news/`.
 

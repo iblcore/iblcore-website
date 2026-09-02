@@ -1,0 +1,50 @@
+{{- $item := .item -}}
+{{- $itemIndex := .index -}}
+{{- $idPrefix := .id_prefix | default "affiliate" -}}
+{{- $itemId := printf "%s-%d" $idPrefix $itemIndex -}}
+<article class="new-partners-card new-partners-card--affiliate accordion__item" data-accordion-item>
+  <button
+    class="new-partners-card__header accordion__button"
+    type="button"
+    id="{{ $itemId }}-button"
+    aria-expanded="false"
+    aria-controls="{{ $itemId }}-body"
+    data-accordion-button
+  >
+    {{ if $item.people_in_panel }}
+      <span class="new-partners-card__header-copy new-partners-card__header-copy--centered">
+        <span class="new-partners-card__heading" role="heading" aria-level="3">
+          <span class="new-partners-card__title">{{ or $item.subtitle $item.title $item.name }}</span>
+        </span>
+      </span>
+    {{ else }}
+      {{ partial "new-partners/people.html" (dict "people" $item.people "shared_affiliation" $item.shared_affiliation) }}
+    {{ end }}
+    {{ with $item.card_note }}<span class="new-partners-card__note">{{ . }}</span>{{ end }}
+    <span class="new-partners-card__icon accordion__icon" aria-hidden="true"></span>
+  </button>
+  <div
+    class="new-partners-card__body accordion__panel prose"
+    id="{{ $itemId }}-body"
+    role="region"
+    aria-labelledby="{{ $itemId }}-button"
+    aria-hidden="true"
+    inert
+    data-accordion-panel
+  >
+    <div class="new-partners-card__body-inner accordion__panel-inner">
+      {{ if $item.people_in_panel }}
+        <div class="new-partners-card__panel-people">
+          {{ partial "new-partners/people.html" (dict "people" $item.people "shared_affiliation" $item.shared_affiliation) }}
+        </div>
+      {{ end }}
+      {{ with $item.lab.links }}
+        {{ $alignReferences := eq (len .) (len $item.people) }}
+        <p class="new-partners-lab__links new-partners-lab__links--affiliate{{ if $alignReferences }} new-partners-lab__links--aligned-{{ len $item.people }}{{ end }}">
+          {{ range . }}<a href="{{ .url }}">{{ .label }}</a>{{ end }}
+        </p>
+      {{ end }}
+      {{ partial "new-partners/lab-details.html" (dict "item" $item "hide_heading" true "hide_links" true) }}
+    </div>
+  </div>
+</article>

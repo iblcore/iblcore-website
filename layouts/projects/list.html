@@ -10,25 +10,10 @@
     </div>
   </section>
 
-  {{ with .Content }}
-    <section class="projects-banner section-banner">
-      <div class="shell projects-banner__inner section-banner__inner">
-        <div class="projects-banner__copy section-banner__copy prose">
-          {{ . }}
-        </div>
-      </div>
-    </section>
-  {{ end }}
-
   <section class="projects-sections" aria-label="Projects">
     <div class="shell">
       {{ range where $projects.sections "id" "ibl-research-projects" }}
         <section class="projects-section" id="{{ .id }}">
-          <header class="projects-section__header">
-            <h2>IBL Research Projects</h2>
-            {{ with .description }}<p>{{ . }}</p>{{ end }}
-          </header>
-
           {{ if eq .layout "affiliates" }}
             <div class="project-cards">
               <article class="project-card">

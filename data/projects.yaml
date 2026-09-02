@@ -1,7 +1,7 @@
 sections:
   - id: "ibl-research-projects"
     title: "IBL research projects"
-    description: "This page showcases example research projects carried out within the International Brain Laboratory (IBL), highlighting how these efforts are supported by the collaboration’s core staff IBL Core."
+    description: ""
     layout: "accordion"
     items:
       - name: "NEUROMODULATOR"
@@ -26,19 +26,247 @@ sections:
     tone: "section--muted"
     items:
       - title: "FANNY CAZETTES : Extending IBL's tools to the study of the neural computations and dynamics of behavioral flexibility"
+        map_title: "Cazettes Lab"
         body_file: "content/projects/descriptions/partner/cazettes.md"
+        locations:
+          - city: "Marseille"
+            country: "France"
+            latitude: 43.2965
+            longitude: 5.3698
+        people:
+          - name: "Fanny Cazettes"
+            role: "Lead PI"
+            affiliation: "INT - Marseille"
+            image: "/images/new-partners/partners/fanny-cazettes.webp"
+        team_media:
+          - image: "/images/new-partners/partners/cazettes-project.webp"
+            alt: "Illustration from the Cazettes Lab partner project"
+            image_fit: "contain"
+            full_width: true
+          - image: "/images/new-partners/partners/antoine-courbi.webp"
+            alt: "Antoine Courbi"
+            caption: "Antoine Courbi"
+        lab:
+          title: "About the Cazettes Lab"
+          institution: "Institut de Neurosciences de la Timone, Marseille"
+          summary: "The lab studies how distributed cortical and subcortical circuits generate and switch between decision strategies, combining mouse behaviour, large-scale recordings, imaging and computational theory."
+          links:
+            - label: "Lab website"
+              url: "https://www.fannycazettes.com/"
+            - label: "CNRS profile"
+              url: "https://www.insb.cnrs.fr/fr/personne/fanny-cazettes"
       - title: "CARL PETERSEN : Brain-wide measurements of neuronal activity changes during single-session reward-based sensorimotor learning"
+        map_title: "Laboratory of Sensory Processing"
         body_file: "content/projects/descriptions/partner/petersen.md"
+        locations:
+          - city: "Lausanne"
+            country: "Switzerland"
+            latitude: 46.5197
+            longitude: 6.6323
+        people:
+          - name: "Carl Petersen"
+            role: "Lead PI"
+            affiliation: "EPFL - Lausanne"
+            image: "/images/new-partners/partners/carl-petersen.webp"
+        lab:
+          title: "About the Laboratory of Sensory Processing"
+          institution: "EPFL Brain Mind Institute"
+          summary: "The laboratory investigates sensory perception and associative learning at the level of neurons, synapses and circuits, with a particular focus on whisker-based perception in awake mice."
+          links:
+            - label: "Lab website"
+              url: "https://www.epfl.ch/labs/lsens/"
+            - label: "EPFL profile"
+              url: "https://people.epfl.ch/carl.petersen?lang=en"
       - title: "JOAQUIN GONZALEZ, MATIAS CAVELLI : Decoding Breathing from Orofacial Video to Expand IBL's Brain-Wide Dataset"
+        map_title: "Gonzalez-Cavelli collaboration"
         body_file: "content/projects/descriptions/partner/gonzalez.md"
+        locations:
+          - city: "New York"
+            country: "United States"
+            latitude: 40.7128
+            longitude: -74.0060
+          - city: "Montevideo"
+            country: "Uruguay"
+            latitude: -34.9011
+            longitude: -56.1645
+        people:
+          - name: "Joaquin Gonzalez"
+            role: "Lead PI"
+            affiliation: "NYU Grossman School of Medicine - New York"
+            image: "/images/new-partners/partners/joaquin-gonzalez.webp"
+          - name: "Matias Cavelli"
+            role: "Lead PI"
+            affiliation: "Universidad de la Republica - Montevideo"
+            image: "/images/new-partners/partners/matias-cavelli.webp"
+        team_media:
+          - image: "/images/new-partners/partners/diego-serantes.webp"
+            alt: "Diego Serantes"
+            caption: "Diego Serantes"
+          - image: "/images/new-partners/partners/juan-castro.webp"
+            alt: "Juan Castro"
+            caption: "Juan Castro"
+          - image: "/images/new-partners/partners/andrew-liao.webp"
+            alt: "Andrew Liao"
+            caption: "Andrew Liao"
+          - image: "/images/new-partners/partners/anttonela-garcia.webp"
+            alt: "Anttonela Garcia"
+            caption: "Anttonela Garcia"
+          - image: "/images/new-partners/partners/tiziana-romani.webp"
+            alt: "Tiziana Romani"
+            caption: "Tiziana Romani"
+          - image: "/images/new-partners/partners/diego-gallo.webp"
+            alt: "Diego Gallo"
+            caption: "Diego Gallo"
+        lab:
+          title: "About the Sleep Neurobiology Research Group"
+          institution: "Universidad de la Republica, Uruguay"
+          summary: "The group studies sleep and consciousness, including how brain state and nasal respiration shape sensory processing, memory-related networks and brain-wide activity."
+          links:
+            - label: "Department of Physiology"
+              url: "https://www.fmed.edu.uy/"
+            - label: "Open neuroscience in Uruguay"
+              url: "https://www.thetransmitter.org/open-neuroscience/the-promise-of-open-neuroscience-for-latin-america/"
       - title: "HELEN HOU : Cheese3D-IBL Collaboration"
+        map_title: "Hou Lab"
         body_file: "content/projects/descriptions/partner/hou.md"
+        locations:
+          - city: "Cold Spring Harbor"
+            country: "United States"
+            latitude: 40.8715
+            longitude: -73.4568
+        people:
+          - name: "Helen Hou"
+            role: "Lead PI"
+            affiliation: "CSHL - Cold Spring Harbor"
+            image: "/images/new-partners/partners/helen-hou.webp"
+        team_media:
+          - image: "/images/new-partners/partners/linghua-zhang.webp"
+            alt: "Linghua Zhang"
+            caption: "Linghua Zhang"
+          - image: "/images/new-partners/partners/diana-naglic.webp"
+            alt: "Diana Naglič"
+            caption: "Diana Naglič"
+          - image: "/images/new-partners/partners/kyle-daruwalla.webp"
+            alt: "Kyle Daruwalla"
+            caption: "Kyle Daruwalla"
+        lab:
+          title: "About the Hou Lab"
+          institution: "Cold Spring Harbor Laboratory"
+          summary: "The Hou Lab studies how the brain controls movement and behaviour, with a particular interest in facial movement and emotional expression. It combines quantitative behaviour, electrophysiology and computer vision to connect face-wide kinematics with neural activity."
+          links:
+            - label: "Hou Lab"
+              url: "https://www.houlab.org/"
+            - label: "CSHL profile"
+              url: "https://www.cshl.edu/research/faculty-staff/helen-hou/"
       - title: "ADAM TYSON : Building general-purpose systems neuroscience software infrastructure for the community"
+        map_title: "Neuroinformatics Unit"
         body_file: "content/projects/descriptions/partner/tyson.md"
+        locations:
+          - city: "London"
+            country: "United Kingdom"
+            latitude: 51.5074
+            longitude: -0.1278
+        people:
+          - name: "Adam Tyson"
+            role: "Project lead"
+            affiliation: "UCL - London"
+            image: "/images/new-partners/partners/adam-tyson.webp"
+        team_media:
+          - image: "/images/new-partners/partners/changhuan-lo.webp"
+            alt: "Changhuan Lo"
+            caption: "Changhuan Lo"
+          - image: "/images/new-partners/partners/igor-tatarnikov.webp"
+            alt: "Igor Tatarnikov"
+            caption: "Igor Tatarnikov"
+          - image: "/images/new-partners/partners/harry-carey.webp"
+            alt: "Harry Carey"
+            caption: "Harry Carey"
+          - image: "/images/new-partners/partners/niko-sirmpilatze.webp"
+            alt: "Niko Sirmpilatze"
+            caption: "Niko Sirmpilatze"
+          - image: "/images/new-partners/partners/joseph-ziminski.webp"
+            alt: "Joseph Ziminski"
+            caption: "Joseph Ziminski"
+          - image: "/images/new-partners/partners/laura-porta.webp"
+            alt: "Laura Porta"
+            caption: "Laura Porta"
+          - image: "/images/new-partners/partners/alessandro-felder.webp"
+            alt: "Alessandro Felder"
+            caption: "Alessandro Felder"
+          - image: "/images/new-partners/partners/sofia-minano.webp"
+            alt: "Sofia Minano"
+            caption: "Sofia Minano"
+        lab:
+          title: "About the Neuroinformatics Unit"
+          institution: "Sainsbury Wellcome Centre and Gatsby Unit, UCL"
+          summary: "The unit develops open-source software and shared infrastructure for reproducible neuroscience, spanning microscopy, behavioural analysis, electrophysiology, data standards and sharing."
+          links:
+            - label: "Neuroinformatics Unit"
+              url: "https://www.sainsburywellcome.org/blog/neuroinformatics-unit-paves-way-open-science-initiatives"
+            - label: "Adam Tyson profile"
+              url: "https://www.sainsburywellcome.org/people/adam-tyson-0"
       - title: "MATHIAS MAHN, ANDREAS LUTHI : Brain-Wide Dynamics During Cost-Benefit Decision-Making"
+        map_title: "Mahn Research Group"
         body_file: "content/projects/descriptions/partner/mahn.md"
-      - title: "ANDREAS TOLIAS, JAMES COTTON : Project: Foundation model for macaque behavioral"
+        locations:
+          - city: "Basel"
+            country: "Switzerland"
+            latitude: 47.5596
+            longitude: 7.5886
+        people:
+          - name: "Mathias Mahn"
+            role: "Lead PI"
+            affiliation: "FMI - Basel"
+            image: "/images/new-partners/partners/mathias-mahn.webp"
+        team_media:
+          - image: "/images/new-partners/partners/mahn-project.webp"
+            alt: "Scientific project image"
+            image_fit: "contain"
+            full_width: true
+          - image: "/images/new-partners/partners/andras-szonyi.webp"
+            alt: "Andras Szonyi"
+            caption: "Andras Szonyi"
+        lab:
+          title: "About the Mahn Research Group"
+          institution: "Friedrich Miescher Institute, Basel"
+          summary: "The group combines systems neuroscience, protein engineering, optics and electronics to study how brain circuits assign value and influence decisions and behaviour."
+          links:
+            - label: "FMI"
+              url: "https://www.fmi.ch/"
+            - label: "Mathias Mahn profile"
+              url: "https://www.researchgate.net/profile/Mathias-Mahn"
+      - title: "ANDREAS TOLIAS, JAMES COTTON : Foundation model for macaque behavioral"
+        map_title: "Tolias-Cotton collaboration"
         body_file: "content/projects/descriptions/partner/tolias.md"
+        locations:
+          - city: "Stanford"
+            country: "United States"
+            latitude: 37.4275
+            longitude: -122.1697
+            map_title: "Tolias Lab"
+          - city: "Chicago"
+            country: "United States"
+            latitude: 41.8781
+            longitude: -87.6298
+            map_title: "Cotton Lab"
+        people:
+          - name: "Andreas Tolias"
+            role: "Lead PI"
+            affiliation: "Stanford University - Stanford"
+            image: "/images/new-partners/partners/andreas-tolias.webp"
+          - name: "R. James Cotton"
+            role: "Lead PI"
+            affiliation: "Shirley Ryan AbilityLab - Chicago"
+            image: "/images/new-partners/partners/james-cotton.webp"
+        lab:
+          title: "About the collaborating labs"
+          institution: "Stanford University and Shirley Ryan AbilityLab / Northwestern University"
+          summary: "The Tolias Lab links systems neuroscience with machine learning and NeuroAI. The Cotton Lab develops scalable sensing, computer-vision and biomechanical tools for measuring movement and rehabilitation."
+          links:
+            - label: "Tolias Lab"
+              url: "https://toliaslab.org/"
+            - label: "Cotton profile"
+              url: "https://www.sralab.org/researchers/r-james-cotton-md-phd"
 
   - id: "affiliates"
     title: "Affiliates"
@@ -47,9 +275,259 @@ sections:
     body_file: "content/projects/descriptions/affiliates.md"
     items:
       - name: "Katherine Matho and Fei Xia"
+        subtitle: "Matho-Xia collaboration"
+        map_title: "Matho-Xia collaboration"
+        locations:
+          - city: "Los Angeles"
+            country: "United States"
+            latitude: 34.0522
+            longitude: -118.2437
+          - city: "Irvine"
+            country: "United States"
+            latitude: 33.6846
+            longitude: -117.8265
+        people:
+          - name: "Katherine Matho"
+            affiliation: "CHLA / USC - Los Angeles"
+            image: "/images/new-partners/affiliates/katherine-matho.webp"
+          - name: "Fei Xia"
+            affiliation: "UC Irvine - Irvine"
+            image: "/images/new-partners/affiliates/fei-xia.webp"
+        team_media:
+          - image: "/images/new-partners/affiliates/matho-lab.webp"
+            alt: "Members of the Matho Lab"
+            caption: "Matho Lab"
+          - image: "/images/new-partners/affiliates/xia-lab.webp"
+            alt: "Members of the Xia Lab"
+            caption: "Xia Lab"
+        lab:
+          institution: "Children's Hospital Los Angeles / USC and UC Irvine"
+          summary: "A collaboration connecting developmental circuit mapping with optical microscopy, computational imaging and AI-assisted neurophotonics."
+          links:
+            - label: "Katherine Matho profile"
+              url: "https://www.chla.org/profile/katherine-matho-phd"
+            - label: "Xia Lab"
+              url: "https://xia-lab.squarespace.com/"
       - name: "Kevin Cross"
+        subtitle: "Cross-Hantman collaboration"
+        map_title: "Hantman Lab"
+        locations:
+          - city: "Chapel Hill"
+            country: "United States"
+            latitude: 35.9132
+            longitude: -79.0558
+        people:
+          - name: "Adam Hantman"
+            role: "Lead PI"
+            affiliation: "UNC Chapel Hill - Chapel Hill"
+            image: "/images/new-partners/affiliates/adam-hantman.webp"
+        team_media:
+          - image: "/images/new-partners/affiliates/hantman-lab.webp"
+            alt: "Members of the Hantman Lab"
+            caption: "Hantman Lab"
+          - image: "/images/new-partners/affiliates/kevin-cross.webp"
+            alt: "Kevin Cross, IBL Core correspondent"
+            caption: "Kevin Cross - IBL Core correspondent"
+        lab:
+          institution: "University of North Carolina at Chapel Hill"
+          summary: "The Hantman Lab studies the brain-wide neural dynamics behind precise learned actions and how neurological or neurodevelopmental disorders alter those dynamics."
+          links:
+            - label: "Hantman Lab"
+              url: "https://www.med.unc.edu/neuroscience/hantmanlab/"
       - name: "Elizabeth Buffalo"
+        subtitle: "Buffalo Lab"
+        map_title: "Buffalo Lab"
+        locations:
+          - city: "Seattle"
+            country: "United States"
+            latitude: 47.6062
+            longitude: -122.3321
+        people:
+          - name: "Elizabeth Buffalo"
+            role: "Lead PI"
+            affiliation: "University of Washington - Seattle"
+            image: "/images/new-partners/affiliates/elizabeth-buffalo.webp"
+        team_media:
+          - image: "/images/new-partners/affiliates/buffalo-lab.webp"
+            alt: "Members of the Buffalo Lab"
+            caption: "Buffalo Lab"
+        lab:
+          institution: "University of Washington School of Medicine"
+          summary: "The lab studies neural mechanisms of learning and memory, focusing on hippocampal and cortical activity in awake, behaving primates."
+          links:
+            - label: "Buffalo Lab"
+              url: "https://buffalomemorylab.com/"
+            - label: "Faculty profile"
+              url: "https://depts.washington.edu/mbwc/about/profile/elizabeth-buffalo1"
       - name: "Linda Richards"
+        subtitle: "Richards Lab"
+        map_title: "Richards Lab"
+        locations:
+          - city: "St. Louis"
+            country: "United States"
+            latitude: 38.6270
+            longitude: -90.1994
+        people:
+          - name: "Linda Richards"
+            role: "Lead PI"
+            affiliation: "Washington University - St. Louis"
+            image: "/images/new-partners/affiliates/linda-richards.webp"
+        team_media:
+          - image: "/images/new-partners/affiliates/richards-lab.webp"
+            alt: "Members of the Richards Lab"
+            caption: "Richards Lab"
+        lab:
+          institution: "Washington University School of Medicine in St. Louis"
+          summary: "The lab investigates how long-range connections in the cerebral cortex develop, adapt and function, with a focus on the corpus callosum."
+          links:
+            - label: "Richards Lab"
+              url: "https://sites.wustl.edu/richardslab/"
+            - label: "Faculty profile"
+              url: "https://neuroscience.wustl.edu/people/linda-richards-phd/"
       - name: "Linda Wilbrecht"
+        subtitle: "Adversity and Resilience Consortium"
+        map_title: "Adversity and Resilience Consortium"
+        locations:
+          - city: "Berkeley"
+            country: "United States"
+            latitude: 37.8715
+            longitude: -122.2730
+          - city: "Santa Cruz"
+            country: "United States"
+            latitude: 36.9741
+            longitude: -122.0308
+          - city: "London"
+            country: "United Kingdom"
+            latitude: 51.5074
+            longitude: -0.1278
+          - city: "Atlanta"
+            country: "United States"
+            latitude: 33.7490
+            longitude: -84.3880
+        people_in_panel: true
+        people:
+          - name: "Linda Wilbrecht"
+            role: "Consortium member"
+            affiliation: "UC Berkeley - Berkeley"
+            image: "/images/new-partners/affiliates/linda-wilbrecht.webp"
+          - name: "Yi Zuo"
+            role: "Consortium member"
+            affiliation: "UC Santa Cruz - Santa Cruz"
+            image: "/images/new-partners/affiliates/yi-zuo.webp"
+          - name: "Andrew MacAskill"
+            role: "Consortium member"
+            affiliation: "UCL - London"
+            image: "/images/new-partners/affiliates/andrew-macaskill.webp"
+          - name: "Shannon Gourley"
+            role: "Consortium member"
+            affiliation: "Emory University - Atlanta"
+            image: "/images/new-partners/affiliates/shannon-gourley.webp"
+        team_media:
+          - image: "/images/new-partners/affiliates/arc-team.webp"
+            alt: "Members of the Adversity and Resilience Consortium"
+            caption: "Adversity and Resilience Consortium"
+            image_fit: "contain"
+        lab:
+          institution: "Multi-laboratory consortium"
+          summary: "ARC is a team-science effort studying how deprivation, threat and unpredictability during development shape brain and behaviour. It will standardize learning and decision-making tasks across sites, integrate datasets, and build a public hub for protocols, resources, data and open analysis."
+          links:
+            - label: "Wilbrecht Lab"
+              url: "https://wilbrecht.org/"
+            - label: "Zuo Lab"
+              url: "https://zuolab.org/"
+            - label: "MacAskill Lab"
+              url: "https://www.ucl.ac.uk/life-sciences/macaskill-lab"
+            - label: "Shannon Gourley"
+              url: "https://enbrc.emory.edu/research/divisions/researchers/gourley-shannon.html"
       - name: "Nuo Li"
+        subtitle: "Li Lab"
+        map_title: "Li Lab"
+        locations:
+          - city: "Durham"
+            country: "United States"
+            latitude: 35.9940
+            longitude: -78.8986
+        people:
+          - name: "Nuo Li"
+            role: "Lead PI"
+            affiliation: "Duke University - Durham"
+            image: "/images/new-partners/affiliates/nuo-li.webp"
+        team_media:
+          - image: "/images/new-partners/affiliates/li-lab.webp"
+            alt: "Members of the Li Lab"
+            caption: "Li Lab"
+        lab:
+          institution: "Duke University"
+          summary: "The lab studies how distributed circuits plan and generate voluntary movement using large-scale recordings, imaging, circuit mapping and causal manipulation."
+          links:
+            - label: "Li Lab"
+              url: "https://www.neuro.duke.edu/research/faculty-labs/li-lab"
       - name: "Mattia Chini"
+        subtitle: "Chini Lab"
+        map_title: "Chini Lab"
+        locations:
+          - city: "Liege"
+            country: "Belgium"
+            latitude: 50.6326
+            longitude: 5.5797
+        people:
+          - name: "Mattia Chini"
+            role: "Lead PI"
+            affiliation: "GIGA / University of Liege - Liege"
+            image: "/images/new-partners/affiliates/mattia-chini.webp"
+        team_media:
+          - image: "/images/new-partners/affiliates/chini-lab.webp"
+            alt: "Members of the Chini Lab"
+            caption: "Chini Lab"
+        lab:
+          institution: "GIGA Neuroscience, University of Liege"
+          summary: "The lab studies how large-scale neuronal activity emerges during development and how early circuit disturbances contribute to cognitive impairment and mental illness."
+          links:
+            - label: "Chini Lab"
+              url: "https://www.chinilab.com/"
+      - name: "African Computational Neuroscience Education Initiative"
+        subtitle: "African Computational Neuroscience Education Initiative"
+        map_title: "African Computational Neuroscience Education Initiative"
+        locations:
+          - city: "Lusaka"
+            country: "Zambia"
+            latitude: -15.3875
+            longitude: 28.3228
+          - city: "Abuja"
+            country: "Nigeria"
+            latitude: 9.0765
+            longitude: 7.3986
+        people_in_panel: true
+        people:
+          - name: "Gideon Alex"
+            affiliation: "ACNEI"
+            image: "/images/new-partners/affiliates/gideon-alex.webp"
+          - name: "Martina Anene"
+            affiliation: "ACNEI"
+            image: "/images/new-partners/affiliates/martina-anene.webp"
+        lab:
+          eyebrow: "Affiliate profile"
+          institution: "Pan-African education initiative"
+          summary: "ACNEI widens access to practical computational neuroscience, AI, brain-health and open-science training for early-career African students."
+          links:
+            - label: "ACNEI website"
+              url: "https://www.acnei.org/"
+      - name: "Olivia Masseck"
+        subtitle: "Masseck Lab - Neuromodulatory Circuits"
+        map_title: "Masseck Lab"
+        locations:
+          - city: "Cologne"
+            country: "Germany"
+            latitude: 50.9375
+            longitude: 6.9603
+        people:
+          - name: "Masseck Lab"
+            affiliation: "University of Cologne - Cologne"
+            image: "/images/new-partners/affiliates/masseck-lab.webp"
+            image_fit: "contain"
+        lab:
+          institution: "University of Cologne"
+          summary: "The lab develops optical and molecular tools to understand how neuromodulatory circuits influence decision-making, learning, health and disease."
+          links:
+            - label: "Masseck Lab"
+              url: "https://massecklab.com/"
