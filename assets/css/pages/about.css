@@ -518,12 +518,32 @@
   transform-origin: var(--team-image-x, center) var(--team-image-y, 24%);
 }
 
-.team-card__name {
+.team-card__caption {
   margin-top: 0.55rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  text-align: left;
+}
+
+.team-card__name {
   color: var(--color-surface);
   font-size: var(--font-size-page-copy-compact);
   line-height: 1.05;
-  text-align: left;
+}
+
+.team-card__title {
+  color: var(--color-surface);
+  font-size: 0.7rem;
+  line-height: 1.2;
+  opacity: 0.85;
+}
+
+.team-card__location {
+  color: var(--color-surface);
+  font-size: 0.65rem;
+  line-height: 1.2;
+  opacity: 0.6;
 }
 
 .team-grid-section--pi .team-card__name {

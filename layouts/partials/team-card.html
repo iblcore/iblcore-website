@@ -14,5 +14,9 @@
       loading="lazy"
       decoding="async">
   </div>
-  <figcaption class="team-card__name">{{ $name }}</figcaption>
+  <figcaption class="team-card__caption">
+    <span class="team-card__name">{{ $name }}</span>
+    {{ if $member.title }}<span class="team-card__title">{{ $member.title }}</span>{{ end }}
+    {{ if $member.location }}<span class="team-card__location">{{ $member.location }}</span>{{ end }}
+  </figcaption>
 </figure>
