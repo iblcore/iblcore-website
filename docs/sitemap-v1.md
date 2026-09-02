@@ -70,7 +70,8 @@ Notes:
 ### 2.4 Projects (`/projects/`)
 
 Includes:
-- IBL Research Projects as the single page heading, followed directly by the project content
+- IBL Research Projects as the single page heading, followed by a concise overview banner explaining the mix of original projects reaching completion, shared-dataset analysis, and open tool/infrastructure development, then a static IBL Core network map and the project content
+- A centered `New partner projects` CTA banner at the bottom of the page, styled like the `/new-partner-projects/` page
 - New partner projects (`/new-partner-projects/`)
   - Map view is the default; the hero-positioned List/Map control switches between an interactive world view and the complete project list
   - Map view uses a concise Partner and Affiliate Projects introduction; the New Partner Projects heading and introduction appear only in List view

@@ -1,12 +1,29 @@
 {{ define "main" }}
   {{ $projects := hugo.Data.projects }}
 
-  <section class="projects-hero section-hero">
-    <div class="projects-hero__media section-hero__media" aria-hidden="true"></div>
-    <div class="shell projects-hero__inner section-hero__inner">
-      <div class="projects-hero__copy section-hero__copy">
-        <h1>{{ .Title }}</h1>
+  <section class="projects-hero section-hero" aria-hidden="true">
+    <div class="projects-hero__media section-hero__media"></div>
+  </section>
+
+  <section class="projects-banner section-banner" aria-label="About IBL internal projects">
+    <div class="shell projects-banner__inner section-banner__inner">
+      <div class="projects-banner__copy section-banner__copy prose">
+        <h1 class="projects-banner__title">{{ .Title }}</h1>
+        {{ $internalOverviewPath := "content/projects/descriptions/internal-projects-overview.md" }}
+        {{ if fileExists $internalOverviewPath }}
+          {{ readFile $internalOverviewPath | markdownify }}
+        {{ end }}
       </div>
+    </div>
+  </section>
+
+  <section class="projects-network" aria-labelledby="projects-network-title">
+    <div class="shell">
+      <h2 id="projects-network-title">IBL Core network</h2>
+      <div class="projects-network__map" data-team-network-map data-map-url="{{ "/data/world-countries-110m.json" | relURL }}">
+        <svg role="img" aria-label="Map of IBL Core team locations" data-team-network-svg></svg>
+      </div>
+      <script type="application/json" data-team-network-members>{{ where hugo.Data.team.members "latitude" "ne" nil | jsonify }}</script>
     </div>
   </section>
 
@@ -75,11 +92,14 @@
               {{ end }}
             </div>
           {{ end }}
-          <div class="projects-section__actions">
-            <a class="button button--projects" href="{{ "/new-partner-projects/" | relURL }}">New partner projects</a>
-          </div>
         </section>
       {{ end }}
+    </div>
+  </section>
+
+  <section class="projects-partner-cta section-banner" aria-label="New partner projects">
+    <div class="shell projects-partner-cta__inner section-banner__inner">
+      <a class="button button--projects-cta" href="{{ "/new-partner-projects/" | relURL }}">New partner projects</a>
     </div>
   </section>
 {{ end }}

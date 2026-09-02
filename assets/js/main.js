@@ -133,6 +133,44 @@ document.querySelectorAll("[data-project-list-jump]").forEach((button) => {
   });
 });
 
+document.querySelectorAll("[data-team-network-map]").forEach((mapRoot) => {
+  const d3 = window.d3;
+  const topojson = window.topojson;
+  const svgElement = mapRoot.querySelector("[data-team-network-svg]");
+  const membersScript = mapRoot.parentElement.querySelector("[data-team-network-members]");
+  if (!d3 || !topojson || !svgElement || !membersScript) return;
+  const members = JSON.parse(membersScript.textContent || "[]");
+  const grouped = Array.from(d3.group(members, (member) => member.location), ([location, people]) => ({
+    location,
+    latitude: people[0].latitude,
+    longitude: people[0].longitude,
+    count: people.length,
+  }));
+  const svg = d3.select(svgElement);
+  const countries = svg.append("g").attr("class", "projects-network__countries");
+  const markers = svg.append("g").attr("class", "projects-network__markers");
+  const render = (world) => {
+    const width = svgElement.clientWidth || 900;
+    const height = Math.max(320, width * 0.48);
+    svg.attr("viewBox", `0 0 ${width} ${height}`);
+    const features = topojson.feature(world, world.objects.countries);
+    const projection = d3.geoNaturalEarth1().fitExtent([[16, 16], [width - 16, height - 16]], features);
+    const path = d3.geoPath(projection);
+    countries.selectAll("path").data(features.features).join("path").attr("d", path);
+    markers.selectAll("g").data(grouped, (place) => place.location).join("g")
+      .attr("class", "projects-network__marker")
+      .attr("transform", (place) => `translate(${projection([place.longitude, place.latitude]).join(",")})`)
+      .each(function(place) {
+        const marker = d3.select(this);
+        marker.selectAll("circle").data([place]).join("circle").attr("r", 15);
+        marker.selectAll("text").data([place]).join("text").attr("text-anchor", "middle").attr("dy", "0.35em").text(place.count);
+        marker.attr("aria-label", `${place.location}: ${place.count} IBL Core team member${place.count === 1 ? "" : "s"}`);
+      });
+  };
+  fetch(mapRoot.dataset.mapUrl).then((response) => response.json()).then(render);
+  new ResizeObserver(() => fetch(mapRoot.dataset.mapUrl).then((response) => response.json()).then(render)).observe(mapRoot);
+});
+
 document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
   const d3 = window.d3;
   const topojson = window.topojson;

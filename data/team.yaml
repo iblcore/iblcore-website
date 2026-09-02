@@ -3,6 +3,8 @@ members:
     last_name: Chapuis
     title: Director of Operations and Outreach
     location: Geneva, CH
+    latitude: 46.2044
+    longitude: 6.1432
     group: staff
     image: Chapuis_Gaelle.webp
     crop_x: 50%
@@ -30,6 +32,8 @@ members:
     last_name: Pariyadath
     title: Executive Director
     location: Rockville, US
+    latitude: 39.0840
+    longitude: -77.1528
     group: staff
     image: Pariyadath_Vani.webp
     crop_x: 50%

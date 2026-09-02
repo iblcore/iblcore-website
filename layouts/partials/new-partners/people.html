@@ -5,7 +5,7 @@
   {{- $sharedAffiliation = .shared_affiliation | default "" -}}
 {{- end -}}
 {{- with $people -}}
-  <span class="new-partners-people{{ if eq (len .) 2 }} new-partners-people--pair{{ end }}{{ if gt (len .) 2 }} new-partners-people--grid{{ end }}{{ with $sharedAffiliation }} new-partners-people--shared-affiliation{{ end }}">
+  <span class="new-partners-people{{ with $sharedAffiliation }} new-partners-people--shared-affiliation{{ end }}">
     {{- range . -}}
       <span class="new-partners-person">
         <img

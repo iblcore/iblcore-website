@@ -1,0 +1,1 @@
+IBL internal projects bring together original projects reaching completion, continued analysis of shared datasets, and the development of open tools and infrastructure. Together, these efforts maintain the collaboration’s scientific foundation while enabling new methods, resources and community-facing capabilities.

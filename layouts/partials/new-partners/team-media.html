@@ -1,16 +1,28 @@
-{{- $media := .media -}}
-{{- with $media -}}
-  <div class="new-partners-team{{ if eq (len .) 1 }} new-partners-team--single{{ end }}{{ if gt (len .) 2 }} new-partners-team--portraits{{ end }}">
-    {{ range . }}
-      <figure class="new-partners-team__item{{ if .full_width }} new-partners-team__item--full{{ end }}">
-        <img
-          class="new-partners-team__image{{ if eq .image_fit "contain" }} new-partners-team__image--contain{{ end }}"
-          src="{{ .image | relURL }}"
-          alt="{{ .alt }}"
-          loading="lazy"
-        >
-        {{ with .caption }}<figcaption>{{ . }}</figcaption>{{ end }}
-      </figure>
-    {{ end }}
-  </div>
+{{- $items := .media -}}
+{{- $layout := .layout | default "stacked" -}}
+{{- with $items -}}
+  {{- $people := where . "person" true -}}
+  {{- $mediaItems := where . "person" "ne" true -}}
+  {{- if eq $layout "inline" -}}
+    <div class="new-partners-research-media new-partners-research-media--inline">
+      {{- range . -}}
+        {{- if .person -}}
+          {{ partial "new-partners/team-person.html" . }}
+        {{- else -}}
+          {{ partial "new-partners/media-item.html" . }}
+        {{- end -}}
+      {{- end -}}
+    </div>
+  {{- else -}}
+    {{- with $people -}}
+      <div class="new-partners-team-people">
+        {{- range . -}}{{ partial "new-partners/team-person.html" . }}{{- end -}}
+      </div>
+    {{- end -}}
+    {{- with $mediaItems -}}
+      <div class="new-partners-media-grid">
+        {{- range . -}}{{ partial "new-partners/media-item.html" . }}{{- end -}}
+      </div>
+    {{- end -}}
+  {{- end -}}
 {{- end -}}

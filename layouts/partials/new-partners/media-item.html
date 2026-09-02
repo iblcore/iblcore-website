@@ -1,0 +1,10 @@
+<figure class="new-partners-media{{ if .full_width }} new-partners-media--full{{ end }}{{ with .size }} new-partners-media--{{ . }}{{ end }}">
+  <img
+    class="new-partners-media__image{{ if eq .image_fit "contain" }} new-partners-media__image--contain{{ end }}"
+    src="{{ .image | relURL }}"
+    alt="{{ .alt }}"
+    style="object-position: {{ .object_position | default "center" }};"
+    loading="lazy"
+  >
+  {{ with .caption }}<figcaption>{{ . }}</figcaption>{{ end }}
+</figure>

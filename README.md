@@ -80,7 +80,10 @@ shared source.
 
 Project and affiliate records are maintained in `data/projects.yaml`. The
 `/new-partner-projects/` layout uses reusable profile and research-group
-partials. Partner records also store one or more city coordinates for the
+partials; the record fields and layout variants are documented in
+`docs/project-record-schema.md`. Stable `issue-###` IDs come from the GitHub
+issue number in the Project Management export and are reused by List, Map, and
+accordion rendering. Partner records also store one or more city coordinates for the
 page's List/Map switcher, with Map as the default view. The map clusters Partner and Affiliate records by
 geographic proximity (within 175 km), uses IBL blue for Partners and the IBL Core logo pink for Affiliates, and draws connections between cities belonging
 to the same collaboration, and uses locally pinned D3,
@@ -93,7 +96,7 @@ uses the shared `content/projects/descriptions/map-overview.md` introduction.
 The Affiliate
 heading is grouped with the Affiliate Programme introduction in List view.
 Both presentations end with the same centered `IBL internal projects` CTA
-banner linking to `/projects/#ibl-research-projects`.
+banner; the button opens `/projects/` at the top of the internal-projects page.
 Map legend information popovers render the same page introduction and Affiliate
 programme Markdown used by the visible List sections, so this copy has one
 canonical source. Shared content-page copy is included with the reusable
@@ -131,8 +134,8 @@ centered between both portraits.
 Portrait and reference columns must use the same centralized Affiliate column
 width and gap variables so this alignment remains exact in both List and Map
 accordions.
-Two-person Affiliate groups with a shared affiliation use an explicit two-column
-portrait grid, keeping both headshots side by side in closed and expanded states.
+Profile grids derive their columns automatically from the available width,
+keeping two-person groups side by side without project-specific CSS.
 For the Hantman Lab, Adam Hantman is the lead portrait and Kevin Cross appears
 beside the lab image inside the expanded accordion as the IBL Core correspondent.
 Expanded cards keep the IBL collaboration copy separate from concise lab
@@ -149,22 +152,29 @@ without removing anyone near an image edge.
 When a consortium is better identified by its shared name, the closed tile may
 use that name as its main title and move member portraits into the expanded
 panel.
-Team portraits are assigned to their Partner group in `data/projects.yaml`;
-featured science imagery may span the full media grid above those portraits.
+Team portraits are assigned to their Partner group in `data/projects.yaml` and
+render in a centered grid above separately classified science and lab media.
 Consortium summaries and reference links should prefer authoritative funding or
 institutional project records when available.
 ARC keeps exactly one authoritative reference per consortium member, ordered to
 align with the four portrait columns.
 Closed accordion rows use compact vertical spacing, and Affiliate portrait
 tiles use a tighter five-column grid on wide screens.
+One-to-one Affiliate reference sets use the same automatic fixed-width grid as
+their PI portraits, keeping each button centered beneath its corresponding image.
 Partner rows share a consistent desktop height. Co-PI portraits have added
 horizontal separation, and institution-city captions remain on one line until
 the responsive layout stacks.
+Named team-member portraits inside expanded accordions use the same circular
+dimensions and pale-blue ring as lead PI portraits; project and lab images
+remain rectangular.
 
-The `/projects/` page uses the single page title `IBL Research Projects`
-without a second introduction or repeated section heading. A planned IBL
-network map must read verified city coordinates from `data/team.yaml`; the
-repository currently contains locations for only a subset of team members.
+The `/projects/` page uses the single page title `IBL Research Projects`,
+followed by a concise internal-projects overview banner and the project content.
+Its centered `New partner projects` CTA is presented in a matching banner at
+the bottom of the page. The page also includes a static IBL Core network map
+that groups team members with verified city coordinates and displays the number
+of staff and PIs at each location.
 
 News and press entries are maintained as page bundles in `content/news/posts/`
 and are published through `/news/`.

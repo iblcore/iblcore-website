@@ -25,7 +25,9 @@ sections:
     layout: "accordion"
     tone: "section--muted"
     items:
-      - title: "FANNY CAZETTES : Extending IBL's tools to the study of the neural computations and dynamics of behavioral flexibility"
+      - id: "issue-136"
+        issue_number: 136
+        title: "FANNY CAZETTES : Extending IBL's tools to the study of the neural computations and dynamics of behavioral flexibility"
         map_title: "Cazettes Lab"
         body_file: "content/projects/descriptions/partner/cazettes.md"
         locations:
@@ -39,13 +41,14 @@ sections:
             affiliation: "INT - Marseille"
             image: "/images/new-partners/partners/fanny-cazettes.webp"
         team_media:
+          - image: "/images/new-partners/partners/antoine-courbi.webp"
+            alt: "Antoine Courbi"
+            caption: "Antoine Courbi"
+            person: true
           - image: "/images/new-partners/partners/cazettes-project.webp"
             alt: "Illustration from the Cazettes Lab partner project"
             image_fit: "contain"
             full_width: true
-          - image: "/images/new-partners/partners/antoine-courbi.webp"
-            alt: "Antoine Courbi"
-            caption: "Antoine Courbi"
         lab:
           title: "About the Cazettes Lab"
           institution: "Institut de Neurosciences de la Timone, Marseille"
@@ -55,7 +58,9 @@ sections:
               url: "https://www.fannycazettes.com/"
             - label: "CNRS profile"
               url: "https://www.insb.cnrs.fr/fr/personne/fanny-cazettes"
-      - title: "CARL PETERSEN : Brain-wide measurements of neuronal activity changes during single-session reward-based sensorimotor learning"
+      - id: "issue-137"
+        issue_number: 137
+        title: "CARL PETERSEN : Brain-wide measurements of neuronal activity changes during single-session reward-based sensorimotor learning"
         map_title: "Laboratory of Sensory Processing"
         body_file: "content/projects/descriptions/partner/petersen.md"
         locations:
@@ -77,7 +82,9 @@ sections:
               url: "https://www.epfl.ch/labs/lsens/"
             - label: "EPFL profile"
               url: "https://people.epfl.ch/carl.petersen?lang=en"
-      - title: "JOAQUIN GONZALEZ, MATIAS CAVELLI : Decoding Breathing from Orofacial Video to Expand IBL's Brain-Wide Dataset"
+      - id: "issue-138"
+        issue_number: 138
+        title: "JOAQUIN GONZALEZ, MATIAS CAVELLI : Decoding Breathing from Orofacial Video to Expand IBL's Brain-Wide Dataset"
         map_title: "Gonzalez-Cavelli collaboration"
         body_file: "content/projects/descriptions/partner/gonzalez.md"
         locations:
@@ -102,21 +109,27 @@ sections:
           - image: "/images/new-partners/partners/diego-serantes.webp"
             alt: "Diego Serantes"
             caption: "Diego Serantes"
-          - image: "/images/new-partners/partners/juan-castro.webp"
+            person: true
+          - image: "/images/new-partners/partners/juan-castro-zoom.jpg"
             alt: "Juan Castro"
             caption: "Juan Castro"
-          - image: "/images/new-partners/partners/andrew-liao.webp"
+            person: true
+          - image: "/images/new-partners/partners/andrew-liao-zoom.jpg"
             alt: "Andrew Liao"
             caption: "Andrew Liao"
-          - image: "/images/new-partners/partners/anttonela-garcia.webp"
+            person: true
+          - image: "/images/new-partners/partners/anttonela-garcia-zoom.jpg"
             alt: "Anttonela Garcia"
             caption: "Anttonela Garcia"
+            person: true
           - image: "/images/new-partners/partners/tiziana-romani.webp"
             alt: "Tiziana Romani"
             caption: "Tiziana Romani"
-          - image: "/images/new-partners/partners/diego-gallo.webp"
+            person: true
+          - image: "/images/new-partners/partners/diego-gallo-zoom.jpg"
             alt: "Diego Gallo"
             caption: "Diego Gallo"
+            person: true
         lab:
           title: "About the Sleep Neurobiology Research Group"
           institution: "Universidad de la Republica, Uruguay"
@@ -126,7 +139,9 @@ sections:
               url: "https://www.fmed.edu.uy/"
             - label: "Open neuroscience in Uruguay"
               url: "https://www.thetransmitter.org/open-neuroscience/the-promise-of-open-neuroscience-for-latin-america/"
-      - title: "HELEN HOU : Cheese3D-IBL Collaboration"
+      - id: "issue-141"
+        issue_number: 141
+        title: "HELEN HOU : Cheese3D-IBL Collaboration"
         map_title: "Hou Lab"
         body_file: "content/projects/descriptions/partner/hou.md"
         locations:
@@ -143,12 +158,15 @@ sections:
           - image: "/images/new-partners/partners/linghua-zhang.webp"
             alt: "Linghua Zhang"
             caption: "Linghua Zhang"
-          - image: "/images/new-partners/partners/diana-naglic.webp"
+            person: true
+          - image: "/images/new-partners/partners/diana-naglic-zoom.jpg"
             alt: "Diana Naglič"
             caption: "Diana Naglič"
+            person: true
           - image: "/images/new-partners/partners/kyle-daruwalla.webp"
             alt: "Kyle Daruwalla"
             caption: "Kyle Daruwalla"
+            person: true
         lab:
           title: "About the Hou Lab"
           institution: "Cold Spring Harbor Laboratory"
@@ -158,7 +176,10 @@ sections:
               url: "https://www.houlab.org/"
             - label: "CSHL profile"
               url: "https://www.cshl.edu/research/faculty-staff/helen-hou/"
-      - title: "ADAM TYSON : Building general-purpose systems neuroscience software infrastructure for the community"
+      - id: "issue-220"
+        issue_number: 220
+        related_issue_numbers: [218, 220]
+        title: "ADAM TYSON : Building general-purpose systems neuroscience software infrastructure for the community"
         map_title: "Neuroinformatics Unit"
         body_file: "content/projects/descriptions/partner/tyson.md"
         locations:
@@ -175,27 +196,35 @@ sections:
           - image: "/images/new-partners/partners/changhuan-lo.webp"
             alt: "Changhuan Lo"
             caption: "Changhuan Lo"
+            person: true
           - image: "/images/new-partners/partners/igor-tatarnikov.webp"
             alt: "Igor Tatarnikov"
             caption: "Igor Tatarnikov"
+            person: true
           - image: "/images/new-partners/partners/harry-carey.webp"
             alt: "Harry Carey"
             caption: "Harry Carey"
+            person: true
           - image: "/images/new-partners/partners/niko-sirmpilatze.webp"
             alt: "Niko Sirmpilatze"
             caption: "Niko Sirmpilatze"
+            person: true
           - image: "/images/new-partners/partners/joseph-ziminski.webp"
             alt: "Joseph Ziminski"
             caption: "Joseph Ziminski"
+            person: true
           - image: "/images/new-partners/partners/laura-porta.webp"
             alt: "Laura Porta"
             caption: "Laura Porta"
+            person: true
           - image: "/images/new-partners/partners/alessandro-felder.webp"
             alt: "Alessandro Felder"
             caption: "Alessandro Felder"
+            person: true
           - image: "/images/new-partners/partners/sofia-minano.webp"
             alt: "Sofia Minano"
             caption: "Sofia Minano"
+            person: true
         lab:
           title: "About the Neuroinformatics Unit"
           institution: "Sainsbury Wellcome Centre and Gatsby Unit, UCL"
@@ -205,7 +234,9 @@ sections:
               url: "https://www.sainsburywellcome.org/blog/neuroinformatics-unit-paves-way-open-science-initiatives"
             - label: "Adam Tyson profile"
               url: "https://www.sainsburywellcome.org/people/adam-tyson-0"
-      - title: "MATHIAS MAHN, ANDREAS LUTHI : Brain-Wide Dynamics During Cost-Benefit Decision-Making"
+      - id: "issue-145"
+        issue_number: 145
+        title: "MATHIAS MAHN, ANDREAS LUTHI : Brain-Wide Dynamics During Cost-Benefit Decision-Making"
         map_title: "Mahn Research Group"
         body_file: "content/projects/descriptions/partner/mahn.md"
         locations:
@@ -219,13 +250,19 @@ sections:
             affiliation: "FMI - Basel"
             image: "/images/new-partners/partners/mathias-mahn.webp"
         team_media:
+          - image: "/images/new-partners/partners/andras-szonyi-zoom.jpg"
+            alt: "Andras Szonyi"
+            caption: "Andras Szonyi"
+            person: true
+          - image: "/images/new-partners/partners/devicente-andres-zoom.jpg"
+            alt: "Andrés DeVicente"
+            caption: "Andrés DeVicente"
+            person: true
           - image: "/images/new-partners/partners/mahn-project.webp"
             alt: "Scientific project image"
             image_fit: "contain"
             full_width: true
-          - image: "/images/new-partners/partners/andras-szonyi.webp"
-            alt: "Andras Szonyi"
-            caption: "Andras Szonyi"
+            size: "compact"
         lab:
           title: "About the Mahn Research Group"
           institution: "Friedrich Miescher Institute, Basel"
@@ -235,7 +272,9 @@ sections:
               url: "https://www.fmi.ch/"
             - label: "Mathias Mahn profile"
               url: "https://www.researchgate.net/profile/Mathias-Mahn"
-      - title: "ANDREAS TOLIAS, JAMES COTTON : Foundation model for macaque behavioral"
+      - id: "issue-147"
+        issue_number: 147
+        title: "ANDREAS TOLIAS, JAMES COTTON : Foundation model for macaque behavioral"
         map_title: "Tolias-Cotton collaboration"
         body_file: "content/projects/descriptions/partner/tolias.md"
         locations:
@@ -274,7 +313,9 @@ sections:
     layout: "affiliates"
     body_file: "content/projects/descriptions/affiliates.md"
     items:
-      - name: "Katherine Matho and Fei Xia"
+      - id: "issue-134"
+        issue_number: 134
+        name: "Katherine Matho and Fei Xia"
         subtitle: "Matho-Xia collaboration"
         map_title: "Matho-Xia collaboration"
         locations:
@@ -308,9 +349,12 @@ sections:
               url: "https://www.chla.org/profile/katherine-matho-phd"
             - label: "Xia Lab"
               url: "https://xia-lab.squarespace.com/"
-      - name: "Kevin Cross"
+      - id: "issue-144"
+        issue_number: 144
+        name: "Kevin Cross"
         subtitle: "Cross-Hantman collaboration"
         map_title: "Hantman Lab"
+        team_media_layout: "inline"
         locations:
           - city: "Chapel Hill"
             country: "United States"
@@ -328,13 +372,16 @@ sections:
           - image: "/images/new-partners/affiliates/kevin-cross.webp"
             alt: "Kevin Cross, IBL Core correspondent"
             caption: "Kevin Cross - IBL Core correspondent"
+            person: true
         lab:
           institution: "University of North Carolina at Chapel Hill"
           summary: "The Hantman Lab studies the brain-wide neural dynamics behind precise learned actions and how neurological or neurodevelopmental disorders alter those dynamics."
           links:
             - label: "Hantman Lab"
               url: "https://www.med.unc.edu/neuroscience/hantmanlab/"
-      - name: "Elizabeth Buffalo"
+      - id: "issue-140"
+        issue_number: 140
+        name: "Elizabeth Buffalo"
         subtitle: "Buffalo Lab"
         map_title: "Buffalo Lab"
         locations:
@@ -359,7 +406,9 @@ sections:
               url: "https://buffalomemorylab.com/"
             - label: "Faculty profile"
               url: "https://depts.washington.edu/mbwc/about/profile/elizabeth-buffalo1"
-      - name: "Linda Richards"
+      - id: "issue-135"
+        issue_number: 135
+        name: "Linda Richards"
         subtitle: "Richards Lab"
         map_title: "Richards Lab"
         locations:
@@ -384,7 +433,9 @@ sections:
               url: "https://sites.wustl.edu/richardslab/"
             - label: "Faculty profile"
               url: "https://neuroscience.wustl.edu/people/linda-richards-phd/"
-      - name: "Linda Wilbrecht"
+      - id: "issue-146"
+        issue_number: 146
+        name: "Linda Wilbrecht"
         subtitle: "Adversity and Resilience Consortium"
         map_title: "Adversity and Resilience Consortium"
         locations:
@@ -427,6 +478,7 @@ sections:
             alt: "Members of the Adversity and Resilience Consortium"
             caption: "Adversity and Resilience Consortium"
             image_fit: "contain"
+            size: "large"
         lab:
           institution: "Multi-laboratory consortium"
           summary: "ARC is a team-science effort studying how deprivation, threat and unpredictability during development shape brain and behaviour. It will standardize learning and decision-making tasks across sites, integrate datasets, and build a public hub for protocols, resources, data and open analysis."
@@ -439,7 +491,9 @@ sections:
               url: "https://www.ucl.ac.uk/life-sciences/macaskill-lab"
             - label: "Shannon Gourley"
               url: "https://enbrc.emory.edu/research/divisions/researchers/gourley-shannon.html"
-      - name: "Nuo Li"
+      - id: "issue-148"
+        issue_number: 148
+        name: "Nuo Li"
         subtitle: "Li Lab"
         map_title: "Li Lab"
         locations:
@@ -462,7 +516,9 @@ sections:
           links:
             - label: "Li Lab"
               url: "https://www.neuro.duke.edu/research/faculty-labs/li-lab"
-      - name: "Mattia Chini"
+      - id: "issue-210"
+        issue_number: 210
+        name: "Mattia Chini"
         subtitle: "Chini Lab"
         map_title: "Chini Lab"
         locations:
@@ -485,7 +541,9 @@ sections:
           links:
             - label: "Chini Lab"
               url: "https://www.chinilab.com/"
-      - name: "African Computational Neuroscience Education Initiative"
+      - id: "issue-236"
+        issue_number: 236
+        name: "African Computational Neuroscience Education Initiative"
         subtitle: "African Computational Neuroscience Education Initiative"
         map_title: "African Computational Neuroscience Education Initiative"
         locations:
@@ -512,7 +570,9 @@ sections:
           links:
             - label: "ACNEI website"
               url: "https://www.acnei.org/"
-      - name: "Olivia Masseck"
+      - id: "issue-238"
+        issue_number: 238
+        name: "Olivia Masseck"
         subtitle: "Masseck Lab - Neuromodulatory Circuits"
         map_title: "Masseck Lab"
         locations:

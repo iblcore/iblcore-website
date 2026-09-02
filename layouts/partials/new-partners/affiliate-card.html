@@ -1,8 +1,9 @@
 {{- $item := .item -}}
 {{- $itemIndex := .index -}}
 {{- $idPrefix := .id_prefix | default "affiliate" -}}
-{{- $itemId := printf "%s-%d" $idPrefix $itemIndex -}}
-<article class="new-partners-card new-partners-card--affiliate accordion__item" data-accordion-item>
+{{- $recordId := $item.id | default (printf "item-%d" $itemIndex) -}}
+{{- $itemId := printf "%s-%s" $idPrefix $recordId -}}
+<article class="new-partners-card new-partners-card--affiliate accordion__item" data-project-record-id="{{ $recordId }}" data-accordion-item>
   <button
     class="new-partners-card__header accordion__button"
     type="button"
@@ -40,7 +41,7 @@
       {{ end }}
       {{ with $item.lab.links }}
         {{ $alignReferences := eq (len .) (len $item.people) }}
-        <p class="new-partners-lab__links new-partners-lab__links--affiliate{{ if $alignReferences }} new-partners-lab__links--aligned-{{ len $item.people }}{{ end }}">
+        <p class="new-partners-lab__links new-partners-lab__links--affiliate{{ if $alignReferences }} new-partners-lab__links--aligned{{ end }}">
           {{ range . }}<a href="{{ .url }}">{{ .label }}</a>{{ end }}
         </p>
       {{ end }}

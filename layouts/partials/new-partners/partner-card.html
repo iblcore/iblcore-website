@@ -5,8 +5,9 @@
 {{- $authorRaw := replaceRE "\\s*:\\s*.*$" "" $fullTitle -}}
 {{- $author := title (lower (replace $authorRaw ", " " | ")) -}}
 {{- $projectTitle := replaceRE "^[^:]+\\s*:\\s*" "" $fullTitle -}}
-{{- $itemId := printf "%s-%d" $idPrefix $itemIndex -}}
-<article class="new-partners-card accordion__item" data-accordion-item>
+{{- $recordId := $item.id | default (printf "item-%d" $itemIndex) -}}
+{{- $itemId := printf "%s-%s" $idPrefix $recordId -}}
+<article class="new-partners-card accordion__item" data-project-record-id="{{ $recordId }}" data-accordion-item>
   <button
     class="new-partners-card__header accordion__button"
     type="button"

@@ -4,6 +4,15 @@
   {{ $affiliateSection := index (where $projects.sections "id" "affiliates") 0 }}
   {{ $pageTitle := .Title }}
   {{ $partnerIntroduction := .Content }}
+  {{ $recordIds := newScratch }}
+  {{ range (slice $partnerSection $affiliateSection) }}
+    {{ range .items }}
+      {{ if not .id }}{{ errorf "Partner/Affiliate record %q is missing its stable issue ID" (or .title .name) }}{{ end }}
+      {{ if ne .id (printf "issue-%v" .issue_number) }}{{ errorf "Record %q must use id issue-%v" (or .title .name) .issue_number }}{{ end }}
+      {{ if $recordIds.Get .id }}{{ errorf "Duplicate Partner/Affiliate record ID %q" .id }}{{ end }}
+      {{ $recordIds.Set .id true }}
+    {{ end }}
+  {{ end }}
 
   <section class="new-partners-hero section-hero">
     <div class="new-partners-hero__media section-hero__media" aria-hidden="true"></div>
@@ -99,7 +108,7 @@
                   {{ $mapTitle := or .map_title $item.map_title $projectTitle }}
                   <span
                     data-project-location
-                    data-project-id="partner-{{ $itemIndex }}"
+                    data-project-id="{{ $item.id }}"
                     data-project-title="{{ $mapTitle }}"
                     data-record-type="partner"
                     data-city="{{ .city }}"
@@ -114,7 +123,7 @@
                 {{ range $item.locations }}
                   <span
                     data-project-location
-                    data-project-id="affiliate-{{ $itemIndex }}"
+                    data-project-id="{{ $item.id }}"
                     data-project-title="{{ $affiliateTitle }}"
                     data-record-type="affiliate"
                     data-city="{{ .city }}"
@@ -133,13 +142,13 @@
                   {{ $fullTitle := or $item.title $item.name }}
                   {{ $projectTitle := replaceRE "^[^:]+\\s*:\\s*" "" $fullTitle }}
                   {{ $mapTitle := or $item.map_title $projectTitle }}
-                  <button type="button" data-map-project-option="partner-{{ $itemIndex }}" data-record-type="partner" hidden>
+                  <button type="button" data-map-project-option="{{ $item.id }}" data-record-type="partner" hidden>
                     {{ partial "new-partners/people.html" $item.people }}
                     <span data-map-option-title>{{ $mapTitle }}</span>
                   </button>
                 {{ end }}
                 {{ range $itemIndex, $item := $affiliateSection.items }}
-                  <button type="button" data-map-project-option="affiliate-{{ $itemIndex }}" data-record-type="affiliate" hidden>
+                  <button type="button" data-map-project-option="{{ $item.id }}" data-record-type="affiliate" hidden>
                     {{ partial "new-partners/people.html" (dict "people" $item.people "shared_affiliation" $item.shared_affiliation) }}
                     <span data-map-option-title>{{ or $item.map_title $item.subtitle $item.title $item.name }}</span>
                   </button>
@@ -149,12 +158,12 @@
 
             <div class="new-partners-map__details accordion-ready" data-accordion data-accordion-default-open="none">
               {{ range $itemIndex, $item := .items }}
-                <div data-map-project-card="partner-{{ $itemIndex }}" hidden>
+                <div data-map-project-card="{{ $item.id }}" hidden>
                   {{ partial "new-partners/partner-card.html" (dict "item" $item "index" $itemIndex "id_prefix" "map-partner-project") }}
                 </div>
               {{ end }}
               {{ range $itemIndex, $item := $affiliateSection.items }}
-                <div data-map-project-card="affiliate-{{ $itemIndex }}" hidden>
+                <div data-map-project-card="{{ $item.id }}" hidden>
                   {{ partial "new-partners/affiliate-card.html" (dict "item" $item "index" $itemIndex "id_prefix" "map-affiliate") }}
                 </div>
               {{ end }}
@@ -192,7 +201,7 @@
 
   <section class="new-partners-internal-projects section-banner" aria-label="IBL internal projects">
     <div class="shell new-partners-internal-projects__inner">
-      <a class="button button--new-partners" href="{{ "/projects/#ibl-research-projects" | relURL }}">IBL internal projects</a>
+    <a class="button button--new-partners" href="{{ "/projects/" | relURL }}">IBL internal projects</a>
     </div>
   </section>
 {{ end }}

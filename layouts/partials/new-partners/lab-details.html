@@ -6,7 +6,7 @@
     {{ if not $hideHeading }}
       <p class="new-partners-card__eyebrow">{{ or .eyebrow "Research group" }}</p>
     {{ end }}
-    <p>{{ .summary }}</p>
+    <p class="new-partners-lab__summary">{{ .summary }}</p>
     {{ if not $hideLinks }}
       {{ with .links }}
         <p class="new-partners-lab__links">
@@ -14,6 +14,6 @@
         </p>
       {{ end }}
     {{ end }}
-    {{ partial "new-partners/team-media.html" (dict "media" $item.team_media) }}
+    {{ partial "new-partners/team-media.html" (dict "media" $item.team_media "layout" $item.team_media_layout) }}
   </section>
 {{- end -}}

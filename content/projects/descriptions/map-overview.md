@@ -1,1 +1,1 @@
-Explore IBL Core Partner projects and Affiliate collaborations around the world. Partner projects are deeper collaborations that extend IBL tools and expertise, while Affiliates connect aligned research groups through lighter-touch guidance, shared resources and best practices. Select a city to see local collaborations and follow the lines to discover projects spanning multiple locations.
+Explore Partners and Affiliates of the IBL Core around the world.
