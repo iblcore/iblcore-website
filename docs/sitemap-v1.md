@@ -70,7 +70,7 @@ Notes:
 ### 2.4 Projects (`/projects/`)
 
 Includes:
-- IBL Research Projects as the single page heading, followed by a concise overview banner explaining the mix of original projects reaching completion, shared-dataset analysis, and open tool/infrastructure development, then a static IBL Core network map and the project content
+- IBL Core projects as the single page heading, followed by a concise overview banner explaining the mix of original projects reaching completion, shared-dataset analysis, and open tool/infrastructure development, then the project content; the optional IBL Core network map is currently hidden
 - A centered `New partner projects` CTA banner at the bottom of the page, styled like the `/new-partner-projects/` page
 - New partner projects (`/new-partner-projects/`)
   - Map view is the default; the List/Map control sits beside an All/Partner/Affiliate category filter near the results

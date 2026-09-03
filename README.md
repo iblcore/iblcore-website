@@ -171,12 +171,11 @@ Named team-member portraits inside expanded accordions use the same circular
 dimensions and pale-blue ring as lead PI portraits; project and lab images
 remain rectangular.
 
-The `/projects/` page uses the single page title `IBL Research Projects`,
+The `/projects/` page uses the single page title `IBL Core projects`,
 followed by a concise internal-projects overview banner and the project content.
 Its centered `New partner projects` CTA is presented in a matching banner at
-the bottom of the page. The page also includes a static IBL Core network map
-that groups team members with verified city coordinates and displays the number
-of staff and PIs at each location.
+the bottom of the page. Its static IBL Core network map can be enabled with the
+page-level `show_network_map` parameter; it is currently hidden.
 
 News and press entries are maintained as page bundles in `content/news/posts/`
 and are published through `/news/`.
