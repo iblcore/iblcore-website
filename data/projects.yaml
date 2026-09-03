@@ -352,7 +352,7 @@ sections:
       - id: "issue-144"
         issue_number: 144
         name: "Kevin Cross"
-        subtitle: "Cross-Hantman collaboration"
+        subtitle: "Hantman Lab"
         map_title: "Hantman Lab"
         team_media_layout: "inline"
         locations:
