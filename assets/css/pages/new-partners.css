@@ -137,7 +137,7 @@
   grid-template-columns: minmax(0, 1.2fr) minmax(16rem, 0.8fr);
   align-items: center;
   column-gap: clamp(1.5rem, 4vw, 3.5rem);
-  padding: 0.8rem 1.25rem;
+  padding: 0.8rem 1.25rem 2.25rem;
 }
 
 .new-partners-section .new-partners-card__header {
@@ -223,9 +223,9 @@
 
 .new-partners-card__icon {
   position: absolute;
-  top: 50%;
-  right: var(--space-panel-3xl);
-  transform: translateY(-50%);
+  right: 1rem;
+  bottom: 0.65rem;
+  color: rgba(0, 77, 137, 0.72);
 }
 
 .new-partners-view-switch {
@@ -889,7 +889,7 @@
   flex-direction: column;
   justify-content: center;
   gap: 0.45rem;
-  padding: 0.85rem;
+  padding: 0.85rem 0.85rem 2.35rem;
   text-align: center;
 }
 
@@ -985,7 +985,7 @@
     grid-template-columns: minmax(0, 1fr);
     align-items: center;
     column-gap: 1rem;
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 1rem 2.25rem;
   }
 
   .new-partners-section .new-partners-card__header {
@@ -1043,7 +1043,7 @@
   }
 
   .new-partners-card__header {
-    padding: 0.75rem;
+    padding: 0.75rem 0.75rem 2.15rem;
   }
 
   .new-partners-card__body-inner {
@@ -1057,7 +1057,8 @@
   }
 
   .new-partners-card__icon {
-    right: 1rem;
+    right: 0.75rem;
+    bottom: 0.55rem;
     flex-basis: 1rem;
     width: 1rem;
     height: 1rem;

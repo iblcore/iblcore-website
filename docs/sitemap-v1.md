@@ -75,7 +75,7 @@ Includes:
 - New partner projects (`/new-partner-projects/`)
   - Map view is the default; the List/Map control sits beside an All/Partner/Affiliate category filter near the results
   - Both views share one responsive main banner; All uses the Partners and Affiliates heading and shared introduction, while category filters replace that banner content
-  - Map markers group cities within a 175 km radius and show the number of local records, using global category tokens for IBL blue Partners and IBL Core logo-pink Affiliates, with connection lines for collaborations spanning multiple geographic clusters
+  - Map markers group cities within a 175 km radius and show the number of visible lab locations, using global category tokens for IBL blue Partners and IBL Core logo-pink Affiliates, with connection lines for collaborations spanning multiple geographic clusters
   - Hovering or focusing a marker previews its records; selecting it presents titles and PI portraits before opening the relevant accordion
   - Partner and Affiliate city selections both expand directly below the map; the standalone Affiliate card grid remains part of List view only
   - List view does not repeat a secondary Affiliate banner because the main banner already reflects the active category

@@ -110,7 +110,8 @@ view appear only after a city marker is selected.
 Marker tooltips list one bullet per location and collaboration in the concise
 `City: project title` format. City names are emphasized, while each bullet uses
 the global Partner or Affiliate category color and exposes the category to
-screen readers.
+screen readers. Cluster marker numbers count visible lab locations, matching
+the location entries shown in the tooltip.
 Affiliate map labels come from each record's concise `map_title`, using only a
 lab or collaboration name rather than an individual person's name.
 Partner hover labels follow the same convention, with optional location-level

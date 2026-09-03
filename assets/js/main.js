@@ -99,6 +99,7 @@ const projectPrimarySection = document.querySelector("[data-project-primary-sect
 const projectInternalCta = document.querySelector("[data-project-internal-cta]");
 let activeProjectView = "list";
 let activeProjectFilter = "all";
+let projectMapReady = false;
 
 const updateProjectPanels = () => {
   projectViewPanels.forEach((panel) => {
@@ -126,6 +127,8 @@ const updateProjectBanner = () => {
 };
 
 const setProjectView = (view) => {
+  if (view === "map" && !projectMapReady) return;
+
   activeProjectView = view;
   projectViewButtons.forEach((viewButton) => {
     const isActive = viewButton.dataset.projectViewButton === view;
@@ -154,9 +157,6 @@ const setProjectFilter = (filter) => {
 projectFilterButtons.forEach((button) => {
   button.addEventListener("click", () => setProjectFilter(button.dataset.projectFilter));
 });
-
-// Map is the preferred interactive mode, while the List remains the server-rendered fallback.
-if (projectViewButtons.length > 0) setProjectView("map");
 
 document.querySelectorAll("[data-team-network-map]").forEach((mapRoot) => {
   const d3 = window.d3;
@@ -248,16 +248,17 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
     });
   });
 
-  const clusterGroups = d3.group(locations, (_, index) => findCluster(index));
-  const cities = Array.from(clusterGroups.values(), (cityLocations) => {
+  const summarizeCity = (cityLocations, stableKey) => {
+    if (cityLocations.length === 0) return null;
+
     const placeNames = Array.from(new Set(cityLocations.map((location) => `${location.city}, ${location.country}`)));
     const countries = Array.from(new Set(cityLocations.map((location) => location.country)));
     const cityNames = Array.from(new Set(cityLocations.map((location) => location.city)));
-    const key = placeNames.sort().join("|");
+    const key = stableKey || placeNames.sort().join("|");
     const label = countries.length === 1
       ? `${cityNames.join(" / ")}, ${countries[0]}`
       : placeNames.join(" / ");
-    const city = {
+    return {
       key,
       label,
       latitude: d3.mean(cityLocations, (location) => location.latitude),
@@ -272,8 +273,14 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
         new Map(cityLocations.map((location) => [location.projectId, location])).values(),
         (location) => ({ id: location.projectId, title: location.projectTitle, recordType: location.recordType }),
       ),
+      locations: cityLocations,
     };
-    cityLocations.forEach((location) => { location.clusterKey = key; });
+  };
+
+  const clusterGroups = d3.group(locations, (_, index) => findCluster(index));
+  const cities = Array.from(clusterGroups.values(), (cityLocations) => {
+    const city = summarizeCity(cityLocations);
+    cityLocations.forEach((location) => { location.clusterKey = city.key; });
     return city;
   });
   const citiesByKey = new Map(cities.map((city) => [city.key, city]));
@@ -388,24 +395,20 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
       .attr("d", path);
 
     const visibleCities = cities
-      .map((city) => {
-        const entries = city.entries.filter((entry) => activeFilter === "all" || entry.recordType === activeFilter);
-        const projects = Array.from(
-          new Map(entries.map((entry) => [entry.projectId, entry])).values(),
-          (entry) => ({ id: entry.projectId, title: entry.projectTitle, recordType: entry.recordType }),
-        );
-        return {
-          ...city,
-          entries,
-          projects,
-          projectIds: projects.map((project) => project.id),
-          recordTypes: Array.from(new Set(entries.map((entry) => entry.recordType))),
-        };
-      })
-      .filter((city) => city.projects.length > 0);
-    const visibleConnections = activeFilter === "all"
-      ? connections
-      : connections.filter((connection) => connection.recordType === activeFilter);
+      .map((city) => summarizeCity(
+        city.locations.filter((location) => activeFilter === "all" || location.recordType === activeFilter),
+        city.key,
+      ))
+      .filter(Boolean);
+    const visibleCitiesByKey = new Map(visibleCities.map((city) => [city.key, city]));
+    const visibleConnections = connections
+      .filter((connection) => activeFilter === "all" || connection.recordType === activeFilter)
+      .map((connection) => ({
+        ...connection,
+        source: visibleCitiesByKey.get(connection.source.key),
+        target: visibleCitiesByKey.get(connection.target.key),
+      }))
+      .filter((connection) => connection.source && connection.target);
 
     connectionLayer
       .selectAll("path")
@@ -435,7 +438,7 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
       })
       .attr("class", (city) => `new-partners-map__marker new-partners-map__marker--${city.recordTypes.length > 1 ? "mixed" : city.recordTypes[0]}`)
       .attr("transform", (city) => `translate(${projection([city.longitude, city.latitude]).join(",")})`)
-      .attr("aria-label", (city) => `${city.label}: ${city.projects.length} entr${city.projects.length === 1 ? "y" : "ies"}`)
+      .attr("aria-label", (city) => `${city.label}: ${city.entries.length} lab location${city.entries.length === 1 ? "" : "s"}`)
       .on("pointerenter", (event, city) => showTooltip(city, event))
       .on("pointermove", (event, city) => showTooltip(city, event))
       .on("pointerleave", hideTooltip)
@@ -449,7 +452,7 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
         }
       });
 
-    markers.select(".new-partners-map__marker-count").text((city) => city.projects.length);
+    markers.select(".new-partners-map__marker-count").text((city) => city.entries.length);
   };
 
   optionButtons.forEach((option) => {
@@ -498,7 +501,11 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
     })
     .then((world) => {
       worldFeatures = topojson.feature(world, world.objects.countries);
-      render();
+      projectMapReady = true;
+      projectViewButtons
+        .filter((button) => button.dataset.projectViewButton === "map")
+        .forEach((button) => { button.disabled = false; });
+      setProjectView("map");
     })
     .catch(() => {
       mapRoot.classList.add("has-map-error");
