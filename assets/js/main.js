@@ -90,48 +90,73 @@ document.querySelectorAll("[data-accordion]").forEach((accordion) => {
   accordion.classList.add("accordion-ready");
 });
 
-document.querySelectorAll("[data-project-view-button]").forEach((button) => {
-  button.addEventListener("click", () => {
-    const view = button.dataset.projectViewButton;
+const projectViewButtons = Array.from(document.querySelectorAll("[data-project-view-button]"));
+const projectViewPanels = Array.from(document.querySelectorAll("[data-project-view-panel]"));
+const projectFilterButtons = Array.from(document.querySelectorAll("[data-project-filter]"));
+const projectBannerTitle = document.querySelector("[data-project-banner-title]");
+const projectBannerContents = Array.from(document.querySelectorAll("[data-project-banner-content]"));
+const projectPrimarySection = document.querySelector("[data-project-primary-section]");
+const projectInternalCta = document.querySelector("[data-project-internal-cta]");
+let activeProjectView = "list";
+let activeProjectFilter = "all";
 
-    document.querySelectorAll("[data-project-view-button]").forEach((viewButton) => {
-      const isActive = viewButton.dataset.projectViewButton === view;
-      viewButton.classList.toggle("is-active", isActive);
-      viewButton.setAttribute("aria-pressed", String(isActive));
-    });
-
-    document.querySelectorAll("[data-project-view-panel]").forEach((panel) => {
-      panel.hidden = panel.dataset.projectViewPanel !== view;
-    });
-
-    document.querySelectorAll("[data-project-view-content]").forEach((content) => {
-      content.hidden = content.dataset.projectViewContent !== view;
-    });
-
-    document.querySelectorAll("[data-project-list-only]").forEach((section) => {
-      section.hidden = view === "map";
-    });
-
-    if (view === "map") {
-      window.dispatchEvent(new CustomEvent("project-map:shown"));
-    }
+const updateProjectPanels = () => {
+  projectViewPanels.forEach((panel) => {
+    const matchesView = panel.dataset.projectViewPanel === activeProjectView;
+    const category = panel.dataset.projectCategoryPanel;
+    const matchesCategory = !category || activeProjectFilter === "all" || category === activeProjectFilter;
+    panel.hidden = !(matchesView && matchesCategory);
   });
+  if (projectPrimarySection) {
+    projectPrimarySection.hidden = activeProjectView === "list" && activeProjectFilter === "affiliate";
+  }
+  if (projectInternalCta) {
+    projectInternalCta.hidden = activeProjectView !== "list" || activeProjectFilter !== "all";
+  }
+};
+
+const updateProjectBanner = () => {
+  const activeContent = projectBannerContents.find((content) => content.dataset.projectBannerContent === activeProjectFilter);
+  projectBannerContents.forEach((content) => {
+    const isActive = content === activeContent;
+    content.classList.toggle("is-active", isActive);
+    content.setAttribute("aria-hidden", String(!isActive));
+  });
+  if (projectBannerTitle && activeContent) projectBannerTitle.textContent = activeContent.dataset.projectBannerTitle;
+};
+
+const setProjectView = (view) => {
+  activeProjectView = view;
+  projectViewButtons.forEach((viewButton) => {
+    const isActive = viewButton.dataset.projectViewButton === view;
+    viewButton.classList.toggle("is-active", isActive);
+    viewButton.setAttribute("aria-pressed", String(isActive));
+  });
+  updateProjectPanels();
+  if (view === "map") window.dispatchEvent(new CustomEvent("project-map:shown"));
+};
+
+projectViewButtons.forEach((button) => {
+  button.addEventListener("click", () => setProjectView(button.dataset.projectViewButton));
 });
 
-document.querySelectorAll("[data-project-list-jump]").forEach((button) => {
-  button.addEventListener("click", () => {
-    const target = document.getElementById(button.dataset.projectListJump);
-    const listButton = document.querySelector('[data-project-view-button="list"]');
-
-    listButton?.click();
-    window.requestAnimationFrame(() => {
-      target?.scrollIntoView({
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-        block: "start",
-      });
-    });
+const setProjectFilter = (filter) => {
+  activeProjectFilter = filter;
+  projectFilterButtons.forEach((filterButton) => {
+    const isActive = filter === "all" ? filterButton.dataset.projectFilter === "all" : filterButton.dataset.projectFilter === filter;
+    filterButton.setAttribute("aria-pressed", String(isActive));
   });
+  updateProjectPanels();
+  updateProjectBanner();
+  window.dispatchEvent(new CustomEvent("project-filter:changed", { detail: { filter } }));
+};
+
+projectFilterButtons.forEach((button) => {
+  button.addEventListener("click", () => setProjectFilter(button.dataset.projectFilter));
 });
+
+// Map is the preferred interactive mode, while the List remains the server-rendered fallback.
+if (projectViewButtons.length > 0) setProjectView("map");
 
 document.querySelectorAll("[data-team-network-map]").forEach((mapRoot) => {
   const d3 = window.d3;
@@ -285,6 +310,7 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
   const markerLayer = viewport.append("g").attr("class", "new-partners-map__markers");
   let worldFeatures;
   let projection;
+  let activeFilter = "all";
 
   const hideTooltip = () => {
     if (tooltip) tooltip.hidden = true;
@@ -321,11 +347,12 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
   const selectCity = (city) => {
     if (!selection || !cityTitle) return;
 
+    const visibleEntries = city.entries.filter((entry) => activeFilter === "all" || entry.recordType === activeFilter);
     cityTitle.textContent = city.label;
     selection.hidden = false;
     optionButtons.forEach((option) => {
       const projectId = option.dataset.mapProjectOption;
-      const matchingEntries = city.entries.filter((entry) => entry.projectId === projectId);
+      const matchingEntries = visibleEntries.filter((entry) => entry.projectId === projectId);
       const localTitles = Array.from(new Set(matchingEntries.map((entry) => entry.projectTitle)));
       option.hidden = matchingEntries.length === 0;
       const optionTitle = option.querySelector("[data-map-option-title]");
@@ -360,9 +387,29 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
       .join("path")
       .attr("d", path);
 
+    const visibleCities = cities
+      .map((city) => {
+        const entries = city.entries.filter((entry) => activeFilter === "all" || entry.recordType === activeFilter);
+        const projects = Array.from(
+          new Map(entries.map((entry) => [entry.projectId, entry])).values(),
+          (entry) => ({ id: entry.projectId, title: entry.projectTitle, recordType: entry.recordType }),
+        );
+        return {
+          ...city,
+          entries,
+          projects,
+          projectIds: projects.map((project) => project.id),
+          recordTypes: Array.from(new Set(entries.map((entry) => entry.recordType))),
+        };
+      })
+      .filter((city) => city.projects.length > 0);
+    const visibleConnections = activeFilter === "all"
+      ? connections
+      : connections.filter((connection) => connection.recordType === activeFilter);
+
     connectionLayer
       .selectAll("path")
-      .data(connections)
+      .data(visibleConnections, (connection) => `${connection.projectId}-${connection.source.key}-${connection.target.key}`)
       .join("path")
       .attr("class", (connection) => `new-partners-map__connection new-partners-map__connection--${connection.recordType}`)
       .attr("d", (connection) => path({
@@ -375,7 +422,7 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
 
     const markers = markerLayer
       .selectAll("g")
-      .data(cities, (city) => city.key)
+      .data(visibleCities, (city) => city.key)
       .join((enter) => {
         const marker = enter
           .append("g")
@@ -414,10 +461,24 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
         if (isSelected) {
           const accordionButton = card.querySelector("[data-accordion-button]");
           if (accordionButton?.getAttribute("aria-expanded") === "false") accordionButton.click();
-          card.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest" });
         }
       });
     });
+  });
+
+  window.addEventListener("project-filter:changed", (event) => {
+    activeFilter = event.detail?.filter || "all";
+    if (selection) selection.hidden = true;
+    optionButtons.forEach((option) => {
+      option.hidden = true;
+    });
+    projectCards.forEach((card) => {
+      const accordionButton = card.querySelector("[data-accordion-button]");
+      if (accordionButton?.getAttribute("aria-expanded") === "true") accordionButton.click();
+      card.hidden = true;
+    });
+    markerLayer.selectAll(".new-partners-map__marker").classed("is-selected", false);
+    render();
   });
 
   mapRoot.querySelectorAll("[data-map-zoom]").forEach((control) => {
@@ -441,6 +502,7 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
     })
     .catch(() => {
       mapRoot.classList.add("has-map-error");
+      document.querySelector('[data-project-view-button="list"]')?.click();
     });
 
   new ResizeObserver(render).observe(canvas);

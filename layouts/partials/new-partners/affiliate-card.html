@@ -12,14 +12,15 @@
     aria-controls="{{ $itemId }}-body"
     data-accordion-button
   >
-    {{ if $item.people_in_panel }}
-      <span class="new-partners-card__header-copy new-partners-card__header-copy--centered">
-        <span class="new-partners-card__heading" role="heading" aria-level="3">
-          <span class="new-partners-card__title">{{ or $item.subtitle $item.title $item.name }}</span>
-        </span>
+    <span class="new-partners-card__header-copy new-partners-card__header-copy--centered">
+      <span class="new-partners-card__heading" role="heading" aria-level="3">
+        <span class="new-partners-card__title">{{ or $item.subtitle $item.title $item.name }}</span>
       </span>
-    {{ else }}
+    </span>
+    {{ if and $item.people (not $item.people_in_panel) }}
       {{ partial "new-partners/people.html" (dict "people" $item.people "shared_affiliation" $item.shared_affiliation) }}
+    {{ else if not $item.people }}
+      <span class="new-partners-card__fallback">Lead contact details available after expanding</span>
     {{ end }}
     {{ with $item.card_note }}<span class="new-partners-card__note">{{ . }}</span>{{ end }}
     <span class="new-partners-card__icon accordion__icon" aria-hidden="true"></span>

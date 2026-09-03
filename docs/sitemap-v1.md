@@ -73,15 +73,15 @@ Includes:
 - IBL Research Projects as the single page heading, followed by a concise overview banner explaining the mix of original projects reaching completion, shared-dataset analysis, and open tool/infrastructure development, then a static IBL Core network map and the project content
 - A centered `New partner projects` CTA banner at the bottom of the page, styled like the `/new-partner-projects/` page
 - New partner projects (`/new-partner-projects/`)
-  - Map view is the default; the hero-positioned List/Map control switches between an interactive world view and the complete project list
-  - Map view uses a concise Partner and Affiliate Projects introduction; the New Partner Projects heading and introduction appear only in List view
+  - Map view is the default; the List/Map control sits beside an All/Partner/Affiliate category filter near the results
+  - Both views share one responsive main banner; All uses the Partners and Affiliates heading and shared introduction, while category filters replace that banner content
   - Map markers group cities within a 175 km radius and show the number of local records, using global category tokens for IBL blue Partners and IBL Core logo-pink Affiliates, with connection lines for collaborations spanning multiple geographic clusters
   - Hovering or focusing a marker previews its records; selecting it presents titles and PI portraits before opening the relevant accordion
-  - Partner and Affiliate selections both expand directly below the map; the standalone Affiliate section remains part of List view only
-  - In List view, the Affiliate heading and Affiliate Programme introduction share one banner
-  - Both List and Map presentations end with a centered `IBL internal projects` CTA banner
-  - Hover-only question-mark popovers in the legend reuse the canonical Partner introduction and Affiliate programme copy rather than duplicating it
-  - Partner and Affiliate legend labels switch to List view and navigate to the corresponding section banner
+  - Partner and Affiliate city selections both expand directly below the map; the standalone Affiliate card grid remains part of List view only
+  - List view does not repeat a secondary Affiliate banner because the main banner already reflects the active category
+  - A centered `IBL internal projects` CTA banner appears only when List and All are selected
+  - The main banner reserves the responsive height of its longest category copy so switching All/Partners/Affiliates does not cause layout shifts on desktop or mobile
+  - Partners and Affiliates filters retain the selected List/Map mode and update the main page banner with category-specific copy; Map project choices remain city-marker driven, with no additional category banner below the map
   - Marker tooltips use one bullet per location and collaboration in `City: project title` format, emphasizing the city and using category-colored bullets with screen-reader labels
   - Partner and Affiliate hover entries use concise lab or collaboration names; multi-city records may define a different lab label per location
   - Map selection buttons use the concise lab or collaboration name associated with the selected city, while expanded Partner accordions retain the full project title

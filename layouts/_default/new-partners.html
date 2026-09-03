@@ -4,6 +4,7 @@
   {{ $affiliateSection := index (where $projects.sections "id" "affiliates") 0 }}
   {{ $pageTitle := .Title }}
   {{ $partnerIntroduction := .Content }}
+  {{ $partnerCategoryIntroductionPath := "content/projects/descriptions/partner-category-overview.md" }}
   {{ $recordIds := newScratch }}
   {{ range (slice $partnerSection $affiliateSection) }}
     {{ range .items }}
@@ -16,38 +17,61 @@
 
   <section class="new-partners-hero section-hero">
     <div class="new-partners-hero__media section-hero__media" aria-hidden="true"></div>
-    <div class="shell new-partners-hero__inner section-hero__inner">
-      <div class="new-partners-hero__copy section-hero__copy">
-        <div class="new-partners-view-switch" role="group" aria-label="Choose project view">
-          <button class="new-partners-view-switch__button" type="button" aria-pressed="false" data-project-view-button="list">List</button>
-          <button class="new-partners-view-switch__button is-active" type="button" aria-pressed="true" data-project-view-button="map">Map</button>
-        </div>
-      </div>
-    </div>
   </section>
 
   {{ with .Content }}
     <section class="new-partners-banner section-banner" id="partner-projects-introduction">
       <div class="shell new-partners-banner__inner section-banner__inner">
-        <div class="new-partners-banner__copy section-banner__copy prose" data-project-view-content="list" hidden>
-          <h1 class="new-partners-banner__title">{{ $pageTitle }}</h1>
-          {{ . }}
-        </div>
-        <div class="new-partners-banner__copy section-banner__copy prose" data-project-view-content="map">
-          <h1 class="new-partners-banner__title">Partner and Affiliate Projects</h1>
-          {{ $mapOverviewPath := "content/projects/descriptions/map-overview.md" }}
-          {{ if fileExists $mapOverviewPath }}
-            <div class="new-partners-banner__summary">{{ readFile $mapOverviewPath | markdownify }}</div>
-          {{ end }}
+        <div class="new-partners-banner__copy section-banner__copy prose">
+          <h1 class="new-partners-banner__title" data-project-banner-title>{{ $pageTitle }}</h1>
+          <div class="new-partners-banner__category-copies">
+            <div class="new-partners-banner__category-copy is-active" data-project-banner-content="all" data-project-banner-title="{{ $pageTitle }}" aria-hidden="false">
+              {{ . }}
+            </div>
+            <div class="new-partners-banner__category-copy" data-project-banner-content="partner" data-project-banner-title="Partners" aria-hidden="true">
+              {{ if fileExists $partnerCategoryIntroductionPath }}{{ readFile $partnerCategoryIntroductionPath | markdownify }}{{ end }}
+            </div>
+            <div class="new-partners-banner__category-copy" data-project-banner-content="affiliate" data-project-banner-title="Affiliates" aria-hidden="true">
+              {{ with $affiliateSection.body_file }}
+                {{ if fileExists . }}{{ readFile . | markdownify }}{{ end }}
+              {{ end }}
+            </div>
+          </div>
         </div>
       </div>
     </section>
   {{ end }}
 
+  <section class="new-partners-view-controls" aria-label="Project display controls">
+    <div class="shell new-partners-view-controls__inner">
+      <div class="new-partners-view-switch" role="group" aria-label="Choose project view">
+        <button class="new-partners-view-switch__button" type="button" aria-pressed="false" data-project-view-button="list">List</button>
+        <button class="new-partners-view-switch__button is-active" type="button" aria-pressed="true" data-project-view-button="map">Map</button>
+      </div>
+      <div class="new-partners-map__legend new-partners-category-filter" aria-label="Filter project categories">
+        <button class="new-partners-map__legend-link" type="button" aria-pressed="true" data-project-filter="all">
+          <span>All</span>
+        </button>
+        <span class="new-partners-map__legend-entry">
+          <button class="new-partners-map__legend-link" type="button" aria-pressed="false" data-project-filter="partner">
+            <i class="new-partners-map__legend-dot new-partners-map__legend-dot--partner"></i>
+            <span>Partners</span>
+          </button>
+        </span>
+        <span class="new-partners-map__legend-entry">
+          <button class="new-partners-map__legend-link" type="button" aria-pressed="false" data-project-filter="affiliate">
+            <i class="new-partners-map__legend-dot new-partners-map__legend-dot--affiliate"></i>
+            <span>Affiliates</span>
+          </button>
+        </span>
+      </div>
+    </div>
+  </section>
+
   {{ with $partnerSection }}
-    <section class="new-partners-section" id="{{ .id }}" aria-label="New partner projects">
+    <section class="new-partners-section" id="{{ .id }}" aria-label="New partner projects" data-project-primary-section>
       <div class="shell">
-        <div data-project-view-panel="list" hidden>
+        <div data-project-view-panel="list" data-project-category-panel="partner">
           <div class="new-partners-cards accordion-ready" data-accordion data-accordion-default-open="none">
             {{ range $itemIndex, $item := .items }}
               {{ partial "new-partners/partner-card.html" (dict "item" $item "index" $itemIndex "id_prefix" "new-partner-project") }}
@@ -55,39 +79,11 @@
           </div>
         </div>
 
-        <div data-project-view-panel="map">
+        <div data-project-view-panel="map" hidden>
           <div class="new-partners-map" data-project-map data-map-url="{{ "/data/world-countries-110m.json" | relURL }}">
             <div class="new-partners-map__toolbar">
               <div>
-                <p>Explore Partners and Affiliates by city. Lines connect locations belonging to the same collaboration.</p>
-                <div class="new-partners-map__legend" aria-label="Map categories">
-                  <span class="new-partners-map__legend-entry">
-                    <button class="new-partners-map__legend-link" type="button" data-project-list-jump="partner-projects-introduction">
-                      <i class="new-partners-map__legend-dot new-partners-map__legend-dot--partner"></i>
-                      <span>Partner</span>
-                    </button>
-                    <span class="new-partners-map__legend-info" aria-label="Hover for information about Partner projects">
-                      <i class="new-partners-map__info-icon" aria-hidden="true">?</i>
-                      <div class="new-partners-map__legend-popover prose">
-                        {{ $partnerIntroduction }}
-                      </div>
-                    </span>
-                  </span>
-                  <span class="new-partners-map__legend-entry">
-                    <button class="new-partners-map__legend-link" type="button" data-project-list-jump="affiliates">
-                      <i class="new-partners-map__legend-dot new-partners-map__legend-dot--affiliate"></i>
-                      <span>Affiliate</span>
-                    </button>
-                    <span class="new-partners-map__legend-info" aria-label="Hover for information about the Affiliate Programme">
-                      <i class="new-partners-map__info-icon" aria-hidden="true">?</i>
-                      <div class="new-partners-map__legend-popover prose">
-                        {{ with $affiliateSection.body_file }}
-                          {{ if fileExists . }}{{ readFile . | markdownify }}{{ end }}
-                        {{ end }}
-                      </div>
-                    </span>
-                  </span>
-                </div>
+                <p>Explore projects by city. Lines connect locations belonging to the same collaboration.</p>
               </div>
               <div class="new-partners-map__controls" aria-label="Map zoom controls">
                 <button type="button" data-map-zoom="in" aria-label="Zoom in">+</button>
@@ -158,12 +154,12 @@
 
             <div class="new-partners-map__details accordion-ready" data-accordion data-accordion-default-open="none">
               {{ range $itemIndex, $item := .items }}
-                <div data-map-project-card="{{ $item.id }}" hidden>
+                <div data-map-project-card="{{ $item.id }}" data-record-type="partner" hidden>
                   {{ partial "new-partners/partner-card.html" (dict "item" $item "index" $itemIndex "id_prefix" "map-partner-project") }}
                 </div>
               {{ end }}
               {{ range $itemIndex, $item := $affiliateSection.items }}
-                <div data-map-project-card="{{ $item.id }}" hidden>
+                <div data-map-project-card="{{ $item.id }}" data-record-type="affiliate" hidden>
                   {{ partial "new-partners/affiliate-card.html" (dict "item" $item "index" $itemIndex "id_prefix" "map-affiliate") }}
                 </div>
               {{ end }}
@@ -175,20 +171,7 @@
   {{ end }}
 
   {{ with $affiliateSection }}
-    <section class="new-partners-affiliates-banner section-banner" id="{{ .id }}" aria-label="Affiliates programme" data-project-list-only hidden>
-      <div class="shell new-partners-affiliates-banner__inner section-banner__inner">
-        <div class="new-partners-affiliates-banner__copy section-banner__copy prose">
-          <h2 class="new-partners-banner__title">{{ .title }}</h2>
-          {{ with .body_file }}
-            {{ if fileExists . }}
-              {{ readFile . | markdownify }}
-            {{ end }}
-          {{ end }}
-        </div>
-      </div>
-    </section>
-
-    <section class="new-partners-affiliate-cards" aria-label="Affiliate research groups" data-project-list-only hidden>
+    <section class="new-partners-affiliate-cards" aria-label="Affiliate research groups" data-project-view-panel="list" data-project-category-panel="affiliate">
       <div class="shell">
         <div class="new-partners-cards accordion-ready" data-accordion data-accordion-default-open="none">
           {{ range $itemIndex, $item := .items }}
@@ -199,7 +182,7 @@
     </section>
   {{ end }}
 
-  <section class="new-partners-internal-projects section-banner" aria-label="IBL internal projects">
+  <section class="new-partners-internal-projects section-banner" aria-label="IBL internal projects" data-project-internal-cta>
     <div class="shell new-partners-internal-projects__inner">
     <a class="button button--new-partners" href="{{ "/projects/" | relURL }}">IBL internal projects</a>
     </div>

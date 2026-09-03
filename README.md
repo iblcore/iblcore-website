@@ -89,22 +89,24 @@ geographic proximity (within 175 km), uses IBL blue for Partners and the IBL Cor
 to the same collaboration, and uses locally pinned D3,
 TopoJSON, and Natural Earth-derived world geometry under `static/vendor/` and
 `static/data/`. Map selections open both Partner and Affiliate accordions directly
-beneath the map; the standalone Affiliate section is shown only in List view.
-The List/Map control occupies the page hero position. The New Partner Projects
-heading is grouped with its shared introduction banner in List view. Map view
-uses the shared `content/projects/descriptions/map-overview.md` introduction.
-The Affiliate
-heading is grouped with the Affiliate Programme introduction in List view.
-Both presentations end with the same centered `IBL internal projects` CTA
-banner; the button opens `/projects/` at the top of the internal-projects page.
-Map legend information popovers render the same page introduction and Affiliate
-programme Markdown used by the visible List sections, so this copy has one
-canonical source. Shared content-page copy is included with the reusable
+beneath the map; the standalone Affiliate card grid is shown only in List view.
+The Partners and Affiliates heading is grouped with its shared introduction
+banner in both List and Map views. The List/Map control sits beside the results,
+with the All/Partners/Affiliates filter directly alongside it.
+The main banner supplies the active category title and introduction, so List
+view does not repeat a separate Affiliate banner above the Affiliate cards.
+The centered `IBL internal projects` CTA banner appears only for List + All;
+the button opens `/projects/` at the top of the internal-projects page.
+The responsive main banner reserves the height of its longest category copy so
+All, Partners, and Affiliates switch without a layout jump. Shared content-page copy is included with the reusable
 `shared-markdown` shortcode; the Partner overview lives at
-`content/projects/descriptions/partners-overview.md`.
-The map's Partner and Affiliate legend labels switch to List view and scroll to
-the matching introduction banner; hovering their adjacent question marks shows
-the shared-copy popovers without a click state.
+`content/projects/descriptions/partners-overview.md`, while the Partners-only
+filter copy lives at
+`content/projects/descriptions/partner-category-overview.md`.
+The Partners and Affiliates filters update either view without changing the
+selected List/Map mode. Category selection updates the main page banner title
+and copy instead of adding another banner below the map; project choices in Map
+view appear only after a city marker is selected.
 Marker tooltips list one bullet per location and collaboration in the concise
 `City: project title` format. City names are emphasized, while each bullet uses
 the global Partner or Affiliate category color and exposes the category to
