@@ -1,0 +1,19 @@
+{{- $item := .item -}}
+{{- $hideHeading := .hide_heading -}}
+{{- $hideLinks := .hide_links -}}
+{{- with $item.lab -}}
+  <section class="new-partners-lab" aria-label="Research group information">
+    {{ if not $hideHeading }}
+      <p class="new-partners-card__eyebrow">{{ or .eyebrow "Research group" }}</p>
+    {{ end }}
+    <p class="new-partners-lab__summary">{{ .summary }}</p>
+    {{ if not $hideLinks }}
+      {{ with .links }}
+        <p class="new-partners-lab__links">
+          {{ range . }}<a href="{{ .url }}">{{ .label }}</a>{{ end }}
+        </p>
+      {{ end }}
+    {{ end }}
+    {{ partial "new-partners/team-media.html" (dict "media" $item.team_media "layout" $item.team_media_layout) }}
+  </section>
+{{- end -}}

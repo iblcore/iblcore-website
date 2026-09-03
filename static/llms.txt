@@ -22,7 +22,7 @@ Use the canonical pages below for current public information about IBL-Core. Eve
 
 ## Projects, publications, and news
 
-- [Ongoing projects](https://iblcore.org/projects/): Current IBL research and partner projects.
+- [IBL Research Projects](https://iblcore.org/projects/): Current IBL research projects.
 - [New partner projects](https://iblcore.org/new-partner-projects/): Partnership opportunities and application information.
 - [Publications](https://iblcore.org/publications/): Selected scientific and technical publications, with keyword filters.
 - [News](https://iblcore.org/news/): News, features, and press coverage about the International Brain Laboratory.

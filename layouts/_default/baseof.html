@@ -29,7 +29,7 @@
     {{ if eq .Section "news" }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/news.css") }}
     {{ end }}
-    {{ if eq .Layout "new-partners" }}
+    {{ if or (eq .Layout "new-partners") (eq .Section "projects") }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/new-partners.css") }}
     {{ end }}
     {{ if eq .Section "about" }}
@@ -58,6 +58,10 @@
       {{ end }}
     {{ end }}
     {{ $js := resources.Get "js/main.js" | minify }}
+    {{ if eq .Layout "new-partners" }}
+      <script src="{{ "vendor/d3-7.9.0.min.js" | relURL }}" defer></script>
+      <script src="{{ "vendor/topojson-client-3.1.0.min.js" | relURL }}" defer></script>
+    {{ end }}
     {{ if $fingerprintAssets }}
       {{ $js = $js | fingerprint }}
       <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
