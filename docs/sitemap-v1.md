@@ -10,7 +10,7 @@ Intended stack: Hugo static site generator, modern vanilla HTML/CSS, minimal van
 3. Resources (`/#resources`)
 4. Projects (`/projects/`)
 5. Publications (`/publications/`)
-6. Events (`/events/`, disabled in navigation for now)
+6. Events (`/events/`)
 7. News (`/news/`)
 8. Contact (`/#contact`)
 
@@ -102,13 +102,20 @@ Includes:
   - Button to link to publication IBL 1.0 https://www.internationalbrainlab.com/publications
 - Press
 
-### 2.6 Events
-
-Format:
-- 1 page, no subtabs
+### 2.6 Events (`/events/`)
 
 Includes:
-- Upcoming events with dates, locations, information
+- One page, with approved outreach-event records maintained in `data/events.yaml`
+- The page uses the same image-hero treatment, light-blue introduction banner, and dark-blue content structure as `/new-partner-projects/`, including its background image
+- A concise introduction followed by adjacent List/Calendar/Map view controls and All/Upcoming/Past filters
+- Calendar as the default enhanced view, with List as the progressive fallback
+- A month-level calendar overview showing one year at a time, with previous/next year controls for navigating freely through past and future years; selecting a month expands it into a Monday-Sunday calendar and displays that month's event details below, with a centered month-and-year carousel for moving directly to the previous or next month
+- Multi-day events render as one clickable calendar bar spanning their dates within a week, rather than repeating the event in every day cell
+- A List view that clearly separates Upcoming and Past events
+- A Map view with status-colored location markers that reveal event details when selected
+- Online events appear as one clickable button within the map toolbar rather than using a misleading physical marker; its map-marker-sized, status-colored count dot shows how many filtered online events it represents, remains visible with `0` when no online events match, and selection reveals those events below the map
+- Event records may identify co-organisers and link directly to their Partner or Affiliate profile
+- Upcoming events use the global Partner blue and Past events use the global Affiliate pink in calendar and map views; the status filter persists when switching views
 
 ### 2.7 News (`/news/`)
 

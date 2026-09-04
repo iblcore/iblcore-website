@@ -60,13 +60,13 @@
   line-height: 1.28;
 }
 
-:is(.page-faq, .page-projects, .page-new-partners) {
+:is(.page-faq, .page-projects, .page-new-partners, .page-events) {
   position: relative;
   background: var(--color-surface-dark);
   color: var(--color-surface);
 }
 
-:is(.page-faq, .page-projects, .page-new-partners)::before {
+:is(.page-faq, .page-projects, .page-new-partners, .page-events)::before {
   content: "";
   position: fixed;
   inset: 0;
@@ -80,7 +80,7 @@
   background-color: var(--color-surface-dark);
 }
 
-:is(.page-faq, .page-projects, .page-new-partners)::after {
+:is(.page-faq, .page-projects, .page-new-partners, .page-events)::after {
   content: "";
   position: fixed;
   inset: 0;
@@ -88,7 +88,7 @@
   background: linear-gradient(180deg, var(--color-page-overlay-soft-top) 0%, var(--color-page-overlay-soft-bottom) 100%);
 }
 
-:is(.page-faq, .page-projects, .page-new-partners) .site-footer {
+:is(.page-faq, .page-projects, .page-new-partners, .page-events) .site-footer {
   position: relative;
   z-index: 1;
 }
@@ -146,7 +146,7 @@
 
 @media (max-width: 700px) {
 
-  :is(.faq-hero, .projects-hero, .new-partners-hero),
+  :is(.faq-hero, .projects-hero, .new-partners-hero, .events-hero),
   :is(.faq-hero__inner, .projects-hero__inner, .new-partners-hero__inner) {
     min-height: 27rem;
   }

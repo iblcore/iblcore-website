@@ -2,7 +2,7 @@
 
 > IBL-Core develops and supports open neuroscience software, data infrastructure, experimental tools, and collaborative research projects.
 
-Use the canonical pages below for current public information about IBL-Core. Events are not listed while that section remains disabled in the main navigation.
+Use the canonical pages below for current public information about IBL-Core.
 
 ## Main
 
@@ -25,6 +25,7 @@ Use the canonical pages below for current public information about IBL-Core. Eve
 - [IBL Research Projects](https://iblcore.org/projects/): Current IBL research projects.
 - [New partner projects](https://iblcore.org/new-partner-projects/): Partnership opportunities and application information.
 - [Publications](https://iblcore.org/publications/): Selected scientific and technical publications, with keyword filters.
+- [Events](https://iblcore.org/events/): Approved outreach events in calendar, list, and map views, with Upcoming and Past filters.
 - [News](https://iblcore.org/news/): News, features, and press coverage about the International Brain Laboratory.
 
 ## Optional

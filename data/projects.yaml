@@ -544,6 +544,7 @@ sections:
       - id: "issue-236"
         issue_number: 236
         name: "African Computational Neuroscience Education Initiative"
+        short_name: "ACNEI"
         subtitle: "African Computational Neuroscience Education Initiative"
         map_title: "African Computational Neuroscience Education Initiative"
         locations:

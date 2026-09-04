@@ -100,6 +100,9 @@ const projectInternalCta = document.querySelector("[data-project-internal-cta]")
 let activeProjectView = "list";
 let activeProjectFilter = "all";
 let projectMapReady = false;
+const projectUrlParams = new URLSearchParams(window.location.search);
+const requestedProjectView = projectUrlParams.get("view");
+const requestedProjectFilter = projectUrlParams.get("filter");
 
 const updateProjectPanels = () => {
   projectViewPanels.forEach((panel) => {
@@ -158,12 +161,34 @@ projectFilterButtons.forEach((button) => {
   button.addEventListener("click", () => setProjectFilter(button.dataset.projectFilter));
 });
 
+const openLinkedProjectProfile = () => {
+  const profileId = decodeURIComponent(window.location.hash.slice(1));
+  if (!profileId) return;
+  const profile = document.getElementById(profileId);
+  const accordionButton = profile?.querySelector("[data-accordion-button]");
+  if (!profile || !accordionButton) return;
+  if (accordionButton.getAttribute("aria-expanded") === "false") accordionButton.click();
+  profile.scrollIntoView({ block: "center" });
+  // Keep keyboard focus on the opened profile without leaving a focus ring
+  // around the entire accordion header (which reads as a stray line below
+  // the collapse icon after following an Events-page profile link).
+  profile.setAttribute("tabindex", "-1");
+  profile.focus({ preventScroll: true });
+};
+
+if (["all", "partner", "affiliate"].includes(requestedProjectFilter)) {
+  setProjectFilter(requestedProjectFilter);
+}
+if (requestedProjectView === "list") setProjectView("list");
+if (window.location.hash) window.requestAnimationFrame(openLinkedProjectProfile);
+
 document.querySelectorAll("[data-team-network-map]").forEach((mapRoot) => {
   const d3 = window.d3;
   const topojson = window.topojson;
+  const worldMap = window.IBLWorldMap;
   const svgElement = mapRoot.querySelector("[data-team-network-svg]");
   const membersScript = mapRoot.parentElement.querySelector("[data-team-network-members]");
-  if (!d3 || !topojson || !svgElement || !membersScript) return;
+  if (!d3 || !topojson || !worldMap || !svgElement || !membersScript) return;
   const members = JSON.parse(membersScript.textContent || "[]");
   const grouped = Array.from(d3.group(members, (member) => member.location), ([location, people]) => ({
     location,
@@ -174,14 +199,18 @@ document.querySelectorAll("[data-team-network-map]").forEach((mapRoot) => {
   const svg = d3.select(svgElement);
   const countries = svg.append("g").attr("class", "projects-network__countries");
   const markers = svg.append("g").attr("class", "projects-network__markers");
-  const render = (world) => {
-    const width = svgElement.clientWidth || 900;
-    const height = Math.max(320, width * 0.48);
-    svg.attr("viewBox", `0 0 ${width} ${height}`);
-    const features = topojson.feature(world, world.objects.countries);
-    const projection = d3.geoNaturalEarth1().fitExtent([[16, 16], [width - 16, height - 16]], features);
-    const path = d3.geoPath(projection);
-    countries.selectAll("path").data(features.features).join("path").attr("d", path);
+  let worldFeatures;
+  const render = () => {
+    if (!worldFeatures) return;
+    const { projection } = worldMap.renderBase({
+      d3,
+      svg,
+      countryLayer: countries,
+      features: worldFeatures,
+      canvas: svgElement,
+      heightForWidth: (width) => Math.max(320, width * 0.48),
+      padding: 16,
+    });
     markers.selectAll("g").data(grouped, (place) => place.location).join("g")
       .attr("class", "projects-network__marker")
       .attr("transform", (place) => `translate(${projection([place.longitude, place.latitude]).join(",")})`)
@@ -192,13 +221,17 @@ document.querySelectorAll("[data-team-network-map]").forEach((mapRoot) => {
         marker.attr("aria-label", `${place.location}: ${place.count} IBL Core team member${place.count === 1 ? "" : "s"}`);
       });
   };
-  fetch(mapRoot.dataset.mapUrl).then((response) => response.json()).then(render);
-  new ResizeObserver(() => fetch(mapRoot.dataset.mapUrl).then((response) => response.json()).then(render)).observe(mapRoot);
+  worldMap.loadFeatures({ url: mapRoot.dataset.mapUrl, topojson }).then((features) => {
+    worldFeatures = features;
+    render();
+    worldMap.observeResize(mapRoot, render);
+  }).catch(() => mapRoot.classList.add("has-map-error"));
 });
 
 document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
   const d3 = window.d3;
   const topojson = window.topojson;
+  const worldMap = window.IBLWorldMap;
   const svgElement = mapRoot.querySelector("[data-map-svg]");
   const canvas = mapRoot.querySelector(".new-partners-map__canvas");
   const tooltip = mapRoot.querySelector("[data-map-tooltip]");
@@ -207,7 +240,7 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
   const optionButtons = Array.from(mapRoot.querySelectorAll("[data-map-project-option]"));
   const projectCards = Array.from(mapRoot.querySelectorAll("[data-map-project-card]"));
 
-  if (!d3 || !topojson || !svgElement || !canvas) {
+  if (!d3 || !topojson || !worldMap || !svgElement || !canvas) {
     return;
   }
 
@@ -344,11 +377,7 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
     tooltip.append(entryList);
     tooltip.hidden = false;
 
-    const bounds = canvas.getBoundingClientRect();
-    const left = event?.clientX ? event.clientX - bounds.left : bounds.width / 2;
-    const top = event?.clientY ? event.clientY - bounds.top : bounds.height / 2;
-    tooltip.style.left = `${Math.max(12, Math.min(left, bounds.width - 12))}px`;
-    tooltip.style.top = `${Math.max(12, top)}px`;
+    worldMap.positionTooltip({ tooltip, canvas, event });
   };
 
   const selectCity = (city) => {
@@ -372,27 +401,28 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
     selection.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "nearest" });
   };
 
-  const zoom = d3.zoom().scaleExtent([1, 8]).on("zoom", (event) => {
-    viewport.attr("transform", event.transform);
-    viewport.style("--map-zoom", event.transform.k);
-    hideTooltip();
+  const zoom = worldMap.createZoom({
+    d3,
+    svg,
+    viewport,
+    cssVariable: "--map-zoom",
+    onZoom: hideTooltip,
   });
-  svg.call(zoom);
 
   const render = () => {
     if (!worldFeatures || canvas.clientWidth < 1) return;
 
-    const width = canvas.clientWidth;
-    const height = Math.max(340, Math.min(620, width * 0.54));
-    svg.attr("viewBox", `0 0 ${width} ${height}`);
-    projection = d3.geoNaturalEarth1().fitExtent([[20, 20], [width - 20, height - 20]], worldFeatures);
-    const path = d3.geoPath(projection);
-
-    countryLayer
-      .selectAll("path")
-      .data(worldFeatures.features)
-      .join("path")
-      .attr("d", path);
+    const baseMap = worldMap.renderBase({
+      d3,
+      svg,
+      countryLayer,
+      features: worldFeatures,
+      canvas,
+      heightForWidth: (width) => Math.max(340, Math.min(620, width * 0.54)),
+    });
+    if (!baseMap) return;
+    projection = baseMap.projection;
+    const path = baseMap.path;
 
     const visibleCities = cities
       .map((city) => summarizeCity(
@@ -484,35 +514,35 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
     render();
   });
 
-  mapRoot.querySelectorAll("[data-map-zoom]").forEach((control) => {
-    control.addEventListener("click", () => {
-      const action = control.dataset.mapZoom;
-      const transition = svg.transition().duration(window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 250);
-      if (action === "in") transition.call(zoom.scaleBy, 1.5);
-      if (action === "out") transition.call(zoom.scaleBy, 1 / 1.5);
-      if (action === "reset") transition.call(zoom.transform, d3.zoomIdentity);
-    });
+  worldMap.bindZoomControls({
+    root: mapRoot,
+    selector: "[data-map-zoom]",
+    dataAttribute: "mapZoom",
+    d3,
+    svg,
+    zoom,
   });
 
-  fetch(mapRoot.dataset.mapUrl)
-    .then((response) => {
-      if (!response.ok) throw new Error(`Map data request failed: ${response.status}`);
-      return response.json();
-    })
-    .then((world) => {
-      worldFeatures = topojson.feature(world, world.objects.countries);
+  worldMap.loadFeatures({ url: mapRoot.dataset.mapUrl, topojson })
+    .then((features) => {
+      worldFeatures = features;
       projectMapReady = true;
       projectViewButtons
         .filter((button) => button.dataset.projectViewButton === "map")
         .forEach((button) => { button.disabled = false; });
-      setProjectView("map");
+      if (requestedProjectView === "list") {
+        setProjectView("list");
+        if (window.location.hash) window.requestAnimationFrame(openLinkedProjectProfile);
+      } else {
+        setProjectView("map");
+      }
     })
     .catch(() => {
       mapRoot.classList.add("has-map-error");
       document.querySelector('[data-project-view-button="list"]')?.click();
     });
 
-  new ResizeObserver(render).observe(canvas);
+  worldMap.observeResize(canvas, render);
   window.addEventListener("project-map:shown", () => window.requestAnimationFrame(render));
 });
 

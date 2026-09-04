@@ -19,7 +19,10 @@ test-serve:
 
 check:
   hugo --panicOnWarning --cleanDestinationDir
+  node scripts/check-events-data.mjs
+  node --test scripts/check-events-data.test.mjs
   node scripts/check-llms.mjs
+  node scripts/check-events.mjs
 
 capture-landing:
   npm run capture:landing
