@@ -78,8 +78,3 @@ check-hugo:
 new-news slug:
   hugo new news/posts/{{slug}}.md
 
-new-event slug:
-  hugo new events/{{slug}}.md
-
-new-project slug:
-  hugo new projects/{{slug}}.md

@@ -2,7 +2,7 @@
 title: "Events"
 description: "IBL Core outreach events, workshops, hackathons, courses, and community meetups."
 layout: "events"
-body_class: "page-events"
+backdrop_image: "/images/new-partners-background.webp"
 header_variant: "landing"
 footer_variant: "non-landing"
 draft: false

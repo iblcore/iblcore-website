@@ -90,13 +90,16 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
     return card;
   };
 
-  const cloneEventCard = (eventId) => {
+  // Only the List view keeps the event-<id> anchors, so calendar and map copies never duplicate an id.
+  const cloneEventCard = (eventId, { keepAnchor = false } = {}) => {
     const template = browser.querySelector(`[data-event-template="${eventId}"]`);
     const card = template?.content.firstElementChild?.cloneNode(true);
-    return card ? applyEventStatus(card) : null;
+    if (!card) return null;
+    if (!keepAnchor) card.removeAttribute("id");
+    return applyEventStatus(card);
   };
 
-  const appendEventCards = (container, selectedEvents, emptyMessage) => {
+  const appendEventCards = (container, selectedEvents, emptyMessage, options = {}) => {
     container.replaceChildren();
     if (selectedEvents.length === 0) {
       const message = document.createElement("p");
@@ -109,7 +112,7 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
     const list = document.createElement("div");
     list.className = "events-list";
     selectedEvents.forEach((event) => {
-      const card = cloneEventCard(event.id);
+      const card = cloneEventCard(event.id, options);
       if (card) list.append(card);
     });
     container.append(list);
@@ -127,9 +130,23 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
     const groupEvents = events
       .filter((event) => event.status === status)
       .sort((first, second) => (status === "past" ? second.start - first.start : first.start - second.start));
-    appendEventCards(list, groupEvents, listEmptyMessages[status]);
+    appendEventCards(list, groupEvents, listEmptyMessages[status], { keepAnchor: true });
     if (count) count.textContent = `${groupEvents.length} event${groupEvents.length === 1 ? "" : "s"}`;
   });
+
+  // Profile pages link to /events/#event-<id>; keep the List view and focus that card.
+  const linkedEventPrefix = "#event-";
+  const linkedEvent = window.location.hash.startsWith(linkedEventPrefix)
+    ? eventsById.get(decodeURIComponent(window.location.hash.slice(linkedEventPrefix.length)))
+    : null;
+  const openLinkedEvent = () => {
+    const card = browser.querySelector(`[data-events-view-panel="list"] [data-event-card-id="${linkedEvent.id}"]`);
+    if (!card) return;
+    setView("list");
+    card.scrollIntoView({ block: "center" });
+    card.setAttribute("tabindex", "-1");
+    card.focus({ preventScroll: true });
+  };
 
   const calendar = browser.querySelector("[data-events-calendar]");
   const calendarOverview = calendar?.querySelector("[data-calendar-overview]");
@@ -363,8 +380,9 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
 
   if (renderMonthOverview()) {
     enableView("calendar");
-    setView("calendar");
+    if (!linkedEvent) setView("calendar");
   }
+  if (linkedEvent) window.requestAnimationFrame(openLinkedEvent);
 
   const setStatusFilter = (filter) => {
     activeStatusFilter = filter;

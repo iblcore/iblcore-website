@@ -31,16 +31,19 @@ export function validateEventsData(eventsData, projectsData) {
     return errors;
   }
 
-  const affiliateSection = projectsData?.sections?.find((section) => section.id === "affiliates");
-  const affiliateItems = affiliateSection?.items;
-  if (!Array.isArray(affiliateItems)) {
-    errors.push("data/projects.yaml: the affiliates section must contain an items list");
-  }
-  const affiliateIds = new Set();
-  for (const affiliate of affiliateItems || []) {
-    if (!affiliate?.id) continue;
-    if (affiliateIds.has(affiliate.id)) errors.push(`data/projects.yaml: duplicate affiliate ID "${affiliate.id}"`);
-    affiliateIds.add(affiliate.id);
+  // Co-organisers may be Partner or Affiliate records; both live in data/projects.yaml.
+  const profileIds = new Set();
+  for (const sectionId of ["new-partner-projects", "affiliates"]) {
+    const items = projectsData?.sections?.find((section) => section.id === sectionId)?.items;
+    if (!Array.isArray(items)) {
+      errors.push(`data/projects.yaml: the ${sectionId} section must contain an items list`);
+      continue;
+    }
+    for (const record of items) {
+      if (!record?.id) continue;
+      if (profileIds.has(record.id)) errors.push(`data/projects.yaml: duplicate Partner or Affiliate ID "${record.id}"`);
+      profileIds.add(record.id);
+    }
   }
 
   const eventIds = new Set();
@@ -105,8 +108,8 @@ export function validateEventsData(eventsData, projectsData) {
           const organiserLabel = `co_organisers[${organiserIndex}]`;
           if (!organiser || typeof organiser.profile_id !== "string" || organiser.profile_id.trim() === "") {
             addError(errors, eventLabel, `${organiserLabel} requires profile_id`);
-          } else if (!affiliateIds.has(organiser.profile_id)) {
-            addError(errors, eventLabel, `${organiserLabel} references unknown affiliate ID "${organiser.profile_id}"`);
+          } else if (!profileIds.has(organiser.profile_id)) {
+            addError(errors, eventLabel, `${organiserLabel} references unknown Partner or Affiliate ID "${organiser.profile_id}"`);
           }
           for (const legacyField of ["profile_url", "name"]) {
             if (organiser?.[legacyField] !== undefined) {

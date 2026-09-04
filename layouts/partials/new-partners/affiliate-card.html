@@ -47,6 +47,7 @@
         </p>
       {{ end }}
       {{ partial "new-partners/lab-details.html" (dict "item" $item "hide_heading" true "hide_links" true) }}
+      {{ partial "new-partners/co-organised-events.html" (dict "profile_id" $recordId) }}
     </div>
   </div>
 </article>

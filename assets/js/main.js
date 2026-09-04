@@ -90,52 +90,6 @@ document.querySelectorAll("[data-accordion]").forEach((accordion) => {
   accordion.classList.add("accordion-ready");
 });
 
-document.querySelectorAll("[data-team-network-map]").forEach((mapRoot) => {
-  const d3 = window.d3;
-  const topojson = window.topojson;
-  const worldMap = window.IBLWorldMap;
-  const svgElement = mapRoot.querySelector("[data-team-network-svg]");
-  const membersScript = mapRoot.parentElement.querySelector("[data-team-network-members]");
-  if (!d3 || !topojson || !worldMap || !svgElement || !membersScript) return;
-  const members = JSON.parse(membersScript.textContent || "[]");
-  const grouped = Array.from(d3.group(members, (member) => member.location), ([location, people]) => ({
-    location,
-    latitude: people[0].latitude,
-    longitude: people[0].longitude,
-    count: people.length,
-  }));
-  const svg = d3.select(svgElement);
-  const countries = svg.append("g").attr("class", "projects-network__countries");
-  const markers = svg.append("g").attr("class", "projects-network__markers");
-  let worldFeatures;
-  const render = () => {
-    if (!worldFeatures) return;
-    const { projection } = worldMap.renderBase({
-      d3,
-      svg,
-      countryLayer: countries,
-      features: worldFeatures,
-      canvas: svgElement,
-      heightForWidth: (width) => Math.max(320, width * 0.48),
-      padding: 16,
-    });
-    markers.selectAll("g").data(grouped, (place) => place.location).join("g")
-      .attr("class", "projects-network__marker")
-      .attr("transform", (place) => `translate(${projection([place.longitude, place.latitude]).join(",")})`)
-      .each(function(place) {
-        const marker = d3.select(this);
-        marker.selectAll("circle").data([place]).join("circle").attr("r", 15);
-        marker.selectAll("text").data([place]).join("text").attr("text-anchor", "middle").attr("dy", "0.35em").text(place.count);
-        marker.attr("aria-label", `${place.location}: ${place.count} IBL Core team member${place.count === 1 ? "" : "s"}`);
-      });
-  };
-  worldMap.loadFeatures({ url: mapRoot.dataset.mapUrl, topojson }).then((features) => {
-    worldFeatures = features;
-    render();
-    worldMap.observeResize(mapRoot, render);
-  }).catch(() => mapRoot.classList.add("has-map-error"));
-});
-
 document.querySelectorAll("[data-publication-browser]").forEach((browser) => {
   const filters = Array.from(browser.querySelectorAll("[data-publication-filter]"));
   const publications = Array.from(browser.querySelectorAll("[data-publication-item]"));

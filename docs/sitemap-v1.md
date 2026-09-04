@@ -70,7 +70,7 @@ Notes:
 ### 2.4 Projects (`/projects/`)
 
 Includes:
-- IBL Core projects as the single page heading, followed by a concise overview banner explaining the mix of original projects reaching completion, shared-dataset analysis, and open tool/infrastructure development, then the project content; the optional IBL Core network map is currently hidden
+- IBL Core projects as the single page heading, followed by a concise overview banner explaining the mix of original projects reaching completion, shared-dataset analysis, and open tool/infrastructure development, then the project content
 - A centered `New partner projects` CTA banner at the bottom of the page, styled like the `/new-partner-projects/` page
 - New partner projects (`/new-partner-projects/`)
   - Map view is the default; the List/Map control sits beside an All/Partner/Affiliate category filter near the results
@@ -114,7 +114,7 @@ Includes:
 - A List view that clearly separates Upcoming and Past events
 - A Map view with status-colored location markers that reveal event details when selected
 - Online events appear as one clickable button within the map toolbar rather than using a misleading physical marker; its map-marker-sized, status-colored count dot shows how many filtered online events it represents, remains visible with `0` when no online events match, and selection reveals those events below the map
-- Event records may identify co-organisers and link directly to their Partner or Affiliate profile
+- Event records may identify co-organisers (Partner or Affiliate records) and link directly to their profile; each profile lists the events it co-organises and links back to the anchored event card
 - Upcoming events use the global Partner blue and Past events use the global Affiliate pink in calendar and map views; the status filter persists when switching views
 
 ### 2.7 News (`/news/`)
@@ -178,7 +178,6 @@ content/
 
 Add archetypes for repeatable content:
 - `archetypes/news.md`
-- `archetypes/project.md` (if project entries become individual pages later)
 - `archetypes/publication.md` (if publications become structured entries)
 
 ## 4. Template Strategy (Design + Reuse)

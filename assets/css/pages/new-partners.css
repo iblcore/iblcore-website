@@ -1,5 +1,4 @@
 .page-new-partners {
-  --page-backdrop-image: url("/images/new-partners-background.webp");
   --new-partners-card-title-size: clamp(1.08rem, 1.55vw, 1.28rem);
   --new-partners-card-copy-size: clamp(0.98rem, 1.2vw, 1.06rem);
   --new-partners-card-meta-size: clamp(0.9rem, 1.05vw, 0.98rem);
@@ -427,6 +426,29 @@
   background: var(--color-accent);
   color: var(--color-surface);
   outline: none;
+}
+
+.new-partners-card__events {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-accent-tint-20);
+}
+
+.new-partners-card__events .new-partners-card__eyebrow {
+  margin-bottom: 0.5rem;
+}
+
+.new-partners-card__events-links {
+  justify-content: flex-start;
+  margin: 0;
+}
+
+.new-partners-card--affiliate .new-partners-card__events {
+  text-align: center;
+}
+
+.new-partners-card--affiliate .new-partners-card__events-links {
+  justify-content: center;
 }
 
 .new-partners-team-people {

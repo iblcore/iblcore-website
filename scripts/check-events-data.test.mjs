@@ -7,7 +7,12 @@ const fixture = parseYaml(
   await fs.readFile(new URL("./fixtures/events-invalid.yaml", import.meta.url), "utf8"),
   "fixture",
 ).value;
-const projects = { sections: [{ id: "affiliates", items: [{ id: "issue-210" }] }] };
+const projects = {
+  sections: [
+    { id: "new-partner-projects", items: [{ id: "issue-136" }] },
+    { id: "affiliates", items: [{ id: "issue-210" }] },
+  ],
+};
 
 test("invalid Events fixture reports every supported validation category", () => {
   const errors = validateEventsData(fixture, projects).join("\n");
@@ -16,7 +21,7 @@ test("invalid Events fixture reports every supported validation category", () =>
     "duplicate id",
     "end_date cannot be earlier than start_date",
     "physical events require latitude",
-    "unknown affiliate ID \"issue-999\"",
+    "unknown Partner or Affiliate ID \"issue-999\"",
   ]) {
     assert.match(errors, new RegExp(expected.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
   }

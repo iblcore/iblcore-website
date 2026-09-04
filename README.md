@@ -97,7 +97,8 @@ map-marker-sized, status-colored count dot shows the number of filtered online
 events and remains visible at zero when none match; the button displays their
 cards below the map. Event records may also define
 co-organisers with direct links to their Partner or Affiliate profiles on
-`/new-partner-projects/`.
+`/new-partner-projects/`, and each profile lists the events it co-organises
+with links back to the anchored event card on `/events/`.
 
 Project and affiliate records are maintained in `data/projects.yaml`. The
 `/new-partner-projects/` layout uses reusable profile and research-group
@@ -193,11 +194,16 @@ Named team-member portraits inside expanded accordions use the same circular
 dimensions and pale-blue ring as lead PI portraits; project and lab images
 remain rectangular.
 
+Pages with a fixed image backdrop (`/projects/`, `/new-partner-projects/`,
+`/events/`, and the FAQ) set `backdrop_image` in their front matter. The base
+layout turns that into the `page-backdrop` body class and CSS variable, and the
+shared `partials/backdrop-hero.html` renders the transparent hero that lets the
+image show through, so no page-specific hero markup or CSS is needed.
+
 The `/projects/` page uses the single page title `IBL Core projects`,
 followed by a concise internal-projects overview banner and the project content.
 Its centered `New partner projects` CTA is presented in a matching banner at
-the bottom of the page. Its static IBL Core network map can be enabled with the
-page-level `show_network_map` parameter; it is currently hidden.
+the bottom of the page.
 
 News and press entries are maintained as page bundles in `content/news/posts/`
 and are published through `/news/`.

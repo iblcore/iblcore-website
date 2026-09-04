@@ -201,7 +201,20 @@ try {
   assert(await partnersPage.locator('[data-project-view-panel="map"]').isVisible(), "The Partners map view did not open.");
   await partnersPage.locator(".world-map__marker").first().waitFor({ state: "visible" });
   assert(await partnersPage.locator(".world-map__marker").count() > 0, "The shared map helper did not render Partners map markers.");
+  await partnersPage.locator('[data-project-view-button="list"]').click();
+  const reverseLinks = partnersPage.locator('#profile-issue-210 .new-partners-card__events a');
+  assert(await reverseLinks.count() === 2, "The Chini profile should list its two co-organised events.");
+  assert((await reverseLinks.first().getAttribute("href")).endsWith("/events/#event-pre-fens-brainhack-2026"), "Reverse event links should target the anchored event card, newest first.");
+  assert(await partnersPage.locator('#profile-issue-136').count() === 1, "Partner cards need a profile anchor so they can be co-organisers.");
   await partnersPage.close();
+
+  const linkedEventPage = await browser.newPage();
+  await linkedEventPage.goto(`${origin}/events/#event-rse-romandie-2026`, { waitUntil: "networkidle" });
+  await linkedEventPage.locator('[data-events-view-button="calendar"]').waitFor({ state: "visible" });
+  assert(await linkedEventPage.locator('[data-events-view-button="list"]').getAttribute("aria-pressed") === "true", "A linked event should open in the List view.");
+  assert(await linkedEventPage.locator('[id^="event-"]').count() === eventData.length, "Every event should have exactly one anchor in the document.");
+  assert(await linkedEventPage.locator("#event-rse-romandie-2026").evaluate((card) => card === document.activeElement), "The linked event card should receive focus.");
+  await linkedEventPage.close();
 } finally {
   await browser.close();
   await new Promise((resolve, reject) => server.close((error) => (error ? reject(error) : resolve())));

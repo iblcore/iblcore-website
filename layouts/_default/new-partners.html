@@ -15,9 +15,7 @@
     {{ end }}
   {{ end }}
 
-  <section class="new-partners-hero section-hero">
-    <div class="new-partners-hero__media section-hero__media" aria-hidden="true"></div>
-  </section>
+  {{ partial "backdrop-hero.html" . }}
 
   {{ with .Content }}
     <section class="new-partners-banner section-banner section-banner--intro" id="partner-projects-introduction">

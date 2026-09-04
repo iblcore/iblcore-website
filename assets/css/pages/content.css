@@ -128,13 +128,15 @@
     inset 0 0 0 1px var(--color-accent-tint-25);
 }
 
-:is(.page-faq, .page-projects, .page-new-partners, .page-events) {
+/* Pages that set backdrop_image: a fixed, dimmed image behind everything,
+   revealed through the transparent hero from partials/backdrop-hero.html. */
+.page-backdrop {
   position: relative;
   background: var(--color-surface-dark);
   color: var(--color-surface);
 }
 
-:is(.page-faq, .page-projects, .page-new-partners, .page-events)::before {
+.page-backdrop::before {
   content: "";
   position: fixed;
   inset: 0;
@@ -147,7 +149,7 @@
   background-color: var(--color-surface-dark);
 }
 
-:is(.page-faq, .page-projects, .page-new-partners, .page-events)::after {
+.page-backdrop::after {
   content: "";
   position: fixed;
   inset: 0;
@@ -155,7 +157,7 @@
   background: linear-gradient(180deg, var(--color-page-overlay-soft-top) 0%, var(--color-page-overlay-soft-bottom) 100%);
 }
 
-:is(.page-faq, .page-projects, .page-new-partners, .page-events) .site-footer {
+.page-backdrop .site-footer {
   position: relative;
   z-index: 1;
 }
@@ -234,7 +236,6 @@
 
 @media (max-width: 700px) {
 
-  :is(.faq-hero, .projects-hero, .new-partners-hero, .events-hero),
   .faq-hero__inner {
     min-height: 27rem;
   }

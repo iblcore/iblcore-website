@@ -1,8 +1,10 @@
 {{ define "main" }}
   {{ $events := sort hugo.Data.events.events "start_date" "asc" }}
-  {{ $affiliateSection := index (where hugo.Data.projects.sections "id" "affiliates") 0 }}
-  {{ $affiliateIds := newScratch }}
-  {{ range $affiliateSection.items }}{{ $affiliateIds.Set .id true }}{{ end }}
+  {{ $profileIds := newScratch }}
+  {{ range (slice "new-partner-projects" "affiliates") }}
+    {{ $section := index (where hugo.Data.projects.sections "id" .) 0 }}
+    {{ range $section.items }}{{ $profileIds.Set .id true }}{{ end }}
+  {{ end }}
   {{ range $events }}
     {{ $eventName := .name }}
     {{ if ne (.format | default "physical") "online" }}
@@ -17,7 +19,7 @@
     {{ end }}
     {{ range .co_organisers }}
       {{ with .profile_id }}
-        {{ if not ($affiliateIds.Get .) }}{{ errorf "Event %q references unknown affiliate profile ID %q" $eventName . }}{{ end }}
+        {{ if not ($profileIds.Get .) }}{{ errorf "Event %q references unknown Partner or Affiliate profile ID %q" $eventName . }}{{ end }}
       {{ else }}
         {{ errorf "Event %q has a co-organiser without a profile_id" $eventName }}
       {{ end }}
@@ -26,9 +28,7 @@
 
   <div data-events-page>
 
-  <section class="events-hero section-hero" aria-hidden="true">
-    <div class="events-hero__media section-hero__media"></div>
-  </section>
+  {{ partial "backdrop-hero.html" . }}
 
   <section class="events-intro section-banner section-banner--intro" aria-label="About IBL Core events">
     <div class="shell section-banner__inner">
