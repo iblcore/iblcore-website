@@ -1,10 +1,15 @@
 ---
 title: "Events"
-description: "Upcoming events, dates, and locations."
-lead: "This is a single landing page for upcoming events and related information."
-draft: true
+description: "IBL Core outreach events, workshops, hackathons, courses, and community meetups."
+layout: "events"
+body_class: "page-events"
+header_variant: "landing"
+footer_variant: "non-landing"
+draft: false
 ---
 
-## Placeholder
+IBL Core takes part in workshops, hackathons, courses, and community meetups
+that strengthen open, reproducible neuroscience and research software.
 
-Add upcoming event entries, dates, locations, and registration details here.
+Explore our approved outreach events by date or location, and follow the event
+links for further information when available.

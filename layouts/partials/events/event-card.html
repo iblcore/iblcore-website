@@ -1,0 +1,50 @@
+{{- $event := . -}}
+{{- $start := time.AsTime $event.start_date -}}
+{{- $end := time.AsTime $event.end_date -}}
+{{- $isPast := lt $event.end_date (now.Format "2006-01-02") -}}
+<article class="event-card" data-event-card-id="{{ $event.id }}">
+  <div class="event-card__date" aria-hidden="true">
+    <span class="event-card__month">{{ $start.Format "Jan" }}</span>
+    <span class="event-card__day">{{ $start.Format "2" }}</span>
+    <span class="event-card__year">{{ $start.Format "2006" }}</span>
+  </div>
+  <div class="event-card__content">
+    <div class="event-card__meta">
+      <p class="event-card__date-range">
+        {{ if eq $event.start_date $event.end_date }}
+          <time datetime="{{ $event.start_date }}">{{ $start.Format "2 January 2006" }}</time>
+        {{ else }}
+          <time datetime="{{ $event.start_date }}">{{ $start.Format "2 January 2006" }}</time>
+          <span aria-hidden="true">&ndash;</span>
+          <time datetime="{{ $event.end_date }}">{{ $end.Format "2 January 2006" }}</time>
+        {{ end }}
+      </p>
+      <span class="event-card__status event-card__status--{{ if $isPast }}past{{ else }}upcoming{{ end }}">{{ if $isPast }}Past{{ else }}Upcoming{{ end }}</span>
+    </div>
+    <h3 class="event-card__title">{{ $event.name }}</h3>
+    <p class="event-card__location">
+      {{ if eq $event.format "online" }}
+        <span>Online</span>
+        {{ with $event.audience }}<span> &middot; For {{ . }}</span>{{ end }}
+      {{ else }}
+        <span>{{ $event.location }}</span>
+        {{ with $event.city }}<span>, {{ . }}</span>{{ end }}
+        {{ with $event.country }}<span>, {{ . }}</span>{{ end }}
+      {{ end }}
+    </p>
+    {{ with $event.topic }}<p class="event-card__topic">{{ . }}</p>{{ end }}
+    {{ with $event.co_organisers }}
+      <p class="event-card__co-organisers">
+        <span>Co-organised with</span>
+        {{ $affiliateSection := index (where hugo.Data.projects.sections "id" "affiliates") 0 }}
+        {{ $partnersPage := site.GetPage "/projects/new-partners" }}
+        {{ range $index, $organiser := . }}
+          {{- $profile := index (where $affiliateSection.items "id" $organiser.profile_id) 0 -}}
+          {{- $profileURL := printf "%s?view=list&filter=affiliate#profile-%s" $partnersPage.RelPermalink $profile.id -}}
+          {{- if $index }}, {{ end -}}<a href="{{ $profileURL }}">{{ or $profile.short_name $profile.name $profile.subtitle }}</a>
+        {{- end }}
+      </p>
+    {{ end }}
+    {{ with $event.website }}<a class="button event-card__link" href="{{ . }}">Event website</a>{{ end }}
+  </div>
+</article>

@@ -30,6 +30,8 @@
             {{ $itemActive = eq $section "projects" }}
           {{ else if eq $item.key "publications" }}
             {{ $itemActive = eq $section "publications" }}
+          {{ else if eq $item.key "events" }}
+            {{ $itemActive = eq $section "events" }}
           {{ else if eq $item.key "news" }}
             {{ $itemActive = eq $section "news" }}
           {{ end }}

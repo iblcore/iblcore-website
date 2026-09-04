@@ -16,6 +16,7 @@
       (resources.Get "css/base.css")
       (resources.Get "css/components/navigation.css")
       (resources.Get "css/components/footer.css")
+      (resources.Get "css/components/segmented-control.css")
       (resources.Get "css/components.css")
       (resources.Get "css/pages/content.css")
     }}
@@ -38,6 +39,9 @@
     {{ if eq .Layout "faq" }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/faq.css") }}
     {{ end }}
+    {{ if eq .Section "events" }}
+      {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/events.css") }}
+    {{ end }}
     {{ if .IsHome }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/home.css") }}
     {{ end }}
@@ -58,15 +62,32 @@
       {{ end }}
     {{ end }}
     {{ $js := resources.Get "js/main.js" | minify }}
-    {{ if eq .Layout "new-partners" }}
+    {{ $usesWorldMap := or (eq .Layout "new-partners") (eq .Layout "events") (and (eq .Section "projects") .Params.show_network_map) }}
+    {{ if $usesWorldMap }}
       <script src="{{ "vendor/d3-7.9.0.min.js" | relURL }}" defer></script>
       <script src="{{ "vendor/topojson-client-3.1.0.min.js" | relURL }}" defer></script>
+      {{ $worldMapJS := resources.Get "js/world-map.js" | minify }}
+      {{ if $fingerprintAssets }}
+        {{ $worldMapJS = $worldMapJS | fingerprint }}
+        <script src="{{ $worldMapJS.RelPermalink }}" integrity="{{ $worldMapJS.Data.Integrity }}" defer></script>
+      {{ else }}
+        <script src="{{ $worldMapJS.RelPermalink }}" defer></script>
+      {{ end }}
     {{ end }}
     {{ if $fingerprintAssets }}
       {{ $js = $js | fingerprint }}
       <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
     {{ else }}
       <script src="{{ $js.RelPermalink }}" defer></script>
+    {{ end }}
+    {{ if eq .Layout "events" }}
+      {{ $eventsJS := resources.Get "js/events.js" | minify }}
+      {{ if $fingerprintAssets }}
+        {{ $eventsJS = $eventsJS | fingerprint }}
+        <script src="{{ $eventsJS.RelPermalink }}" integrity="{{ $eventsJS.Data.Integrity }}" defer></script>
+      {{ else }}
+        <script src="{{ $eventsJS.RelPermalink }}" defer></script>
+      {{ end }}
     {{ end }}
   </head>
   {{ $bodyClasses := slice }}

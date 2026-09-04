@@ -1,0 +1,35 @@
+.segmented-control {
+  display: inline-flex;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0.22rem;
+  border: 1px solid var(--segmented-control-border-color);
+  border-radius: 999px;
+  background: var(--segmented-control-background);
+}
+
+.segmented-control__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--segmented-control-button-gap, 0);
+  min-width: var(--segmented-control-button-min-width, auto);
+  min-height: var(--segmented-control-button-min-height, auto);
+  padding: var(--segmented-control-button-padding);
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--segmented-control-button-color);
+  font: inherit;
+  font-size: var(--segmented-control-button-font-size);
+  cursor: pointer;
+}
+
+.segmented-control__button:disabled {
+  cursor: wait;
+  opacity: 0.48;
+}
+
+.segmented-control__button[hidden] {
+  display: none;
+}

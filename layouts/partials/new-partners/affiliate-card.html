@@ -3,7 +3,7 @@
 {{- $idPrefix := .id_prefix | default "affiliate" -}}
 {{- $recordId := $item.id | default (printf "item-%d" $itemIndex) -}}
 {{- $itemId := printf "%s-%s" $idPrefix $recordId -}}
-<article class="new-partners-card new-partners-card--affiliate accordion__item" data-project-record-id="{{ $recordId }}" data-accordion-item>
+<article class="new-partners-card new-partners-card--affiliate accordion__item"{{ if eq $idPrefix "affiliate" }} id="profile-{{ $recordId }}"{{ end }} data-project-record-id="{{ $recordId }}" data-accordion-item>
   <button
     class="new-partners-card__header accordion__button"
     type="button"
