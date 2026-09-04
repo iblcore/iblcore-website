@@ -30,10 +30,10 @@
     <div class="events-hero__media section-hero__media"></div>
   </section>
 
-  <section class="events-intro section-banner" aria-label="About IBL Core events">
-    <div class="shell events-intro__inner section-banner__inner">
-      <div class="events-intro__copy section-banner__copy prose">
-        <h1>{{ .Title }}</h1>
+  <section class="events-intro section-banner section-banner--intro" aria-label="About IBL Core events">
+    <div class="shell section-banner__inner">
+      <div class="section-banner__copy prose">
+        <h1 class="section-banner__title">{{ .Title }}</h1>
         {{ .Content }}
       </div>
     </div>
@@ -43,25 +43,25 @@
     <div class="shell page-shell events-view-controls__inner section-banner__inner">
       <p>Explore events</p>
       <div class="events-view-switch segmented-control" role="group" aria-label="Choose event view">
-        <button class="events-view-switch__button segmented-control__button is-active" type="button" aria-pressed="true" data-events-view-button="list">List</button>
-        <button class="events-view-switch__button segmented-control__button" type="button" aria-pressed="false" data-events-view-button="calendar" disabled hidden>Calendar</button>
-        <button class="events-view-switch__button segmented-control__button" type="button" aria-pressed="false" data-events-view-button="map" disabled hidden>Map</button>
+        <button class="segmented-control__button is-active" type="button" aria-pressed="true" data-events-view-button="list">List</button>
+        <button class="segmented-control__button" type="button" aria-pressed="false" data-events-view-button="calendar" disabled hidden>Calendar</button>
+        <button class="segmented-control__button" type="button" aria-pressed="false" data-events-view-button="map" disabled hidden>Map</button>
       </div>
       <div class="events-status-filter segmented-control" role="group" aria-label="Filter events by date status" data-events-enhanced-controls hidden>
-        <button class="events-status-filter__button segmented-control__button is-active" type="button" aria-pressed="true" data-events-status-filter="all">All</button>
-        <button class="events-status-filter__button segmented-control__button" type="button" aria-pressed="false" data-events-status-filter="upcoming">
-          <span class="events-status-filter__dot events-status-filter__dot--upcoming" aria-hidden="true"></span>
+        <button class="segmented-control__button is-active" type="button" aria-pressed="true" data-events-status-filter="all">All</button>
+        <button class="segmented-control__button" type="button" aria-pressed="false" data-events-status-filter="upcoming">
+          <span class="segmented-control__dot events-status-filter__dot--upcoming" aria-hidden="true"></span>
           Upcoming
         </button>
-        <button class="events-status-filter__button segmented-control__button" type="button" aria-pressed="false" data-events-status-filter="past">
-          <span class="events-status-filter__dot events-status-filter__dot--past" aria-hidden="true"></span>
+        <button class="segmented-control__button" type="button" aria-pressed="false" data-events-status-filter="past">
+          <span class="segmented-control__dot events-status-filter__dot--past" aria-hidden="true"></span>
           Past
         </button>
       </div>
     </div>
   </section>
 
-  <section class="events-browser section" data-events-browser>
+  <section class="events-browser section-band" data-events-browser>
     <div class="shell page-shell">
       <script type="application/json" data-events-data>{{ $events | jsonify | safeJS }}</script>
 
@@ -80,26 +80,34 @@
         <section class="events-list-group" aria-labelledby="upcoming-events-title" data-events-status-group="upcoming">
           <div class="events-list-group__heading">
             <h2 id="upcoming-events-title">Upcoming</h2>
-            <span>{{ len $upcoming }} event{{ if ne (len $upcoming) 1 }}s{{ end }}</span>
+            <span data-events-status-count>{{ len $upcoming }} event{{ if ne (len $upcoming) 1 }}s{{ end }}</span>
           </div>
-          {{ if $upcoming }}
-            <div class="events-list">
-              {{ range sort $upcoming "start_date" "asc" }}
-                {{ partial "events/event-card.html" . }}
-              {{ end }}
-            </div>
-          {{ else }}
-            <p class="events-list-group__empty">No upcoming outreach events are currently scheduled.</p>
-          {{ end }}
+          <div data-events-status-list>
+            {{ if $upcoming }}
+              <div class="events-list">
+                {{ range sort $upcoming "start_date" "asc" }}
+                  {{ partial "events/event-card.html" . }}
+                {{ end }}
+              </div>
+            {{ else }}
+              <p class="events-list-group__empty">No upcoming outreach events are currently scheduled.</p>
+            {{ end }}
+          </div>
         </section>
         <section class="events-list-group" aria-labelledby="past-events-title" data-events-status-group="past">
           <div class="events-list-group__heading">
             <h2 id="past-events-title">Past</h2>
-            <span>{{ len $past }} event{{ if ne (len $past) 1 }}s{{ end }}</span>
+            <span data-events-status-count>{{ len $past }} event{{ if ne (len $past) 1 }}s{{ end }}</span>
           </div>
-          <div class="events-list">
-            {{ range sort $past "start_date" "desc" }}
-              {{ partial "events/event-card.html" . }}
+          <div data-events-status-list>
+            {{ if $past }}
+              <div class="events-list">
+                {{ range sort $past "start_date" "desc" }}
+                  {{ partial "events/event-card.html" . }}
+                {{ end }}
+              </div>
+            {{ else }}
+              <p class="events-list-group__empty">No past outreach events are listed yet.</p>
             {{ end }}
           </div>
         </section>
@@ -139,8 +147,8 @@
       </div>
 
       <div class="events-view-panel" data-events-view-panel="map" hidden>
-        <div class="events-map" data-events-map data-map-url="{{ "/data/world-countries-110m.json" | relURL }}">
-          <div class="events-map__toolbar">
+        <div class="events-map world-map" data-events-map data-map-url="{{ "/data/world-countries-110m.json" | relURL }}">
+          <div class="events-map__toolbar world-map__toolbar">
             <p>Select a marker to view events at that location. Online events are listed separately.</p>
             <div class="events-map__online" hidden data-events-map-online>
               <div class="events-map__online-list" data-events-map-online-list>
@@ -150,15 +158,15 @@
                 </button>
               </div>
             </div>
-            <div class="events-map__controls" aria-label="Map zoom controls">
+            <div class="world-map__controls" aria-label="Map zoom controls">
               <button type="button" data-events-map-zoom="in" aria-label="Zoom in">+</button>
               <button type="button" data-events-map-zoom="out" aria-label="Zoom out">&minus;</button>
               <button type="button" data-events-map-zoom="reset">Reset</button>
             </div>
           </div>
-          <div class="events-map__canvas">
+          <div class="world-map__canvas">
             <svg role="img" aria-label="World map showing IBL Core event locations" data-events-map-svg></svg>
-            <div class="events-map__tooltip" role="status" hidden data-events-map-tooltip></div>
+            <div class="events-map__tooltip world-map__tooltip" role="status" hidden data-events-map-tooltip></div>
             <p class="events-map__empty" hidden data-events-map-empty>No events match this filter.</p>
           </div>
         </div>

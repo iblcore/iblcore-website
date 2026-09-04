@@ -27,26 +27,8 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
     String(date.getMonth() + 1).padStart(2, "0"),
     String(date.getDate()).padStart(2, "0"),
   ].join("-");
+  // Coordinates are validated at build time (Hugo template and scripts/check-events-data.mjs).
   const isOnlineEvent = (event) => event.format === "online";
-  const hasValidCoordinates = (event) => {
-    const latitude = Number(event.latitude);
-    const longitude = Number(event.longitude);
-    return event.latitude !== null
-      && event.latitude !== ""
-      && event.longitude !== null
-      && event.longitude !== ""
-      && Number.isFinite(latitude)
-      && Number.isFinite(longitude)
-      && latitude >= -90
-      && latitude <= 90
-      && longitude >= -180
-      && longitude <= 180;
-  };
-  const invalidPhysicalEvent = rawEvents.find((event) => !isOnlineEvent(event) && !hasValidCoordinates(event));
-  if (invalidPhysicalEvent) {
-    console.error(`Physical event "${invalidPhysicalEvent.name || invalidPhysicalEvent.id}" has invalid coordinates. Showing the event list instead.`);
-    return;
-  }
   const events = rawEvents.map((event) => ({
     ...event,
     start: parseDate(event.start_date),
@@ -94,9 +76,24 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
     button.addEventListener("click", () => setView(button.dataset.eventsViewButton));
   });
 
+  const eventsById = new Map(events.map((event) => [event.id, event]));
+  const statusLabels = { upcoming: "Upcoming", past: "Past" };
+
+  // The HTML is classified at build time; refresh the badge from today's date
+  // so the page stays correct between deployments.
+  const applyEventStatus = (card) => {
+    const event = eventsById.get(card.dataset.eventCardId);
+    const badge = card.querySelector("[data-event-status]");
+    if (!event || !badge) return card;
+    badge.className = `event-card__status event-card__status--${event.status}`;
+    badge.textContent = statusLabels[event.status];
+    return card;
+  };
+
   const cloneEventCard = (eventId) => {
     const template = browser.querySelector(`[data-event-template="${eventId}"]`);
-    return template?.content.firstElementChild?.cloneNode(true) || null;
+    const card = template?.content.firstElementChild?.cloneNode(true);
+    return card ? applyEventStatus(card) : null;
   };
 
   const appendEventCards = (container, selectedEvents, emptyMessage) => {
@@ -117,6 +114,22 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
     });
     container.append(list);
   };
+
+  const listEmptyMessages = {
+    upcoming: "No upcoming outreach events are currently scheduled.",
+    past: "No past outreach events are listed yet.",
+  };
+  statusGroups.forEach((group) => {
+    const status = group.dataset.eventsStatusGroup;
+    const list = group.querySelector("[data-events-status-list]");
+    const count = group.querySelector("[data-events-status-count]");
+    if (!list) return;
+    const groupEvents = events
+      .filter((event) => event.status === status)
+      .sort((first, second) => (status === "past" ? second.start - first.start : first.start - second.start));
+    appendEventCards(list, groupEvents, listEmptyMessages[status]);
+    if (count) count.textContent = `${groupEvents.length} event${groupEvents.length === 1 ? "" : "s"}`;
+  });
 
   const calendar = browser.querySelector("[data-events-calendar]");
   const calendarOverview = calendar?.querySelector("[data-calendar-overview]");
@@ -142,10 +155,7 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
   const focusCalendarEvent = (eventId) => {
     const card = calendarSelection?.querySelector(`[data-event-card-id="${eventId}"]`);
     if (!card) return;
-    card.scrollIntoView({
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-      block: "nearest",
-    });
+    window.IBLWorldMap?.scrollToSelection(card);
     card.setAttribute("tabindex", "-1");
     card.focus({ preventScroll: true });
   };
@@ -380,7 +390,7 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
   const topojson = window.topojson;
   const worldMap = window.IBLWorldMap;
   const svgElement = mapRoot?.querySelector("[data-events-map-svg]");
-  const canvas = mapRoot?.querySelector(".events-map__canvas");
+  const canvas = mapRoot?.querySelector(".world-map__canvas");
   const tooltip = mapRoot?.querySelector("[data-events-map-tooltip]");
   const mapEmpty = mapRoot?.querySelector("[data-events-map-empty]");
   const onlinePanel = mapRoot?.querySelector("[data-events-map-online]");
@@ -391,7 +401,7 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
 
   const buildLocations = () => Array.from(
     d3.group(
-      visibleEvents().filter((event) => !isOnlineEvent(event) && hasValidCoordinates(event)),
+      visibleEvents().filter((event) => !isOnlineEvent(event)),
       (event) => `${event.latitude}|${event.longitude}`,
     ).values(),
     (locationEvents) => ({
@@ -404,37 +414,29 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
     }),
   );
   const svg = d3.select(svgElement);
-  const defs = svg.append("defs");
-  const mixedMarkerGradient = defs
-    .append("linearGradient")
-    .attr("id", "events-map-mixed-marker")
-    .attr("x1", "0%")
-    .attr("x2", "100%");
-  mixedMarkerGradient.append("stop").attr("class", "events-map__gradient-stop--upcoming").attr("offset", "50%");
-  mixedMarkerGradient.append("stop").attr("class", "events-map__gradient-stop--past").attr("offset", "50%");
-  const viewport = svg.append("g").attr("class", "events-map__viewport");
-  const countryLayer = viewport.append("g").attr("class", "events-map__countries");
-  const markerLayer = viewport.append("g").attr("class", "events-map__markers");
+  worldMap.appendMixedGradient({
+    svg,
+    id: "events-map-mixed-marker",
+    firstStopClass: "events-map__gradient-stop--upcoming",
+    secondStopClass: "events-map__gradient-stop--past",
+  });
+  const viewport = svg.append("g").attr("class", "world-map__viewport");
+  const countryLayer = viewport.append("g").attr("class", "world-map__countries");
+  const markerLayer = viewport.append("g").attr("class", "world-map__markers");
+  const tooltipControl = worldMap.createTooltip({ tooltip, canvas });
   let worldFeatures;
   let projection;
   let currentOnlineEvents = [];
   let onlineSelectionActive = false;
 
-  const hideTooltip = () => {
-    if (tooltip) tooltip.hidden = true;
-  };
-
   const showTooltip = (location, event) => {
-    if (!tooltip) return;
-    tooltip.replaceChildren();
-    const title = document.createElement("strong");
-    const names = document.createElement("span");
-    title.textContent = location.label;
-    names.textContent = location.events.map((item) => item.name).join(" / ");
-    tooltip.append(title, names);
-    tooltip.hidden = false;
-
-    worldMap.positionTooltip({ tooltip, canvas, event });
+    tooltipControl.show((node) => {
+      const title = document.createElement("strong");
+      const names = document.createElement("span");
+      title.textContent = location.label;
+      names.textContent = location.events.map((item) => item.name).join(" / ");
+      node.append(title, names);
+    }, event);
   };
 
   const selectLocation = (location) => {
@@ -446,13 +448,10 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
     appendEventCards(cards, location.events.sort((first, second) => first.start - second.start), "No events are listed at this location.");
     mapSelection.append(cards);
     mapSelection.hidden = false;
-    markerLayer.selectAll(".events-map__marker").classed("is-selected", (item) => item.key === location.key);
+    worldMap.setSelectedMarkers(markerLayer, (item) => item.key === location.key);
     onlineSelectionActive = false;
     onlineButton?.classList.remove("is-selected");
-    mapSelection.scrollIntoView({
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-      block: "nearest",
-    });
+    worldMap.scrollToSelection(mapSelection);
   };
 
   const selectOnlineEvents = (onlineEvents) => {
@@ -468,13 +467,10 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
     );
     mapSelection.append(cards);
     mapSelection.hidden = false;
-    markerLayer.selectAll(".events-map__marker").classed("is-selected", false);
+    worldMap.setSelectedMarkers(markerLayer, false);
     onlineSelectionActive = true;
     onlineButton?.classList.add("is-selected");
-    mapSelection.scrollIntoView({
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-      block: "nearest",
-    });
+    worldMap.scrollToSelection(mapSelection);
   };
 
   const renderOnlineEvents = () => {
@@ -496,13 +492,7 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
 
   onlineButton?.addEventListener("click", () => selectOnlineEvents(currentOnlineEvents));
 
-  const zoom = worldMap.createZoom({
-    d3,
-    svg,
-    viewport,
-    cssVariable: "--events-map-zoom",
-    onZoom: hideTooltip,
-  });
+  const zoom = worldMap.createZoom({ d3, svg, viewport, onZoom: tooltipControl.hide });
 
   const renderMap = () => {
     if (!worldFeatures || canvas.clientWidth < 1) return;
@@ -512,7 +502,7 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
     if (mapEmpty) mapEmpty.hidden = locations.length > 0 || onlineEvents.length > 0;
     if (locations.length === 0 && onlineEvents.length === 0) {
       mapSelection.hidden = true;
-      hideTooltip();
+      tooltipControl.hide();
     }
 
     const baseMap = worldMap.renderBase({
@@ -526,35 +516,18 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
     if (!baseMap) return;
     projection = baseMap.projection;
 
-    const markers = markerLayer
-      .selectAll("g")
-      .data(locations, (location) => location.key)
-      .join((enter) => {
-        const marker = enter.append("g").attr("role", "button").attr("tabindex", 0);
-        marker.append("circle").attr("class", "events-map__marker-hit");
-        marker.append("circle").attr("class", "events-map__marker-dot");
-        marker.append("text").attr("class", "events-map__marker-count").attr("text-anchor", "middle").attr("dy", "0.35em");
-        return marker;
-      })
-      .attr("class", (location) => {
-        const status = location.statuses.length > 1 ? "mixed" : location.statuses[0];
-        return `events-map__marker events-map__marker--${status}`;
-      })
-      .attr("transform", (location) => `translate(${projection([location.longitude, location.latitude]).join(",")})`)
-      .attr("aria-label", (location) => `${location.label}: ${location.events.length} event${location.events.length === 1 ? "" : "s"}`)
-      .on("pointerenter", (event, location) => showTooltip(location, event))
-      .on("pointermove", (event, location) => showTooltip(location, event))
-      .on("pointerleave", hideTooltip)
-      .on("focus", (event, location) => showTooltip(location))
-      .on("blur", hideTooltip)
-      .on("click", (event, location) => selectLocation(location))
-      .on("keydown", (event, location) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          selectLocation(location);
-        }
-      });
-    markers.select(".events-map__marker-count").text((location) => location.events.length);
+    worldMap.createMarkers({
+      layer: markerLayer,
+      data: locations,
+      key: (location) => location.key,
+      position: (location) => projection([location.longitude, location.latitude]),
+      modifier: (location) => `events-map__marker--${location.statuses.length > 1 ? "mixed" : location.statuses[0]}`,
+      label: (location) => `${location.label}: ${location.events.length} event${location.events.length === 1 ? "" : "s"}`,
+      count: (location) => location.events.length,
+      onSelect: selectLocation,
+      onHover: showTooltip,
+      onLeave: tooltipControl.hide,
+    });
   };
 
   worldMap.bindZoomControls({
@@ -581,8 +554,8 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
     mapSelection.hidden = true;
     onlineSelectionActive = false;
     onlineButton?.classList.remove("is-selected");
-    markerLayer.selectAll(".events-map__marker").classed("is-selected", false);
-    hideTooltip();
+    worldMap.setSelectedMarkers(markerLayer, false);
+    tooltipControl.hide();
     renderMap();
   });
 });

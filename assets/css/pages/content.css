@@ -54,10 +54,78 @@
 
 .section-banner__copy,
 .section-banner__copy p {
-  /* margin: 0; */
   color: var(--color-surface);
   font-size: var(--font-size-prose-copy);
   line-height: 1.28;
+}
+
+/* Light-blue introduction banner shared by Projects, Partners, and Events */
+.section-banner--intro {
+  background: var(--color-accent-soft);
+}
+
+.section-banner--intro .section-banner__copy {
+  max-width: 72rem;
+}
+
+.section-banner--intro .section-banner__copy,
+.section-banner--intro .section-banner__copy p {
+  color: var(--color-accent);
+}
+
+.section-banner--intro .section-banner__copy > :last-child {
+  margin-bottom: 0;
+}
+
+.section-banner__title {
+  margin: 0;
+  color: var(--color-accent);
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  line-height: 1;
+  font-weight: 500;
+}
+
+.section-banner__title + * {
+  margin-top: 1.15rem;
+}
+
+/* Dark-blue content band that follows an introduction banner */
+.section-band {
+  position: relative;
+  z-index: 1;
+  padding: 3rem 0 4rem;
+  background: var(--color-accent);
+}
+
+/* Light band holding one centered call-to-action pill */
+.section-cta {
+  background: var(--color-accent-soft);
+}
+
+.section-cta__inner {
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.button--page-cta {
+  min-height: 3.2rem;
+  padding: 0.55rem 1.25rem;
+  background: var(--color-surface);
+  color: var(--color-accent);
+  font-size: 1rem;
+  letter-spacing: 0;
+  box-shadow: inset 0 0 0 1px var(--color-accent-tint-15);
+}
+
+.button--page-cta:hover,
+.button--page-cta:focus-visible {
+  outline: none;
+  transform: translateY(-1px);
+  box-shadow:
+    0 0.35rem 0.8rem var(--color-accent-tint-20),
+    inset 0 0 0 1px var(--color-accent-tint-25);
 }
 
 :is(.page-faq, .page-projects, .page-new-partners, .page-events) {
@@ -76,7 +144,6 @@
     var(--page-backdrop-image);
   background-position: center top;
   background-repeat: no-repeat;
-  /* background-size: var(--page-backdrop-size, cover); */
   background-color: var(--color-surface-dark);
 }
 
@@ -93,14 +160,25 @@
   z-index: 1;
 }
 
+/* Accordion cards shared by the Projects and Partners pages */
 :is(.project-cards, .new-partners-cards) {
   display: grid;
   gap: var(--layout-gap-grid);
 }
 
 :is(.project-card, .new-partners-card) {
-  padding: var(--space-panel-3xl);
+  padding: 0;
+  overflow: hidden;
   border-radius: var(--space-panel-lg);
+  background: var(--color-surface);
+}
+
+:is(.project-card, .new-partners-card).is-open {
+  box-shadow: 0 0.65rem 1.4rem var(--color-accent-tint-15);
+}
+
+:is(.project-card__body-inner, .new-partners-card__body-inner) {
+  padding: 0 var(--space-panel-3xl) var(--space-panel-3xl);
 }
 
 @media (max-width: 760px) {
@@ -113,6 +191,15 @@
   .section-hero__inner {
     padding-top: var(--hero-content-pad-top-section-md);
     padding-bottom: var(--hero-content-pad-bottom-section-md);
+  }
+}
+
+@media (max-width: 700px) {
+
+  .section-banner--intro .section-banner__inner,
+  .section-band {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
   }
 }
 
@@ -133,13 +220,14 @@
     padding-bottom: var(--section-banner-pad-y-sm);
   }
 
-  :is(.project-card, .new-partners-card) {
-    padding: var(--space-md);
+  :is(.project-card__body-inner, .new-partners-card__body-inner) {
+    padding-right: 1rem;
+    padding-left: 1rem;
   }
 }
 
 @media (max-width: 900px) {
-  :is(.faq-hero__inner, .projects-hero__inner, .new-partners-hero__inner) {
+  .faq-hero__inner {
     padding-top: var(--hero-content-pad-top-shared-md);
   }
 }
@@ -147,11 +235,11 @@
 @media (max-width: 700px) {
 
   :is(.faq-hero, .projects-hero, .new-partners-hero, .events-hero),
-  :is(.faq-hero__inner, .projects-hero__inner, .new-partners-hero__inner) {
+  .faq-hero__inner {
     min-height: 27rem;
   }
 
-  :is(.faq-hero__inner, .projects-hero__inner, .new-partners-hero__inner) {
+  .faq-hero__inner {
     padding-top: var(--hero-content-pad-top-shared-sm);
     padding-bottom: var(--hero-content-pad-bottom-section-md);
   }

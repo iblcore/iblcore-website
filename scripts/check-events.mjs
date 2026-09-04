@@ -52,6 +52,13 @@ const server = http.createServer(async (request, response) => {
         "$1{invalid-json$2",
       ));
     }
+    if (requestUrl.searchParams.has("stale-events") && pathname === "/events/index.html") {
+      // Simulate HTML built before these events ended: every badge says Upcoming.
+      body = Buffer.from(body.toString("utf8").replaceAll(
+        'event-card__status event-card__status--past" data-event-status>Past<',
+        'event-card__status event-card__status--upcoming" data-event-status>Upcoming<',
+      ));
+    }
     if (requestUrl.searchParams.has("multiweek-events") && pathname === "/events/index.html") {
       const html = body.toString("utf8");
       body = Buffer.from(html.replace(
@@ -153,6 +160,21 @@ try {
   assert(await multiweekPage.locator('span.events-calendar__event-continuation[data-calendar-event-id="multi-week-test"]').count() === 1, "A multi-week continuation is not a non-interactive visual segment.");
   await multiweekPage.close();
 
+  const stalePage = await browser.newPage();
+  await stalePage.goto(`${origin}/events/?stale-events=1`, { waitUntil: "networkidle" });
+  await stalePage.locator('[data-events-view-button="list"]').click();
+  const staleData = JSON.parse(await stalePage.locator("[data-events-data]").textContent());
+  const today = new Date();
+  const todayKey = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+  const expectedPast = staleData.filter((event) => event.end_date < todayKey).length;
+  assert(expectedPast > 0, "The stale-build check needs at least one past event in the data.");
+  const pastGroup = stalePage.locator('[data-events-status-group="past"]');
+  assert(await pastGroup.locator(".event-card").count() === expectedPast, "Past events were not regrouped from today's date.");
+  assert(await pastGroup.locator(".event-card__status--past").count() === expectedPast, "Past badges were not corrected from today's date.");
+  assert(await pastGroup.locator(".event-card__status--upcoming").count() === 0, "A stale Upcoming badge survived in the Past list.");
+  assert((await pastGroup.locator("[data-events-status-count]").textContent()).startsWith(`${expectedPast} event`), "The Past count was not refreshed.");
+  await stalePage.close();
+
   const fallbackPage = await browser.newPage();
   await fallbackPage.goto(`${origin}/events/?invalid-events=1`, { waitUntil: "networkidle" });
   assert(await fallbackPage.locator('[data-events-view-panel="list"]').isVisible(), "List fallback is not visible when event data is invalid.");
@@ -177,8 +199,8 @@ try {
   assert(await partnerMapButton.isEnabled(), "The Partners map did not initialize through the shared map helper.");
   await partnerMapButton.click();
   assert(await partnersPage.locator('[data-project-view-panel="map"]').isVisible(), "The Partners map view did not open.");
-  await partnersPage.locator(".new-partners-map__marker").first().waitFor({ state: "visible" });
-  assert(await partnersPage.locator(".new-partners-map__marker").count() > 0, "The shared map helper did not render Partners map markers.");
+  await partnersPage.locator(".world-map__marker").first().waitFor({ state: "visible" });
+  assert(await partnersPage.locator(".world-map__marker").count() > 0, "The shared map helper did not render Partners map markers.");
   await partnersPage.close();
 } finally {
   await browser.close();

@@ -12,18 +12,6 @@ params:
     - "Open science partners"
     - "Research funders"
 
-menu:
-  main:
-    - name: "Home"
-      pageRef: "/"
-      weight: 10
-    - name: "About"
-      pageRef: "/about"
-      weight: 20
-    - name: "Projects"
-      pageRef: "/projects"
-      weight: 30
-
 markup:
   goldmark:
     renderer:

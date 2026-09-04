@@ -5,13 +5,13 @@
     <div class="projects-hero__media section-hero__media"></div>
   </section>
 
-  <section class="projects-banner section-banner" aria-label="About IBL Core internal projects">
-    <div class="shell projects-banner__inner section-banner__inner">
-      <div class="projects-banner__copy section-banner__copy prose">
-        <h1 class="projects-banner__title">{{ .Title }}</h1>
+  <section class="projects-banner section-banner section-banner--intro" aria-label="About IBL Core internal projects">
+    <div class="shell section-banner__inner">
+      <div class="section-banner__copy prose">
+        <h1 class="section-banner__title">{{ .Title }}</h1>
         {{ $internalOverviewPath := "content/projects/descriptions/internal-projects-overview.md" }}
         {{ if fileExists $internalOverviewPath }}
-          {{ readFile $internalOverviewPath | markdownify }}
+          {{ $.RenderString (dict "display" "block") (readFile $internalOverviewPath) }}
         {{ end }}
       </div>
     </div>
@@ -29,7 +29,7 @@
     </section>
   {{ end }}
 
-  <section class="projects-sections" aria-label="Projects">
+  <section class="projects-sections section-band" aria-label="Projects">
     <div class="shell">
       {{ range where $projects.sections "id" "ibl-research-projects" }}
         <section class="projects-section" id="{{ .id }}">
@@ -99,9 +99,9 @@
     </div>
   </section>
 
-  <section class="projects-partner-cta section-banner" aria-label="New partner projects">
-    <div class="shell projects-partner-cta__inner section-banner__inner">
-      <a class="button button--projects-cta" href="{{ "/new-partner-projects/" | relURL }}">New partner projects</a>
+  <section class="projects-partner-cta section-banner section-cta" aria-label="New partner projects">
+    <div class="shell section-cta__inner">
+      <a class="button button--page-cta" href="{{ "/new-partner-projects/" | relURL }}">New partner projects</a>
     </div>
   </section>
 {{ end }}
