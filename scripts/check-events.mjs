@@ -9,6 +9,9 @@ const chromeCandidates = process.platform === "darwin"
   ? ["/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"]
   : ["/usr/bin/google-chrome", "/usr/bin/chromium", "/usr/bin/chromium-browser"];
 
+// Hugo's --minify drops attribute quotes where it can, so match both forms.
+const eventsDataScript = /(<script type="?application\/json"? data-events-data>)([\s\S]*?)(<\/script>)/;
+
 const mimeTypes = new Map([
   [".css", "text/css; charset=utf-8"],
   [".html", "text/html; charset=utf-8"],
@@ -47,22 +50,19 @@ const server = http.createServer(async (request, response) => {
 
     let body = await fs.readFile(filePath);
     if (requestUrl.searchParams.has("invalid-events") && pathname === "/events/index.html") {
-      body = Buffer.from(body.toString("utf8").replace(
-        /(<script type="application\/json" data-events-data>)[\s\S]*?(<\/script>)/,
-        "$1{invalid-json$2",
-      ));
+      body = Buffer.from(body.toString("utf8").replace(eventsDataScript, "$1{invalid-json$3"));
     }
     if (requestUrl.searchParams.has("stale-events") && pathname === "/events/index.html") {
       // Simulate HTML built before these events ended: every badge says Upcoming.
-      body = Buffer.from(body.toString("utf8").replaceAll(
-        'event-card__status event-card__status--past" data-event-status>Past<',
-        'event-card__status event-card__status--upcoming" data-event-status>Upcoming<',
+      body = Buffer.from(body.toString("utf8").replace(
+        /event-card__status--past("?) data-event-status>Past</g,
+        'event-card__status--upcoming$1 data-event-status>Upcoming<',
       ));
     }
     if (requestUrl.searchParams.has("multiweek-events") && pathname === "/events/index.html") {
       const html = body.toString("utf8");
       body = Buffer.from(html.replace(
-        /(<script type="application\/json" data-events-data>)([\s\S]*?)(<\/script>)/,
+        eventsDataScript,
         (_, opening, json, closing) => `${opening}${JSON.stringify([
           ...JSON.parse(json),
           {

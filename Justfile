@@ -18,7 +18,7 @@ test-serve:
   timeout 8s hugo server --buildDrafts --buildFuture --disableFastRender; code=$?; if [ "$code" -ne 0 ] && [ "$code" -ne 124 ]; then exit "$code"; fi
 
 check:
-  hugo --panicOnWarning --cleanDestinationDir
+  hugo --panicOnWarning --minify --cleanDestinationDir
   node scripts/check-events-data.mjs
   node --test scripts/check-events-data.test.mjs
   node scripts/check-llms.mjs
