@@ -6,11 +6,15 @@
   {{ $partnerIntroduction := .Content }}
   {{ $partnerCategoryIntroductionPath := "content/projects/descriptions/partner-category-overview.md" }}
   {{ $recordIds := newScratch }}
+  {{ $recordTypes := slice "consortium" "lab" "dual-pi" }}
   {{ range (slice $partnerSection $affiliateSection) }}
     {{ range .items }}
       {{ if not .id }}{{ errorf "Partner/Affiliate record %q is missing its stable issue ID" (or .title .name) }}{{ end }}
       {{ if ne .id (printf "issue-%v" .issue_number) }}{{ errorf "Record %q must use id issue-%v" (or .title .name) .issue_number }}{{ end }}
       {{ if $recordIds.Get .id }}{{ errorf "Duplicate Partner/Affiliate record ID %q" .id }}{{ end }}
+      {{ if not (in $recordTypes .type) }}{{ errorf "Partner/Affiliate record %q must use type consortium, lab, or dual-pi" (or .title .name) }}{{ end }}
+      {{ if eq (len (where .people "point_person" true)) 0 }}{{ errorf "Partner/Affiliate record %q must identify at least one point person" (or .title .name) }}{{ end }}
+      {{ if and (eq .type "dual-pi") (ne (len (where .people "point_person" true)) 2) }}{{ errorf "Dual-PI record %q must identify exactly two point people" (or .title .name) }}{{ end }}
       {{ $recordIds.Set .id true }}
     {{ end }}
   {{ end }}
@@ -131,13 +135,13 @@
                   {{ $projectTitle := replaceRE "^[^:]+\\s*:\\s*" "" $fullTitle }}
                   {{ $mapTitle := or $item.map_title $projectTitle }}
                   <button type="button" data-map-project-option="{{ $item.id }}" data-record-type="partner" hidden>
-                    {{ partial "new-partners/people.html" $item.people }}
+                    {{ partial "new-partners/people.html" (dict "people" $item.people "point_people_only" true) }}
                     <span data-map-option-title>{{ $mapTitle }}</span>
                   </button>
                 {{ end }}
                 {{ range $itemIndex, $item := $affiliateSection.items }}
                   <button type="button" data-map-project-option="{{ $item.id }}" data-record-type="affiliate" hidden>
-                    {{ partial "new-partners/people.html" (dict "people" $item.people "shared_affiliation" $item.shared_affiliation) }}
+                    {{ partial "new-partners/people.html" (dict "people" $item.people "shared_affiliation" $item.shared_affiliation "point_people_only" true) }}
                     <span data-map-option-title>{{ or $item.map_title $item.subtitle $item.title $item.name }}</span>
                   </button>
                 {{ end }}

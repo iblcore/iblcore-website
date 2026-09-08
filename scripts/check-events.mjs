@@ -94,8 +94,15 @@ const assert = (condition, message) => {
   if (!condition) throw new Error(message);
 };
 
-try {
+const testDate = "2026-09-08";
+const newTestPage = async () => {
   const page = await browser.newPage();
+  await page.clock.setFixedTime(`${testDate}T12:00:00Z`);
+  return page;
+};
+
+try {
+  const page = await newTestPage();
   await page.goto(`${origin}/events/`, { waitUntil: "networkidle" });
 
   const calendarButton = page.locator('[data-events-view-button="calendar"]');
@@ -149,9 +156,16 @@ try {
   assert(await page.locator('.events-calendar__grid[role="grid"]').count() === 0, "The visual calendar still uses invalid grid semantics.");
   assert(await page.locator('[role="columnheader"], [role="gridcell"]').count() === 0, "Invalid calendar child roles remain.");
   assert(await page.locator('[data-calendar-selection][role="region"] .event-card').count() === 1, "The selected month does not provide an accessible event list.");
+  await page.locator('[data-calendar-overview-button]').click();
+  await page.locator('button[aria-label^="December 2026,"]').click();
+  await page.locator('[data-calendar-month-change="1"]').click();
+  assert(await page.locator('[data-calendar-title]').textContent() === "January 2027", "The calendar did not advance into the next year.");
+  await page.locator('[data-calendar-overview-button]').click();
+  assert(await page.locator('[data-calendar-year-label]').textContent() === "2027", "The month overview did not refresh to the selected year.");
+  assert(await page.locator('button[aria-label^="January 2027,"]').count() === 1, "The refreshed overview does not open months in the displayed year.");
   await page.close();
 
-  const multiweekPage = await browser.newPage();
+  const multiweekPage = await newTestPage();
   await multiweekPage.goto(`${origin}/events/?multiweek-events=1`, { waitUntil: "networkidle" });
   await multiweekPage.locator('[data-events-view-button="calendar"]').waitFor({ state: "visible" });
   await multiweekPage.locator('button[aria-label^="July 2026,"]').click();
@@ -160,13 +174,11 @@ try {
   assert(await multiweekPage.locator('span.events-calendar__event-continuation[data-calendar-event-id="multi-week-test"]').count() === 1, "A multi-week continuation is not a non-interactive visual segment.");
   await multiweekPage.close();
 
-  const stalePage = await browser.newPage();
+  const stalePage = await newTestPage();
   await stalePage.goto(`${origin}/events/?stale-events=1`, { waitUntil: "networkidle" });
   await stalePage.locator('[data-events-view-button="list"]').click();
   const staleData = JSON.parse(await stalePage.locator("[data-events-data]").textContent());
-  const today = new Date();
-  const todayKey = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
-  const expectedPast = staleData.filter((event) => event.end_date < todayKey).length;
+  const expectedPast = staleData.filter((event) => event.end_date < testDate).length;
   assert(expectedPast > 0, "The stale-build check needs at least one past event in the data.");
   const pastGroup = stalePage.locator('[data-events-status-group="past"]');
   assert(await pastGroup.locator(".event-card").count() === expectedPast, "Past events were not regrouped from today's date.");
@@ -175,7 +187,7 @@ try {
   assert((await pastGroup.locator("[data-events-status-count]").textContent()).startsWith(`${expectedPast} event`), "The Past count was not refreshed.");
   await stalePage.close();
 
-  const fallbackPage = await browser.newPage();
+  const fallbackPage = await newTestPage();
   await fallbackPage.goto(`${origin}/events/?invalid-events=1`, { waitUntil: "networkidle" });
   assert(await fallbackPage.locator('[data-events-view-panel="list"]').isVisible(), "List fallback is not visible when event data is invalid.");
   assert(await fallbackPage.locator('[data-events-view-button="list"]').getAttribute("aria-pressed") === "true", "List is not the fallback view.");
@@ -184,7 +196,7 @@ try {
   assert(await fallbackPage.locator("[data-events-enhanced-controls]").isHidden(), "Unavailable filters should stay hidden.");
   await fallbackPage.close();
 
-  const mapFallbackPage = await browser.newPage();
+  const mapFallbackPage = await newTestPage();
   await mapFallbackPage.route("**/data/world-countries-110m.json", (route) => route.abort());
   await mapFallbackPage.goto(`${origin}/events/`, { waitUntil: "networkidle" });
   await mapFallbackPage.locator('[data-events-view-button="calendar"]').waitFor({ state: "visible" });
@@ -192,7 +204,7 @@ try {
   assert(await mapFallbackPage.locator('[data-events-view-button="map"]').isHidden(), "Unavailable Map control should stay hidden when map data fails.");
   await mapFallbackPage.close();
 
-  const partnersPage = await browser.newPage();
+  const partnersPage = await newTestPage();
   await partnersPage.goto(`${origin}/new-partner-projects/?view=list`, { waitUntil: "networkidle" });
   const partnerMapButton = partnersPage.locator('[data-project-view-button="map"]');
   await partnerMapButton.waitFor({ state: "visible" });
@@ -206,9 +218,50 @@ try {
   assert(await reverseLinks.count() === 2, "The Chini profile should list its two co-organised events.");
   assert((await reverseLinks.first().getAttribute("href")).endsWith("/events/#event-pre-fens-brainhack-2026"), "Reverse event links should target the anchored event card, newest first.");
   assert(await partnersPage.locator('#profile-issue-136').count() === 1, "Partner cards need a profile anchor so they can be co-organisers.");
+  const arcCard = partnersPage.locator("#profile-issue-146");
+  const acneiCard = partnersPage.locator("#profile-issue-236");
+  assert(await arcCard.locator("[data-accordion-button]").getAttribute("aria-expanded") === "false", "The ARC profile should start collapsed.");
+  assert(await arcCard.locator(".new-partners-card__header .new-partners-person__name").textContent() === "Linda Wilbrecht", "The ARC point person is not shown in the closed Affiliate card.");
+  assert(await arcCard.locator(".new-partners-card__header .new-partners-person__image").isVisible(), "The ARC point-person portrait is not shown in the closed Affiliate card.");
+  assert(await acneiCard.locator("[data-accordion-button]").getAttribute("aria-expanded") === "false", "The ACNEI profile should start collapsed.");
+  assert(await acneiCard.locator(".new-partners-card__header .new-partners-person__name").textContent() === "Alex Gideon", "The ACNEI point person is not shown in the closed Affiliate card.");
+  assert(await acneiCard.locator(".new-partners-card__header .new-partners-person__image").isVisible(), "The ACNEI point-person portrait is not shown in the closed Affiliate card.");
+
+  await arcCard.locator("[data-accordion-button]").click();
+  assert(await arcCard.getAttribute("data-project-type") === "consortium", "The ARC profile is not classified as a consortium.");
+  assert(await arcCard.locator(".new-partners-card__header .new-partners-people").isHidden(), "The ARC point person remains in the expanded-card header.");
+  assert(await arcCard.locator(".new-partners-card__panel-people .new-partners-person__name").allTextContents().then((names) => names.includes("Linda Wilbrecht")), "The ARC point person did not move into the expanded people row.");
+
+  await acneiCard.locator("[data-accordion-button]").click();
+  assert(await acneiCard.getAttribute("data-project-type") === "consortium", "The ACNEI profile is not classified as a consortium.");
+  assert(await acneiCard.locator(".new-partners-card__header .new-partners-people").isHidden(), "The ACNEI point person remains in the expanded-card header.");
+  const acneiNames = await acneiCard.locator(".new-partners-card__panel-people .new-partners-person__name").allTextContents();
+  assert(JSON.stringify(acneiNames) === JSON.stringify(["Alex Gideon", "Martina Anene-Ogbe", "Ronald Omolo Ouma", "Tolulope Gbayisomore"]), "The expanded ACNEI people row is incomplete or out of order.");
+  assert(await acneiCard.locator(".new-partners-card__panel-people .new-partners-person__image").count() === acneiNames.length, "An expanded ACNEI person is missing a portrait.");
+
+  const mathoXiaCard = partnersPage.locator("#profile-issue-134");
+  await mathoXiaCard.locator("[data-accordion-button]").click();
+  assert(await mathoXiaCard.getAttribute("data-project-type") === "dual-pi", "The Matho-Xia profile is not classified as dual-PI.");
+  assert(await mathoXiaCard.locator(".new-partners-card__header .new-partners-person__name").count() === 2, "A dual-PI card did not retain both PIs in its expanded-card header.");
+  assert(await mathoXiaCard.locator(".new-partners-card__header .new-partners-people").isVisible(), "The dual-PI people disappeared from the expanded-card header.");
+
+  const buffaloCard = partnersPage.locator("#profile-issue-140");
+  await buffaloCard.locator("[data-accordion-button]").click();
+  assert(await buffaloCard.getAttribute("data-project-type") === "lab", "The Buffalo profile is not classified as a lab.");
+  assert(await buffaloCard.locator(".new-partners-card__header .new-partners-person__name").textContent() === "Elizabeth Buffalo", "A lab card did not retain its PI in the expanded-card header.");
+  assert(await buffaloCard.locator(".new-partners-card__header .new-partners-people").isVisible(), "The lab PI disappeared from the expanded-card header.");
   await partnersPage.close();
 
-  const linkedEventPage = await browser.newPage();
+  const affiliateMapPage = await newTestPage();
+  await affiliateMapPage.goto(`${origin}/new-partner-projects/?view=map&filter=affiliate`, { waitUntil: "networkidle" });
+  const affiliateFilter = affiliateMapPage.locator('[data-project-filter="affiliate"]');
+  assert(await affiliateFilter.getAttribute("aria-pressed") === "true", "The Affiliate URL filter was not selected.");
+  await affiliateMapPage.locator(".world-map__marker").first().waitFor({ state: "visible" });
+  assert(await affiliateMapPage.locator(".new-partners-map__marker--affiliate").count() > 0, "The Affiliate URL filter did not render affiliate markers.");
+  assert(await affiliateMapPage.locator(".new-partners-map__marker--partner, .new-partners-map__marker--mixed").count() === 0, "The Affiliate URL filter left non-affiliate markers visible.");
+  await affiliateMapPage.close();
+
+  const linkedEventPage = await newTestPage();
   await linkedEventPage.goto(`${origin}/events/#event-rse-romandie-2026`, { waitUntil: "networkidle" });
   await linkedEventPage.locator('[data-events-view-button="calendar"]').waitFor({ state: "visible" });
   assert(await linkedEventPage.locator('[data-events-view-button="list"]').getAttribute("aria-pressed") === "true", "A linked event should open in the List view.");

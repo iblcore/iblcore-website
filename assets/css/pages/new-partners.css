@@ -562,6 +562,13 @@
   text-align: center;
 }
 
+.new-partners-card--affiliate .new-partners-card__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.36em;
+}
+
 .new-partners-card__header-copy--centered {
   flex: 0 1 auto;
   justify-items: center;
@@ -571,6 +578,10 @@
 .new-partners-card--affiliate .new-partners-people {
   width: 100%;
   justify-content: center;
+}
+
+.new-partners-card--consortium.is-open > .new-partners-card__header .new-partners-people {
+  display: none;
 }
 
 .new-partners-card--affiliate .new-partners-people--shared-affiliation {

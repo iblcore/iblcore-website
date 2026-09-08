@@ -3,7 +3,7 @@
 {{- $idPrefix := .id_prefix | default "affiliate" -}}
 {{- $recordId := $item.id | default (printf "item-%d" $itemIndex) -}}
 {{- $itemId := printf "%s-%s" $idPrefix $recordId -}}
-<article class="new-partners-card new-partners-card--affiliate accordion__item"{{ if eq $idPrefix "affiliate" }} id="profile-{{ $recordId }}"{{ end }} data-project-record-id="{{ $recordId }}" data-accordion-item>
+<article class="new-partners-card new-partners-card--affiliate new-partners-card--{{ $item.type }} accordion__item"{{ if eq $idPrefix "affiliate" }} id="profile-{{ $recordId }}"{{ end }} data-project-record-id="{{ $recordId }}" data-project-type="{{ $item.type }}" data-accordion-item>
   <button
     class="new-partners-card__header accordion__button"
     type="button"
@@ -17,9 +17,9 @@
         <span class="new-partners-card__title">{{ or $item.subtitle $item.title $item.name }}</span>
       </span>
     </span>
-    {{ if and $item.people (not $item.people_in_panel) }}
-      {{ partial "new-partners/people.html" (dict "people" $item.people "shared_affiliation" $item.shared_affiliation) }}
-    {{ else if not $item.people }}
+    {{ if $item.people }}
+      {{ partial "new-partners/people.html" (dict "people" $item.people "shared_affiliation" $item.shared_affiliation "point_people_only" true) }}
+    {{ else }}
       <span class="new-partners-card__fallback">Lead contact details available after expanding</span>
     {{ end }}
     {{ with $item.card_note }}<span class="new-partners-card__note">{{ . }}</span>{{ end }}
@@ -35,7 +35,7 @@
     data-accordion-panel
   >
     <div class="new-partners-card__body-inner accordion__panel-inner">
-      {{ if $item.people_in_panel }}
+      {{ if eq $item.type "consortium" }}
         <div class="new-partners-card__panel-people">
           {{ partial "new-partners/people.html" (dict "people" $item.people "shared_affiliation" $item.shared_affiliation) }}
         </div>

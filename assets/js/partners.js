@@ -216,7 +216,7 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
   const tooltipControl = worldMap.createTooltip({ tooltip, canvas });
   let worldFeatures;
   let projection;
-  let activeFilter = "all";
+  let activeFilter = activeProjectFilter;
 
   const showTooltip = (city, event) => {
     tooltipControl.show((node) => {

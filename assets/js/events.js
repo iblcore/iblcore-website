@@ -363,6 +363,7 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
     calendarOverview.hidden = false;
     calendarSelection.hidden = true;
     activeCalendarMonth = null;
+    renderMonthOverview();
   });
 
   calendarMonthButtons.forEach((button) => {
