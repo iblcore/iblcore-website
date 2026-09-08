@@ -1,0 +1,78 @@
+/* Pill-shaped button group used for view switches and filters.
+   Active state is read from either .is-active or aria-pressed="true". */
+.segmented-control {
+  --segmented-control-border-color: var(--color-accent-tint-25);
+  --segmented-control-background: var(--color-accent-soft);
+  --segmented-control-button-color: var(--color-accent);
+  --segmented-control-button-font-size: 0.9rem;
+  --segmented-control-button-padding: 0.55rem 1rem;
+  --segmented-control-button-min-height: 2.35rem;
+  display: inline-flex;
+  gap: 0.2rem;
+  margin: 0;
+  padding: 0.22rem;
+  border: 1px solid var(--segmented-control-border-color);
+  border-radius: 999px;
+  background: var(--segmented-control-background);
+}
+
+.segmented-control[hidden] {
+  display: none;
+}
+
+.segmented-control__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--segmented-control-button-gap, 0.38rem);
+  min-width: var(--segmented-control-button-min-width, auto);
+  min-height: var(--segmented-control-button-min-height);
+  padding: var(--segmented-control-button-padding);
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--segmented-control-button-color);
+  font: inherit;
+  font-size: var(--segmented-control-button-font-size);
+  cursor: pointer;
+}
+
+.segmented-control__button:hover,
+.segmented-control__button:focus-visible,
+.segmented-control__button.is-active,
+.segmented-control__button[aria-pressed="true"] {
+  background: var(--color-accent-tint-15);
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--color-accent-tint-20);
+}
+
+.segmented-control__button:focus-visible {
+  box-shadow:
+    inset 0 0 0 1px var(--color-accent-tint-20),
+    0 0 0 2px var(--color-accent);
+}
+
+.segmented-control__button:disabled {
+  cursor: wait;
+  opacity: 0.48;
+}
+
+.segmented-control__button[hidden] {
+  display: none;
+}
+
+.segmented-control__dot {
+  flex: 0 0 auto;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.segmented-control__dot--partner {
+  color: var(--color-category-partner);
+}
+
+.segmented-control__dot--affiliate {
+  color: var(--color-category-affiliate);
+}

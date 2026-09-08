@@ -21,10 +21,18 @@ jobs:
         with:
           hugo-version: ${{ env.HUGO_VERSION }}
           extended: true
+      - name: Install JavaScript dependencies
+        run: npm ci
       - name: Build and treat warnings as errors
         run: hugo --panicOnWarning --minify
+      - name: Validate Events data
+        run: node scripts/check-events-data.mjs
+      - name: Test Events data validation
+        run: node --test scripts/check-events-data.test.mjs
       - name: Validate agent-readable index
         run: node scripts/check-llms.mjs
+      - name: Validate Events interactions
+        run: node scripts/check-events.mjs
       - name: Upload built website
         uses: actions/upload-artifact@v6
         with:

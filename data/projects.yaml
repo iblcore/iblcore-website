@@ -27,6 +27,7 @@ sections:
     items:
       - id: "issue-136"
         issue_number: 136
+        type: "lab"
         title: "FANNY CAZETTES : Extending IBL's tools to the study of the neural computations and dynamics of behavioral flexibility"
         map_title: "Cazettes Lab"
         body_file: "content/projects/descriptions/partner/cazettes.md"
@@ -37,6 +38,7 @@ sections:
             longitude: 5.3698
         people:
           - name: "Fanny Cazettes"
+            point_person: true
             role: "Lead PI"
             affiliation: "INT - Marseille"
             image: "/images/new-partners/partners/fanny-cazettes.webp"
@@ -60,6 +62,7 @@ sections:
               url: "https://www.insb.cnrs.fr/fr/personne/fanny-cazettes"
       - id: "issue-137"
         issue_number: 137
+        type: "lab"
         title: "CARL PETERSEN : Brain-wide measurements of neuronal activity changes during single-session reward-based sensorimotor learning"
         map_title: "Laboratory of Sensory Processing"
         body_file: "content/projects/descriptions/partner/petersen.md"
@@ -70,6 +73,7 @@ sections:
             longitude: 6.6323
         people:
           - name: "Carl Petersen"
+            point_person: true
             role: "Lead PI"
             affiliation: "EPFL - Lausanne"
             image: "/images/new-partners/partners/carl-petersen.webp"
@@ -84,6 +88,7 @@ sections:
               url: "https://people.epfl.ch/carl.petersen?lang=en"
       - id: "issue-138"
         issue_number: 138
+        type: "dual-pi"
         title: "JOAQUIN GONZALEZ, MATIAS CAVELLI : Decoding Breathing from Orofacial Video to Expand IBL's Brain-Wide Dataset"
         map_title: "Gonzalez-Cavelli collaboration"
         body_file: "content/projects/descriptions/partner/gonzalez.md"
@@ -98,10 +103,12 @@ sections:
             longitude: -56.1645
         people:
           - name: "Joaquin Gonzalez"
+            point_person: true
             role: "Lead PI"
             affiliation: "NYU Grossman School of Medicine - New York"
             image: "/images/new-partners/partners/joaquin-gonzalez.webp"
           - name: "Matias Cavelli"
+            point_person: true
             role: "Lead PI"
             affiliation: "Universidad de la Republica - Montevideo"
             image: "/images/new-partners/partners/matias-cavelli.webp"
@@ -141,6 +148,7 @@ sections:
               url: "https://www.thetransmitter.org/open-neuroscience/the-promise-of-open-neuroscience-for-latin-america/"
       - id: "issue-141"
         issue_number: 141
+        type: "lab"
         title: "HELEN HOU : Cheese3D-IBL Collaboration"
         map_title: "Hou Lab"
         body_file: "content/projects/descriptions/partner/hou.md"
@@ -151,6 +159,7 @@ sections:
             longitude: -73.4568
         people:
           - name: "Helen Hou"
+            point_person: true
             role: "Lead PI"
             affiliation: "CSHL - Cold Spring Harbor"
             image: "/images/new-partners/partners/helen-hou.webp"
@@ -178,6 +187,7 @@ sections:
               url: "https://www.cshl.edu/research/faculty-staff/helen-hou/"
       - id: "issue-220"
         issue_number: 220
+        type: "lab"
         related_issue_numbers: [218, 220]
         title: "ADAM TYSON : Building general-purpose systems neuroscience software infrastructure for the community"
         map_title: "Neuroinformatics Unit"
@@ -189,6 +199,7 @@ sections:
             longitude: -0.1278
         people:
           - name: "Adam Tyson"
+            point_person: true
             role: "Project lead"
             affiliation: "UCL - London"
             image: "/images/new-partners/partners/adam-tyson.webp"
@@ -236,6 +247,7 @@ sections:
               url: "https://www.sainsburywellcome.org/people/adam-tyson-0"
       - id: "issue-145"
         issue_number: 145
+        type: "lab"
         title: "MATHIAS MAHN, ANDREAS LUTHI : Brain-Wide Dynamics During Cost-Benefit Decision-Making"
         map_title: "Mahn Research Group"
         body_file: "content/projects/descriptions/partner/mahn.md"
@@ -246,6 +258,7 @@ sections:
             longitude: 7.5886
         people:
           - name: "Mathias Mahn"
+            point_person: true
             role: "Lead PI"
             affiliation: "FMI - Basel"
             image: "/images/new-partners/partners/mathias-mahn.webp"
@@ -270,10 +283,11 @@ sections:
           links:
             - label: "FMI"
               url: "https://www.fmi.ch/"
-            - label: "Mathias Mahn profile"
-              url: "https://www.researchgate.net/profile/Mathias-Mahn"
+            - label: "Mathias Mahn website"
+              url: "http://mathiasmahn.org/"
       - id: "issue-147"
         issue_number: 147
+        type: "dual-pi"
         title: "ANDREAS TOLIAS, JAMES COTTON : Foundation model for macaque behavioral"
         map_title: "Tolias-Cotton collaboration"
         body_file: "content/projects/descriptions/partner/tolias.md"
@@ -290,10 +304,12 @@ sections:
             map_title: "Cotton Lab"
         people:
           - name: "Andreas Tolias"
+            point_person: true
             role: "Lead PI"
             affiliation: "Stanford University - Stanford"
             image: "/images/new-partners/partners/andreas-tolias.webp"
           - name: "R. James Cotton"
+            point_person: true
             role: "Lead PI"
             affiliation: "Shirley Ryan AbilityLab - Chicago"
             image: "/images/new-partners/partners/james-cotton.webp"
@@ -315,6 +331,7 @@ sections:
     items:
       - id: "issue-134"
         issue_number: 134
+        type: "dual-pi"
         name: "Katherine Matho and Fei Xia"
         subtitle: "Matho-Xia collaboration"
         map_title: "Matho-Xia collaboration"
@@ -329,9 +346,11 @@ sections:
             longitude: -117.8265
         people:
           - name: "Katherine Matho"
+            point_person: true
             affiliation: "CHLA / USC - Los Angeles"
             image: "/images/new-partners/affiliates/katherine-matho.webp"
           - name: "Fei Xia"
+            point_person: true
             affiliation: "UC Irvine - Irvine"
             image: "/images/new-partners/affiliates/fei-xia.webp"
         team_media:
@@ -351,6 +370,7 @@ sections:
               url: "https://xia-lab.squarespace.com/"
       - id: "issue-144"
         issue_number: 144
+        type: "lab"
         name: "Kevin Cross"
         subtitle: "Hantman Lab"
         map_title: "Hantman Lab"
@@ -362,6 +382,7 @@ sections:
             longitude: -79.0558
         people:
           - name: "Adam Hantman"
+            point_person: true
             role: "Lead PI"
             affiliation: "UNC Chapel Hill - Chapel Hill"
             image: "/images/new-partners/affiliates/adam-hantman.webp"
@@ -381,6 +402,7 @@ sections:
               url: "https://www.med.unc.edu/neuroscience/hantmanlab/"
       - id: "issue-140"
         issue_number: 140
+        type: "lab"
         name: "Elizabeth Buffalo"
         subtitle: "Buffalo Lab"
         map_title: "Buffalo Lab"
@@ -391,6 +413,7 @@ sections:
             longitude: -122.3321
         people:
           - name: "Elizabeth Buffalo"
+            point_person: true
             role: "Lead PI"
             affiliation: "University of Washington - Seattle"
             image: "/images/new-partners/affiliates/elizabeth-buffalo.webp"
@@ -408,6 +431,7 @@ sections:
               url: "https://depts.washington.edu/mbwc/about/profile/elizabeth-buffalo1"
       - id: "issue-135"
         issue_number: 135
+        type: "lab"
         name: "Linda Richards"
         subtitle: "Richards Lab"
         map_title: "Richards Lab"
@@ -418,6 +442,7 @@ sections:
             longitude: -90.1994
         people:
           - name: "Linda Richards"
+            point_person: true
             role: "Lead PI"
             affiliation: "Washington University - St. Louis"
             image: "/images/new-partners/affiliates/linda-richards.webp"
@@ -435,6 +460,7 @@ sections:
               url: "https://neuroscience.wustl.edu/people/linda-richards-phd/"
       - id: "issue-146"
         issue_number: 146
+        type: "consortium"
         name: "Linda Wilbrecht"
         subtitle: "Adversity and Resilience Consortium"
         map_title: "Adversity and Resilience Consortium"
@@ -455,9 +481,9 @@ sections:
             country: "United States"
             latitude: 33.7490
             longitude: -84.3880
-        people_in_panel: true
         people:
           - name: "Linda Wilbrecht"
+            point_person: true
             role: "Consortium member"
             affiliation: "UC Berkeley - Berkeley"
             image: "/images/new-partners/affiliates/linda-wilbrecht.webp"
@@ -493,6 +519,7 @@ sections:
               url: "https://enbrc.emory.edu/research/divisions/researchers/gourley-shannon.html"
       - id: "issue-148"
         issue_number: 148
+        type: "lab"
         name: "Nuo Li"
         subtitle: "Li Lab"
         map_title: "Li Lab"
@@ -503,6 +530,7 @@ sections:
             longitude: -78.8986
         people:
           - name: "Nuo Li"
+            point_person: true
             role: "Lead PI"
             affiliation: "Duke University - Durham"
             image: "/images/new-partners/affiliates/nuo-li.webp"
@@ -518,6 +546,7 @@ sections:
               url: "https://www.neuro.duke.edu/research/faculty-labs/li-lab"
       - id: "issue-210"
         issue_number: 210
+        type: "lab"
         name: "Mattia Chini"
         subtitle: "Chini Lab"
         map_title: "Chini Lab"
@@ -528,6 +557,7 @@ sections:
             longitude: 5.5797
         people:
           - name: "Mattia Chini"
+            point_person: true
             role: "Lead PI"
             affiliation: "GIGA / University of Liege - Liege"
             image: "/images/new-partners/affiliates/mattia-chini.webp"
@@ -543,7 +573,9 @@ sections:
               url: "https://www.chinilab.com/"
       - id: "issue-236"
         issue_number: 236
+        type: "consortium"
         name: "African Computational Neuroscience Education Initiative"
+        short_name: "ACNEI"
         subtitle: "African Computational Neuroscience Education Initiative"
         map_title: "African Computational Neuroscience Education Initiative"
         locations:
@@ -555,14 +587,20 @@ sections:
             country: "Nigeria"
             latitude: 9.0765
             longitude: 7.3986
-        people_in_panel: true
         people:
-          - name: "Gideon Alex"
+          - name: "Alex Gideon"
+            point_person: true
             affiliation: "ACNEI"
             image: "/images/new-partners/affiliates/gideon-alex.webp"
-          - name: "Martina Anene"
+          - name: "Martina Anene-Ogbe"
             affiliation: "ACNEI"
             image: "/images/new-partners/affiliates/martina-anene.webp"
+          - name: "Ronald Omolo Ouma"
+            affiliation: "ACNEI"
+            image: "/images/new-partners/affiliates/ronald-omolo-ouma.webp"
+          - name: "Tolulope Gbayisomore"
+            affiliation: "ACNEI"
+            image: "/images/new-partners/affiliates/tolulope-gbayisomore.webp"
         lab:
           eyebrow: "Affiliate profile"
           institution: "Pan-African education initiative"
@@ -572,6 +610,7 @@ sections:
               url: "https://www.acnei.org/"
       - id: "issue-238"
         issue_number: 238
+        type: "lab"
         name: "Olivia Masseck"
         subtitle: "Masseck Lab - Neuromodulatory Circuits"
         map_title: "Masseck Lab"
@@ -582,6 +621,7 @@ sections:
             longitude: 6.9603
         people:
           - name: "Masseck Lab"
+            point_person: true
             affiliation: "University of Cologne - Cologne"
             image: "/images/new-partners/affiliates/masseck-lab.webp"
             image_fit: "contain"

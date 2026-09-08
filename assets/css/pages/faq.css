@@ -1,6 +1,4 @@
 .page-faq {
-  --page-backdrop-image: url("/images/faq-background.webp");
-  --page-backdrop-size: cover;
   --faq-text-color: #009FD7;
 }
 

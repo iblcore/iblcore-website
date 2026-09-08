@@ -24,7 +24,30 @@ If one website record covers multiple GitHub issues, use the primary issue for
 
 ## People and research-group media
 
-`people` contains the lead PI or project contacts shown in the closed card.
+`people` contains the lead PIs, project contacts, or consortium members. Mark
+every person who should identify the record in closed cards and Map selections
+with `point_person: true`:
+
+```yaml
+people:
+  - name: "Person name"
+    point_person: true
+    affiliation: "Institution - City"
+    image: "/images/new-partners/people/person.webp"
+```
+
+Every Partner and Affiliate record must identify at least one point person; the
+Hugo template validates this during the build.
+
+Each record also requires one of these types:
+
+- `type: "lab"` keeps its point-person PI in the header when expanded.
+- `type: "dual-pi"` identifies exactly two point people and keeps both in the
+  header when expanded.
+- `type: "consortium"` shows its point person while collapsed, then removes
+  that person from the header and shows the complete people list in the
+  expanded panel.
+
 Named teammates and images are entries in `team_media`:
 
 ```yaml

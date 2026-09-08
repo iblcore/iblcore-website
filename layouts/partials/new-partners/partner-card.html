@@ -7,7 +7,7 @@
 {{- $projectTitle := replaceRE "^[^:]+\\s*:\\s*" "" $fullTitle -}}
 {{- $recordId := $item.id | default (printf "item-%d" $itemIndex) -}}
 {{- $itemId := printf "%s-%s" $idPrefix $recordId -}}
-<article class="new-partners-card accordion__item" data-project-record-id="{{ $recordId }}" data-accordion-item>
+<article class="new-partners-card new-partners-card--{{ $item.type }} accordion__item"{{ if eq $idPrefix "new-partner-project" }} id="profile-{{ $recordId }}"{{ end }} data-project-record-id="{{ $recordId }}" data-project-type="{{ $item.type }}" data-accordion-item>
   <button
     class="new-partners-card__header accordion__button"
     type="button"
@@ -22,7 +22,7 @@
         <span class="new-partners-card__title">{{ $projectTitle }}</span>
       </span>
     </span>
-    {{ partial "new-partners/people.html" $item.people }}
+    {{ partial "new-partners/people.html" (dict "people" $item.people "point_people_only" true) }}
     <span class="new-partners-card__icon accordion__icon" aria-hidden="true"></span>
   </button>
   <div
@@ -48,6 +48,7 @@
         </div>
         {{ partial "new-partners/lab-details.html" (dict "item" $item "hide_heading" false) }}
       </div>
+      {{ partial "new-partners/co-organised-events.html" (dict "profile_id" $recordId) }}
     </div>
   </div>
 </article>

@@ -140,6 +140,10 @@
   margin-bottom: 0;
 }
 
+.accordion-ready .accordion__item:not(.is-open) .accordion__panel-inner {
+  padding-bottom: 0;
+}
+
 .page-controller {
   position: fixed;
   top: var(--controller-top-offset);
@@ -197,6 +201,12 @@
   }
 }
 
+@media (hover: hover) {
+  .accordion__item:hover {
+    transform: translateY(-0.08rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
 
   .accordion__item,
@@ -204,6 +214,10 @@
   .accordion__icon::before,
   .accordion__icon::after {
     transition: none;
+  }
+
+  .accordion__item:hover {
+    transform: none;
   }
 }
 

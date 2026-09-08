@@ -1,0 +1,22 @@
+{{- /*
+  Lists the outreach events a Partner or Affiliate profile co-organises,
+  linking back to the anchored event card on /events/. Takes a dict with
+  profile_id (the issue-### record ID).
+*/ -}}
+{{- $profileId := .profile_id -}}
+{{- $eventsPage := site.GetPage "/events" -}}
+{{- $linked := slice -}}
+{{- range hugo.Data.events.events -}}
+  {{- $event := . -}}
+  {{- range .co_organisers -}}
+    {{- if eq .profile_id $profileId }}{{ $linked = $linked | append $event }}{{ end -}}
+  {{- end -}}
+{{- end -}}
+{{- with $linked }}
+<div class="new-partners-card__events">
+  <p class="new-partners-card__eyebrow">Co-organised events</p>
+  <p class="new-partners-lab__links new-partners-card__events-links">
+    {{ range sort . "start_date" "desc" }}<a href="{{ $eventsPage.RelPermalink }}#event-{{ .id }}">{{ .name }} ({{ (time.AsTime .start_date).Format "2006" }})</a>{{ end }}
+  </p>
+</div>
+{{- end }}

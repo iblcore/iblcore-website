@@ -1,8 +1,13 @@
 {{- $people := . -}}
 {{- $sharedAffiliation := "" -}}
+{{- $pointPeopleOnly := false -}}
 {{- if reflect.IsMap . -}}
   {{- $people = .people -}}
   {{- $sharedAffiliation = .shared_affiliation | default "" -}}
+  {{- $pointPeopleOnly = .point_people_only | default false -}}
+{{- end -}}
+{{- if $pointPeopleOnly -}}
+  {{- $people = where $people "point_person" true -}}
 {{- end -}}
 {{- with $people -}}
   <span class="new-partners-people{{ with $sharedAffiliation }} new-partners-people--shared-affiliation{{ end }}">

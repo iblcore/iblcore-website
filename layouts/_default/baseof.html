@@ -16,11 +16,16 @@
       (resources.Get "css/base.css")
       (resources.Get "css/components/navigation.css")
       (resources.Get "css/components/footer.css")
+      (resources.Get "css/components/segmented-control.css")
       (resources.Get "css/components.css")
       (resources.Get "css/pages/content.css")
     }}
+    {{ $usesWorldMap := or (eq .Layout "new-partners") (eq .Layout "events") }}
     {{ $pageStyles := slice }}
-    {{ if eq .Section "projects" }}
+    {{ if $usesWorldMap }}
+      {{ $pageStyles = $pageStyles | append (resources.Get "css/components/world-map.css") }}
+    {{ end }}
+    {{ if and (eq .Section "projects") (ne .Layout "new-partners") }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/projects.css") }}
     {{ end }}
     {{ if or (eq .Section "publications") (eq .Section "news") }}
@@ -29,7 +34,7 @@
     {{ if eq .Section "news" }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/news.css") }}
     {{ end }}
-    {{ if or (eq .Layout "new-partners") (eq .Section "projects") }}
+    {{ if eq .Layout "new-partners" }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/new-partners.css") }}
     {{ end }}
     {{ if eq .Section "about" }}
@@ -37,6 +42,9 @@
     {{ end }}
     {{ if eq .Layout "faq" }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/faq.css") }}
+    {{ end }}
+    {{ if eq .Section "events" }}
+      {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/events.css") }}
     {{ end }}
     {{ if .IsHome }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/home.css") }}
@@ -58,15 +66,34 @@
       {{ end }}
     {{ end }}
     {{ $js := resources.Get "js/main.js" | minify }}
-    {{ if eq .Layout "new-partners" }}
+    {{ if $usesWorldMap }}
       <script src="{{ "vendor/d3-7.9.0.min.js" | relURL }}" defer></script>
       <script src="{{ "vendor/topojson-client-3.1.0.min.js" | relURL }}" defer></script>
+      {{ $worldMapJS := resources.Get "js/world-map.js" | minify }}
+      {{ if $fingerprintAssets }}
+        {{ $worldMapJS = $worldMapJS | fingerprint }}
+        <script src="{{ $worldMapJS.RelPermalink }}" integrity="{{ $worldMapJS.Data.Integrity }}" defer></script>
+      {{ else }}
+        <script src="{{ $worldMapJS.RelPermalink }}" defer></script>
+      {{ end }}
     {{ end }}
     {{ if $fingerprintAssets }}
       {{ $js = $js | fingerprint }}
       <script src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}" defer></script>
     {{ else }}
       <script src="{{ $js.RelPermalink }}" defer></script>
+    {{ end }}
+    {{ $pageScript := "" }}
+    {{ if eq .Layout "events" }}{{ $pageScript = "js/events.js" }}{{ end }}
+    {{ if eq .Layout "new-partners" }}{{ $pageScript = "js/partners.js" }}{{ end }}
+    {{ with $pageScript }}
+      {{ $pageJS := resources.Get . | minify }}
+      {{ if $fingerprintAssets }}
+        {{ $pageJS = $pageJS | fingerprint }}
+        <script src="{{ $pageJS.RelPermalink }}" integrity="{{ $pageJS.Data.Integrity }}" defer></script>
+      {{ else }}
+        <script src="{{ $pageJS.RelPermalink }}" defer></script>
+      {{ end }}
     {{ end }}
   </head>
   {{ $bodyClasses := slice }}
@@ -76,7 +103,12 @@
   {{ with .Params.body_class }}
     {{ $bodyClasses = $bodyClasses | append . }}
   {{ end }}
-  <body{{ with delimit $bodyClasses " " }} class="{{ . }}"{{ end }}>
+  {{/* Pages with a fixed image backdrop opt in through backdrop_image; see partials/backdrop-hero.html. */}}
+  {{ $backdropImage := .Params.backdrop_image }}
+  {{ if $backdropImage }}
+    {{ $bodyClasses = $bodyClasses | append "page-backdrop" }}
+  {{ end }}
+  <body{{ with delimit $bodyClasses " " }} class="{{ . }}"{{ end }}{{ with $backdropImage }} style="--page-backdrop-image: url('{{ . | relURL }}')"{{ end }}>
     {{ partial "header.html" . }}
     <main id="main-content">
       {{ block "main" . }}{{ end }}

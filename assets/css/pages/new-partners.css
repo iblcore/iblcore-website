@@ -1,6 +1,4 @@
 .page-new-partners {
-  --page-backdrop-image: url("/images/new-partners-background.webp");
-  --page-backdrop-size: contain;
   --new-partners-card-title-size: clamp(1.08rem, 1.55vw, 1.28rem);
   --new-partners-card-copy-size: clamp(0.98rem, 1.2vw, 1.06rem);
   --new-partners-card-meta-size: clamp(0.9rem, 1.05vw, 0.98rem);
@@ -9,32 +7,9 @@
   --new-partners-affiliate-team-width: 22rem;
 }
 
-.new-partners-banner {
-  background: var(--color-accent-soft);
-}
-
-.new-partners-section {
-  position: relative;
-  z-index: 1;
-  padding: 3rem 0 4rem;
-  background: var(--color-accent);
-}
-
+/* Reserve room for the title so swapping category copy does not shift the layout */
 .new-partners-banner__title {
-  margin: 0;
   min-height: 1em;
-  color: var(--color-accent);
-  font-size: clamp(2rem, 4.5vw, 3.4rem);
-  line-height: 1;
-  font-weight: 500;
-}
-
-.new-partners-banner__title + p {
-  margin-top: 1.15rem;
-}
-
-.new-partners-banner__summary {
-  margin-top: 1.15rem;
 }
 
 .new-partners-banner__category-copies {
@@ -76,59 +51,8 @@
   gap: 0.85rem;
 }
 
-.new-partners-view-controls .new-partners-view-switch {
-  border-color: rgba(0, 77, 137, 0.28);
-  background: var(--color-accent-soft);
-}
-
-.new-partners-view-controls .new-partners-view-switch__button {
-  color: var(--color-accent);
-}
-
-.new-partners-view-controls .new-partners-view-switch__button.is-active {
-  background: rgba(0, 77, 137, 0.14);
-  color: var(--color-accent);
-  box-shadow: inset 0 0 0 1px rgba(0, 77, 137, 0.2);
-}
-
-.new-partners-view-controls .new-partners-view-switch__button:focus-visible {
-  outline-color: var(--color-accent);
-}
-
-.new-partners-category-filter {
-  margin-top: 0;
-  padding: 0.22rem;
-  border: 1px solid rgba(0, 77, 137, 0.2);
-  border-radius: 999px;
-  background: var(--color-accent-soft);
-}
-
-.new-partners-category-filter .new-partners-map__legend-link {
-  min-height: 2.3rem;
-  padding: 0.45rem 0.7rem;
-  border-radius: 999px;
-  text-decoration: none;
-}
-
-.new-partners-category-filter .new-partners-map__legend-link[aria-pressed="true"] {
-  background: rgba(0, 77, 137, 0.14);
-  color: var(--color-accent);
-  box-shadow: inset 0 0 0 1px rgba(0, 77, 137, 0.2);
-}
-
-.new-partners-category-filter .new-partners-map__legend-link:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-.new-partners-card {
-  padding: 0;
-  background: var(--color-surface);
-  overflow: hidden;
-}
-
-.new-partners-card.is-open {
-  box-shadow: 0 0.65rem 1.4rem rgba(0, 77, 137, 0.12);
+.new-partners-view-switch {
+  --segmented-control-button-min-width: 5.2rem;
 }
 
 .new-partners-card__header {
@@ -168,7 +92,7 @@
 
 .new-partners-people__shared-affiliation {
   grid-column: 1 / -1;
-  color: rgba(0, 77, 137, 0.72);
+  color: var(--color-accent-tint-70);
   font-size: 0.7rem;
   line-height: 1.12;
   text-align: center;
@@ -216,7 +140,7 @@
 }
 
 .new-partners-person__affiliation {
-  color: rgba(0, 77, 137, 0.72);
+  color: var(--color-accent-tint-70);
   font-size: 0.7rem;
   overflow-wrap: anywhere;
 }
@@ -225,57 +149,18 @@
   position: absolute;
   right: 1rem;
   bottom: 0.65rem;
-  color: rgba(0, 77, 137, 0.72);
-}
-
-.new-partners-view-switch {
-  display: inline-flex;
-  gap: 0.2rem;
-  margin: 0;
-  padding: 0.22rem;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
-}
-
-.new-partners-view-switch__button {
-  min-width: 5.2rem;
-  padding: 0.55rem 1rem;
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--color-surface);
-  font: inherit;
-  font-size: 0.9rem;
-  cursor: pointer;
-}
-
-.new-partners-view-switch__button.is-active {
-  background: var(--color-surface);
-  color: var(--color-accent);
-  box-shadow: 0 0.2rem 0.6rem rgba(0, 49, 88, 0.18);
-}
-
-.new-partners-view-switch__button:focus-visible {
-  outline: 2px solid var(--color-surface);
-  outline-offset: 3px;
+  color: var(--color-accent-tint-70);
 }
 
 [data-project-view-panel][hidden],
-[data-project-view-content][hidden],
-[data-project-list-only][hidden],
 [data-map-project-option][hidden],
 [data-map-project-card][hidden],
-.new-partners-map__selection[hidden],
-.new-partners-map__tooltip[hidden] {
+.new-partners-map__selection[hidden] {
   display: none;
 }
 
 .new-partners-map {
-  overflow: hidden;
-  border-radius: 0.85rem;
-  background: var(--color-surface);
-  box-shadow: 0 0.65rem 1.4rem rgba(0, 49, 88, 0.16);
+  --world-map-min-height: 21.25rem;
 }
 
 .new-partners-map__toolbar {
@@ -285,117 +170,6 @@
   gap: 1rem;
   padding: 0.85rem 1rem;
   color: var(--color-accent);
-}
-
-.new-partners-map__toolbar p {
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.3;
-}
-
-.new-partners-map__legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.85rem;
-  margin-top: 0.45rem;
-  color: rgba(0, 77, 137, 0.8);
-  font-size: 0.92rem;
-  font-weight: 600;
-}
-
-.new-partners-map__legend-entry {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-.new-partners-map__legend-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: inherit;
-  font: inherit;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.18em;
-  cursor: pointer;
-}
-
-.new-partners-map__legend-link:hover,
-.new-partners-map__legend-link:focus-visible {
-  color: var(--color-accent);
-  outline: none;
-  text-decoration-thickness: 2px;
-}
-
-.new-partners-map__legend-dot {
-  width: 0.7rem;
-  height: 0.7rem;
-  border: 1px solid var(--color-surface);
-  border-radius: 50%;
-  box-shadow: 0 0 0 1px rgba(0, 77, 137, 0.18);
-}
-
-.new-partners-map__legend-dot--partner {
-  background: var(--color-category-partner);
-}
-
-.new-partners-map__legend-dot--affiliate {
-  background: var(--color-category-affiliate);
-}
-
-.new-partners-map__controls {
-  display: flex;
-  flex: 0 0 auto;
-  gap: 0.35rem;
-}
-
-.new-partners-map__controls button {
-  min-width: 2.25rem;
-  min-height: 2.25rem;
-  padding: 0.35rem 0.65rem;
-  border: 1px solid rgba(0, 77, 137, 0.22);
-  border-radius: 0.35rem;
-  background: var(--color-surface);
-  color: var(--color-accent);
-  font: inherit;
-  cursor: pointer;
-}
-
-.new-partners-map__controls button:hover,
-.new-partners-map__controls button:focus-visible {
-  border-color: var(--color-accent);
-  outline: none;
-  background: var(--color-accent);
-  color: var(--color-surface);
-}
-
-.new-partners-map__canvas {
-  position: relative;
-  overflow: hidden;
-  border-block: 1px solid rgba(0, 77, 137, 0.12);
-  background: linear-gradient(180deg, #e8f7fc 0%, #f7fcfe 100%);
-}
-
-.new-partners-map__canvas svg {
-  display: block;
-  width: 100%;
-  min-height: 21.25rem;
-  cursor: grab;
-  touch-action: none;
-}
-
-.new-partners-map__canvas svg:active {
-  cursor: grabbing;
-}
-
-.new-partners-map__countries path {
-  fill: rgba(104, 198, 242, 0.3);
-  stroke: rgba(0, 77, 137, 0.38);
-  stroke-width: calc(0.7px / var(--map-zoom, 1));
 }
 
 .new-partners-map__connections path {
@@ -415,29 +189,11 @@
   stroke-opacity: 0.82;
 }
 
-.new-partners-map__marker {
-  cursor: pointer;
-  outline: none;
-}
-
-.new-partners-map__marker-hit {
-  r: calc(16px / var(--map-zoom, 1));
-  fill: transparent;
-}
-
-.new-partners-map__marker-dot {
-  r: calc(10px / var(--map-zoom, 1));
-  fill: var(--color-accent);
-  stroke: var(--color-surface);
-  stroke-width: calc(2.5px / var(--map-zoom, 1));
-  filter: drop-shadow(0 2px 3px rgba(0, 49, 88, 0.25));
-}
-
-.new-partners-map__marker--partner .new-partners-map__marker-dot {
+.new-partners-map__marker--partner .world-map__marker-dot {
   fill: var(--color-category-partner);
 }
 
-.new-partners-map__marker--affiliate .new-partners-map__marker-dot {
+.new-partners-map__marker--affiliate .world-map__marker-dot {
   fill: var(--color-category-affiliate);
 }
 
@@ -449,40 +205,8 @@
   stop-color: var(--color-category-affiliate);
 }
 
-.new-partners-map__marker--mixed .new-partners-map__marker-dot {
+.new-partners-map__marker--mixed .world-map__marker-dot {
   fill: url("#new-partners-map-mixed-marker");
-}
-
-.new-partners-map__marker-count {
-  fill: var(--color-surface);
-  font-size: calc(10px / var(--map-zoom, 1));
-  font-weight: 700;
-  pointer-events: none;
-}
-
-.new-partners-map__marker:hover .new-partners-map__marker-dot,
-.new-partners-map__marker:focus .new-partners-map__marker-dot,
-.new-partners-map__marker.is-selected .new-partners-map__marker-dot {
-  stroke: #ffdc70;
-  stroke-width: calc(4px / var(--map-zoom, 1));
-}
-
-.new-partners-map__tooltip {
-  position: absolute;
-  z-index: 3;
-  display: grid;
-  gap: 0.2rem;
-  width: min(24rem, calc(100% - 1.5rem));
-  padding: 0.65rem 0.75rem;
-  border: 1px solid rgba(0, 77, 137, 0.18);
-  border-radius: 0.45rem;
-  background: rgba(255, 255, 255, 0.98);
-  color: var(--color-accent);
-  font-size: 0.78rem;
-  line-height: 1.25;
-  pointer-events: none;
-  transform: translate(-50%, calc(-100% - 0.75rem));
-  box-shadow: 0 0.35rem 0.8rem rgba(0, 49, 88, 0.22);
 }
 
 .new-partners-map__tooltip ul {
@@ -525,7 +249,7 @@
   position: relative;
   clear: both;
   padding: 1rem;
-  background: rgba(177, 225, 242, 0.16);
+  background: var(--color-brand-light-tint-15);
 }
 
 .new-partners-map__project-options {
@@ -541,7 +265,7 @@
   gap: 0.8rem;
   min-height: 5.5rem;
   padding: 0.65rem 0.85rem;
-  border: 1px solid rgba(0, 77, 137, 0.18);
+  border: 1px solid var(--color-accent-tint-20);
   border-radius: 0.6rem;
   background: var(--color-surface);
   color: var(--color-accent);
@@ -564,7 +288,7 @@
 .new-partners-map__project-options > button:focus-visible {
   border-color: var(--color-accent);
   outline: none;
-  box-shadow: 0 0.3rem 0.8rem rgba(0, 77, 137, 0.14);
+  box-shadow: 0 0.3rem 0.8rem var(--color-accent-tint-15);
 }
 
 .new-partners-map__project-options .new-partners-people {
@@ -584,57 +308,13 @@
 }
 
 .new-partners-map__details > div:not([hidden]) {
-  border-top: 1px solid rgba(0, 77, 137, 0.12);
+  border-top: 1px solid var(--color-accent-tint-10);
 }
 
 .new-partners-map__details {
   position: relative;
   clear: both;
   margin-top: 1rem;
-}
-
-.new-partners-map.has-map-error .new-partners-map__canvas::after {
-  content: "The map could not be loaded. Please use the list view.";
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  padding: 2rem;
-  background: var(--color-surface);
-  color: var(--color-accent);
-  text-align: center;
-}
-
-.button--new-partners {
-  min-height: 3.2rem;
-  padding: 0.55rem 1.25rem;
-  background: var(--color-surface);
-  color: var(--color-accent);
-  font-size: 1rem;
-  letter-spacing: 0;
-  box-shadow: inset 0 0 0 1px rgba(0, 77, 137, 0.12);
-}
-
-.button--new-partners:hover,
-.button--new-partners:focus-visible {
-  outline: none;
-  transform: translateY(-1px);
-  box-shadow:
-    0 0.35rem 0.8rem rgba(0, 77, 137, 0.18),
-    inset 0 0 0 1px rgba(0, 77, 137, 0.16);
-}
-
-.new-partners-internal-projects {
-  position: relative;
-  z-index: 1;
-  background: var(--color-accent-soft);
-}
-
-.new-partners-internal-projects__inner {
-  display: flex;
-  justify-content: center;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
 }
 
 .new-partners-card__authors {
@@ -672,10 +352,6 @@
   margin-top: 0;
 }
 
-.new-partners-card__body-inner {
-  padding: 0 var(--space-panel-3xl) var(--space-panel-3xl);
-}
-
 .new-partners-card__content-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.35fr) minmax(25rem, 0.95fr);
@@ -697,7 +373,7 @@
 
 .new-partners-lab {
   padding-left: 2rem;
-  border-left: 1px solid rgba(0, 77, 137, 0.22);
+  border-left: 1px solid var(--color-accent-tint-20);
 }
 
 .new-partners-card--affiliate .new-partners-lab {
@@ -707,21 +383,6 @@
 
 .new-partners-card--affiliate .new-partners-lab__summary {
   text-align: center;
-}
-
-.new-partners-lab h3 {
-  margin: 0;
-  color: var(--color-accent);
-  font-size: clamp(1.2rem, 2vw, 1.55rem);
-  line-height: 1.1;
-  font-weight: 500;
-}
-
-.new-partners-lab__institution {
-  margin: 0.35rem 0 0.9rem;
-  color: var(--color-accent);
-  font-size: 0.9rem;
-  font-weight: 600;
 }
 
 .new-partners-lab__links {
@@ -752,7 +413,7 @@
 .new-partners-lab__links a {
   display: inline-flex;
   padding: 0.38rem 0.7rem;
-  border: 1px solid rgba(0, 77, 137, 0.24);
+  border: 1px solid var(--color-accent-tint-25);
   border-radius: 999px;
   color: var(--color-accent);
   font-size: 0.8rem;
@@ -765,6 +426,29 @@
   background: var(--color-accent);
   color: var(--color-surface);
   outline: none;
+}
+
+.new-partners-card__events {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-accent-tint-20);
+}
+
+.new-partners-card__events .new-partners-card__eyebrow {
+  margin-bottom: 0.5rem;
+}
+
+.new-partners-card__events-links {
+  justify-content: flex-start;
+  margin: 0;
+}
+
+.new-partners-card--affiliate .new-partners-card__events {
+  text-align: center;
+}
+
+.new-partners-card--affiliate .new-partners-card__events-links {
+  justify-content: center;
 }
 
 .new-partners-team-people {
@@ -852,23 +536,8 @@
   line-height: 1.15;
 }
 
-.accordion-ready .new-partners-card:not(.is-open) .new-partners-card__body-inner {
-  padding-bottom: 0;
-}
-
-.new-partners-card__body-inner > *:first-child {
-  margin-top: 0;
-}
-
 .new-partners-card__body-inner > *:last-child {
   margin-bottom: 0.45rem;
-}
-
-.new-partners-affiliate-cards {
-  position: relative;
-  z-index: 1;
-  padding: 3rem 0 4rem;
-  background: var(--color-accent);
 }
 
 .new-partners-affiliate-cards .new-partners-cards {
@@ -893,6 +562,13 @@
   text-align: center;
 }
 
+.new-partners-card--affiliate .new-partners-card__title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.36em;
+}
+
 .new-partners-card__header-copy--centered {
   flex: 0 1 auto;
   justify-items: center;
@@ -902,6 +578,10 @@
 .new-partners-card--affiliate .new-partners-people {
   width: 100%;
   justify-content: center;
+}
+
+.new-partners-card--consortium.is-open > .new-partners-card__header .new-partners-people {
+  display: none;
 }
 
 .new-partners-card--affiliate .new-partners-people--shared-affiliation {
@@ -933,7 +613,7 @@
 
 .new-partners-card__fallback {
   max-width: 13rem;
-  color: rgba(0, 77, 137, 0.72);
+  color: var(--color-accent-tint-70);
   font-size: 0.78rem;
   line-height: 1.2;
   text-align: center;
@@ -942,7 +622,7 @@
 .new-partners-card__panel-people {
   margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
-  border-bottom: 1px solid rgba(0, 77, 137, 0.18);
+  border-bottom: 1px solid var(--color-accent-tint-20);
 }
 
 .new-partners-card__panel-people .new-partners-people {
@@ -958,17 +638,10 @@
 }
 
 .new-partners-card--affiliate .new-partners-card__authors {
-  color: rgba(0, 77, 137, 0.72);
+  color: var(--color-accent-tint-70);
 }
 
 @media (max-width: 820px) {
-  .new-partners-banner__inner,
-  .new-partners-section,
-  .new-partners-internal-projects__inner {
-    padding-top: 2rem;
-    padding-bottom: 3rem;
-  }
-
   .new-partners-card__content-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -977,7 +650,7 @@
   .new-partners-lab {
     padding-top: 1.5rem;
     padding-left: 0;
-    border-top: 1px solid rgba(0, 77, 137, 0.22);
+    border-top: 1px solid var(--color-accent-tint-20);
     border-left: 0;
   }
 
@@ -1014,41 +687,13 @@
   }
 }
 
-@media (hover: hover) {
-  .new-partners-card:hover {
-    transform: translateY(-0.08rem);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .new-partners-card:hover {
-    transform: none;
-  }
-}
-
 @media (max-width: 520px) {
   .new-partners-banner__title {
     min-height: 2em;
   }
 
-  .new-partners-banner__inner,
-  .new-partners-internal-projects__inner {
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
-  }
-
-  .new-partners-affiliate-cards {
-    padding-top: 2rem;
-    padding-bottom: 3rem;
-  }
-
   .new-partners-card__header {
     padding: 0.75rem 0.75rem 2.15rem;
-  }
-
-  .new-partners-card__body-inner {
-    padding-right: 1rem;
-    padding-left: 1rem;
   }
 
   .new-partners-person__image {
@@ -1069,8 +714,7 @@
     flex-direction: column;
   }
 
-  .new-partners-map__canvas svg {
-    min-height: 19rem;
+  .new-partners-map {
+    --world-map-min-height: 19rem;
   }
-
 }

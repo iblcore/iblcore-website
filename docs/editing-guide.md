@@ -19,6 +19,12 @@ Or:
 That is enough. You do not need to ask the agent to create a branch, edit files,
 run commands, start the website, commit, or open a pull request.
 
+Most pages are Markdown files under `content/`. Events, projects, partners and
+affiliates are different: they are records in `data/events.yaml` and
+`data/projects.yaml`, and the agent edits those files rather than creating new
+pages. Describe the event or project in ordinary language and the agent will
+put it in the right place.
+
 The first time you use the agent on a computer, it checks the required tools,
 your GitHub login, repository access, and commit identity. If anything is
 missing, it pauses the edit, explains each step, and guides you through the

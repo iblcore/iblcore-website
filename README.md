@@ -78,6 +78,28 @@ Publication records and filter keywords are maintained in
 `data/publications.yaml`. The homepage and `/publications/` page render from this
 shared source.
 
+Approved outreach events are maintained in `data/events.yaml`. The `/events/`
+page provides List, Calendar, and Map views with a shared All/Upcoming/Past
+filter. Upcoming and Past status is classified in the browser from the
+visitor's current date, so the page stays correct between deployments; the
+build-time classification remains as the no-JavaScript fallback. Calendar is
+the default enhanced view and opens at a month overview;
+previous and next controls allow the user to navigate freely between calendar
+years. Selecting a month expands it into weeks and shows the event details
+below; the expanded view keeps the month and year centered between previous and
+next month controls. Multi-day events use one clickable bar across their dates within the
+week instead of repeating in every day cell. The map uses the locally pinned
+D3, TopoJSON, and world geometry assets already used
+by the project maps. Upcoming events use the global Partner blue and Past events
+use the global Affiliate pink across the calendar, map, and status labels.
+Online events are grouped in one clickable button within the map toolbar. Its
+map-marker-sized, status-colored count dot shows the number of filtered online
+events and remains visible at zero when none match; the button displays their
+cards below the map. Event records may also define
+co-organisers with direct links to their Partner or Affiliate profiles on
+`/new-partner-projects/`, and each profile lists the events it co-organises
+with links back to the anchored event card on `/events/`.
+
 Project and affiliate records are maintained in `data/projects.yaml`. The
 `/new-partner-projects/` layout uses reusable profile and research-group
 partials; the record fields and layout variants are documented in
@@ -172,11 +194,16 @@ Named team-member portraits inside expanded accordions use the same circular
 dimensions and pale-blue ring as lead PI portraits; project and lab images
 remain rectangular.
 
+Pages with a fixed image backdrop (`/projects/`, `/new-partner-projects/`,
+`/events/`, and the FAQ) set `backdrop_image` in their front matter. The base
+layout turns that into the `page-backdrop` body class and CSS variable, and the
+shared `partials/backdrop-hero.html` renders the transparent hero that lets the
+image show through, so no page-specific hero markup or CSS is needed.
+
 The `/projects/` page uses the single page title `IBL Core projects`,
 followed by a concise internal-projects overview banner and the project content.
 Its centered `New partner projects` CTA is presented in a matching banner at
-the bottom of the page. Its static IBL Core network map can be enabled with the
-page-level `show_network_map` parameter; it is currently hidden.
+the bottom of the page.
 
 News and press entries are maintained as page bundles in `content/news/posts/`
 and are published through `/news/`.

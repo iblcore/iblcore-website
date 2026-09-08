@@ -1,0 +1,94 @@
+events:
+  - id: "pre-cosyne-brainhack-2026"
+    name: "Pre COSYNE Brainhack"
+    location: "Lisbon"
+    country: "Portugal"
+    latitude: 38.7223
+    longitude: -9.1393
+    start_date: "2026-03-10"
+    end_date: "2026-03-11"
+    topic: null
+    website: "https://pre-cosyne-brainhack.github.io/hackathon2026/posts/about/"
+    co_organisers:
+      - profile_id: "issue-210"
+
+  - id: "rse-romandie-2026"
+    name: "RSE Romandie"
+    location: "Lausanne"
+    country: "Switzerland"
+    latitude: 46.5197
+    longitude: 6.6323
+    start_date: "2026-06-02"
+    end_date: "2026-06-02"
+    topic: >-
+      Growing the research software engineering network in Switzerland,
+      advocating for the RSE core model, and introducing the CON2PHYS concept.
+    website: "https://rse.swiss/events/2026_06_02_rse_suisse_romand_meetup/"
+
+  - id: "pre-fens-brainhack-2026"
+    name: "Pre FENS Brainhack"
+    location: "Barcelona"
+    country: "Spain"
+    latitude: 41.3874
+    longitude: 2.1686
+    start_date: "2026-07-05"
+    end_date: "2026-07-05"
+    topic: >-
+      Reproducibility in systems neuroscience data analysis, inspired by
+      CON2PHYS. Participants work collaboratively on a shared electrophysiology
+      dataset to explore how conceptual and analytical choices affect results.
+    website: "https://pre-fens-brainhack.github.io/brainhack2026/posts/about/"
+    co_organisers:
+      - profile_id: "issue-210"
+
+  - id: "spikeinterface-hackathon-2026"
+    name: "SpikeInterface hackathon"
+    location: "Edinburgh"
+    country: "United Kingdom"
+    latitude: 55.9533
+    longitude: -3.1883
+    start_date: "2026-07-06"
+    end_date: "2026-07-10"
+    topic: >-
+      Developing new spike-sorting components, improving the user experience,
+      and discussing the long-term direction of SpikeInterface.
+    website: null
+
+  - id: "neurodatarehack-2026"
+    name: "NeuroDataReHack"
+    location: "Janelia Research Campus"
+    city: "Ashburn"
+    country: "United States"
+    latitude: 39.0710604
+    longitude: -77.4653281
+    start_date: "2026-07-13"
+    end_date: "2026-07-17"
+    topic: >-
+      Unlocking new discoveries in neurophysiology through secondary analysis
+      of open neuroscience datasets.
+    website: "https://nwb.org/events/hck26-2026-janelia-ndrh/"
+
+  - id: "swc-summer-course-2026"
+    name: "SWC summer course"
+    location: "London"
+    country: "United Kingdom"
+    latitude: 51.5074
+    longitude: -0.1278
+    start_date: "2026-08-24"
+    end_date: "2026-08-28"
+    topic: null
+    website: "https://neuroinformatics.dev/open-software-summer-school/2026/extracellular-electrophysiology.html#track-extracellular-ephys"
+
+  - id: "neural-modelling-ibl-brain-wide-map-2026"
+    name: "Neural Modelling Using the IBL Brain-Wide Map Dataset"
+    location: "Online"
+    format: "online"
+    audience: "African ACNEI students"
+    start_date: "2026-11-23"
+    end_date: "2026-11-26"
+    topic: >-
+      An online course using the IBL Brain-Wide Map dataset, co-organised with
+      the African Computational Neuroscience Education Initiative.
+    website: null
+    co_organisers:
+      - profile_id: "issue-236"

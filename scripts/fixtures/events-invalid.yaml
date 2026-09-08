@@ -1,0 +1,23 @@
+events:
+  - id: "duplicate-event"
+    location: "Lisbon"
+    latitude: 38.7223
+    longitude: -9.1393
+    start_date: "2026-03-11"
+    end_date: "2026-03-10"
+
+  - id: "duplicate-event"
+    name: "Duplicate event"
+    location: "Lisbon"
+    latitude: 38.7223
+    longitude: -9.1393
+    start_date: "2026-03-10"
+    end_date: "2026-03-11"
+    co_organisers:
+      - profile_id: "issue-999"
+
+  - id: "missing-coordinates"
+    name: "Missing coordinates"
+    location: "Somewhere"
+    start_date: "2026-04-01"
+    end_date: "2026-04-01"

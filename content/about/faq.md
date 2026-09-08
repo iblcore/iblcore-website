@@ -5,6 +5,7 @@ lead: "Common questions about partnering with the IBL Core, expectations for col
 weight: 30
 layout: "faq"
 body_class: "page-faq"
+backdrop_image: "/images/faq-background.webp"
 header_variant: "landing"
 footer_variant: "non-landing"
 ---
