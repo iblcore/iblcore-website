@@ -35,6 +35,7 @@ Notes:
 Includes:
 - Our Team (`/about/team/`) - staff, PI scientific board, and contact prompt
 - History (`/about/history/`)
+- Strategic Priorities (`/about/strategic-priorities/`)
 - FAQ (`/about/faq/`) - general explanation of IBL Core
 - Support (`/about/support/`) - includes funding
 
@@ -142,6 +143,7 @@ Home:
 Standalone pages nested under About:
 - Our Team
 - History
+- Strategic Priorities
 - FAQ
 - Support
 
@@ -154,6 +156,7 @@ content/
     _index.md  # redirect to team.md
     team.md
     history.md
+    strategic-priorities.md
     faq.md
     support.md
   resources/

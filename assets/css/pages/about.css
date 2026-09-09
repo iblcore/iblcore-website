@@ -338,6 +338,45 @@
   color: var(--color-accent-soft);
 }
 
+.page-about-strategic-priorities .about-single-content {
+  background: transparent;
+}
+
+.page-about-strategic-priorities .about-content-block {
+  padding: 0;
+  border: 1px solid transparent;
+  background: transparent;
+}
+
+.page-about-strategic-priorities .about-content-block__heading {
+  padding: 1.35rem 1.65rem 1.1rem;
+  border-bottom: 1px solid transparent;
+  background: transparent;
+  text-align: center;
+}
+
+.page-about-strategic-priorities .about-content-block__heading h2 {
+  margin: 0;
+  color: var(--color-accent-soft);
+}
+
+.page-about-strategic-priorities .about-content-block__body {
+  margin-top: 0;
+  padding: 0.9rem 1.65rem 1.55rem;
+  border-radius: 0.6rem;
+  background: var(--color-surface-strong);
+  color: var(--color-accent);
+}
+
+.page-about-strategic-priorities .about-content-block__body > :first-child {
+  margin-top: 0;
+}
+
+.page-about-strategic-priorities .about-content-block__body h3 {
+  margin: 0 0 0.45rem;
+  color: var(--color-accent-soft);
+}
+
 .about-content-block p,
 .about-content-block ul,
 .about-content-block ol {

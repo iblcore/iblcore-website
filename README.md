@@ -74,6 +74,10 @@ The site exposes a curated agent-readable index at `/llms.txt`. See
 [Agent-readable website content](docs/agent-readable-content.md) for its scope
 and validation policy.
 
+The About navigation includes the Strategic Priorities page at
+`/about/strategic-priorities/`, covering IBL Core's scientific themes,
+methodological commitments, and values for 2026-2029.
+
 Publication records and filter keywords are maintained in
 `data/publications.yaml`. The homepage and `/publications/` page render from this
 shared source.
