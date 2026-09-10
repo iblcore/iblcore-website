@@ -56,7 +56,8 @@ category copy; the common header owns its banner markup and appearance.
   spacing, background treatment, `.page-controls`, and CTA bars.
 - `assets/css/tokens.css` owns `--color-page-intro-*`, `--page-intro-*`,
   `--color-page-controls-bg`, and `--page-buttons-pad-y`. The intro uses the
-  dark-blue fill at 82% opacity with white text and blur over the page backdrop.
+  dark-blue fill at 48% opacity with white text and a light blur over the page
+  backdrop, so the underlying image remains visible.
   Adjust these tokens for site-wide changes.
 - `assets/css/components/segmented-control.css` owns pill buttons, their active,
   hover, focus, disabled, and category-dot states. Use `.segmented-control` and
