@@ -1,11 +1,11 @@
-.page-hero {
-  background: var(--color-surface-muted);
-  border-bottom: 1px solid var(--color-border);
+.page-header {
+  position: relative;
+  z-index: 1;
 }
 
-.page-hero h1 {
-  margin: 0 0 var(--space-sm);
-  font-size: clamp(2rem, 4vw, 3rem);
+.page-content {
+  background: var(--color-surface);
+  color: var(--color-accent);
 }
 
 .section-hero {
@@ -17,7 +17,7 @@
 .section-hero__media {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, var(--color-transparent) 28%, var(--color-page-banner-overlay-bottom) 100%);
+  background: linear-gradient(180deg, var(--color-team-overlay-faint) 0%, var(--color-team-overlay-top) 58%, var(--color-team-overlay-bottom) 100%);
 }
 
 .section-hero__inner {
@@ -31,7 +31,7 @@
 }
 
 .section-hero__copy {
-  max-width: var(--hero-copy-max-width);
+  max-width: var(--content-width-copy);
 }
 
 .section-hero h1 {
@@ -59,34 +59,61 @@
   line-height: 1.28;
 }
 
-/* Light-blue introduction banner shared by Projects, Partners, and Events */
+/* Translucent dark introduction banner shared by Projects, Partners, Events, and About */
 .section-banner--intro {
-  background: var(--color-accent-soft);
+  border-block: 1px solid var(--color-page-intro-border);
+  background: var(--color-page-intro-bg);
+  box-shadow: inset 0 1px 0 var(--color-team-banner-inset);
+  color: var(--color-page-intro-text);
+  backdrop-filter: blur(var(--page-intro-blur)) saturate(135%);
+  -webkit-backdrop-filter: blur(var(--page-intro-blur)) saturate(135%);
 }
 
-.section-banner--intro .section-banner__copy {
-  max-width: 72rem;
+.section-banner--intro .section-banner__inner {
+  padding-block: var(--page-intro-pad-top) var(--page-intro-pad-bottom);
 }
 
 .section-banner--intro .section-banner__copy,
 .section-banner--intro .section-banner__copy p {
-  color: var(--color-accent);
+  color: var(--color-page-intro-text);
+}
+
+.section-banner--intro .section-banner__copy > :first-child {
+  margin-top: 0;
 }
 
 .section-banner--intro .section-banner__copy > :last-child {
   margin-bottom: 0;
 }
 
-.section-banner__title {
-  margin: 0;
-  color: var(--color-accent);
-  font-size: clamp(2rem, 4.5vw, 3.4rem);
-  line-height: 1;
-  font-weight: 500;
+.section-banner--intro .section-banner__copy p + p {
+  margin-top: 1.5rem;
 }
 
-.section-banner__title + * {
-  margin-top: 1.15rem;
+/* Shared dark bar for view/filter buttons. Pill styling lives in segmented-control.css. */
+.page-controls {
+  position: relative;
+  z-index: 2;
+  background: var(--color-page-controls-bg);
+  color: var(--color-page-intro-text);
+  border-block: 1px solid var(--color-page-intro-border);
+}
+
+.page-controls__inner,
+.section-cta__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.85rem 1.25rem;
+  padding-block: var(--page-buttons-pad-y);
+}
+
+.page-controls__inner > p {
+  margin: 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 /* Dark-blue content band that follows an introduction banner */
@@ -97,16 +124,9 @@
   background: var(--color-accent);
 }
 
-/* Light band holding one centered call-to-action pill */
+/* Dark band holding one centered call-to-action pill */
 .section-cta {
-  background: var(--color-accent-soft);
-}
-
-.section-cta__inner {
-  display: flex;
-  justify-content: center;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  background: var(--color-page-controls-bg);
 }
 
 .button--page-cta {
@@ -128,8 +148,7 @@
     inset 0 0 0 1px var(--color-accent-tint-25);
 }
 
-/* Pages that set backdrop_image: a fixed, dimmed image behind everything,
-   revealed through the transparent hero from partials/backdrop-hero.html. */
+/* Default interior-page backdrop; only the image is configurable in front matter. */
 .page-backdrop {
   position: relative;
   background: var(--color-surface-dark);
@@ -144,7 +163,8 @@
   background:
     linear-gradient(180deg, var(--color-page-overlay-top) 0%, var(--color-page-overlay-bottom) 100%),
     var(--page-backdrop-image);
-  background-position: center top;
+  background-position: center 28%;
+  background-size: cover;
   background-repeat: no-repeat;
   background-color: var(--color-surface-dark);
 }
@@ -198,7 +218,6 @@
 
 @media (max-width: 700px) {
 
-  .section-banner--intro .section-banner__inner,
   .section-band {
     padding-top: 2rem;
     padding-bottom: 3rem;
@@ -225,23 +244,5 @@
   :is(.project-card__body-inner, .new-partners-card__body-inner) {
     padding-right: 1rem;
     padding-left: 1rem;
-  }
-}
-
-@media (max-width: 900px) {
-  .faq-hero__inner {
-    padding-top: var(--hero-content-pad-top-shared-md);
-  }
-}
-
-@media (max-width: 700px) {
-
-  .faq-hero__inner {
-    min-height: 27rem;
-  }
-
-  .faq-hero__inner {
-    padding-top: var(--hero-content-pad-top-shared-sm);
-    padding-bottom: var(--hero-content-pad-bottom-section-md);
   }
 }

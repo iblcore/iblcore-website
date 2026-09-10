@@ -2,9 +2,6 @@
   {{ $projects := hugo.Data.projects }}
   {{ $partnerSection := index (where $projects.sections "id" "new-partner-projects") 0 }}
   {{ $affiliateSection := index (where $projects.sections "id" "affiliates") 0 }}
-  {{ $pageTitle := .Title }}
-  {{ $partnerIntroduction := .Content }}
-  {{ $partnerCategoryIntroductionPath := "content/projects/descriptions/partner-category-overview.md" }}
   {{ $recordIds := newScratch }}
   {{ $recordTypes := slice "consortium" "lab" "dual-pi" }}
   {{ range (slice $partnerSection $affiliateSection) }}
@@ -19,33 +16,10 @@
     {{ end }}
   {{ end }}
 
-  {{ partial "backdrop-hero.html" . }}
+  {{ partial "page-header.html" (dict "page" . "project_title" true "intro_id" "partner-projects-introduction" "intro" (partial "new-partners/introduction.html" .)) }}
 
-  {{ with .Content }}
-    <section class="new-partners-banner section-banner section-banner--intro" id="partner-projects-introduction">
-      <div class="shell section-banner__inner">
-        <div class="section-banner__copy prose">
-          <h1 class="section-banner__title new-partners-banner__title" data-project-banner-title>{{ $pageTitle }}</h1>
-          <div class="new-partners-banner__category-copies">
-            <div class="new-partners-banner__category-copy is-active" data-project-banner-content="all" data-project-banner-title="{{ $pageTitle }}" aria-hidden="false">
-              {{ . }}
-            </div>
-            <div class="new-partners-banner__category-copy" data-project-banner-content="partner" data-project-banner-title="Partners" aria-hidden="true">
-              {{ if fileExists $partnerCategoryIntroductionPath }}{{ readFile $partnerCategoryIntroductionPath | markdownify }}{{ end }}
-            </div>
-            <div class="new-partners-banner__category-copy" data-project-banner-content="affiliate" data-project-banner-title="Affiliates" aria-hidden="true">
-              {{ with $affiliateSection.body_file }}
-                {{ if fileExists . }}{{ readFile . | markdownify }}{{ end }}
-              {{ end }}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  {{ end }}
-
-  <section class="new-partners-view-controls" aria-label="Project display controls">
-    <div class="shell new-partners-view-controls__inner">
+  <section class="page-controls" aria-label="Project display controls">
+    <div class="shell page-shell page-controls__inner">
       <div class="new-partners-view-switch segmented-control" role="group" aria-label="Choose project view">
         <button class="segmented-control__button is-active" type="button" aria-pressed="true" data-project-view-button="list">List</button>
         <button class="segmented-control__button" type="button" aria-pressed="false" data-project-view-button="map" disabled>Map</button>

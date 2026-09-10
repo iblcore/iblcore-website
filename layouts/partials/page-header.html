@@ -1,0 +1,37 @@
+{{- /* Shared interior-page header. See docs/page-template.md for the interface. */ -}}
+{{- $page := .page -}}
+{{- $title := .title | default $page.Title -}}
+{{- $intro := "" -}}
+{{- if isset . "intro" -}}
+  {{- $intro = .intro -}}
+{{- else -}}
+  {{- with (or $page.Params.banner_intro $page.Params.lead) -}}
+    {{- $intro = $page.RenderString (dict "display" "block") . -}}
+  {{- end -}}
+{{- end -}}
+<header class="page-header">
+  <div class="section-hero" aria-labelledby="page-hero-title">
+    <div class="section-hero__media" aria-hidden="true"></div>
+    <div class="shell page-shell section-hero__inner">
+      <div class="section-hero__copy">
+        <h1 id="page-hero-title"{{ if .project_title }} data-project-banner-title{{ end }}>{{ $title }}</h1>
+      </div>
+    </div>
+  </div>
+  {{ with $intro }}
+    <section class="section-banner section-banner--intro" aria-label="Introduction"{{ with $.intro_id }} id="{{ . }}"{{ end }}>
+      <div class="shell page-shell section-banner__inner">
+        <div class="section-banner__copy prose">{{ . }}</div>
+      </div>
+    </section>
+  {{ end }}
+  {{ with (.buttons | default $page.Params.banner_buttons) }}
+    <section class="page-controls" aria-label="Page actions">
+      <div class="shell page-shell page-controls__inner">
+        {{ range . }}
+          <a class="button button--page-cta" href="{{ .url | relURL }}">{{ .label }}</a>
+        {{ end }}
+      </div>
+    </section>
+  {{ end }}
+</header>

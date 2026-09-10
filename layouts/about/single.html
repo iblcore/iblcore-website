@@ -1,24 +1,9 @@
 {{ define "main" }}
   {{ $page := . }}
   <div class="about-single-page">
-    <section class="about-single-hero section-hero" aria-labelledby="about-single-title">
-      <div class="about-single-hero__media section-hero__media" aria-hidden="true"></div>
-      <div class="shell page-shell about-single-hero__inner section-hero__inner">
-        <div class="about-single-hero__copy section-hero__copy">
-          <h1 id="about-single-title">{{ .Title }}</h1>
-        </div>
-      </div>
-    </section>
-
-    {{ if .Params.banner_intro }}
-      <section class="strategic-priorities-intro team-intro-banner section-banner" aria-label="Strategic Priorities introduction">
-        <div class="shell page-shell section-banner__inner">
-          <div class="section-banner__copy prose">
-            <p>{{ .Params.banner_intro }}</p>
-          </div>
-        </div>
-      </section>
-    {{ end }}
+    {{ $intro := "" }}
+    {{ with .Params.banner_intro }}{{ $intro = $page.RenderString (dict "display" "block") . }}{{ end }}
+    {{ partial "page-header.html" (dict "page" . "intro" $intro) }}
 
     <section class="about-single-content">
       <div class="shell page-shell">

@@ -2,20 +2,7 @@
   {{ $publicationData := hugo.Data.publications }}
   {{ $publications := sort $publicationData.items "date" "desc" }}
 
-  <section class="publications-hero section-hero">
-    <div class="publications-hero__media section-hero__media" aria-hidden="true"></div>
-    <div class="shell page-shell publications-hero__inner section-hero__inner">
-      <h1>{{ .Title }}</h1>
-    </div>
-  </section>
-
-  {{ with .Params.lead }}
-    <section class="publications-intro-banner section-banner">
-      <div class="shell page-shell section-banner__inner">
-        <p class="publications-intro-banner__copy">{{ . }}</p>
-      </div>
-    </section>
-  {{ end }}
+  {{ partial "page-header.html" (dict "page" .) }}
 
   <section class="publications-page section" aria-labelledby="publications-list-title" data-publication-browser>
     <div class="shell page-shell">

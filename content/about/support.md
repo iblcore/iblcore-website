@@ -5,6 +5,7 @@ lead: "Ways to support the IBL Core and current funding sources for its scientif
 weight: 40
 layout: "support"
 body_class: "page-about-support"
+backdrop_image: "/images/ibl-funding.webp"
 header_variant: "landing"
 ---
 

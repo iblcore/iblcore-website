@@ -1,19 +1,12 @@
 {{ define "main" }}
   {{ $projects := hugo.Data.projects }}
 
-  {{ partial "backdrop-hero.html" . }}
-
-  <section class="projects-banner section-banner section-banner--intro" aria-label="About IBL Core internal projects">
-    <div class="shell section-banner__inner">
-      <div class="section-banner__copy prose">
-        <h1 class="section-banner__title">{{ .Title }}</h1>
-        {{ $internalOverviewPath := "content/projects/descriptions/internal-projects-overview.md" }}
-        {{ if fileExists $internalOverviewPath }}
-          {{ $.RenderString (dict "display" "block") (readFile $internalOverviewPath) }}
-        {{ end }}
-      </div>
-    </div>
-  </section>
+  {{ $intro := "" }}
+  {{ $internalOverviewPath := "content/projects/descriptions/internal-projects-overview.md" }}
+  {{ if fileExists $internalOverviewPath }}
+    {{ $intro = .RenderString (dict "display" "block") (readFile $internalOverviewPath) }}
+  {{ end }}
+  {{ partial "page-header.html" (dict "page" . "intro" $intro) }}
 
   <section class="projects-sections section-band" aria-label="Projects">
     <div class="shell">

@@ -78,6 +78,10 @@ The About navigation includes the Strategic Priorities page at
 `/about/strategic-priorities/`, covering IBL Core's scientific themes,
 methodological commitments, and values for 2026-2029.
 
+Interior pages share one header, translucent dark introduction, and button-bar
+design. See [Shared page template](docs/page-template.md) for new pages and
+specialized layouts; change shared tokens and components instead of copying CSS.
+
 Publication records and filter keywords are maintained in
 `data/publications.yaml`. The homepage and `/publications/` page render from this
 shared source.
