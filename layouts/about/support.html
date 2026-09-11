@@ -1,22 +1,5 @@
 {{ define "main" }}
-  <section class="funding-hero section-hero" aria-labelledby="support-title">
-    <div class="funding-hero__media section-hero__media" aria-hidden="true"></div>
-    <div class="shell page-shell funding-hero__inner section-hero__inner">
-      <div class="funding-hero__copy section-hero__copy">
-        <h1 id="support-title" class="funding-hero__title">{{ .Title }}</h1>
-      </div>
-    </div>
-  </section>
-
-  <section class="funding-banner-section section-banner">
-    <div class="funding-banner">
-      <div class="shell page-shell section-banner__inner">
-        <div class="prose funding-banner__content section-banner__copy">
-          {{ .Content }}
-        </div>
-      </div>
-    </div>
-  </section>
+  {{ partial "page-header.html" (dict "page" . "intro" .Content) }}
 
   <section class="funding-logos-section" aria-label="Support and funding organisations">
     <div class="shell page-shell">

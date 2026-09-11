@@ -1,13 +1,9 @@
 {{ define "main" }}
+  {{ $page := . }}
   <div class="about-single-page">
-    <section class="about-single-hero section-hero" aria-labelledby="about-single-title">
-      <div class="about-single-hero__media section-hero__media" aria-hidden="true"></div>
-      <div class="shell page-shell about-single-hero__inner section-hero__inner">
-        <div class="about-single-hero__copy section-hero__copy">
-          <h1 id="about-single-title">{{ .Title }}</h1>
-        </div>
-      </div>
-    </section>
+    {{ $intro := "" }}
+    {{ with .Params.banner_intro }}{{ $intro = $page.RenderString (dict "display" "block") . }}{{ end }}
+    {{ partial "page-header.html" (dict "page" . "intro" $intro) }}
 
     <section class="about-single-content">
       <div class="shell page-shell">
@@ -17,7 +13,17 @@
             {{ if gt (len (strings.TrimSpace $section)) 0 }}
               {{ $blockIndex = add $blockIndex 1 }}
               <section class="about-content-block about-content-block--{{ mod $blockIndex 3 }}">
-                {{ if eq $sectionIndex 0 }}
+                {{ if $page.Params.strategic_blocks }}
+                  {{ $sectionHTML := $section }}
+                  {{ if gt $sectionIndex 0 }}{{ $sectionHTML = printf "<h2%s" $section }}{{ end }}
+                  {{ $heading := findRE `(?s)^<h2.*?</h2>` $sectionHTML 1 }}
+                  {{ if gt (len $heading) 0 }}
+                    <div class="about-content-block__heading">{{ index $heading 0 | safeHTML }}</div>
+                    <div class="about-content-block__body">{{ replaceRE `(?s)^<h2.*?</h2>` "" $sectionHTML | safeHTML }}</div>
+                  {{ else }}
+                    <div class="about-content-block__body">{{ $sectionHTML | safeHTML }}</div>
+                  {{ end }}
+                {{ else if eq $sectionIndex 0 }}
                   {{ $section | safeHTML }}
                 {{ else }}
                   {{ printf "<h2%s" $section | safeHTML }}

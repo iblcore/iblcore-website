@@ -28,19 +28,10 @@
 
   <div data-events-page>
 
-  {{ partial "backdrop-hero.html" . }}
+  {{ partial "page-header.html" (dict "page" . "intro" .Content) }}
 
-  <section class="events-intro section-banner section-banner--intro" aria-label="About IBL Core events">
-    <div class="shell section-banner__inner">
-      <div class="section-banner__copy prose">
-        <h1 class="section-banner__title">{{ .Title }}</h1>
-        {{ .Content }}
-      </div>
-    </div>
-  </section>
-
-  <section class="events-view-controls section-banner" aria-label="Event display controls">
-    <div class="shell page-shell events-view-controls__inner section-banner__inner">
+  <section class="page-controls" aria-label="Event display controls">
+    <div class="shell page-shell page-controls__inner">
       <p>Explore events</p>
       <div class="events-view-switch segmented-control" role="group" aria-label="Choose event view">
         <button class="segmented-control__button is-active" type="button" aria-pressed="true" data-events-view-button="list">List</button>

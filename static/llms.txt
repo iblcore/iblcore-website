@@ -12,6 +12,7 @@ Use the canonical pages below for current public information about IBL-Core.
 
 - [Our Team](https://iblcore.org/about/team/): IBL-Core staff and the principal investigator scientific board.
 - [History](https://iblcore.org/about/history/): Background and development of IBL-Core.
+- [Strategic Priorities](https://iblcore.org/about/strategic-priorities/): Scientific themes, methodological commitments, and values for 2026-2029.
 - [FAQ](https://iblcore.org/about/faq/): Frequently asked questions about IBL-Core.
 - [Support](https://iblcore.org/about/support/): Funding and support information.
 - [Contact](https://iblcore.org/about/team/#contact): How to contact IBL-Core.

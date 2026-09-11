@@ -3,6 +3,7 @@ import http from "node:http";
 import path from "node:path";
 import process from "node:process";
 import { chromium } from "playwright";
+import { checkPageLayout } from "./check-page-layout.mjs";
 
 const publicRoot = path.resolve("public");
 const chromeCandidates = process.platform === "darwin"
@@ -268,6 +269,7 @@ try {
   assert(await linkedEventPage.locator('[id^="event-"]').count() === eventData.length, "Every event should have exactly one anchor in the document.");
   assert(await linkedEventPage.locator("#event-rse-romandie-2026").evaluate((card) => card === document.activeElement), "The linked event card should receive focus.");
   await linkedEventPage.close();
+  await checkPageLayout(browser, origin);
 } finally {
   await browser.close();
   await new Promise((resolve, reject) => server.close((error) => (error ? reject(error) : resolve())));

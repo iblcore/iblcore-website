@@ -1,4 +1,10 @@
 members:
+  - first_name: Christopher
+    last_name: Black
+    group: staff
+    image: Black_Christopher.webp
+    crop_x: 50%
+    crop_y: 24%
   - first_name: Gaelle
     last_name: Chapuis
     title: Director of Operations and Outreach

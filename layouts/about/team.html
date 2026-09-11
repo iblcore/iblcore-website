@@ -3,22 +3,7 @@
   {{ $pis := sort (where hugo.Data.team.members "group" "pi") "last_name" }}
 
   <div class="team-page">
-    <section class="team-hero section-hero">
-      <div class="team-hero__media section-hero__media" aria-hidden="true"></div>
-      <div class="shell team-hero__inner section-hero__inner">
-        <div class="team-hero__copy section-hero__copy">
-          <h1>{{ .Title }}</h1>
-        </div>
-      </div>
-    </section>
-
-    <section class="team-intro-banner section-banner">
-      <div class="shell page-shell section-banner__inner">
-        <div class="prose team-intro-banner__copy section-banner__copy">
-          {{ .Content }}
-        </div>
-      </div>
-    </section>
+    {{ partial "page-header.html" (dict "page" . "intro" .Content) }}
 
     <section class="team-grid-section team-grid-section--staff" aria-label="Staff">
       <div class="shell">

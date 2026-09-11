@@ -103,8 +103,11 @@
   {{ with .Params.body_class }}
     {{ $bodyClasses = $bodyClasses | append . }}
   {{ end }}
-  {{/* Pages with a fixed image backdrop opt in through backdrop_image; see partials/backdrop-hero.html. */}}
+  {{/* Interior pages inherit the shared backdrop; front matter may choose another image. */}}
   {{ $backdropImage := .Params.backdrop_image }}
+  {{ if not .IsHome }}
+    {{ $backdropImage = $backdropImage | default "/images/team/ibl-brain.webp" }}
+  {{ end }}
   {{ if $backdropImage }}
     {{ $bodyClasses = $bodyClasses | append "page-backdrop" }}
   {{ end }}

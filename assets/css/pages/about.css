@@ -260,32 +260,6 @@
   z-index: 1;
 }
 
-.about-single-hero {
-  background: var(--color-surface-dark);
-}
-
-.page-about-brain-bg .about-single-hero {
-  background: transparent;
-}
-
-.about-single-hero__media {
-  background:
-    linear-gradient(180deg, rgba(0, 77, 137, 0.1) 0%, rgba(0, 77, 137, 0.36) 100%),
-    var(--color-surface-dark);
-}
-
-.about-single-hero__copy {
-  max-width: var(--content-width-copy);
-}
-
-.about-single-hero h1 {
-  margin: 0;
-  color: var(--color-surface);
-  font-size: var(--font-size-page-hero-title);
-  line-height: 0.98;
-  font-weight: 400;
-}
-
 .about-single-content {
   padding: 2.75rem 0 4.25rem;
   background: var(--color-divider-soft);
@@ -336,6 +310,50 @@
 
 .about-content-block--0 h2 {
   color: var(--color-accent-soft);
+}
+
+.page-about-strategic-priorities .about-single-content {
+  background: transparent;
+}
+
+.page-about-strategic-priorities .about-content-block {
+  padding: 0;
+  border: 1px solid transparent;
+  background: transparent;
+}
+
+.page-about-strategic-priorities .about-content-block__heading {
+  padding: 1.35rem 1.65rem 1.1rem;
+  border-bottom: 1px solid var(--color-brand-sky);
+  border-radius: 0.6rem 0.6rem 0 0;
+  background: var(--color-accent);
+  text-align: center;
+}
+
+.page-about-strategic-priorities .about-content-block__heading h2 {
+  margin: 0;
+  color: var(--color-surface);
+}
+
+.page-about-strategic-priorities .about-content-block__body {
+  margin-top: 0;
+  padding: 0.9rem 1.65rem 1.55rem;
+  border-radius: 0 0 0.6rem 0.6rem;
+  background: var(--color-surface-strong);
+  color: var(--color-accent);
+}
+
+.page-about-strategic-priorities .about-content-block__body > :first-child {
+  margin-top: 1.1rem;
+}
+
+.page-about-strategic-priorities .about-content-block__body h3 {
+  margin: 0 0 0.45rem;
+  color: var(--color-accent-soft);
+}
+
+.page-about-strategic-priorities .about-content-block__body p + h3 {
+  margin-top: 1.1rem;
 }
 
 .about-content-block p,
@@ -410,64 +428,9 @@
   }
 }
 
-.page-about-brain-bg {
-  position: relative;
-  background: var(--color-surface-dark);
-  color: var(--color-surface);
-}
-
-.page-about-brain-bg::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  background: linear-gradient(180deg, var(--color-team-overlay-top) 0%, var(--color-team-overlay-mid) 38%, var(--color-team-overlay-bottom) 100%),
-    url("/images/team/ibl-brain.webp") center 28% / 100% auto no-repeat;
-}
-
-.page-about-brain-bg::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(180deg, var(--color-team-overlay-soft-top) 0%, var(--color-team-overlay-soft) 100%);
-}
-
-.page-about-brain-bg .site-footer {
-  position: relative;
-  z-index: 1;
-}
-
 .team-page {
   position: relative;
   z-index: 1;
-}
-
-.team-intro-banner {
-  border-top: 1px solid var(--color-team-banner-border);
-  border-bottom: 1px solid var(--color-team-banner-border);
-  background: linear-gradient(180deg, var(--color-team-banner-surface-top), var(--color-team-banner-surface-bottom));
-  box-shadow: inset 0 1px 0 var(--color-team-banner-inset);
-  backdrop-filter: blur(14px) saturate(135%);
-  -webkit-backdrop-filter: blur(14px) saturate(135%);
-}
-
-.team-hero__media,
-.page-about-brain-bg .about-single-hero__media {
-  background: linear-gradient(180deg, var(--color-team-overlay-faint) 0%, var(--color-team-overlay-top) 58%, var(--color-team-overlay-bottom) 100%);
-}
-
-.team-intro-banner.section-banner {
-  z-index: 2;
-}
-
-.team-intro-banner .section-banner__inner {
-  padding-top: 2rem;
-  padding-bottom: 3rem;
-}
-
-.team-intro-banner__copy>*+* {
-  margin-top: 1.5rem;
 }
 
 .team-grid-section {
@@ -595,11 +558,6 @@
 }
 
 @media (max-width: 760px) {
-  .page-about-team::before {
-    background-position: center 13%;
-    background-size: 165% auto;
-  }
-
   .team-card {
     flex-basis: calc((100% - (2 * 1rem)) / 3);
     max-width: calc((100% - (2 * 1rem)) / 3);
@@ -612,11 +570,6 @@
 }
 
 @media (max-width: 520px) {
-  .page-about-team::before {
-    background-position: center 15%;
-    background-size: 215% auto;
-  }
-
   .team-grid {
     gap: 1rem;
   }
@@ -628,39 +581,9 @@
 }
 
 
-.page-about-funding,
-.page-about-support {
-  background: var(--color-surface-darker) url("/images/ibl-funding.webp") center top / cover no-repeat;
-  color: var(--color-accent);
-}
-
 .page-about-funding main,
 .page-about-support main {
   min-height: auto;
-}
-
-.funding-hero__title {
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  line-height: 1;
-}
-
-.funding-banner {
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  background: var(--color-funding-banner-bg);
-}
-
-.funding-banner__content,
-.funding-banner__content p {
-  max-width: 100%;
-  color: var(--color-accent);
-  font-size: var(--font-size-prose-copy);
-  line-height: 1.28;
-}
-
-.funding-banner__content>*+* {
-  margin-top: 0.6rem;
 }
 
 .funding-logos-section {
@@ -690,14 +613,4 @@
   max-height: 100%;
   width: auto;
   height: auto;
-}
-
-@media (max-width: 700px) {
-  .funding-banner-section {
-    /* padding-top: clamp(8rem, 24vw, 10rem); */
-  }
-
-  .funding-banner__content {
-    line-height: 1.28;
-  }
 }

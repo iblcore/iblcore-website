@@ -81,6 +81,14 @@
   --color-home-footer-border: rgba(177, 225, 242, 0.9);
 
   /* Page imagery and overlays */
+  --color-page-intro-bg: rgba(0, 77, 137, 0.48);
+  --color-page-intro-text: var(--color-surface);
+  --color-page-intro-border: rgba(177, 225, 242, 0.18);
+  --color-page-controls-bg: var(--color-accent);
+  --page-buttons-pad-y: 2rem;
+  --page-intro-pad-top: 2rem;
+  --page-intro-pad-bottom: 3rem;
+  --page-intro-blur: 4px;
   --color-about-hero-bg: var(--color-brand-dark);
   --color-about-hero-overlay-top: rgba(0, 77, 137, 0.18);
   --color-about-hero-overlay-mid: rgba(0, 77, 137, 0.1);

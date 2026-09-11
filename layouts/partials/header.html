@@ -1,6 +1,6 @@
 {{ $section := .Section }}
 {{ $pagePath := .RelPermalink }}
-{{ $headerVariant := .Params.header_variant | default "non-landing" }}
+{{ $headerVariant := .Params.header_variant | default "landing" }}
 {{ $menuItems := hugo.Data.navigation.header }}
 <header class="site-header site-header--{{ $headerVariant }}">
   <div class="shell site-header__inner">

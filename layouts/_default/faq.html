@@ -1,14 +1,7 @@
 {{ define "main" }}
   {{ $faq := hugo.Data.faq }}
 
-  <section class="faq-hero section-hero">
-    <div class="faq-hero__media section-hero__media" aria-hidden="true"></div>
-    <div class="shell faq-hero__inner section-hero__inner">
-      <div class="faq-hero__copy section-hero__copy">
-        <h1>Frequently Asked Questions</h1>
-      </div>
-    </div>
-  </section>
+  {{ partial "page-header.html" (dict "page" . "title" "Frequently Asked Questions") }}
 
   <section class="faq-sections" aria-label="Frequently asked questions">
     {{ range $index, $group := $faq.groups }}

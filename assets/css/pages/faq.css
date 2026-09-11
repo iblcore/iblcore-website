@@ -2,10 +2,6 @@
   --faq-text-color: #009FD7;
 }
 
-.faq-hero__inner {
-  min-height: var(--faq-hero-min-height);
-}
-
 .faq-sections {
   position: relative;
   z-index: 1;

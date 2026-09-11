@@ -1,0 +1,12 @@
+{{ $affiliateSection := index (where hugo.Data.projects.sections "id" "affiliates") 0 }}
+<div class="new-partners-banner__category-copies">
+  <div class="new-partners-banner__category-copy is-active" data-project-banner-content="all" data-project-banner-title="{{ .Title }}" aria-hidden="false">
+    {{ .Content }}
+  </div>
+  <div class="new-partners-banner__category-copy" data-project-banner-content="partner" data-project-banner-title="Partners" aria-hidden="true">
+    {{ readFile "content/projects/descriptions/partner-category-overview.md" | markdownify }}
+  </div>
+  <div class="new-partners-banner__category-copy" data-project-banner-content="affiliate" data-project-banner-title="Affiliates" aria-hidden="true">
+    {{ with $affiliateSection.body_file }}{{ readFile . | markdownify }}{{ end }}
+  </div>
+</div>
