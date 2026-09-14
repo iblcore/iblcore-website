@@ -631,3 +631,26 @@ sections:
           links:
             - label: "Masseck Lab"
               url: "https://massecklab.com/"
+      - id: "issue-239"
+        issue_number: 239
+        type: "lab"
+        name: "Nedah Nemati"
+        subtitle: "Nedah Nemati"
+        map_title: "Nedah Nemati"
+        locations:
+          - city: "Albany"
+            country: "United States"
+            latitude: 42.6526
+            longitude: -73.7562
+        people:
+          - name: "Nedah Nemati"
+            point_person: true
+            role: "Assistant Professor of Bioethics"
+            affiliation: "Alden March Bioethics Institute, Albany Medical College - Albany"
+            image: "/images/new-partners/affiliates/nedah-nemati.webp"
+        lab:
+          institution: "Alden March Bioethics Institute, Albany Medical College"
+          summary: "Her research examines how tools used in evolutionary and computational neuroscience shape our understanding of human and nonhuman animal behaviour."
+          links:
+            - label: "LinkedIn profile"
+              url: "https://www.linkedin.com/in/nedah-nemati-a84b7410b/"
