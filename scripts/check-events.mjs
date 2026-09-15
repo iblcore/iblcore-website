@@ -106,11 +106,14 @@ try {
   const page = await newTestPage();
   await page.goto(`${origin}/events/`, { waitUntil: "networkidle" });
 
+  const listButton = page.locator('[data-events-view-button="list"]');
   const calendarButton = page.locator('[data-events-view-button="calendar"]');
   const mapButton = page.locator('[data-events-view-button="map"]');
   await calendarButton.waitFor({ state: "visible" });
   assert(await calendarButton.isEnabled(), "Calendar did not become available.");
-  assert(await calendarButton.getAttribute("aria-pressed") === "true", "Calendar did not become the default view.");
+  assert(await listButton.getAttribute("aria-pressed") === "true", "List did not remain the default enhanced view.");
+  assert(await page.locator('[data-events-view-panel="list"]').isVisible(), "The default Event list is not visible.");
+  assert(await calendarButton.getAttribute("aria-pressed") === "false", "Calendar replaced the default List view.");
   await mapButton.waitFor({ state: "visible" });
   assert(await mapButton.isEnabled(), "Map did not become available after its data loaded.");
   await mapButton.click();
@@ -169,6 +172,7 @@ try {
   const multiweekPage = await newTestPage();
   await multiweekPage.goto(`${origin}/events/?multiweek-events=1`, { waitUntil: "networkidle" });
   await multiweekPage.locator('[data-events-view-button="calendar"]').waitFor({ state: "visible" });
+  await multiweekPage.locator('[data-events-view-button="calendar"]').click();
   await multiweekPage.locator('button[aria-label^="July 2026,"]').click();
   assert(await multiweekPage.locator('[data-calendar-event-id="multi-week-test"]').count() === 2, "A multi-week event did not render all calendar segments.");
   assert(await multiweekPage.locator('button[data-calendar-event-id="multi-week-test"]').count() === 1, "A multi-week event rendered multiple interactive buttons.");
@@ -201,7 +205,7 @@ try {
   await mapFallbackPage.route("**/data/world-countries-110m.json", (route) => route.abort());
   await mapFallbackPage.goto(`${origin}/events/`, { waitUntil: "networkidle" });
   await mapFallbackPage.locator('[data-events-view-button="calendar"]').waitFor({ state: "visible" });
-  assert(await mapFallbackPage.locator('[data-events-view-button="calendar"]').getAttribute("aria-pressed") === "true", "Calendar should remain the default when the map fails.");
+  assert(await mapFallbackPage.locator('[data-events-view-button="list"]').getAttribute("aria-pressed") === "true", "List should remain the default when the map fails.");
   assert(await mapFallbackPage.locator('[data-events-view-button="map"]').isHidden(), "Unavailable Map control should stay hidden when map data fails.");
   await mapFallbackPage.close();
 

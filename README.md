@@ -90,8 +90,8 @@ Approved outreach events are maintained in `data/events.yaml`. The `/events/`
 page provides List, Calendar, and Map views with a shared All/Upcoming/Past
 filter. Upcoming and Past status is classified in the browser from the
 visitor's current date, so the page stays correct between deployments; the
-build-time classification remains as the no-JavaScript fallback. Calendar is
-the default enhanced view and opens at a month overview;
+build-time classification remains as the no-JavaScript fallback. List is the
+default view; Calendar opens at a month overview when selected, and
 previous and next controls allow the user to navigate freely between calendar
 years. Selecting a month expands it into weeks and shows the event details
 below; the expanded view keeps the month and year centered between previous and
