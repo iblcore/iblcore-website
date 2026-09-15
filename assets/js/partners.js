@@ -1,33 +1,28 @@
-// Partners and Affiliates page: List/Map switch, category filter, banner copy,
+// Partners and Affiliates page: shared category filter, collapsible map,
 // profile deep links from the Events page, and the clustered project map.
 // Loaded only for the new-partners layout; main.js has already set up accordions.
-const projectViewButtons = Array.from(document.querySelectorAll("[data-project-view-button]"));
-const projectViewPanels = Array.from(document.querySelectorAll("[data-project-view-panel]"));
+const projectCategoryPanels = Array.from(document.querySelectorAll("[data-project-category-panel]"));
 const projectFilterButtons = Array.from(document.querySelectorAll("[data-project-filter]"));
 const projectBannerTitle = document.querySelector("[data-project-banner-title]");
 const projectBannerContents = Array.from(document.querySelectorAll("[data-project-banner-content]"));
-const projectPrimarySection = document.querySelector("[data-project-primary-section]");
 const projectInternalCta = document.querySelector("[data-project-internal-cta]");
-let activeProjectView = "list";
+const projectMapRoot = document.querySelector("[data-project-map]");
+const projectMapContent = document.querySelector("[data-project-map-content]");
+const projectMapToggle = document.querySelector("[data-project-map-toggle]");
+const projectMapToggleLabel = projectMapToggle?.querySelector("[data-project-map-toggle-label]");
 let activeProjectFilter = "all";
-let projectMapReady = false;
 const projectUrlParams = new URLSearchParams(window.location.search);
 const requestedProjectView = projectUrlParams.get("view");
 const requestedProjectFilter = projectUrlParams.get("filter");
+const projectMapPreferenceKey = "iblcore-partners-map-expanded";
 
 const updateProjectPanels = () => {
-  projectViewPanels.forEach((panel) => {
-    const matchesView = panel.dataset.projectViewPanel === activeProjectView;
+  projectCategoryPanels.forEach((panel) => {
     const category = panel.dataset.projectCategoryPanel;
     const matchesCategory = !category || activeProjectFilter === "all" || category === activeProjectFilter;
-    panel.hidden = !(matchesView && matchesCategory);
+    panel.hidden = !matchesCategory;
   });
-  if (projectPrimarySection) {
-    projectPrimarySection.hidden = activeProjectView === "list" && activeProjectFilter === "affiliate";
-  }
-  if (projectInternalCta) {
-    projectInternalCta.hidden = activeProjectView !== "list" || activeProjectFilter !== "all";
-  }
+  if (projectInternalCta) projectInternalCta.hidden = activeProjectFilter !== "all";
 };
 
 const updateProjectBanner = () => {
@@ -40,21 +35,39 @@ const updateProjectBanner = () => {
   if (projectBannerTitle && activeContent) projectBannerTitle.textContent = activeContent.dataset.projectBannerTitle;
 };
 
-const setProjectView = (view) => {
-  if (view === "map" && !projectMapReady) return;
-
-  activeProjectView = view;
-  projectViewButtons.forEach((viewButton) => {
-    const isActive = viewButton.dataset.projectViewButton === view;
-    viewButton.classList.toggle("is-active", isActive);
-    viewButton.setAttribute("aria-pressed", String(isActive));
-  });
-  updateProjectPanels();
-  if (view === "map") window.dispatchEvent(new CustomEvent("project-map:shown"));
+const setProjectMapExpanded = (expanded, { persist = true, updateUrl = true } = {}) => {
+  if (!projectMapContent || !projectMapToggle) return;
+  projectMapContent.hidden = !expanded;
+  projectMapToggle.setAttribute("aria-expanded", String(expanded));
+  if (projectMapToggleLabel) projectMapToggleLabel.textContent = expanded ? "Hide map" : "Show map";
+  projectMapRoot?.classList.toggle("is-collapsed", !expanded);
+  if (persist) {
+    try {
+      window.sessionStorage.setItem(projectMapPreferenceKey, String(expanded));
+    } catch {
+      // The disclosure remains usable when browser storage is unavailable.
+    }
+  }
+  if (updateUrl) {
+    const url = new URL(window.location.href);
+    if (expanded) url.searchParams.delete("view");
+    else url.searchParams.set("view", "list");
+    window.history.replaceState({}, "", `${url.pathname}${url.search}${url.hash}`);
+  }
+  if (expanded) window.dispatchEvent(new CustomEvent("project-map:shown"));
 };
 
-projectViewButtons.forEach((button) => {
-  button.addEventListener("click", () => setProjectView(button.dataset.projectViewButton));
+let initialMapExpanded = requestedProjectView !== "list";
+if (!requestedProjectView) {
+  try {
+    initialMapExpanded = window.sessionStorage.getItem(projectMapPreferenceKey) !== "false";
+  } catch {
+    initialMapExpanded = true;
+  }
+}
+setProjectMapExpanded(initialMapExpanded, { persist: false, updateUrl: false });
+projectMapToggle?.addEventListener("click", () => {
+  setProjectMapExpanded(projectMapToggle.getAttribute("aria-expanded") !== "true");
 });
 
 const setProjectFilter = (filter) => {
@@ -72,12 +85,13 @@ projectFilterButtons.forEach((button) => {
   button.addEventListener("click", () => setProjectFilter(button.dataset.projectFilter));
 });
 
-const openLinkedProjectProfile = () => {
-  const profileId = decodeURIComponent(window.location.hash.slice(1));
+const openProjectProfile = (profileId, highlight = false) => {
   if (!profileId) return;
   const profile = document.getElementById(profileId);
   const accordionButton = profile?.querySelector("[data-accordion-button]");
   if (!profile || !accordionButton) return;
+  const category = profile.closest("[data-project-category-panel]")?.dataset.projectCategoryPanel;
+  if (category && activeProjectFilter !== "all" && activeProjectFilter !== category) setProjectFilter(category);
   if (accordionButton.getAttribute("aria-expanded") === "false") accordionButton.click();
   profile.scrollIntoView({ block: "center" });
   // Keep keyboard focus on the opened profile without leaving a focus ring
@@ -85,12 +99,20 @@ const openLinkedProjectProfile = () => {
   // the collapse icon after following an Events-page profile link).
   profile.setAttribute("tabindex", "-1");
   profile.focus({ preventScroll: true });
+  if (highlight) {
+    profile.classList.add("is-map-target");
+    window.setTimeout(() => profile.classList.remove("is-map-target"), 2400);
+  }
+};
+
+const openLinkedProjectProfile = () => {
+  const profileId = decodeURIComponent(window.location.hash.slice(1));
+  openProjectProfile(profileId);
 };
 
 if (["all", "partner", "affiliate"].includes(requestedProjectFilter)) {
   setProjectFilter(requestedProjectFilter);
 }
-if (requestedProjectView === "list") setProjectView("list");
 if (window.location.hash) window.requestAnimationFrame(openLinkedProjectProfile);
 
 document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
@@ -103,9 +125,9 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
   const selection = mapRoot.querySelector("[data-map-selection]");
   const cityTitle = mapRoot.querySelector("[data-map-city-title]");
   const optionButtons = Array.from(mapRoot.querySelectorAll("[data-map-project-option]"));
-  const projectCards = Array.from(mapRoot.querySelectorAll("[data-map-project-card]"));
 
   if (!d3 || !topojson || !worldMap || !svgElement || !canvas) {
+    mapRoot.hidden = true;
     return;
   }
 
@@ -252,9 +274,6 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
       const optionTitle = option.querySelector("[data-map-option-title]");
       if (optionTitle && localTitles.length > 0) optionTitle.textContent = localTitles.join(" / ");
     });
-    projectCards.forEach((card) => {
-      card.hidden = true;
-    });
     worldMap.setSelectedMarkers(markerLayer, (markerCity) => markerCity.key === city.key);
     worldMap.scrollToSelection(selection);
   };
@@ -322,14 +341,7 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
   optionButtons.forEach((option) => {
     option.addEventListener("click", () => {
       const projectId = option.dataset.mapProjectOption;
-      projectCards.forEach((card) => {
-        const isSelected = card.dataset.mapProjectCard === projectId;
-        card.hidden = !isSelected;
-        if (isSelected) {
-          const accordionButton = card.querySelector("[data-accordion-button]");
-          if (accordionButton?.getAttribute("aria-expanded") === "false") accordionButton.click();
-        }
-      });
+      openProjectProfile(`profile-${projectId}`, true);
     });
   });
 
@@ -338,11 +350,6 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
     if (selection) selection.hidden = true;
     optionButtons.forEach((option) => {
       option.hidden = true;
-    });
-    projectCards.forEach((card) => {
-      const accordionButton = card.querySelector("[data-accordion-button]");
-      if (accordionButton?.getAttribute("aria-expanded") === "true") accordionButton.click();
-      card.hidden = true;
     });
     worldMap.setSelectedMarkers(markerLayer, false);
     render();
@@ -360,20 +367,12 @@ document.querySelectorAll("[data-project-map]").forEach((mapRoot) => {
   worldMap.loadFeatures({ url: mapRoot.dataset.mapUrl, topojson })
     .then((features) => {
       worldFeatures = features;
-      projectMapReady = true;
-      projectViewButtons
-        .filter((button) => button.dataset.projectViewButton === "map")
-        .forEach((button) => { button.disabled = false; });
-      if (requestedProjectView === "list") {
-        setProjectView("list");
-        if (window.location.hash) window.requestAnimationFrame(openLinkedProjectProfile);
-      } else {
-        setProjectView("map");
-      }
+      if (!projectMapContent?.hidden) window.requestAnimationFrame(render);
+      if (window.location.hash) window.requestAnimationFrame(openLinkedProjectProfile);
     })
     .catch(() => {
       mapRoot.classList.add("has-map-error");
-      document.querySelector('[data-project-view-button="list"]')?.click();
+      mapRoot.hidden = true;
     });
 
   worldMap.observeResize(canvas, render);
