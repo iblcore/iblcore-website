@@ -109,7 +109,7 @@ Includes:
 - One page, with approved outreach-event records maintained in `data/events.yaml`
 - Interior pages use the shared About-style white title above a translucent dark-blue introduction banner, with shared dark-blue button bars (see `docs/page-template.md`). Events and Partners retain their existing background image and view/category controls.
 - A concise introduction followed by adjacent List/Calendar/Map view controls and All/Upcoming/Past filters
-- Calendar as the default enhanced view, with List as the progressive fallback
+- List as the default view and progressive fallback, with Calendar and Map available as enhanced alternatives
 - A month-level calendar overview showing one year at a time, with previous/next year controls for navigating freely through past and future years; selecting a month expands it into a Monday-Sunday calendar and displays that month's event details below, with a centered month-and-year carousel for moving directly to the previous or next month
 - Multi-day events render as one clickable calendar bar spanning their dates within a week, rather than repeating the event in every day cell
 - A List view that clearly separates Upcoming and Past events

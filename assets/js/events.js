@@ -381,7 +381,7 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
 
   if (renderMonthOverview()) {
     enableView("calendar");
-    if (!linkedEvent) setView("calendar");
+    setView("list");
   }
   if (linkedEvent) window.requestAnimationFrame(openLinkedEvent);
 
