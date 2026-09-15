@@ -114,18 +114,19 @@ partials; the record fields and layout variants are documented in
 `docs/project-record-schema.md`. Stable `issue-###` IDs come from the GitHub
 issue number in the Project Management export and are reused by List, Map, and
 accordion rendering. Partner records also store one or more city coordinates for the
-page's List/Map switcher, with Map as the default view. The map clusters Partner and Affiliate records by
+page's shared map and profile lists. The map and both lists are visible together by default; a compact
+Show/Hide map disclosure replaces the former view switch and remembers its state for the browser session.
+The map clusters Partner and Affiliate records by
 geographic proximity (within 175 km), uses IBL blue for Partners and the IBL Core logo pink for Affiliates, and draws connections between cities belonging
 to the same collaboration, and uses locally pinned D3,
 TopoJSON, and Natural Earth-derived world geometry under `static/vendor/` and
-`static/data/`. Map selections open both Partner and Affiliate accordions directly
-beneath the map; the standalone Affiliate card grid is shown only in List view.
+`static/data/`. Map selections scroll to and open the canonical Partner or Affiliate accordion in the lists
+beneath the map, avoiding duplicate profile cards.
 The Partners and Affiliates heading is grouped with its shared introduction
-banner in both List and Map views. The List/Map control sits beside the results,
-with the All/Partners/Affiliates filter directly alongside it.
-The main banner supplies the active category title and introduction, so List
-view does not repeat a separate Affiliate banner above the Affiliate cards.
-The centered `IBL internal projects` CTA banner appears only for List + All;
+banner. The All/Partners/Affiliates filter updates the banner, map markers, and visible list sections together.
+The main banner supplies the active category title and introduction, so the
+Affiliate list does not repeat a separate introductory banner.
+The centered `IBL internal projects` CTA banner appears when All is selected;
 the button opens `/projects/` at the top of the internal-projects page.
 The responsive main banner reserves the height of its longest category copy so
 All, Partners, and Affiliates switch without a layout jump. Shared content-page copy is included with the reusable
@@ -133,10 +134,10 @@ All, Partners, and Affiliates switch without a layout jump. Shared content-page 
 `content/projects/descriptions/partners-overview.md`, while the Partners-only
 filter copy lives at
 `content/projects/descriptions/partner-category-overview.md`.
-The Partners and Affiliates filters update either view without changing the
-selected List/Map mode. Category selection updates the main page banner title
-and copy instead of adding another banner below the map; project choices in Map
-view appear only after a city marker is selected.
+The Partners and Affiliates filters update the map and list sections together.
+Category selection updates the main page banner title and copy instead of
+adding another banner below the map; project choices appear only after a city
+marker is selected.
 Marker tooltips list one bullet per location and collaboration in the concise
 `City: project title` format. City names are emphasized, while each bullet uses
 the global Partner or Affiliate category color and exposes the category to

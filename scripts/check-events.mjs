@@ -206,15 +206,23 @@ try {
   await mapFallbackPage.close();
 
   const partnersPage = await newTestPage();
-  await partnersPage.goto(`${origin}/new-partner-projects/?view=list`, { waitUntil: "networkidle" });
-  const partnerMapButton = partnersPage.locator('[data-project-view-button="map"]');
-  await partnerMapButton.waitFor({ state: "visible" });
-  assert(await partnerMapButton.isEnabled(), "The Partners map did not initialize through the shared map helper.");
-  await partnerMapButton.click();
-  assert(await partnersPage.locator('[data-project-view-panel="map"]').isVisible(), "The Partners map view did not open.");
+  await partnersPage.goto(`${origin}/new-partner-projects/`, { waitUntil: "networkidle" });
+  assert(await partnersPage.locator("[data-project-map-content]").isVisible(), "The Partners map should be visible by default.");
+  assert(await partnersPage.locator('[data-project-category-panel="partner"]').isVisible(), "The Partner list should appear below the default map.");
+  assert(await partnersPage.locator('[data-project-category-panel="affiliate"]').isVisible(), "The Affiliate list should appear below the default map.");
   await partnersPage.locator(".world-map__marker").first().waitFor({ state: "visible" });
   assert(await partnersPage.locator(".world-map__marker").count() > 0, "The shared map helper did not render Partners map markers.");
-  await partnersPage.locator('[data-project-view-button="list"]').click();
+  assert(await partnersPage.locator("#profile-issue-136").count() === 1, "Map and list should share one canonical Partner profile.");
+  assert(await partnersPage.locator("#profile-issue-236").count() === 1, "Map and list should share one canonical Affiliate profile.");
+  await partnersPage.locator(".world-map__marker").first().focus();
+  await partnersPage.keyboard.press("Enter");
+  const firstMapOption = partnersPage.locator("[data-map-project-option]:visible").first();
+  await firstMapOption.waitFor({ state: "visible" });
+  const selectedProjectId = await firstMapOption.getAttribute("data-map-project-option");
+  await firstMapOption.click();
+  const selectedListCard = partnersPage.locator(`#profile-${selectedProjectId}`);
+  assert(await selectedListCard.locator("[data-accordion-button]").getAttribute("aria-expanded") === "true", "A map selection did not open its canonical list profile.");
+  assert(await selectedListCard.evaluate((card) => card.classList.contains("is-map-target")), "A map selection did not highlight its canonical list profile.");
   const reverseLinks = partnersPage.locator('#profile-issue-210 .new-partners-card__events a');
   assert(await reverseLinks.count() === 2, "The Chini profile should list its two co-organised events.");
   assert((await reverseLinks.first().getAttribute("href")).endsWith("/events/#event-pre-fens-brainhack-2026"), "Reverse event links should target the anchored event card, newest first.");
@@ -260,7 +268,16 @@ try {
   await affiliateMapPage.locator(".world-map__marker").first().waitFor({ state: "visible" });
   assert(await affiliateMapPage.locator(".new-partners-map__marker--affiliate").count() > 0, "The Affiliate URL filter did not render affiliate markers.");
   assert(await affiliateMapPage.locator(".new-partners-map__marker--partner, .new-partners-map__marker--mixed").count() === 0, "The Affiliate URL filter left non-affiliate markers visible.");
+  assert(await affiliateMapPage.locator('[data-project-category-panel="affiliate"]').isVisible(), "The Affiliate URL filter did not retain its list below the map.");
+  assert(await affiliateMapPage.locator('[data-project-category-panel="partner"]').isHidden(), "The Affiliate URL filter left the Partner list visible.");
   await affiliateMapPage.close();
+
+  const partnerListOnlyPage = await newTestPage();
+  await partnerListOnlyPage.goto(`${origin}/new-partner-projects/?view=list`, { waitUntil: "networkidle" });
+  assert(await partnerListOnlyPage.locator("[data-project-map-content]").isHidden(), "The legacy List URL should collapse the map.");
+  assert(await partnerListOnlyPage.locator('[data-project-category-panel="partner"]').isVisible(), "The legacy List URL should retain the Partner list.");
+  assert(await partnerListOnlyPage.locator('[data-project-category-panel="affiliate"]').isVisible(), "The legacy List URL should retain the Affiliate list.");
+  await partnerListOnlyPage.close();
 
   const linkedEventPage = await newTestPage();
   await linkedEventPage.goto(`${origin}/events/#event-rse-romandie-2026`, { waitUntil: "networkidle" });

@@ -242,7 +242,7 @@ sections:
           summary: "The unit develops open-source software and shared infrastructure for reproducible neuroscience, spanning microscopy, behavioural analysis, electrophysiology, data standards and sharing."
           links:
             - label: "Neuroinformatics Unit"
-              url: "https://www.sainsburywellcome.org/blog/neuroinformatics-unit-paves-way-open-science-initiatives"
+              url: "https://neuroinformatics.dev"
             - label: "Adam Tyson profile"
               url: "https://www.sainsburywellcome.org/people/adam-tyson-0"
       - id: "issue-145"

@@ -39,15 +39,22 @@ export async function checkPageLayout(browser, origin) {
 
       await page.goto(`${origin}/new-partner-projects/?view=map&filter=affiliate`, { waitUntil: "networkidle" });
       assert.equal(await page.locator("h1").textContent(), "Affiliates");
-      for (const view of ["list", "map"]) {
-        await page.locator(`[data-project-view-button="${view}"]`).click();
-        for (const [filter, title] of [["partner", "Partners"], ["affiliate", "Affiliates"], ["all", "Partners and Affiliates"]]) {
-          await page.locator(`[data-project-filter="${filter}"]`).click();
-          assert.equal(await page.locator("h1").textContent(), title);
-          assert.equal(await page.locator(`[data-project-view-button="${view}"]`).getAttribute("aria-pressed"), "true");
-          assert.equal(await page.locator(`[data-project-banner-content="${filter}"]`).getAttribute("aria-hidden"), "false");
-        }
+      assert.equal(await page.locator("[data-project-view-button]").count(), 0, "Partners should not require a view-mode switch");
+      assert(await page.locator("[data-project-map-content]").isVisible(), "Map should be visible alongside the list by default");
+      assert(await page.locator('[data-project-category-panel="affiliate"]').isVisible(), "Filtered Affiliate list should remain visible below the map");
+      for (const [filter, title] of [["partner", "Partners"], ["affiliate", "Affiliates"], ["all", "Partners and Affiliates"]]) {
+        await page.locator(`[data-project-filter="${filter}"]`).click();
+        assert.equal(await page.locator("h1").textContent(), title);
+        assert.equal(await page.locator(`[data-project-banner-content="${filter}"]`).getAttribute("aria-hidden"), "false");
       }
+      const mapToggle = page.locator("[data-project-map-toggle]");
+      await mapToggle.click();
+      assert.equal(await mapToggle.getAttribute("aria-expanded"), "false");
+      assert(await page.locator("[data-project-map-content]").isHidden(), "Hide map disclosure should leave the lists in place");
+      assert(await page.locator('[data-project-category-panel="partner"]').isVisible(), "Partner list should remain visible when the map is hidden");
+      assert(await page.locator('[data-project-category-panel="affiliate"]').isVisible(), "Affiliate list should remain visible when the map is hidden");
+      await mapToggle.click();
+      assert(await page.locator("[data-project-map-content]").isVisible(), "Show map disclosure should restore the map");
       const controls = await page.locator(".page-controls").evaluate((bar) => getComputedStyle(bar).backgroundColor);
       assert.notEqual(controls, "rgb(255, 255, 255)", "Control bar must use the dark theme");
       await page.goto(`${origin}/events/`, { waitUntil: "networkidle" });

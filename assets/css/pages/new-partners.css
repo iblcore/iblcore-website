@@ -31,10 +31,6 @@
   margin-bottom: 0;
 }
 
-.new-partners-view-switch {
-  --segmented-control-button-min-width: 5.2rem;
-}
-
 .new-partners-card__header {
   position: relative;
   display: grid;
@@ -132,9 +128,9 @@
   color: var(--color-accent-tint-70);
 }
 
-[data-project-view-panel][hidden],
+[data-project-category-panel][hidden],
+[data-project-map-content][hidden],
 [data-map-project-option][hidden],
-[data-map-project-card][hidden],
 .new-partners-map__selection[hidden] {
   display: none;
 }
@@ -150,6 +146,73 @@
   gap: 1rem;
   padding: 0.85rem 1rem;
   color: var(--color-accent);
+}
+
+.new-partners-map__toolbar > p {
+  max-width: 56rem;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+.new-partners-map__toggle {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  background: transparent;
+  color: var(--color-accent);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.new-partners-map__toggle:hover,
+.new-partners-map__toggle:focus-visible {
+  color: var(--color-accent-soft);
+  outline: none;
+}
+
+.new-partners-map__toggle:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-surface), 0 0 0 4px var(--color-accent);
+}
+
+.new-partners-map__toggle-icon {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-top: 2px solid currentColor;
+  border-left: 2px solid currentColor;
+  transform: translateY(0.15rem) rotate(45deg);
+  transition: transform 160ms ease;
+}
+
+.new-partners-map__toggle[aria-expanded="false"] .new-partners-map__toggle-icon {
+  transform: translateY(-0.15rem) rotate(225deg);
+}
+
+.new-partners-map__controls {
+  justify-content: flex-end;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--color-accent-tint-10);
+}
+
+.new-partners-list {
+  margin-top: 3rem;
+}
+
+.new-partners-list__title {
+  margin: 0 0 1.25rem;
+  color: var(--color-surface);
+  font-size: clamp(1.35rem, 2.4vw, 1.8rem);
+  font-weight: 500;
+  text-align: center;
+}
+
+.new-partners-card.is-map-target {
+  box-shadow: 0 0 0 0.25rem var(--color-map-marker-highlight), 0 0.8rem 1.6rem var(--color-shadow-panel-strong);
 }
 
 .new-partners-map__connections path {
@@ -285,16 +348,6 @@
 
 .new-partners-map__project-options .new-partners-person__details {
   display: none;
-}
-
-.new-partners-map__details > div:not([hidden]) {
-  border-top: 1px solid var(--color-accent-tint-10);
-}
-
-.new-partners-map__details {
-  position: relative;
-  clear: both;
-  margin-top: 1rem;
 }
 
 .new-partners-card__authors {
