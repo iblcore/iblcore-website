@@ -5,21 +5,22 @@ For a plain-language, agent-assisted process, start with
 
 ## Publishing lifecycle
 
-Most changes follow the same path:
+Most team changes follow the same path:
 
-1. Create a focused branch from the latest `main`.
+1. Update `dev` from the latest `origin/dev`.
 2. Make the change and preview it locally.
 3. Review the diff and run `just check`.
-4. Commit and push the branch.
-5. Open a pull request (PR). Agent-assisted changes are marked ready for review
-   after the user approves the local preview.
+4. Commit and push `dev`.
+5. Update the shared `dev` to `main` pull request. Agent-assisted changes are
+   pushed after the user approves the local preview.
 6. Review the automatic Cloudflare preview and the pages listed under
    **Where to look** in the PR description.
-7. An administrator approves and merges the PR.
+7. An administrator approves and merges the PR when the team is ready to
+   publish the collected changes.
 8. GitHub Actions publishes the merged version to
    [iblcore.org](https://iblcore.org/).
 
-Contributors do not need Cloudflare access. A branch or PR never changes the
+Contributors do not need Cloudflare access. `dev` and its PR never change the
 live website; production changes only when a commit reaches `main`.
 
 ## Manual workflow
@@ -28,9 +29,8 @@ Install Git, Hugo Extended 0.164.0 or a compatible version, `just`, and Node.js
 20 or newer. Install GitHub CLI (`gh`) if you want to open PRs from the terminal.
 
 ```bash
-git switch main
-git pull --ff-only
-git switch -c edit/short-description
+git switch dev
+git pull --ff-only origin dev
 just serve
 ```
 
@@ -44,18 +44,21 @@ git diff
 git status --short
 ```
 
-Stage only the intended files, commit, push, and open a draft PR:
+Stage only the intended files, commit, and push the shared development branch:
 
 ```bash
 git add path/to/changed-file
 git commit -m "Describe the website change"
-git push -u origin HEAD
-gh pr create --draft --web
+git push origin dev
 ```
 
-Complete **What changed** and **Where to look** in the PR template. Give exact
-page paths and concrete review instructions. Include desktop and mobile
-screenshots when they help explain a visual change.
+Update the existing `dev` to `main` PR's **What changed** and **Where to look**
+sections. Give exact page paths and concrete review instructions. Include
+desktop and mobile screenshots when they help explain a visual change.
+
+For unusually large or risky work, create a focused feature branch from `dev`
+and merge it into `dev` after review. Do not merge that branch directly into
+`main`.
 
 ## Implementation conventions
 
