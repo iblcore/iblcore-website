@@ -40,7 +40,8 @@ prefer to do it manually, or need to troubleshoot, see
 The agent will:
 
 1. locate the right website content;
-2. create a safe working branch;
+2. update the shared `dev` branch, which is collected in the team's open
+   development pull request;
 3. make the requested change;
 4. run the website checks;
 5. start a private copy of the website on your computer;
@@ -72,16 +73,17 @@ The agent will then:
 
 1. review the changed files and exclude unrelated work;
 2. run the final website check;
-3. commit and push the change;
-4. open a pull request with clear review instructions;
+3. commit and push the change to `dev`;
+4. update the shared `dev` to `main` pull request with clear review
+   instructions;
 5. wait for the automated website preview and checks; and
 6. hand the pull request to the website administrators.
 
 The agent will confirm that the request is ready for administrator review. You
 do not need to deploy the website or manage Cloudflare.
 
-An administrator reviews and merges the pull request. Only that merge publishes
-the change to [iblcore.org](https://iblcore.org/).
+An administrator reviews and merges the shared development pull request. Only
+that merge publishes the change to [iblcore.org](https://iblcore.org/).
 
 ## Before your first edit
 

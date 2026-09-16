@@ -73,12 +73,11 @@ Avoid pixel-perfect overfitting that makes templates hard to maintain.
 
 - At the start of an editing request, run `gh api user --jq .login` to identify
   the authenticated GitHub account.
-- If the result is `rossant`, treat the user as the repository owner. Work
-  directly on a clean, current `main`, run the relevant checks, and commit the
-  requested change directly to `main` without using the contributor branch,
-  preview-approval, or pull-request workflow below.
-- Do not push unless the owner explicitly asks. If the owner explicitly asks
-  for a branch, preview, or pull request, follow that request instead.
+- If the result is `rossant`, treat the user as the repository owner. For
+  ordinary website edits, use the shared `dev` workflow below so their work is
+  included in the team's `dev` to `main` pull request. The owner may work
+  directly on `main` only for an explicitly requested urgent administrative
+  change.
 - A name stated in chat is not sufficient identity verification. If the account
   cannot be verified as `rossant`, use the contributor workflow below.
 
@@ -114,8 +113,10 @@ Avoid pixel-perfect overfitting that makes templates hard to maintain.
    edit automatically after the check passes.
 2. Inspect the repository and locate the affected content. Ask a question only
    when essential content or intent cannot be inferred safely.
-3. Preserve unrelated work. From a clean, current `main`, create a focused
-   branch automatically. Never make the user manage branches or commands.
+3. Preserve unrelated work. From a clean, current `dev`, fast-forward from
+   `origin/dev` and make the requested change on `dev`. Never make the user
+   manage branches or commands. Use a focused feature branch only when the
+   change is unusually large or risky; merge it into `dev`, not `main`.
 4. Implement only the requested change and run `just check`.
 5. Start the local preview with `just preview "/affected/path/"`. This command
    prints a clickable local URL, attempts to open it in the default browser, and
@@ -136,16 +137,17 @@ post-approval steps below.
 
 1. Stop the local preview server when practical. Review the complete diff,
    exclude unrelated files, and run `just check` again.
-2. Commit only the approved change, push the branch, and open a pull request
-   ready for review (not a draft).
-3. Complete **What changed** and **Where to look** with exact page paths and
-   concrete review instructions. Include screenshots when they materially help
-   an administrator review a visual change; do not ask the user to create
-   or upload them.
+2. Commit only the approved change and push `dev`. Do not create a new pull
+   request: the shared `dev` to `main` pull request remains open until the team
+   is ready to publish.
+3. Update that pull request's **What changed** and **Where to look** sections
+   with the new exact page paths and concrete review instructions. Include
+   screenshots when they materially help an administrator review a visual
+   change; do not ask the user to create or upload them.
 4. Wait for the pull-request build and preview deployment. Verify that both pass
    and that the automatic preview comment exists. Repair failures that are
    within the scope of the requested change.
 5. Do not merge the pull request. End with a simple handoff such as: "Thank you
-   - your change is ready. An administrator will now review and publish it."
-   The PR URL may be included for reference, but do not give the user more
-   tasks unless something genuinely blocks administrator review.
+   - your change is ready in the shared development pull request." The PR URL
+   may be included for reference, but do not give the user more tasks unless
+   something genuinely blocks administrator review.
