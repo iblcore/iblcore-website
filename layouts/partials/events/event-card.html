@@ -58,6 +58,12 @@
         {{- end }}
       </p>
     {{ end }}
-    {{ with $event.website }}<a class="button event-card__link" href="{{ . }}">Event website</a>{{ end }}
+    {{ with $event.links }}
+      <div class="event-card__links">
+        {{ range . }}<a class="button event-card__link" href="{{ .url }}">{{ .label }}</a>{{ end }}
+      </div>
+    {{ else }}
+      {{ with $event.website }}<a class="button event-card__link" href="{{ . }}">Event website</a>{{ end }}
+    {{ end }}
   </div>
 </article>

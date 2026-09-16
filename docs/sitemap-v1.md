@@ -115,6 +115,7 @@ Includes:
 - A List view that clearly separates Upcoming and Past events
 - A Map view with status-colored location markers that reveal event details when selected
 - Online events appear as one clickable button within the map toolbar rather than using a misleading physical marker; its map-marker-sized, status-colored count dot shows how many filtered online events it represents, remains visible with `0` when no online events match, and selection reveals those events below the map
+- Event cards may provide multiple labelled action links for applications, programme details, or other event resources
 - Event records may identify co-organisers (Partner or Affiliate records) and link directly to their profile; each profile lists the events it co-organises and links back to the anchored event card
 - Upcoming events use the global Partner blue and Past events use the global Affiliate pink in calendar and map views; the status filter persists when switching views
 

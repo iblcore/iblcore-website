@@ -21,6 +21,7 @@ test("invalid Events fixture reports every supported validation category", () =>
     "duplicate id",
     "end_date cannot be earlier than start_date",
     "physical events require latitude",
+    "links must be a list",
     "unknown Partner or Affiliate ID \"issue-999\"",
   ]) {
     assert.match(errors, new RegExp(expected.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));

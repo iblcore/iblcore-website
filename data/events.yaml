@@ -87,8 +87,14 @@ events:
     start_date: "2026-11-23"
     end_date: "2026-11-26"
     topic: >-
-      An online course using the IBL Brain-Wide Map dataset, co-organised with
-      the African Computational Neuroscience Education Initiative.
+      Applications are open until 15 October 2026. This intensive online
+      workshop uses IBL methods and tools to explore behavioural,
+      electrophysiological and brain-wide data analysis.
     website: null
+    links:
+      - label: "Apply by 15 October"
+        url: "https://www.acnei.org/apply/ibl"
+      - label: "Programme details"
+        url: "https://www.acnei.org/programs/ibl"
     co_organisers:
       - profile_id: "issue-236"

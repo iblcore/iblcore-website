@@ -223,6 +223,17 @@
   text-decoration: none;
 }
 
+.event-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.9rem;
+}
+
+.event-card__links .event-card__link {
+  margin-top: 0;
+}
+
 .event-card__link:hover,
 .event-card__link:focus-visible {
   background: var(--color-accent);
@@ -739,4 +750,3 @@
     display: none;
   }
 }
-

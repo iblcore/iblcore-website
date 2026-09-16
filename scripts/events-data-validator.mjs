@@ -100,6 +100,25 @@ export function validateEventsData(eventsData, projectsData) {
       }
     }
 
+    if (event.links !== undefined) {
+      if (!Array.isArray(event.links)) {
+        addError(errors, eventLabel, "links must be a list");
+      } else {
+        event.links.forEach((link, linkIndex) => {
+          const linkLabel = `links[${linkIndex}]`;
+          if (!link || typeof link.label !== "string" || link.label.trim() === "") {
+            addError(errors, eventLabel, `${linkLabel} requires label`);
+          }
+          try {
+            const url = new URL(link?.url);
+            if (!["http:", "https:"].includes(url.protocol)) throw new Error();
+          } catch {
+            addError(errors, eventLabel, `${linkLabel} requires an http(s) URL`);
+          }
+        });
+      }
+    }
+
     if (event.co_organisers !== undefined) {
       if (!Array.isArray(event.co_organisers)) {
         addError(errors, eventLabel, "co_organisers must be a list");
