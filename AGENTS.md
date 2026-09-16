@@ -73,11 +73,10 @@ Avoid pixel-perfect overfitting that makes templates hard to maintain.
 
 - At the start of an editing request, run `gh api user --jq .login` to identify
   the authenticated GitHub account.
-- If the result is `rossant`, treat the user as the repository owner. For
-  ordinary website edits, use the shared `dev` workflow below so their work is
-  included in the team's `dev` to `main` pull request. The owner may work
-  directly on `main` only for an explicitly requested urgent administrative
-  change.
+- If the result is `rossant`, treat the user as the repository owner. The owner
+  still chooses a publishing route for ordinary website edits, as described
+  below. They may work directly on `main` only for an explicitly requested
+  urgent administrative change.
 - A name stated in chat is not sufficient identity verification. If the account
   cannot be verified as `rossant`, use the contributor workflow below.
 
@@ -90,6 +89,20 @@ Avoid pixel-perfect overfitting that makes templates hard to maintain.
   to mention Git, branches, Hugo, previews, diffs, commits, or pull requests.
 - Unless the user explicitly asks for a manual workflow, the agent owns the
   technical process below.
+
+### Choose a publishing route
+
+Before editing, ask which route the user wants unless they have already named
+one. Ask one concise question that explains both choices:
+
+- **Shared development** (recommended for related, coordinated, or batched
+  work): push the approved change to `dev`, where it remains in the shared
+  `dev` to `main` pull request until the team is ready to publish.
+- **Direct review** (best for a small, self-contained, or urgent change): make
+  a focused branch and open its own pull request directly to `main`.
+
+Do not infer the route from the apparent size of the change. Once selected,
+keep using that route for requested revisions unless the user changes it.
 
 ### Computer setup requests
 
@@ -113,10 +126,13 @@ Avoid pixel-perfect overfitting that makes templates hard to maintain.
    edit automatically after the check passes.
 2. Inspect the repository and locate the affected content. Ask a question only
    when essential content or intent cannot be inferred safely.
-3. Preserve unrelated work. From a clean, current `dev`, fast-forward from
-   `origin/dev` and make the requested change on `dev`. Never make the user
-   manage branches or commands. Use a focused feature branch only when the
-   change is unusually large or risky; merge it into `dev`, not `main`.
+3. Preserve unrelated work using the selected route:
+   - **Shared development:** from a clean, current `dev`, fast-forward from
+     `origin/dev`, merge the current `origin/main` when it has newer commits,
+     and make the requested change on `dev`.
+   - **Direct review:** from a clean, current `main`, create a focused branch
+     automatically and make the requested change there.
+   Never make the user manage branches or commands.
 4. Implement only the requested change and run `just check`.
 5. Start the local preview with `just preview "/affected/path/"`. This command
    prints a clickable local URL, attempts to open it in the default browser, and
@@ -137,17 +153,23 @@ post-approval steps below.
 
 1. Stop the local preview server when practical. Review the complete diff,
    exclude unrelated files, and run `just check` again.
-2. Commit only the approved change and push `dev`. Do not create a new pull
-   request: the shared `dev` to `main` pull request remains open until the team
-   is ready to publish.
-3. Update that pull request's **What changed** and **Where to look** sections
-   with the new exact page paths and concrete review instructions. Include
-   screenshots when they materially help an administrator review a visual
-   change; do not ask the user to create or upload them.
-4. Wait for the pull-request build and preview deployment. Verify that both pass
+2. Follow the selected route:
+   - **Shared development:** commit only the approved change and push `dev`.
+     Do not create a new pull request: the shared `dev` to `main` pull request
+     remains open until the team is ready to publish. Update its **What
+     changed** and **Where to look** sections with the new exact page paths and
+     concrete review instructions.
+   - **Direct review:** commit only the approved change, push the focused
+     branch, and open a pull request ready for review (not a draft) directly to
+     `main`. Complete its **What changed** and **Where to look** sections with
+     exact page paths and concrete review instructions.
+   Include screenshots when they materially help an administrator review a
+   visual change; do not ask the user to create or upload them.
+3. Wait for the pull-request build and preview deployment. Verify that both pass
    and that the automatic preview comment exists. Repair failures that are
    within the scope of the requested change.
-5. Do not merge the pull request. End with a simple handoff such as: "Thank you
-   - your change is ready in the shared development pull request." The PR URL
-   may be included for reference, but do not give the user more tasks unless
-   something genuinely blocks administrator review.
+4. Do not merge the pull request. For shared development, hand off with a
+   message such as: "Thank you - your change is ready in the shared development
+   pull request." For direct review, say it is ready in its dedicated pull
+   request. The PR URL may be included for reference, but do not give the user
+   more tasks unless something genuinely blocks administrator review.

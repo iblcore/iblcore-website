@@ -3,7 +3,20 @@
 For a plain-language, agent-assisted process, start with
 [How to update the IBL-Core website](docs/editing-guide.md).
 
-## Publishing lifecycle
+## Choose a publishing route
+
+Choose before beginning an edit:
+
+- **Shared development:** use `dev` when changes are related, coordinated, or
+  intended to be published together. Approved work is collected in the shared
+  `dev` to `main` pull request.
+- **Direct review:** use a focused branch and a direct pull request to `main`
+  for a small, self-contained, or urgent change.
+
+Keep using the selected route for the change. After a direct PR merges, bring
+the latest `main` into `dev` before beginning the next shared-development edit.
+
+## Shared-development lifecycle
 
 Most team changes follow the same path:
 
@@ -23,14 +36,18 @@ Most team changes follow the same path:
 Contributors do not need Cloudflare access. `dev` and its PR never change the
 live website; production changes only when a commit reaches `main`.
 
-## Manual workflow
+## Manual workflows
 
 Install Git, Hugo Extended 0.164.0 or a compatible version, `just`, and Node.js
 20 or newer. Install GitHub CLI (`gh`) if you want to open PRs from the terminal.
 
+For shared development:
+
 ```bash
 git switch dev
 git pull --ff-only origin dev
+git fetch origin main
+git merge origin/main
 just serve
 ```
 
@@ -59,6 +76,23 @@ desktop and mobile screenshots when they help explain a visual change.
 For unusually large or risky work, create a focused feature branch from `dev`
 and merge it into `dev` after review. Do not merge that branch directly into
 `main`.
+
+For direct review, begin from the latest `main` instead:
+
+```bash
+git switch main
+git pull --ff-only origin main
+git switch -c edit/short-description
+just serve
+```
+
+After checking and committing the intended files, push the branch and open its
+own PR to `main`:
+
+```bash
+git push -u origin HEAD
+gh pr create --web --base main
+```
 
 ## Implementation conventions
 
