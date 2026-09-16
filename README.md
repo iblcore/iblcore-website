@@ -103,7 +103,8 @@ use the global Affiliate pink across the calendar, map, and status labels.
 Online events are grouped in one clickable button within the map toolbar. Its
 map-marker-sized, status-colored count dot shows the number of filtered online
 events and remains visible at zero when none match; the button displays their
-cards below the map. Event records may also define
+cards below the map. Event records may define one or more labelled action links
+for applications, programme details, or other event resources. They may also define
 co-organisers with direct links to their Partner or Affiliate profiles on
 `/new-partner-projects/`, and each profile lists the events it co-organises
 with links back to the anchored event card on `/events/`.

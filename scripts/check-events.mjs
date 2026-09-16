@@ -114,6 +114,10 @@ try {
   assert(await listButton.getAttribute("aria-pressed") === "true", "List did not remain the default enhanced view.");
   assert(await page.locator('[data-events-view-panel="list"]').isVisible(), "The default Event list is not visible.");
   assert(await calendarButton.getAttribute("aria-pressed") === "false", "Calendar replaced the default List view.");
+  const acneiEventCard = page.locator("#event-neural-modelling-ibl-brain-wide-map-2026");
+  assert((await acneiEventCard.locator(".event-card__topic").textContent()).includes("15 October 2026"), "The ACNEI application deadline is missing.");
+  assert(await acneiEventCard.locator('a[href="https://www.acnei.org/apply/ibl"]').textContent() === "Apply by 15 October", "The ACNEI application link is missing.");
+  assert(await acneiEventCard.locator('a[href="https://www.acnei.org/programs/ibl"]').textContent() === "Programme details", "The ACNEI programme link is missing.");
   await mapButton.waitFor({ state: "visible" });
   assert(await mapButton.isEnabled(), "Map did not become available after its data loaded.");
   await mapButton.click();
