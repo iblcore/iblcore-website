@@ -8,7 +8,7 @@
        same script can match text without a generated index. Both are part of
        the card's contract, not of the script. */ -}}
 {{- $page := .page -}}
-{{- $typeLabels := dict "data" "Dataset" "tools" "Tool" "hardware" "Hardware" "protocols" "Protocol" -}}
+{{- $typeLabels := dict "data" "Dataset" "tools" "Tool" "hardware" "Hardware" "protocols" "Protocol" "workflows" "Workflow" -}}
 {{- $type := index (split (strings.TrimPrefix "/resources/" $page.RelPermalink) "/") 0 -}}
 {{- $modality := $page.Params.modality | default slice -}}
 {{- $stage := $page.Params.stage | default slice -}}

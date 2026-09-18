@@ -1,0 +1,35 @@
+{{ define "main" }}
+  {{ partial "page-header.html" (dict "page" .) }}
+
+  <section class="section section-band dataset-section">
+    <div class="shell page-shell">
+      <p class="dataset-section-copy">{{ .Params.description }}</p>
+
+      {{ partial "resources/resource-tags.html" (dict "page" .) }}
+
+      {{ with .Content }}
+        <div class="dataset-section-copy prose">{{ . }}</div>
+      {{ end }}
+
+      <ol class="workflow-steps">
+        {{ range $index, $step := .Params.steps }}
+          <li class="workflow-step">
+            <h2 class="workflow-step__heading">
+              <span class="workflow-step__number" aria-hidden="true">{{ add $index 1 }}</span>
+              <span class="workflow-step__title">{{ $step.title }}</span>
+            </h2>
+
+            {{ with $step.note }}
+              <div class="workflow-step__note prose">{{ $.RenderString (dict "display" "block") . }}</div>
+            {{ end }}
+
+            {{ partial "resources/resource-grid.html" (dict
+              "pages" (partial "resources/workflow-steps.html" $step)
+              "empty" ""
+            ) }}
+          </li>
+        {{ end }}
+      </ol>
+    </div>
+  </section>
+{{ end }}
