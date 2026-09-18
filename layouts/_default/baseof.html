@@ -87,6 +87,17 @@
     {{ else }}
       <script src="{{ $js.RelPermalink }}" defer></script>
     {{ end }}
+    {{- /* The index script imports its predicate, so it is bundled rather than
+           minified: minify renames each file and would break the import. */ -}}
+    {{ if eq .RelPermalink "/resources/" }}
+      {{ $filterJS := resources.Get "js/resource-filter.js" | js.Build (dict "minify" true "target" "es2018") }}
+      {{ if $fingerprintAssets }}
+        {{ $filterJS = $filterJS | fingerprint }}
+        <script src="{{ $filterJS.RelPermalink }}" integrity="{{ $filterJS.Data.Integrity }}" defer></script>
+      {{ else }}
+        <script src="{{ $filterJS.RelPermalink }}" defer></script>
+      {{ end }}
+    {{ end }}
     {{ $pageScript := "" }}
     {{ if eq .Layout "events" }}{{ $pageScript = "js/events.js" }}{{ end }}
     {{ if eq .Layout "new-partners" }}{{ $pageScript = "js/partners.js" }}{{ end }}

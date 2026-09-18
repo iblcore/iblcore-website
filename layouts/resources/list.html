@@ -13,7 +13,7 @@
 
   {{ partial "page-header.html" (dict "page" .) }}
 
-  <section class="section section-band dataset-section">
+  <section class="section section-band dataset-section" data-resource-index>
     <div class="shell page-shell">
       <form class="resource-search" role="search" data-resource-search hidden>
         <label class="resource-search__label" for="resource-search-input">Search resources</label>
@@ -23,10 +23,16 @@
 
       {{ partial "resources/filter-bar.html" (dict "pages" $resources "sections" $sections) }}
 
+      <p class="visually-hidden" aria-live="polite" data-resource-status></p>
+
       {{ partial "resources/resource-grid.html" (dict
         "pages" $resources
-        "empty" "No resources match these filters."
+        "empty" "No resources are listed yet."
       ) }}
+
+      {{- /* The build-time grid is never empty, so the no-match state belongs
+             to the script that can empty it. */ -}}
+      <p class="resource-grid__empty" data-resource-empty hidden>No resources match these filters.</p>
     </div>
   </section>
 {{ end }}

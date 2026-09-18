@@ -21,6 +21,7 @@ check:
   hugo --panicOnWarning --minify --cleanDestinationDir
   node scripts/check-events-data.mjs
   node --test scripts/check-events-data.test.mjs
+  node --test assets/js/resource-filter-match.test.mjs
   node scripts/check-llms.mjs
   node scripts/check-events.mjs
 

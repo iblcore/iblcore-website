@@ -26,7 +26,8 @@
             <li>
               <a class="resource-chip" href="{{ .RelPermalink }}"
                  data-filter-group="type"
-                 data-filter-value="{{ path.Base .RelPermalink }}">{{ .Title }}</a>
+                 data-filter-value="{{ path.Base .RelPermalink }}"
+                 aria-pressed="false">{{ .Title }}</a>
             </li>
           {{- end }}
         {{- end }}
@@ -49,7 +50,8 @@
             <li>
               <a class="resource-chip" href="{{ $termPage.RelPermalink }}"
                  data-filter-group="{{ $group.key }}"
-                 data-filter-value="{{ $term }}">{{ partial "resources/term-title.html" $termPage }}</a>
+                 data-filter-value="{{ $term }}"
+                 aria-pressed="false">{{ partial "resources/term-title.html" $termPage }}</a>
             </li>
           {{- end }}
         </ul>
