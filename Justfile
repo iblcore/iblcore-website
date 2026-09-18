@@ -22,6 +22,8 @@ check:
   node scripts/check-events-data.mjs
   node --test scripts/check-events-data.test.mjs
   node --test assets/js/resource-filter-match.test.mjs
+  node scripts/check-resources-data.mjs
+  node --test scripts/resources-data-validator.test.mjs
   node scripts/check-llms.mjs
   node scripts/check-events.mjs
 
