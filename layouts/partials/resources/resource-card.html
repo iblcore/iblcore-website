@@ -40,7 +40,10 @@
       {{ with $access }}
         <div class="dataset-format-badges" aria-label="Available via">
           {{ range . }}
-            {{ partial "resources/data-format-icon.html" (dict "key" .) }}
+            {{ $route := partial "resources/access-route.html" . }}
+            <a class="dataset-format-badge-link" href="{{ $route.RelPermalink }}">
+              {{ partial "resources/data-format-icon.html" (dict "key" . "label" $route.Title) }}
+            </a>
           {{ end }}
         </div>
       {{ end }}

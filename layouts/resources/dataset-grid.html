@@ -11,7 +11,11 @@
         {{ end }}
       </div>
 
-      <a class="dataset-format-legend" href="{{ "/resources/data/#formats" | relURL }}" aria-label="See an overview of the different access routes below">
+      {{ with .Params.data_format_intro }}
+        <p class="dataset-section-copy">{{ . }}</p>
+      {{ end }}
+
+      <a class="dataset-format-legend" href="{{ "/resources/access-routes/" | relURL }}" aria-label="Compare the data access routes">
         <span class="dataset-format-legend__label">Data Access Routes:</span>
         <span class="dataset-format-legend__item">
           {{ partial "resources/data-format-icon.html" (dict "key" "one") }}
@@ -28,81 +32,4 @@
     </div>
   </section>
 
-  {{ with .Params.data_formats }}
-    {{ $formats := . }}
-    <section id="formats" class="section section-band dataset-section">
-      <div class="shell page-shell">
-        <h2>Data Access Routes</h2>
-
-        {{ with $.Params.data_format_intro }}
-          <p class="dataset-section-copy">{{ . }}</p>
-        {{ end }}
-
-        <div class="resource-cards">
-          {{ range $format := $formats }}
-            <div class="resource-card data-format-flip" id="format-{{ $format.key }}" data-flip-card>
-              <div class="data-format-flip__inner">
-                <div class="data-format-flip__face data-format-flip__face--front">
-                  <div class="resource-card__body">
-                    <h3 class="resource-card__title">
-                      {{ if ne $format.key "one" }}
-                        {{ partial "resources/data-format-icon.html" (dict "key" $format.key "label" $format.name) }}
-                      {{ end }}
-                      {{ $format.name }}
-                    </h3>
-                    <p>{{ $format.description }}</p>
-                    {{ with $format.why }}<p><em>{{ . }}</em></p>{{ end }}
-                    {{ with $format.docs_link }}
-                      <p><a class="text-link" href="{{ . }}">Read the {{ $format.name }} documentation</a></p>
-                    {{ end }}
-                    {{ if $format.details }}
-                      <button
-                        type="button"
-                        class="data-format-flip__toggle"
-                        aria-expanded="false"
-                        aria-label="More about {{ $format.name }}"
-                        data-flip-toggle
-                      >+</button>
-                    {{ end }}
-                  </div>
-                </div>
-                {{ with $format.details }}
-                  <div class="data-format-flip__face data-format-flip__face--back">
-                    <div class="resource-card__body prose data-format-flip__scroll">
-                      {{ if reflect.IsSlice . }}
-                        <ul class="data-format-detail-list">
-                          {{ range . }}
-                            <li><strong>{{ .label }}</strong>{{ .text }}</li>
-                          {{ end }}
-                        </ul>
-                      {{ else }}
-                        <p>{{ . }}</p>
-                      {{ end }}
-                      <button
-                        type="button"
-                        class="data-format-flip__toggle data-format-flip__toggle--back"
-                        aria-label="Back to {{ $format.name }} overview"
-                        data-flip-toggle
-                      >−</button>
-                    </div>
-                  </div>
-                {{ end }}
-              </div>
-            </div>
-          {{ end }}
-        </div>
-
-        {{ with $.Params.data_format_rule_of_thumb }}
-          <div class="resource-card">
-            <div class="resource-card__body prose">
-              {{ with $.Params.data_format_rule_of_thumb_intro }}<p>{{ . }}</p>{{ end }}
-              <ul class="data-format-rule-list">
-                {{ range . }}<li>{{ . }}</li>{{ end }}
-              </ul>
-            </div>
-          </div>
-        {{ end }}
-      </div>
-    </section>
-  {{ end }}
 {{ end }}

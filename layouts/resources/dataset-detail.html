@@ -71,32 +71,30 @@
   {{ end }}
 
   {{ with .Params.access }}
-    {{ $access := . }}
     {{ $guides := $.Params.access_guides | default dict }}
-    {{ $formats := (site.GetPage "/resources/data").Params.data_formats | default slice }}
     <section id="access-methods" class="section section-band dataset-section">
       <div class="shell page-shell">
         <h2>How to Access the Dataset</h2>
-        <p class="dataset-section-copy">Tutorials for accessing this dataset and the data structures behind each route are below. <a class="text-link" href="{{ "/resources/data/#formats" | relURL }}">Not sure which route to use? Compare data access routes</a>.</p>
+        <p class="dataset-section-copy">Tutorials for accessing this dataset and the data structures behind each route are below. <a class="text-link" href="{{ "/resources/access-routes/" | relURL }}">Not sure which route to use? Compare data access routes</a>.</p>
 
         <ul class="access-method-list">
-          {{ range $key := $access }}
-            {{ $format := index (where $formats "key" $key) 0 }}
+          {{ range $key := . }}
+            {{ $route := partial "resources/access-route.html" $key }}
             <li class="access-method-list__item">
               <div class="access-method-list__heading">
-                {{ if ne $format.key "one" }}
-                  {{ partial "resources/data-format-icon.html" (dict "key" $format.key "label" $format.name) }}
+                {{ if ne $key "one" }}
+                  {{ partial "resources/data-format-icon.html" (dict "key" $key "label" $route.Title) }}
                 {{ end }}
-                <span class="access-method-list__name">{{ $format.name }}</span>
+                <span class="access-method-list__name">{{ $route.Title }}</span>
               </div>
-              <p class="access-method-list__description">{{ $format.short_description | default $format.description }}</p>
+              <p class="access-method-list__description">{{ $route.Params.short_description | default $route.Params.description }}</p>
               <p class="access-method-list__links">
                 {{ if index $guides $key }}
-                  <a class="text-link" href="{{ index $guides $key }}">Guide to access via {{ $format.name }}</a>
+                  <a class="text-link" href="{{ index $guides $key }}">Guide to access via {{ $route.Title }}</a>
                 {{ else }}
-                  <span class="dataset-guide-pending">Guide to access via {{ $format.name }} (coming soon)</span>
+                  <span class="dataset-guide-pending">Guide to access via {{ $route.Title }} (coming soon)</span>
                 {{ end }}
-                <a class="text-link access-method-docs-link" href="{{ "/resources/data/#format-" | relURL }}{{ $format.key }}">More about {{ $format.name }}</a>
+                <a class="text-link access-method-docs-link" href="{{ $route.RelPermalink }}">More about {{ $route.Title }}</a>
               </p>
             </li>
           {{ end }}
