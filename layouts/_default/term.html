@@ -1,11 +1,13 @@
 {{ define "main" }}
-  {{ partial "page-header.html" (dict "page" .) }}
+  {{ $title := partial "resources/term-title.html" . }}
+
+  {{ partial "page-header.html" (dict "page" . "title" $title) }}
 
   <section class="section section-band dataset-section">
     <div class="shell page-shell">
       {{ partial "resources/resource-grid.html" (dict
         "pages" .Pages
-        "empty" (printf "No %s are listed yet." (lower .Title))
+        "empty" (printf "Nothing is tagged %s yet." $title)
       ) }}
     </div>
   </section>

@@ -1,0 +1,17 @@
+{{- /* A grid of resource cards, or an empty-state message when there are none.
+
+       Takes (dict "pages" <page collection> "empty" "<message>").
+
+       Shared by the resource index, the section list pages and the taxonomy
+       term pages, so a filter combination matching nothing reads the same
+       wherever it happens. An empty collection renders no grid container at
+       all, rather than an empty one. */ -}}
+{{- with .pages }}
+  <div class="resource-cards">
+    {{- range . }}
+      {{ partial "resources/resource-card.html" (dict "page" .) }}
+    {{- end }}
+  </div>
+{{- else }}
+  <p class="resource-grid__empty">{{ .empty }}</p>
+{{- end -}}

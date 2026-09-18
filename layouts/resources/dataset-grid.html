@@ -5,11 +5,10 @@
 
   <section class="section section-band dataset-section">
     <div class="shell page-shell">
-      <div class="resource-cards">
-        {{ range .Pages }}
-          {{ partial "resources/resource-card.html" (dict "page" .) }}
-        {{ end }}
-      </div>
+      {{ partial "resources/resource-grid.html" (dict
+        "pages" .Pages
+        "empty" "No datasets are listed yet."
+      ) }}
 
       {{ with .Params.data_format_intro }}
         <p class="dataset-section-copy">{{ . }}</p>

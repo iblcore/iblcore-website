@@ -1,0 +1,13 @@
+{{- /* The display name of one taxonomy term page.
+
+       Takes the term page and returns a string.
+
+       Hugo titles a term from the term itself, title-casing every word, which
+       turns "pre-process" into "Pre-Process" and "dandi" into "Dandi". Access
+       terms name a resource whose own page holds the real name; every other
+       term is the vocabulary word, capitalised once. */ -}}
+{{- $title := strings.FirstUpper .Data.Term -}}
+{{- if eq .Data.Singular "access" -}}
+  {{- $title = (partial "resources/access-route.html" .Data.Term).Title -}}
+{{- end -}}
+{{- return $title -}}

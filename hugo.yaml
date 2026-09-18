@@ -12,12 +12,9 @@ params:
     - "Open science partners"
     - "Research funders"
 
-# Declaring any taxonomy replaces Hugo's defaults, so tag and category are
-# restated here to keep /tags/ and /categories/, which
-# scripts/check-page-layout.mjs visits. No content uses either.
+# Declaring any taxonomy replaces Hugo's defaults, so Hugo's own tag and
+# category are dropped here. No content used either.
 taxonomies:
-  tag: tags
-  category: categories
   modality: modality
   stage: stage
   access: access

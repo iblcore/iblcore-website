@@ -10,7 +10,8 @@ export async function checkPageLayout(browser, origin) {
       for (const route of [
         "/about/team/", "/about/strategic-priorities/", "/about/history/",
         "/about/support/", "/about/faq/", "/events/", "/projects/",
-        "/new-partner-projects/", "/publications/", "/news/", "/categories/",
+        "/new-partner-projects/", "/publications/", "/news/", "/resources/stages/",
+        "/resources/stages/analyse/", "/resources/tools/",
       ]) {
         await page.goto(`${origin}${route}`, { waitUntil: "networkidle" });
         assert.equal(await page.locator("h1").count(), 1, `${route}: one page title`);
