@@ -6,9 +6,7 @@
 
   {{ partial "page-header.html" (dict "page" . "intro" "") }}
 
-  {{ if .Params.show_resources_toggle }}
-    {{ partial "resources-toggle.html" (dict "active" .Params.resources_toggle_active) }}
-  {{ else if gt (len $sectionNav) 1 }}
+  {{ if gt (len $sectionNav) 1 }}
     <section class="page-controls" aria-label="Jump to section">
       <div class="shell page-shell page-controls__inner">
         <nav class="segmented-control" aria-label="Page sections">

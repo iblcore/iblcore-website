@@ -2,9 +2,6 @@
 title: "Resources"
 description: "Data, modalities, analysis tools, and visualisation resources."
 lead: "This landing page will gather the full resource catalog described in the sitemap."
-draft: true
-cascade:
-  draft: true
 ---
 
 ## Data

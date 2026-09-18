@@ -1,8 +1,6 @@
 {{ define "main" }}
   {{ partial "page-header.html" (dict "page" . "intro" "") }}
 
-  {{ partial "resources-toggle.html" (dict "active" .Params.resources_toggle_active) }}
-
   {{ partial "resources/section-intro.html" (dict "page" .) }}
 
   <section class="section section-band dataset-section">
