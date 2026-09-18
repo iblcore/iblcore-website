@@ -14,8 +14,19 @@
 {{- $stage := $page.Params.stage | default slice -}}
 {{- $access := $page.Params.access | default slice -}}
 {{- $comingSoon := eq ($page.Params.status | default "released") "coming-soon" -}}
-{{- $haystack := slice $page.Title $page.Params.description $page.Params.maintainer -}}
-{{- $haystack = $haystack | append $modality | append $stage | append (index $typeLabels $type) -}}
+{{- /* Every element is flattened to a string before joining: appending a
+       front matter list to a slice drops it silently, which left the tags out
+       of the haystack and made a search for a modality miss every resource
+       that only carried it as a tag. */ -}}
+{{- $haystack := delimit (slice
+  $page.Title
+  $page.Params.description
+  ($page.Params.maintainer | default "")
+  (delimit $modality " ")
+  (delimit $stage " ")
+  (delimit $access " ")
+  (index $typeLabels $type)
+) " " -}}
 <article
   class="resource-card{{ if $comingSoon }} resource-card--coming-soon{{ end }}"
   data-resource-card
@@ -23,7 +34,7 @@
   data-modality="{{ delimit $modality " " }}"
   data-stage="{{ delimit $stage " " }}"
   data-access="{{ delimit $access " " }}"
-  data-search="{{ lower (delimit $haystack " ") }}"
+  data-search="{{ lower $haystack }}"
 >
   <div class="resource-card__body resource-card__body--stack">
     <p class="resource-type-badge">{{ index $typeLabels $type }}</p>
