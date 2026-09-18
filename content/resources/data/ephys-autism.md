@@ -4,9 +4,15 @@ description: "Neuropixels electrophysiology data from autism model mice performi
 lead: "This page will gather access instructions and tutorials for the Ephys Autism dataset."
 weight: 5
 
-access_methods:
-  - format: "one"
-    guide_link: ""
+modality:
+  - "neuropixels"
+  - "behavior"
+stage:
+  - "explore"
+  - "analyse"
+
+access:
+  - "one"
 ---
 
 ## Placeholder

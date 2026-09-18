@@ -4,11 +4,15 @@ description: "Behavioral data from mice learning and performing IBL's standardiz
 lead: "This page will gather access instructions and tutorials for the Behavior dataset."
 weight: 3
 
-access_methods:
-  - format: "one"
-    guide_link: ""
-  - format: "dandi"
-    guide_link: ""
+modality:
+  - "behavior"
+stage:
+  - "explore"
+  - "analyse"
+
+access:
+  - "one"
+  - "dandi"
 ---
 
 ## Placeholder

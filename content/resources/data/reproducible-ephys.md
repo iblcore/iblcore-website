@@ -4,9 +4,15 @@ description: "A multi-lab Neuropixels dataset testing the reproducibility of ele
 lead: "This page will gather access instructions and tutorials for the Reproducible Ephys dataset."
 weight: 2
 
-access_methods:
-  - format: "one"
-    guide_link: ""
+modality:
+  - "neuropixels"
+  - "behavior"
+stage:
+  - "explore"
+  - "analyse"
+
+access:
+  - "one"
 ---
 
 ## Placeholder

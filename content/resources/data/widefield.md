@@ -4,9 +4,14 @@ description: "Widefield calcium imaging data collected across the IBL lab networ
 lead: "This page will gather access instructions and tutorials for the IBL Widefield dataset."
 weight: 4
 
-access_methods:
-  - format: "one"
-    guide_link: ""
+modality:
+  - "widefield"
+stage:
+  - "explore"
+  - "analyse"
+
+access:
+  - "one"
 ---
 
 ## Placeholder

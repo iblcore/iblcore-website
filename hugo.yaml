@@ -12,6 +12,29 @@ params:
     - "Open science partners"
     - "Research funders"
 
+# Declaring any taxonomy replaces Hugo's defaults, so tag and category are
+# restated here to keep /tags/ and /categories/, which
+# scripts/check-page-layout.mjs visits. No content uses either.
+taxonomies:
+  tag: tags
+  category: categories
+  modality: modality
+  stage: stage
+  access: access
+
+# The taxonomy plural doubles as the front matter key, so the vocabularies are
+# authored as `modality:`, `stage:` and `access:`. Permalinks move the generated
+# pages under /resources/, where the content defining them lives.
+permalinks:
+  taxonomy:
+    modality: /resources/modalities/
+    stage: /resources/stages/
+    access: /resources/access-routes/
+  term:
+    modality: /resources/modalities/:slug/
+    stage: /resources/stages/:slug/
+    access: /resources/access-routes/:slug/
+
 markup:
   goldmark:
     renderer:

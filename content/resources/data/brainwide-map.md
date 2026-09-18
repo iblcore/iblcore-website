@@ -21,11 +21,19 @@ explore:
   link: "https://viz.internationalbrainlab.org"
   link_text: "Open the IBL Data Explorer"
 
-access_methods:
-  - format: "one"
-    guide_link: "https://int-brain-lab.github.io/iblenv/notebooks_external/data_release_brainwidemap.html"
-  - format: "dandi"
-    guide_link: ""
-  - format: "ibl-ai-agent"
-    guide_link: ""
+modality:
+  - "neuropixels"
+  - "behavior"
+  - "video"
+stage:
+  - "explore"
+  - "analyse"
+
+access:
+  - "one"
+  - "dandi"
+  - "ibl-ai-agent"
+
+access_guides:
+  one: "https://int-brain-lab.github.io/iblenv/notebooks_external/data_release_brainwidemap.html"
 ---
