@@ -1,0 +1,59 @@
+{{- /* Filter chips for a collection of resources or workflows.
+
+       Takes (dict "pages" <page collection> "sections" <section pages>).
+
+       Every chip is an ordinary link to the taxonomy term or section page it
+       filters to, so a filtered view has a URL and the bar works with no
+       JavaScript. The script in resource-filter.js reads the data attributes
+       and filters in place instead.
+
+       Chips are built from the pages passed in, not from the whole site, so a
+       term nothing in this collection uses is not offered. A row with no
+       chips renders nothing rather than an empty heading. */ -}}
+{{- $pages := .pages -}}
+{{- $groups := slice
+  (dict "key" "modality" "label" "Modality")
+  (dict "key" "stage" "label" "Stage")
+  (dict "key" "access" "label" "Access route")
+-}}
+<div class="resource-filters" data-resource-filters>
+  {{- with .sections }}
+    <div class="resource-filters__row">
+      <p class="resource-filters__label" id="filter-label-type">Type</p>
+      <ul class="resource-filters__chips" aria-labelledby="filter-label-type">
+        {{- range . }}
+          {{- if .Pages }}
+            <li>
+              <a class="resource-chip" href="{{ .RelPermalink }}"
+                 data-filter-group="type"
+                 data-filter-value="{{ path.Base .RelPermalink }}">{{ .Title }}</a>
+            </li>
+          {{- end }}
+        {{- end }}
+      </ul>
+    </div>
+  {{- end }}
+
+  {{- range $group := $groups }}
+    {{- $termPages := dict }}
+    {{- range $page := $pages }}
+      {{- range $page.GetTerms $group.key }}
+        {{- $termPages = merge $termPages (dict .Data.Term .) }}
+      {{- end }}
+    {{- end }}
+    {{- with $termPages }}
+      <div class="resource-filters__row">
+        <p class="resource-filters__label" id="filter-label-{{ $group.key }}">{{ $group.label }}</p>
+        <ul class="resource-filters__chips" aria-labelledby="filter-label-{{ $group.key }}">
+          {{- range $term, $termPage := . }}
+            <li>
+              <a class="resource-chip" href="{{ $termPage.RelPermalink }}"
+                 data-filter-group="{{ $group.key }}"
+                 data-filter-value="{{ $term }}">{{ partial "resources/term-title.html" $termPage }}</a>
+            </li>
+          {{- end }}
+        </ul>
+      </div>
+    {{- end }}
+  {{- end }}
+</div>

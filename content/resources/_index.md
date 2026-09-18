@@ -1,30 +1,5 @@
 ---
 title: "Resources"
-description: "Data, modalities, analysis tools, and visualisation resources."
-lead: "This landing page will gather the full resource catalog described in the sitemap."
+description: "Datasets, tools, hardware and protocols from IBL, in one searchable index."
+lead: "Everything IBL builds and releases, in one place. Filter by modality, by the stage of work you are at, or by how you want to get the data."
 ---
-
-## Data
-
-- Brainwide map
-- Other flagship datasets
-- Personal project datasets
-
-## Modalities
-
-- Neuropixels
-- Mesoscope
-- Fiberphotometry
-- Widefield
-- Behavior
-- Video
-
-## Visualisation
-
-- Datoviz
-- Website renderer
-
-## Analysis
-
-- Brainbox
-- Model of Zoe

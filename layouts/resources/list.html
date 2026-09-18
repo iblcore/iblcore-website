@@ -1,0 +1,32 @@
+{{ define "main" }}
+  {{- /* Every resource in the four subsections, rendered at build time. The
+         filter chips and the search box narrow what is already on the page;
+         with no JavaScript the list stays complete and the chips are links. */ -}}
+  {{ $sections := slice }}
+  {{ $resources := slice }}
+  {{ range $slug := slice "data" "tools" "hardware" "protocols" }}
+    {{ with site.GetPage (printf "/resources/%s" $slug) }}
+      {{ $sections = $sections | append . }}
+      {{ $resources = $resources | append .Pages }}
+    {{ end }}
+  {{ end }}
+
+  {{ partial "page-header.html" (dict "page" .) }}
+
+  <section class="section section-band dataset-section">
+    <div class="shell page-shell">
+      <form class="resource-search" role="search" data-resource-search hidden>
+        <label class="resource-search__label" for="resource-search-input">Search resources</label>
+        <input class="resource-search__input" id="resource-search-input" type="search"
+               placeholder="Search by name, description or tag" autocomplete="off">
+      </form>
+
+      {{ partial "resources/filter-bar.html" (dict "pages" $resources "sections" $sections) }}
+
+      {{ partial "resources/resource-grid.html" (dict
+        "pages" $resources
+        "empty" "No resources match these filters."
+      ) }}
+    </div>
+  </section>
+{{ end }}
