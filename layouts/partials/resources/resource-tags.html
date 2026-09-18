@@ -1,0 +1,21 @@
+{{- /* Modality and stage terms of a resource, as links to their taxonomy pages.
+       Shared by the resource card and both detail templates. */ -}}
+{{- $page := .page -}}
+{{- $terms := slice -}}
+{{- range $taxonomy := slice "modality" "stage" -}}
+  {{- range $page.GetTerms $taxonomy -}}
+    {{- $terms = $terms | append (dict "taxonomy" $taxonomy "page" .) -}}
+  {{- end -}}
+{{- end -}}
+{{- with $terms }}
+  <ul class="resource-tags" aria-label="Topics">
+    {{- range . }}
+      <li>
+        <a class="resource-tag resource-tag--{{ .taxonomy }}"
+           href="{{ .page.RelPermalink }}"
+           data-filter-group="{{ .taxonomy }}"
+           data-filter-value="{{ .page.Data.Term }}">{{ .page.LinkTitle }}</a>
+      </li>
+    {{- end }}
+  </ul>
+{{- end -}}

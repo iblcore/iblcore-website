@@ -4,6 +4,9 @@ description: "Datasets and access paths."
 lead: "Browse the datasets IBL-Core has released, and see what's coming next."
 layout: "dataset-grid"
 
+cascade:
+  layout: "dataset-detail"
+
 data_format_intro: "You can access IBL's released datasets through ONE, DANDI & NWB, or the IBL AI Agent — not every dataset is available through every route. Open a dataset's own page for step-by-step guides to the routes available for it."
 
 data_format_rule_of_thumb_intro: "When more than one route is available, here's how to choose:"

@@ -1,0 +1,13 @@
+{{ define "main" }}
+  {{ partial "page-header.html" (dict "page" .) }}
+
+  <section class="section section-band dataset-section">
+    <div class="shell page-shell">
+      <ul class="resource-section-list">
+        {{ range .Pages }}
+          <li><a class="text-link" href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+        {{ end }}
+      </ul>
+    </div>
+  </section>
+{{ end }}

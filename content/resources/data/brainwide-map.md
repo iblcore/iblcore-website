@@ -1,7 +1,6 @@
 ---
 title: "Brainwide Map"
 description: "IBL's flagship dataset: 699 Neuropixels insertions across 241 brain areas during decision-making."
-layout: "dataset-detail"
 weight: 1
 
 project:
