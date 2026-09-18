@@ -59,3 +59,73 @@ export async function checkResourceIndex(browser, origin) {
 
   console.log("Resource index check passed (filters, search, and no-script fallback).");
 }
+
+// Text the same colour as what it sits on is invisible but passes every
+// behavioural check: the markup is correct and Playwright still reports it
+// visible with a real bounding box. The portal's sections sit on a dark band
+// while its cards are white, so a rule written for one surface disappears on
+// the other. Measure contrast instead of trusting either.
+const PORTAL_ROUTES = [
+  "/resources/", "/resources/workflows/", "/resources/workflows/explore-ibl-data/",
+  "/resources/data/", "/resources/data/brainwide-map/", "/resources/tools/",
+  "/resources/tools/alyx/", "/resources/hardware/", "/resources/stages/",
+  "/resources/stages/analyse/", "/resources/modalities/neuropixels/",
+  "/resources/access-routes/dandi/",
+];
+
+// WCAG relative luminance; 3:1 is the large-text floor, so anything below it is
+// a genuine defect rather than a borderline choice.
+const MIN_CONTRAST = 3;
+
+export async function checkResourceContrast(browser, origin) {
+  const page = await browser.newPage();
+  try {
+    for (const route of PORTAL_ROUTES) {
+      await page.goto(`${origin}${route}`, { waitUntil: "networkidle" });
+      const failures = await page.evaluate((min) => {
+        const parse = (colour) => (colour.match(/[\d.]+/g) || []).slice(0, 3).map(Number);
+        const luminance = ([r, g, b]) => {
+          const channel = (c) => {
+            const v = c / 255;
+            return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+          };
+          return 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
+        };
+        const backgroundOf = (element) => {
+          for (let node = element; node; node = node.parentElement) {
+            const background = getComputedStyle(node).backgroundColor;
+            if (background && !background.startsWith("rgba(0, 0, 0, 0)")) return parse(background);
+          }
+          return [255, 255, 255];
+        };
+        return [...document.querySelectorAll("main *")]
+          .filter((el) => [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()))
+          .filter((el) => el.getBoundingClientRect().width > 0)
+          .map((el) => {
+            const [lighter, darker] = [
+              luminance(parse(getComputedStyle(el).color)),
+              luminance(backgroundOf(el)),
+            ].sort((a, b) => b - a);
+            return {
+              ratio: (lighter + 0.05) / (darker + 0.05),
+              where: el.className || el.tagName,
+              text: el.textContent.trim().slice(0, 40),
+            };
+          })
+          .filter((row) => row.ratio < min);
+      }, MIN_CONTRAST);
+
+      assert.equal(
+        failures.length,
+        0,
+        `${route}: unreadable text — ${failures
+          .map((f) => `"${f.text}" (${f.where}, ${f.ratio.toFixed(2)}:1)`)
+          .join("; ")}`,
+      );
+    }
+  } finally {
+    await page.close();
+  }
+
+  console.log(`Resource contrast check passed (${PORTAL_ROUTES.length} pages).`);
+}

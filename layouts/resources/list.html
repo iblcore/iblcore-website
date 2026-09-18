@@ -21,6 +21,10 @@
                placeholder="Search by name, description or tag" autocomplete="off">
       </form>
 
+      {{ partial "resources/workflows-band.html" (dict
+        "workflows" (site.GetPage "/resources/workflows").Pages
+      ) }}
+
       {{ partial "resources/filter-bar.html" (dict "pages" $resources "sections" $sections) }}
 
       <p class="visually-hidden" aria-live="polite" data-resource-status></p>

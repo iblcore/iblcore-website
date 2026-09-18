@@ -14,7 +14,7 @@
         <a class="resource-tag resource-tag--{{ .taxonomy }}"
            href="{{ .page.RelPermalink }}"
            data-filter-group="{{ .taxonomy }}"
-           data-filter-value="{{ .page.Data.Term }}">{{ .page.LinkTitle }}</a>
+           data-filter-value="{{ .page.Data.Term }}">{{ partial "resources/term-title.html" .page }}</a>
       </li>
     {{- end }}
   </ul>

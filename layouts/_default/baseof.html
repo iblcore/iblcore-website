@@ -46,7 +46,10 @@
     {{ if eq .Section "events" }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/events.css") }}
     {{ end }}
-    {{ if eq .Section "resources" }}
+    {{- /* Taxonomy and term pages are not in the resources section: Hugo puts
+           them in a section named after the taxonomy. Match the URL instead, so
+           /resources/modalities/neuropixels/ is styled like the rest. */ -}}
+    {{ if hasPrefix .RelPermalink "/resources/" }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/components/resource-index.css") }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/resources.css") }}
     {{ end }}
@@ -89,7 +92,7 @@
     {{ end }}
     {{- /* The index script imports its predicate, so it is bundled rather than
            minified: minify renames each file and would break the import. */ -}}
-    {{ if eq .RelPermalink "/resources/" }}
+    {{ if in (slice "/resources/" "/resources/workflows/") .RelPermalink }}
       {{ $filterJS := resources.Get "js/resource-filter.js" | js.Build (dict "minify" true "target" "es2018") }}
       {{ if $fingerprintAssets }}
         {{ $filterJS = $filterJS | fingerprint }}

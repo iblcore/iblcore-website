@@ -2,19 +2,14 @@
 
        Takes a step map and returns a slice of pages.
 
-       A step's `resource` is a single page path or a list of them, so a step
-       like "choose an access route" can show several cards under one heading.
        A path that resolves to nothing fails the build: a workflow with a
        missing step is worse than no workflow. */ -}}
-{{- $paths := .resource -}}
-{{- if not (reflect.IsSlice $paths) -}}
-  {{- $paths = slice $paths -}}
-{{- end -}}
+{{- $step := . -}}
 {{- $pages := slice -}}
-{{- range $path := $paths -}}
+{{- range $path := partial "resources/step-paths.html" $step -}}
   {{- $page := site.GetPage $path -}}
   {{- if not $page -}}
-    {{- errorf "workflow step %q refers to %q, which is not a resource page" $.title $path -}}
+    {{- errorf "workflow step %q refers to %q, which is not a resource page" $step.title $path -}}
   {{- end -}}
   {{- $pages = $pages | append $page -}}
 {{- end -}}

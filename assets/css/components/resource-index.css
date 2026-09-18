@@ -42,15 +42,27 @@
   z-index: 1;
   display: inline-block;
   padding: 0.15rem var(--space-xs);
-  border: 1px solid var(--color-accent-tint-20);
+  border: 1px solid var(--color-brand-light-tint-40);
   border-radius: var(--radius-sm);
-  color: var(--color-accent);
+  color: var(--color-text-on-dark);
   font-size: 0.72rem;
   text-decoration: none;
 }
 
 .resource-tag:hover,
 .resource-tag:focus-visible {
+  border-color: var(--color-brand-light);
+  background: var(--color-brand-light-tint-15);
+}
+
+/* Inside a card the surface is white, so the tag takes the card's colours. */
+.resource-card .resource-tag {
+  border-color: var(--color-accent-tint-20);
+  color: var(--color-accent);
+}
+
+.resource-card .resource-tag:hover,
+.resource-card .resource-tag:focus-visible {
   border-color: var(--color-accent);
   background: var(--color-accent-tint-10);
 }
@@ -287,4 +299,27 @@
 
 .workflow-step__note li + li {
   margin-top: var(--space-2xs);
+}
+
+.workflows-band {
+  margin-bottom: var(--space-2xl);
+  padding-bottom: var(--space-2xl);
+  border-bottom: 1px solid var(--color-brand-light-tint-25);
+}
+
+.workflows-band__title {
+  margin: 0 0 var(--space-2xs);
+  color: var(--color-surface);
+  font-size: var(--font-size-prose-heading);
+  font-weight: 400;
+}
+
+.workflows-band__lead {
+  margin: 0 0 var(--space-md);
+  color: var(--color-text-on-dark);
+  font-size: var(--font-size-prose-copy);
+}
+
+.workflow-backlinks h2 {
+  font-size: var(--font-size-prose-heading);
 }

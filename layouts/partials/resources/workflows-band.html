@@ -1,0 +1,19 @@
+{{- /* The workflows band above the resource grid.
+
+       Takes (dict "workflows" <page collection>).
+
+       Takes its list as a parameter rather than reading the section, so
+       capping how many are shown and adding a "See all workflows" link later
+       is a change inside this partial. Renders nothing at all when empty:
+       there is no workflow to show until one is written. */ -}}
+{{- with .workflows }}
+  <div class="workflows-band">
+    <h2 class="workflows-band__title">Start with a workflow</h2>
+    <p class="workflows-band__lead">A guided path through the resources below, from a goal to the tools that get you there.</p>
+    <div class="resource-cards">
+      {{- range . }}
+        {{ partial "resources/resource-card.html" (dict "page" .) }}
+      {{- end }}
+    </div>
+  </div>
+{{- end -}}

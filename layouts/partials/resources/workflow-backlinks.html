@@ -1,0 +1,30 @@
+{{- /* The workflows that use this resource, derived by scanning workflow steps
+       rather than authored on the resource. Renders nothing when there are
+       none, so a resource no workflow uses shows no empty heading.
+
+       Takes (dict "page" <resource page>). */ -}}
+{{- $page := .page -}}
+{{- $workflows := slice -}}
+{{- range $workflow := (site.GetPage "/resources/workflows").Pages -}}
+  {{- range $step := $workflow.Params.steps -}}
+    {{- range $path := partial "resources/step-paths.html" $step -}}
+      {{- with site.GetPage $path -}}
+        {{- if eq .RelPermalink $page.RelPermalink -}}
+          {{- $workflows = $workflows | append $workflow -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- with (uniq $workflows) }}
+  <section class="section section-band dataset-section workflow-backlinks">
+    <div class="shell page-shell">
+      <h2>Used in these workflows</h2>
+      <ul class="resource-section-list">
+        {{- range . }}
+          <li><a class="text-link" href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+        {{- end }}
+      </ul>
+    </div>
+  </section>
+{{- end -}}

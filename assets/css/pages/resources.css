@@ -174,7 +174,12 @@
 
 .dataset-guide-pending {
   margin: 0 0 var(--space-sm);
-  color: var(--color-accent-tint-70);
+  color: var(--color-text-on-dark-muted);
+}
+
+.access-method-list__links .text-link {
+  color: var(--color-brand-light);
+  text-decoration: underline;
 }
 
 @media (max-width: 520px) {

@@ -4,7 +4,7 @@ import path from "node:path";
 import process from "node:process";
 import { chromium } from "playwright";
 import { checkPageLayout } from "./check-page-layout.mjs";
-import { checkResourceIndex } from "./check-resource-index.mjs";
+import { checkResourceIndex, checkResourceContrast } from "./check-resource-index.mjs";
 
 const publicRoot = path.resolve("public");
 const chromeCandidates = process.platform === "darwin"
@@ -297,6 +297,7 @@ try {
   await linkedEventPage.close();
   await checkPageLayout(browser, origin);
   await checkResourceIndex(browser, origin);
+  await checkResourceContrast(browser, origin);
 } finally {
   await browser.close();
   await new Promise((resolve, reject) => server.close((error) => (error ? reject(error) : resolve())));
