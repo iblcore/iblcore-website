@@ -1,0 +1,91 @@
+/* Components shared across the resource portal: the card's own furniture, the
+   taxonomy tags, and the section lists. Dataset-page styling stays in
+   pages/resources.css. */
+
+.resource-type-badge {
+  margin: 0 0 var(--space-2xs);
+  color: var(--color-accent-tint-70);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.resource-card__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.resource-card__title a::after {
+  position: absolute;
+  content: "";
+  inset: 0;
+}
+
+.resource-card {
+  position: relative;
+}
+
+.resource-tags {
+  display: flex;
+  margin: var(--space-sm) 0 0;
+  padding: 0;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  list-style: none;
+}
+
+/* The card title's ::after overlay covers the card so the whole surface is
+   clickable; tags sit above it so they stay individually clickable. */
+.resource-tag {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 0.15rem var(--space-xs);
+  border: 1px solid var(--color-accent-tint-20);
+  border-radius: var(--radius-sm);
+  color: var(--color-accent);
+  font-size: 0.72rem;
+  text-decoration: none;
+}
+
+.resource-tag:hover,
+.resource-tag:focus-visible {
+  border-color: var(--color-accent);
+  background: var(--color-accent-tint-10);
+}
+
+.resource-card__maintainer,
+.resource-maintainer {
+  color: var(--color-accent-tint-70);
+  font-size: 0.75rem;
+}
+
+.resource-card__maintainer {
+  margin: var(--space-xs) 0 0;
+}
+
+.resource-card--coming-soon {
+  border-style: dashed;
+  box-shadow: none;
+  opacity: 0.72;
+}
+
+.resource-card__status {
+  margin: var(--space-xs) 0 0;
+  color: var(--color-accent-tint-70);
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
+.resource-links,
+.resource-section-list {
+  margin: var(--space-md) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resource-links li + li,
+.resource-section-list li + li {
+  margin-top: var(--space-xs);
+}

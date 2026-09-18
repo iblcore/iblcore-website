@@ -1,0 +1,54 @@
+{{- /* One resource rendered as a card. Shared by the resource index, the
+       section list pages, the taxonomy term pages and the workflow steps.
+
+       Takes (dict "page" <resource page>).
+
+       The card carries its terms as data attributes so the filter script reads
+       exactly the values the taxonomies use, and a data-search haystack so the
+       same script can match text without a generated index. Both are part of
+       the card's contract, not of the script. */ -}}
+{{- $page := .page -}}
+{{- $typeLabels := dict "data" "Dataset" "tools" "Tool" "hardware" "Hardware" "protocols" "Protocol" -}}
+{{- $type := index (split (strings.TrimPrefix "/resources/" $page.RelPermalink) "/") 0 -}}
+{{- $modality := $page.Params.modality | default slice -}}
+{{- $stage := $page.Params.stage | default slice -}}
+{{- $access := $page.Params.access | default slice -}}
+{{- $comingSoon := eq ($page.Params.status | default "released") "coming-soon" -}}
+{{- $haystack := slice $page.Title $page.Params.description $page.Params.maintainer -}}
+{{- $haystack = $haystack | append $modality | append $stage | append (index $typeLabels $type) -}}
+<article
+  class="resource-card{{ if $comingSoon }} resource-card--coming-soon{{ end }}"
+  data-resource-card
+  data-type="{{ $type }}"
+  data-modality="{{ delimit $modality " " }}"
+  data-stage="{{ delimit $stage " " }}"
+  data-access="{{ delimit $access " " }}"
+  data-search="{{ lower (delimit $haystack " ") }}"
+>
+  <div class="resource-card__body resource-card__body--stack">
+    <p class="resource-type-badge">{{ index $typeLabels $type }}</p>
+    <h3 class="resource-card__title">
+      <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
+    </h3>
+    <p>{{ $page.Params.description }}</p>
+
+    {{ partial "resources/resource-tags.html" (dict "page" $page) }}
+
+    {{ if $comingSoon }}
+      <p class="resource-card__status">Coming soon</p>
+    {{ else }}
+      {{ with $access }}
+        <div class="dataset-format-badges" aria-label="Available via">
+          {{ range . }}
+            {{ partial "resources/data-format-icon.html" (dict "key" .) }}
+          {{ end }}
+        </div>
+      {{ end }}
+      {{ with $page.Params.maintainer }}
+        <p class="resource-card__maintainer">Maintained by {{ . }}</p>
+      {{ end }}
+    {{ end }}
+
+    <p class="resource-card__cta" aria-hidden="true">Learn more →</p>
+  </div>
+</article>

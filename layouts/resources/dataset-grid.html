@@ -7,21 +7,7 @@
     <div class="shell page-shell">
       <div class="resource-cards">
         {{ range .Pages }}
-          {{ $badges := .Params.access | default slice }}
-          <a class="resource-card{{ if .Params.placeholder }} resource-card--placeholder{{ end }}" href="{{ .RelPermalink }}">
-            <div class="resource-card__body resource-card__body--stack">
-              <h3 class="resource-card__title">{{ .Title }}</h3>
-              <p>{{ .Params.description }}</p>
-              {{ with $badges }}
-                <div class="dataset-format-badges" aria-label="Available via">
-                  {{ range . }}
-                    {{ partial "resources/data-format-icon.html" (dict "key" .) }}
-                  {{ end }}
-                </div>
-              {{ end }}
-              <p class="resource-card__cta">{{ if .Params.placeholder }}See ongoing projects →{{ else }}Learn more →{{ end }}</p>
-            </div>
-          </a>
+          {{ partial "resources/resource-card.html" (dict "page" .) }}
         {{ end }}
       </div>
 

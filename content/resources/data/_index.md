@@ -1,7 +1,7 @@
 ---
 title: "Datasets"
 description: "Datasets and access paths."
-lead: "Browse the datasets IBL-Core has released, and see what's coming next."
+lead: "Browse the datasets IBL-Core has released. More are on the way: follow their progress through [IBL research projects](/projects/#ibl-research-projects) and [new partner projects](/new-partner-projects/)."
 layout: "dataset-grid"
 
 cascade:

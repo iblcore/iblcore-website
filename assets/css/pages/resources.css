@@ -29,13 +29,8 @@
   box-shadow: 0 0.65rem 1.4rem var(--color-shadow-panel);
 }
 
-a.resource-card {
-  display: block;
-  text-decoration: none;
-}
-
-a.resource-card:hover,
-a.resource-card:focus-visible {
+.resource-card:hover,
+.resource-card:focus-within {
   box-shadow: 0 0.65rem 1.4rem var(--color-shadow-panel-strong);
 }
 
@@ -222,8 +217,8 @@ a.resource-card:focus-visible {
   padding-top: var(--space-md);
 }
 
-a.resource-card:hover .resource-card__cta,
-a.resource-card:focus-visible .resource-card__cta {
+.resource-card:hover .resource-card__cta,
+.resource-card:focus-within .resource-card__cta {
   text-decoration: underline;
 }
 

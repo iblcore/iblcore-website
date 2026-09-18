@@ -47,6 +47,7 @@
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/events.css") }}
     {{ end }}
     {{ if eq .Section "resources" }}
+      {{ $pageStyles = $pageStyles | append (resources.Get "css/components/resource-index.css") }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/resources.css") }}
     {{ end }}
     {{ if .IsHome }}
