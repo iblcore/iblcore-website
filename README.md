@@ -70,6 +70,13 @@ workflow.
 page scope, content hierarchy, Hugo structure, and migration priorities.
 [docs/brainstorming.md](docs/brainstorming.md) provides strategy context.
 
+`/resources/` is a registry rather than a set of hand-written pages: each
+dataset, tool, hardware item and protocol is one content file under
+`content/resources/`, which renders as a card, as its own page, and as a step
+in a workflow. Modality, stage and access-route taxonomies generate the
+filtered views, and `scripts/check-resources-data.mjs` validates the front
+matter behind them. See [docs/sitemap-v1.md](docs/sitemap-v1.md) section 2.3.
+
 The site exposes a curated agent-readable index at `/llms.txt`. See
 [Agent-readable website content](docs/agent-readable-content.md) for its scope
 and validation policy.

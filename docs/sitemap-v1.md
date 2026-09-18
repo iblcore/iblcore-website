@@ -7,7 +7,7 @@ Intended stack: Hugo static site generator, modern vanilla HTML/CSS, minimal van
 
 1. Home (`/`)
 2. About (`/about/team/`; `/about/` redirects here)
-3. Resources (`/#resources`)
+3. Resources (`/resources/`)
 4. Projects (`/projects/`)
 5. Publications (`/publications/`)
 6. Events (`/events/`)
@@ -45,28 +45,27 @@ Notes:
 
 ### 2.3 Resources (`/resources/`)
 
-- Data
-  - Brainwide map — within it, access + colab tutorials
-  - Other flagship datasets
-  - Personal project datasets
-- Modalities
-  - Neuropixels
-    - Chronic Neuropixels
-    - Spike sorting
-    - Surgical Protocols
-    - IBL ephys rig
-  - Mesoscope
-  - Fiberphotometry
-  - Widefield
-  - Behavior
-    - IBL behaviour rig
-  - Video
-- Analysis
-  - Brainbox
-  - Model of Zoe
-- Visualisation
-  - Datoviz
-  - Website renderer
+A registry: every resource is one content file that renders as a card, as its
+own page, and as a step in a workflow.
+
+- Resource types are content subsections, and each section page doubles as the
+  type filter:
+  - Datasets (`/resources/data/`)
+  - Tools (`/resources/tools/`), including the data access routes
+  - Hardware (`/resources/hardware/`)
+  - Protocols (`/resources/protocols/`)
+- Three taxonomies group resources across types, and each term page is a
+  shareable filtered view:
+  - `modality` — neuropixels, mesoscope, fibre-photometry, widefield, behavior, video
+  - `stage` — collect, explore, pre-process, analyse, benchmark, visualise
+  - `access` — one, dandi, ibl-ai-agent
+- Workflows (`/resources/workflows/`) are goal-oriented paths whose steps name
+  existing resources. They render in their own band above the resource grid.
+- Benchmarking is not a page or a type: it is the `benchmark` term of `stage`,
+  so `/resources/stages/benchmark/` is its landing page.
+- `/resources/` lists every resource with search and filter chips. Filtering is
+  client-side over the fully rendered grid, so the page works without
+  JavaScript and every chip is a link to its term or section page.
 
 ### 2.4 Projects (`/projects/`)
 
@@ -162,10 +161,21 @@ content/
     support.md
   resources/
     _index.md
-    data.md
-    modalities.md
-    analysis.md
-    visualisation.md
+    data/
+      _index.md
+      brainwide-map.md
+      ...
+    tools/
+      _index.md
+      one.md
+      ...
+    hardware/
+      _index.md
+    protocols/
+      _index.md
+    workflows/
+      _index.md
+      explore-ibl-data.md
   projects/
     _index.md
   publications/

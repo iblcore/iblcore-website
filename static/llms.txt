@@ -19,7 +19,29 @@ Use the canonical pages below for current public information about IBL-Core.
 
 ## Resources
 
-- [Resources overview](https://iblcore.org/#resources): Public software, data, analysis, and visualisation resources.
+- [Resources](https://iblcore.org/resources/): Searchable index of every IBL dataset, tool, hardware item and protocol, filterable by modality, stage of work, type, and data access route.
+- [Workflows](https://iblcore.org/resources/workflows/): Step-by-step paths through the resources, from a goal to the tools that get you there.
+- [Explore and analyse IBL data](https://iblcore.org/resources/workflows/explore-ibl-data/): Choosing an access route, choosing a dataset, finding sessions, and visualising what you load.
+
+### Datasets
+
+- [Datasets](https://iblcore.org/resources/data/): Every released IBL dataset, with the access routes available for each.
+- [Brainwide Map](https://iblcore.org/resources/data/brainwide-map/): 699 Neuropixels insertions across 241 brain areas during decision-making, with access guides and the data explorer.
+- [Reproducible Ephys](https://iblcore.org/resources/data/reproducible-ephys/): Multi-lab Neuropixels dataset testing the reproducibility of electrophysiology recordings.
+- [Behavior](https://iblcore.org/resources/data/behavior/): Behavioral data from mice learning and performing IBL's standardized visual decision-making task.
+- [Widefield](https://iblcore.org/resources/data/widefield/): Widefield calcium imaging data collected across the IBL lab network.
+- [Ephys Autism](https://iblcore.org/resources/data/ephys-autism/): Neuropixels recordings from autism model mice performing the standardized decision-making task.
+
+### Tools and data access routes
+
+- [Tools](https://iblcore.org/resources/tools/): Software IBL builds and uses, from acquisition to analysis and visualisation.
+- [ONE](https://iblcore.org/resources/tools/one/): IBL's Python API for querying and loading its datasets directly, with full QC and metadata access.
+- [DANDI & NWB](https://iblcore.org/resources/tools/dandi/): IBL datasets packaged as NWB on the DANDI Archive, as stable, citable releases.
+- [IBL-AI-Agent](https://iblcore.org/resources/tools/ibl-ai-agent/): An agent-driven route that downloads a compressed, analysis-ready subset of IBL data from a plain-language description.
+- [Alyx](https://iblcore.org/resources/tools/alyx/): The database of experiment metadata behind IBL's recordings, which ONE queries to find sessions.
+- [IBL Sorter](https://iblcore.org/resources/tools/ibl-sorter/): IBL's spike sorting pipeline, turning raw Neuropixels electrophysiology into sorted units.
+- [Lightning Pose](https://iblcore.org/resources/tools/lightning-pose/): Semi-supervised 2D and 3D pose estimation, used to track animal movement in video recordings.
+- [Datoviz](https://iblcore.org/resources/tools/datoviz/): High-performance GPU rendering for scientific data visualisation of large datasets.
 
 ## Projects, publications, and news
 

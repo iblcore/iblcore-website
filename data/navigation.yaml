@@ -15,7 +15,16 @@ header:
         url: /about/support/
   - key: resources
     title: Resources
-    url: /#resources
+    url: /resources/
+    children:
+      - title: All Resources
+        url: /resources/
+      - title: Datasets
+        url: /resources/data/
+      - title: Tools
+        url: /resources/tools/
+      - title: Workflows
+        url: /resources/workflows/
   - key: projects
     title: Projects
     url: /new-partner-projects/
