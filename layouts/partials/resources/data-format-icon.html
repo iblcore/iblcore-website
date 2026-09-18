@@ -1,0 +1,10 @@
+{{- $key := .key -}}
+{{- $names := dict "one" "ONE" "dandi" "DANDI & NWB" "ibl-ai-agent" "IBL AI Agent" -}}
+{{- $label := .label | default (index $names $key) -}}
+{{- if eq $key "one" -}}
+  <span class="dataset-format-badge-text" title="{{ $label }}">ONE</span>
+{{- else if eq $key "dandi" -}}
+  <img class="dataset-format-badge-icon" src="{{ (resources.Get "svg/logo_dandi.svg").RelPermalink }}" alt="{{ $label }}" title="{{ $label }}">
+{{- else if eq $key "ibl-ai-agent" -}}
+  <img class="dataset-format-badge-icon" src="{{ (resources.Get "svg/icon_bot.svg").RelPermalink }}" alt="{{ $label }}" title="{{ $label }}">
+{{- end -}}

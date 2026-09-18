@@ -1,0 +1,10 @@
+{{- /* Renders the same intro banner as page-header.html, so it can be placed after the resources toggle instead of before it. */ -}}
+{{- $page := .page -}}
+{{- with (or $page.Params.banner_intro $page.Params.lead) -}}
+  {{- $intro := $page.RenderString (dict "display" "block") . -}}
+  <section class="section-banner section-banner--intro" aria-label="Introduction">
+    <div class="shell page-shell section-banner__inner">
+      <div class="section-banner__copy prose">{{ $intro }}</div>
+    </div>
+  </section>
+{{- end -}}
