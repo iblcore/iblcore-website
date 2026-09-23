@@ -28,24 +28,22 @@ video_caption: "A 34-second overview of the dataset, the task suites and the sub
 
 cta_title: "Submit your model for evaluation"
 cta_body: |
-  Anyone can take part. Generate predictions on the held-out sessions, upload
-  them to the [leaderboard](https://bwb.iblcore.org), and see how your model
-  compares.
+  Anyone can take part. [How to use it](#how-to-use-it) gives an overview.
 
-  [How to use it](#how-to-use-it) gives an overview.
+  Generate predictions on the held-out sessions, upload them to the
+  [leaderboard](https://bwb.iblcore.org), and see how your model compares.
+  Models are scored on three task suites:
 
-suites_title: "What it measures"
-suites_intro: "Eleven evaluation tasks across three suites, run together, probe complementary properties of a learned representation."
 suites:
-  - label: "Suite 1"
+  - label: "TS1"
     title: "Behavior"
-    body: "Can behaviourally relevant variables and stimuli be decoded from neural activity?"
-  - label: "Suite 2"
+    body: "Predict trial-level behavioral outcomes from neural population activity."
+  - label: "TS2"
     title: "Dynamics"
-    body: "Can activity be predicted from other neurons, or from the past?"
-  - label: "Suite 3"
+    body: "Reconstruct firing rate trajectories and spike predictions across brain regions."
+  - label: "TS3"
     title: "Anatomy"
-    body: "Does the representation recover biologically meaningful anatomical organization?"
+    body: "Classify recorded neurons to their brain region from activity alone."
 
 steps_title: "How to use it"
 steps_intro: "The [documentation](https://brainbench-org.github.io/ibl-bwb) covers each stage in full."
@@ -70,7 +68,6 @@ steps:
       benchmark's server, so you never handle the evaluation labels.
 
 links_title: "Links"
-links_intro: "Everything the benchmark publishes, in one place."
 links:
   - title: "Project page"
     description: "Overview, task definitions, results and news. Start here."
@@ -104,11 +101,16 @@ links:
 
 citation_title: "Citation"
 citation_intro: |
-  If you use IBL BrainWideBench, please cite the paper. The same entry is in the
-  repository's
+  If you use IBL BrainWideBench, please cite the benchmark paper and the dataset
+  it is built on. Select a reference for its BibTeX entry; the benchmark entry is
+  also in the repository's
   [CITATION.cff](https://github.com/brainbench-org/ibl-bwb/blob/main/CITATION.cff).
 citations:
-  - entry: |
+  - reference: |
+      Andre, A., Mahato, S. P., Arora, V., et al. (2026) *BrainWideBench:
+      Benchmarking large-scale pretraining and across-animal transfer in
+      multi-region neural recordings*. arXiv:2609.22064.
+    entry: |
       @misc{iblbwb2026,
         title         = {BrainWideBench: Benchmarking large-scale pretraining and across-animal transfer in multi-region neural recordings},
         author        = {Alexandre Andre and Shivashriganesh P. Mahato and Vinam Arora and Keshav Balaji and Divyansha Lachi and Nanda H. Krishna and Jingyun Xiao and Yizi Zhang and Ximeng Mao and Wenrui Ma and Han Yu and International Brain Laboratory and Daniel Birman and Niccolo Bonacchi and Gaelle A. Chapuis and Joana A. Catarino and Felicia Davatolhagh and Mayo Faulkner and Laura Freitas-Silva and Fei Hu and Julia M. Huntenburg and Anup Khanal and Ines Laranjeira and Petrina Lau and Guido T. Meijer and Nathaniel J. Miska and Jean-Paul Noel and Alejandro Pan-Vazquez and Georg Raiser and Cyrille Rossant and Karolina Z. Socha and Anne E. Urai and Miles J. Wells and Steven J. West and Olivier Winter and Blake Richards and Guillaume Lajoie and Cole Hurwitz and Mehdi Azabou and Matthew R. Whiteway and Liam Paninski and Eva L. Dyer},
@@ -118,9 +120,10 @@ citations:
         primaryClass  = {cs.LG},
         url           = {https://arxiv.org/abs/2609.22064},
       }
-  - note: |
-      The benchmark is built on the IBL Brain Wide Map, so please cite the
-      [dataset](https://www.nature.com/articles/s41586-025-09235-0) as well:
+  - reference: |
+      International Brain Laboratory, Benson, B., Benson, J., et al. (2025) 'A
+      brain-wide map of neural activity during complex behaviour', *Nature*,
+      645(8079), pp. 177-191.
     entry: |
       @article{iblbwm2025,
         title   = {A brain-wide map of neural activity during complex behaviour},
@@ -135,13 +138,11 @@ citations:
 ---
 
 IBL BrainWideBench is an evaluation suite for models trained on brain-wide
-spiking activity.
+spiking activity. The data comes from the IBL Brain Wide Map, Neuropixels
+recordings from 139 mice performing a sensory-guided decision-making task, with
+behaviour measured at the same time.
 
 Comparing such models has been difficult, because evaluation protocols are
 fragmented and most cover only a single task domain. The suite fixes the
 protocol so that different approaches can be measured on the same terms,
 including on recording sessions held out of the pretraining split.
-
-The data comes from the IBL Brain Wide Map, Neuropixels recordings from 139 mice
-performing a sensory-guided decision-making task, with behaviour measured at the
-same time.

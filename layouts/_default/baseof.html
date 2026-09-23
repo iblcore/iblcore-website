@@ -89,6 +89,7 @@
     {{ $pageScript := "" }}
     {{ if eq .Layout "events" }}{{ $pageScript = "js/events.js" }}{{ end }}
     {{ if eq .Layout "new-partners" }}{{ $pageScript = "js/partners.js" }}{{ end }}
+    {{ if eq .Layout "benchmark" }}{{ $pageScript = "js/benchmark.js" }}{{ end }}
     {{ with $pageScript }}
       {{ $pageJS := resources.Get . | minify }}
       {{ if $fingerprintAssets }}

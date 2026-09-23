@@ -33,24 +33,19 @@
         <aside class="bwb-cta" aria-labelledby="bwb-cta-title">
           <h2 class="bwb-head" id="bwb-cta-title">{{ . }}</h2>
           <div class="prose">{{ $page.RenderString (dict "display" "block") $page.Params.cta_body }}</div>
+          {{ with $page.Params.suites }}
+            <div class="bwb-cards">
+              {{ range . }}
+                <div class="bwb-card">
+                  <em>{{ .label }}</em>
+                  <h3>{{ .title }}</h3>
+                  <p>{{ .body }}</p>
+                </div>
+              {{ end }}
+            </div>
+          {{ end }}
         </aside>
       {{ end }}
-    </div>
-  </section>
-
-  <section class="section-band">
-    <div class="shell page-shell">
-      <h2 class="bwb-head">{{ .Params.suites_title }}</h2>
-      <p class="bwb-sub">{{ .Params.suites_intro }}</p>
-      <div class="bwb-cards">
-        {{ range .Params.suites }}
-          <div class="bwb-card">
-            <em>{{ .label }}</em>
-            <h3>{{ .title }}</h3>
-            <p>{{ .body }}</p>
-          </div>
-        {{ end }}
-      </div>
     </div>
   </section>
 
@@ -75,7 +70,7 @@
   <section class="section-band">
     <div class="shell page-shell">
       <h2 class="bwb-head">{{ .Params.links_title }}</h2>
-      <p class="bwb-sub">{{ .Params.links_intro }}</p>
+      {{ with .Params.links_intro }}<p class="bwb-sub">{{ $page.RenderString . }}</p>{{ end }}
       <div class="bwb-links">
         {{ range .Params.links }}
           <a class="bwb-link{{ if .lead }} bwb-link--lead{{ end }}" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
@@ -93,9 +88,16 @@
       <h2 class="bwb-head">{{ .Params.citation_title }}</h2>
       <div class="prose bwb-citation">
         {{ $page.RenderString (dict "display" "block") .Params.citation_intro }}
-        {{ range .Params.citations }}
-          {{ with .note }}{{ $page.RenderString (dict "display" "block") . }}{{ end }}
-          <pre>{{ .entry }}</pre>
+        {{- /* The reference is what a reader needs; the BibTeX is what they
+               copy. <details> keeps both without forty lines of author list
+               dominating the page, and needs no JavaScript to open. */ -}}
+        {{ range $index, $citation := .Params.citations }}
+          <details class="bwb-citation__item">
+            <summary>{{ $page.RenderString $citation.reference }}</summary>
+            <div class="bwb-citation__entry" data-citation>
+              <pre id="bibtex-{{ add $index 1 }}">{{ $citation.entry }}</pre>
+            </div>
+          </details>
         {{ end }}
       </div>
     </div>

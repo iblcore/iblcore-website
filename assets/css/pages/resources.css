@@ -71,8 +71,14 @@
   opacity: 0.7;
 }
 
-/* Task suites. The benchmark colour-codes them, so the cards carry those
-   colours rather than the site accent. */
+/* Task suites, inside the call to action: what a submission is scored on sits
+   with the invitation to submit. */
+.bwb-cta .bwb-cards {
+  margin-top: var(--space-lg);
+}
+
+/* The benchmark colour-codes its suites, so the cards carry those colours
+   rather than the site accent. */
 .bwb-cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -237,9 +243,58 @@
   opacity: 0.6;
 }
 
+.bwb-citation__item {
+  max-width: var(--content-width-copy);
+  border-bottom: 1px solid var(--color-accent-tint-20);
+}
+
+.bwb-citation__item:first-of-type {
+  border-top: 1px solid var(--color-accent-tint-20);
+}
+
+.bwb-citation__item summary {
+  padding: var(--space-lg) 0;
+  font-size: var(--font-size-card-copy);
+  line-height: 1.45;
+  cursor: pointer;
+}
+
+.bwb-citation__item summary:hover {
+  color: var(--color-accent);
+}
+
+.bwb-citation__item summary::marker {
+  color: var(--color-accent-tint-40);
+}
+
+.bwb-citation__entry {
+  position: relative;
+  padding-bottom: var(--space-lg);
+}
+
+.bwb-copy {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--color-accent-tint-20);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-accent);
+  font: inherit;
+  font-size: var(--font-size-footer-legal);
+  cursor: pointer;
+}
+
+.bwb-copy:hover,
+.bwb-copy:focus-visible {
+  border-color: var(--color-accent);
+}
+
 /* BibTeX entries have long author lists and no break opportunities, so they are
    wrapped rather than left to scroll sideways on a phone. */
 .bwb-citation pre {
+  margin: 0;
   padding: var(--space-md);
   border-radius: var(--radius-md);
   background: var(--color-accent-tint-10);
