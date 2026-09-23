@@ -1,0 +1,103 @@
+{{ define "main" }}
+  {{- /* Benchmark landing page: alternating full-width bands, so it cannot use
+         _default/single.html, whose single prose column cannot break out to the
+         page edges. Structured blocks come from front matter; the markdown body
+         supplies only the opening prose. */ -}}
+  {{ $page := . }}
+  {{ partial "page-header.html" (dict "page" .) }}
+
+  <section class="section page-content">
+    <div class="shell page-shell">
+      <div class="bwb-intro">
+        <div>
+          <h2 class="bwb-head">{{ .Params.intro_title }}</h2>
+          <div class="prose">{{ .Content }}</div>
+        </div>
+        <div class="bwb-aside">
+          {{ with .Params.video }}
+            <figure class="bwb-figure">
+              {{- /* Muted and looping to match the source animation, but with
+                     controls so it can be stopped: it is 34 seconds long. */ -}}
+              <video autoplay muted loop playsinline controls preload="metadata"
+                     aria-label="{{ $page.Params.video_description }}">
+                <source src="{{ . | relURL }}#t=0.1" type="video/mp4">
+                <a href="{{ . | relURL }}">Download the video</a>
+              </video>
+              {{ with $page.Params.video_caption }}<figcaption class="bwb-figcap">{{ . }}</figcaption>{{ end }}
+            </figure>
+          {{ end }}
+        </div>
+      </div>
+
+      {{ with .Params.cta_title }}
+        <aside class="bwb-cta" aria-labelledby="bwb-cta-title">
+          <h2 class="bwb-head" id="bwb-cta-title">{{ . }}</h2>
+          <div class="prose">{{ $page.RenderString (dict "display" "block") $page.Params.cta_body }}</div>
+        </aside>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="section-band">
+    <div class="shell page-shell">
+      <h2 class="bwb-head">{{ .Params.suites_title }}</h2>
+      <p class="bwb-sub">{{ .Params.suites_intro }}</p>
+      <div class="bwb-cards">
+        {{ range .Params.suites }}
+          <div class="bwb-card">
+            <em>{{ .label }}</em>
+            <h3>{{ .title }}</h3>
+            <p>{{ .body }}</p>
+          </div>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+
+  <section class="section page-content" id="how-to-use-it">
+    <div class="shell page-shell">
+      <h2 class="bwb-head">{{ .Params.steps_title }}</h2>
+      <p class="bwb-sub">{{ $page.RenderString .Params.steps_intro }}</p>
+      <ol class="bwb-steps">
+        {{ range $index, $step := .Params.steps }}
+          <li>
+            <b>{{ add $index 1 }}</b>
+            <div>
+              <h3>{{ $step.title }}</h3>
+              {{ $page.RenderString (dict "display" "block") $step.body }}
+            </div>
+          </li>
+        {{ end }}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section-band">
+    <div class="shell page-shell">
+      <h2 class="bwb-head">{{ .Params.links_title }}</h2>
+      <p class="bwb-sub">{{ .Params.links_intro }}</p>
+      <div class="bwb-links">
+        {{ range .Params.links }}
+          <a class="bwb-link{{ if .lead }} bwb-link--lead{{ end }}" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
+            <strong>{{ .title }}</strong>
+            <span>{{ .description }}</span>
+            <u>{{ .display }}</u>
+          </a>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+
+  <section class="section page-content">
+    <div class="shell page-shell">
+      <h2 class="bwb-head">{{ .Params.citation_title }}</h2>
+      <div class="prose bwb-citation">
+        {{ $page.RenderString (dict "display" "block") .Params.citation_intro }}
+        {{ range .Params.citations }}
+          {{ with .note }}{{ $page.RenderString (dict "display" "block") . }}{{ end }}
+          <pre>{{ .entry }}</pre>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+{{ end }}

@@ -1,0 +1,293 @@
+/* Resources section pages. Loaded from baseof.html when .Section is "resources". */
+
+.bwb-head {
+  margin: 0 0 var(--space-md);
+  font-size: var(--font-size-prose-title);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.bwb-sub {
+  margin: 0 0 var(--space-xl);
+  max-width: 56ch;
+  font-size: var(--font-size-card-copy);
+  opacity: 0.78;
+}
+
+.section-band .bwb-sub {
+  opacity: 0.82;
+}
+
+/* Opening: copy on the left, the animation on the right. */
+.bwb-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+.bwb-intro .prose {
+  max-width: 60ch;
+}
+
+/* The mark sits inside the h1, so the two align on their centres. */
+.section-hero h1 {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.page-header__mark {
+  height: calc(var(--font-size-page-hero-title) * 1.45);
+  width: auto;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 0.15rem 0.5rem rgba(0, 0, 0, 0.35));
+}
+
+/* Right-hand column: the animation, then the ask. */
+.bwb-aside {
+  max-width: 360px;
+  margin-left: auto;
+}
+
+.bwb-figure {
+  margin: 0;
+}
+
+.bwb-figure video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: 0 0.6rem 1.6rem var(--color-accent-tint-15);
+}
+
+.bwb-figcap {
+  margin-top: var(--space-sm);
+  font-size: var(--font-size-footer-legal);
+  line-height: 1.35;
+  opacity: 0.7;
+}
+
+/* Task suites. The benchmark colour-codes them, so the cards carry those
+   colours rather than the site accent. */
+.bwb-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--layout-gap-grid);
+}
+
+.bwb-card {
+  padding: var(--space-panel-3xl);
+  border-top: 0.35rem solid var(--bwb-behavior);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-accent);
+}
+
+.bwb-card:nth-child(2) { border-top-color: var(--bwb-dynamics); }
+.bwb-card:nth-child(3) { border-top-color: var(--bwb-anatomy); }
+
+.bwb-card em {
+  display: block;
+  margin-bottom: 0.15rem;
+  font-style: normal;
+  font-size: var(--font-size-card-copy);
+  opacity: 0.6;
+}
+
+.bwb-card h3 {
+  margin: 0 0 var(--space-xs);
+  font-size: var(--font-size-card-title);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--bwb-behavior);
+}
+
+.bwb-card:nth-child(2) h3 { color: var(--bwb-dynamics); }
+.bwb-card:nth-child(3) h3 { color: var(--bwb-anatomy); }
+
+.bwb-card p {
+  margin: 0;
+  font-size: var(--font-size-card-copy);
+  line-height: 1.3;
+  opacity: 0.86;
+}
+
+.bwb-steps {
+  max-width: var(--content-width-copy);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bwb-steps li {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  gap: var(--space-lg);
+  padding: var(--space-lg) 0;
+  border-top: 1px solid var(--color-accent-tint-20);
+}
+
+.bwb-steps li:last-child {
+  border-bottom: 1px solid var(--color-accent-tint-20);
+}
+
+.bwb-steps b {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background: var(--color-brand-light-tint-40);
+  font-size: var(--font-size-card-copy);
+  font-weight: 400;
+}
+
+.bwb-steps h3 {
+  margin: 0 0 0.2rem;
+  font-size: var(--font-size-prose-heading);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.bwb-steps p {
+  max-width: 62ch;
+  margin: 0;
+  font-size: var(--font-size-card-copy);
+  line-height: 1.35;
+  opacity: 0.86;
+}
+
+.bwb-steps a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent-tint-40);
+  text-underline-offset: 0.18em;
+}
+
+.bwb-steps a:hover {
+  text-decoration-color: currentColor;
+}
+
+.bwb-steps code {
+  padding: 0.05rem 0.3rem;
+  border-radius: 0.3rem;
+  background: var(--color-brand-light-tint-40);
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.82em;
+}
+
+.bwb-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--layout-gap-grid);
+}
+
+.bwb-link {
+  display: block;
+  padding: var(--space-panel-3xl);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.bwb-link:hover,
+.bwb-link:focus-visible {
+  outline: none;
+  transform: translateY(-2px);
+  box-shadow: 0 0.55rem 1.2rem rgba(0, 0, 0, 0.22);
+}
+
+.bwb-link--lead {
+  grid-column: span 2;
+  background: var(--color-brand-light);
+}
+
+.bwb-link strong {
+  display: block;
+  font-size: var(--font-size-card-title);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.bwb-link--lead strong {
+  font-size: calc(2.5rem * var(--type-scale-base));
+}
+
+.bwb-link span {
+  display: block;
+  margin-top: 0.2rem;
+  font-size: var(--font-size-card-copy);
+  line-height: 1.3;
+  opacity: 0.78;
+}
+
+.bwb-link u {
+  display: block;
+  margin-top: var(--space-sm);
+  font-size: var(--font-size-footer-legal);
+  text-decoration: none;
+  word-break: break-all;
+  opacity: 0.6;
+}
+
+/* BibTeX entries have long author lists and no break opportunities, so they are
+   wrapped rather than left to scroll sideways on a phone. */
+.bwb-citation pre {
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--color-accent-tint-10);
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 64rem) {
+  .bwb-intro,
+  .bwb-cards,
+  .bwb-links {
+    grid-template-columns: 1fr;
+  }
+
+  .bwb-aside {
+    margin-left: 0;
+  }
+
+  .bwb-link--lead {
+    grid-column: span 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bwb-link {
+    transition: none;
+  }
+}
+
+/* Call to action, directly after the opening copy: the ask follows the
+   explanation, before the reader reaches the figures for scale. */
+.bwb-cta {
+  margin-top: var(--space-2xl);
+  padding: var(--space-panel-3xl);
+  border-radius: var(--radius-md);
+  background: var(--color-brand-light-tint-40);
+}
+
+.bwb-cta .bwb-head {
+  margin-bottom: var(--space-sm);
+}
+
+.bwb-cta p {
+  margin: 0;
+}
+
+.bwb-cta p + p {
+  margin-top: var(--space-sm);
+}

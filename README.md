@@ -68,6 +68,10 @@ workflow.
 
 [docs/sitemap-v1.md](docs/sitemap-v1.md) is the source of truth for navigation,
 page scope, content hierarchy, Hugo structure, and migration priorities.
+
+The Resources section is drafted apart from
+`/resources/benchmarking/ibl-brainwidebench/`, a temporary page for the IBL
+BrainWideBench benchmark that is published ahead of the resources portal.
 [docs/brainstorming.md](docs/brainstorming.md) provides strategy context.
 
 The site exposes a curated agent-readable index at `/llms.txt`. See

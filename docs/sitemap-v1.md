@@ -7,7 +7,7 @@ Intended stack: Hugo static site generator, modern vanilla HTML/CSS, minimal van
 
 1. Home (`/`)
 2. About (`/about/team/`; `/about/` redirects here)
-3. Resources (`/#resources`)
+3. Resources (`/#resources`; dropdown: Tools to `/#resources`, Benchmarking to `/resources/benchmarking/ibl-brainwidebench/`)
 4. Projects (`/projects/`)
 5. Publications (`/publications/`)
 6. Events (`/events/`)
@@ -44,6 +44,13 @@ Notes:
 - The About dropdown children are Our Team, History, FAQ, and Support.
 
 ### 2.3 Resources (`/resources/`)
+
+The section as a whole is still drafted. One page is published ahead of it:
+`/resources/benchmarking/ibl-brainwidebench/`, a temporary landing page for the
+IBL BrainWideBench benchmark, reached from the Resources dropdown. It folds into
+the resource grid when the resources portal ships; its URL is chosen so it does
+not need to move.
+
 
 - Data
   - Brainwide map — within it, access + colab tutorials
