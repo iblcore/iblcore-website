@@ -1,0 +1,19 @@
+{{- /* Markdown links. Anything pointing off this site opens in a new tab, so a
+       reader following a reference does not lose the page they were reading.
+
+       rel="noopener" is required with target="_blank": without it the opened
+       page can reach back through window.opener.
+
+       The appended note is for screen readers, which otherwise get no warning
+       that a link behaves differently from every other one.
+
+       The whole template is trimmed: any whitespace it emits after </a> lands
+       in the paragraph as a space, which shows up before a following comma. */ -}}
+{{- $external := and
+      (or (strings.HasPrefix .Destination "http://") (strings.HasPrefix .Destination "https://"))
+      (not (strings.HasPrefix .Destination site.BaseURL))
+-}}
+{{- printf `<a href="%s"` (.Destination | safeURL) | safeHTML -}}
+{{- with .Title }}{{ printf ` title="%s"` . | safeHTML }}{{ end -}}
+{{- if $external }} target="_blank" rel="noopener noreferrer"{{ end -}}
+>{{ .Text }}{{ if $external }}<span class="visually-hidden"> (opens in a new tab)</span>{{ end }}</a>

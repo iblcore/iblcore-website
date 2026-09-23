@@ -14,7 +14,13 @@
     <div class="section-hero__media" aria-hidden="true"></div>
     <div class="shell page-shell section-hero__inner">
       <div class="section-hero__copy">
-        <h1 id="page-hero-title"{{ if .project_title }} data-project-banner-title{{ end }}>{{ $title }}</h1>
+        <h1 id="page-hero-title"{{ if .project_title }} data-project-banner-title{{ end }}>
+          {{- with $page.Params.banner_logo -}}
+            <img class="page-header__mark" src="{{ . | relURL }}" alt="" width="140" height="108"><span>{{ $title }}</span>
+          {{- else -}}
+            {{ $title }}
+          {{- end -}}
+        </h1>
       </div>
     </div>
   </div>
@@ -29,7 +35,13 @@
     <section class="page-controls" aria-label="Page actions">
       <div class="shell page-shell page-controls__inner">
         {{ range . }}
-          <a class="button button--page-cta" href="{{ .url | relURL }}">{{ .label }}</a>
+          {{- /* Buttons pointing off the site open in a new tab, matching the
+                 markdown link render hook. rel="noopener" is required with
+                 target="_blank"; the note is for screen readers. */ -}}
+          {{ $external := and
+               (or (strings.HasPrefix .url "http://") (strings.HasPrefix .url "https://"))
+               (not (strings.HasPrefix .url site.BaseURL)) }}
+          <a class="button button--page-cta" href="{{ .url | relURL }}"{{ if $external }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .label }}{{ if $external }}<span class="visually-hidden"> (opens in a new tab)</span>{{ end }}</a>
         {{ end }}
       </div>
     </section>
