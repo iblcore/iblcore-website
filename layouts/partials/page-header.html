@@ -35,13 +35,16 @@
     <section class="page-controls" aria-label="Page actions">
       <div class="shell page-shell page-controls__inner">
         {{ range . }}
+          {{- /* A fragment-only url is an anchor on this page: relURL would
+                 turn "#citation" into a link to the home page. */ -}}
+          {{ $href := cond (strings.HasPrefix .url "#") .url (.url | relURL) }}
           {{- /* Buttons pointing off the site open in a new tab, matching the
                  markdown link render hook. rel="noopener" is required with
                  target="_blank"; the note is for screen readers. */ -}}
           {{ $external := and
                (or (strings.HasPrefix .url "http://") (strings.HasPrefix .url "https://"))
                (not (strings.HasPrefix .url site.BaseURL)) }}
-          <a class="button button--page-cta" href="{{ .url | relURL }}"{{ if $external }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .label }}{{ if $external }}<span class="visually-hidden"> (opens in a new tab)</span>{{ end }}</a>
+          <a class="button button--page-cta" href="{{ $href }}"{{ if $external }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .label }}{{ if $external }}<span class="visually-hidden"> (opens in a new tab)</span>{{ end }}</a>
         {{ end }}
       </div>
     </section>

@@ -67,23 +67,7 @@
     </div>
   </section>
 
-  <section class="section-band">
-    <div class="shell page-shell">
-      <h2 class="bwb-head">{{ .Params.links_title }}</h2>
-      {{ with .Params.links_intro }}<p class="bwb-sub">{{ $page.RenderString . }}</p>{{ end }}
-      <div class="bwb-links">
-        {{ range .Params.links }}
-          <a class="bwb-link{{ if .lead }} bwb-link--lead{{ end }}" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
-            <strong>{{ .title }}</strong>
-            <span>{{ .description }}</span>
-            <u>{{ .display }}</u>
-          </a>
-        {{ end }}
-      </div>
-    </div>
-  </section>
-
-  <section class="section page-content">
+  <section class="section page-content" id="citation">
     <div class="shell page-shell">
       <h2 class="bwb-head">{{ .Params.citation_title }}</h2>
       <div class="prose bwb-citation">
@@ -98,6 +82,21 @@
               <pre id="bibtex-{{ add $index 1 }}">{{ $citation.entry }}</pre>
             </div>
           </details>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-band">
+    <div class="shell page-shell">
+      <h2 class="bwb-head">{{ .Params.links_title }}</h2>
+      {{ with .Params.links_intro }}<p class="bwb-sub">{{ $page.RenderString . }}</p>{{ end }}
+      <div class="bwb-links">
+        {{ range .Params.links }}
+          <a class="bwb-link{{ if .lead }} bwb-link--lead{{ end }}" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
+            <strong>{{ .title }}</strong>
+            <span>{{ .description }}</span>
+          </a>
         {{ end }}
       </div>
     </div>

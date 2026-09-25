@@ -47,7 +47,9 @@
 
 /* Right-hand column: the animation, then the ask. */
 .bwb-aside {
-  max-width: 360px;
+  /* Wide enough to read the labels inside the square animation. The 1080px
+     master stays sharp up to 540px on a 2x display, so this stops short. */
+  max-width: 480px;
   margin-left: auto;
 }
 
@@ -232,15 +234,6 @@
   font-size: var(--font-size-card-copy);
   line-height: 1.3;
   opacity: 0.78;
-}
-
-.bwb-link u {
-  display: block;
-  margin-top: var(--space-sm);
-  font-size: var(--font-size-footer-legal);
-  text-decoration: none;
-  word-break: break-all;
-  opacity: 0.6;
 }
 
 .bwb-citation__item {
