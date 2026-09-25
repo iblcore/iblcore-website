@@ -1,10 +1,18 @@
 {{- $key := .key -}}
 {{- $names := dict "one" "ONE" "dandi" "DANDI & NWB" "ibl-ai-agent" "IBL AI Agent" -}}
 {{- $label := .label | default (index $names $key) -}}
+{{- /* `decorative` drops the accessible name: where the route is already
+       spelled out beside the icon, naming it again reads it twice. */ -}}
+{{- $alt := $label -}}
+{{- $title := printf ` title="%s"` $label | safeHTMLAttr -}}
+{{- if .decorative -}}
+  {{- $alt = "" -}}
+  {{- $title = "" -}}
+{{- end -}}
 {{- if eq $key "one" -}}
-  <span class="dataset-format-badge-text" title="{{ $label }}">ONE</span>
+  <span class="dataset-format-badge-text"{{ $title }}{{ if .decorative }} aria-hidden="true"{{ end }}>ONE</span>
 {{- else if eq $key "dandi" -}}
-  <img class="dataset-format-badge-icon" src="{{ (resources.Get "svg/logo_dandi.svg").RelPermalink }}" alt="{{ $label }}" title="{{ $label }}">
+  <img class="dataset-format-badge-icon" src="{{ (resources.Get "svg/logo_dandi.svg").RelPermalink }}" alt="{{ $alt }}"{{ $title }}>
 {{- else if eq $key "ibl-ai-agent" -}}
-  <img class="dataset-format-badge-icon" src="{{ (resources.Get "svg/icon_bot.svg").RelPermalink }}" alt="{{ $label }}" title="{{ $label }}">
+  <img class="dataset-format-badge-icon" src="{{ (resources.Get "svg/icon_bot.svg").RelPermalink }}" alt="{{ $alt }}"{{ $title }}>
 {{- end -}}

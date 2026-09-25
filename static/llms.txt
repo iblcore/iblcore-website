@@ -19,9 +19,10 @@ Use the canonical pages below for current public information about IBL-Core.
 
 ## Resources
 
-- [Resources](https://iblcore.org/resources/): Searchable index of every IBL dataset, tool, hardware item and protocol, filterable by modality, stage of work, type, and data access route.
+- [Resources](https://iblcore.org/resources/): Searchable index of every IBL dataset, tool, hardware item and protocol, filterable by stage of work, type and modality, and by data access route once datasets are selected.
 - [Workflows](https://iblcore.org/resources/workflows/): Step-by-step paths through the resources, from a goal to the tools that get you there.
-- [Explore and analyse IBL data](https://iblcore.org/resources/workflows/explore-ibl-data/): Choosing an access route, choosing a dataset, finding sessions, and visualising what you load.
+- [Explore and analyse IBL data](https://iblcore.org/resources/workflows/explore-ibl-data/): Choosing a dataset and its access route, finding sessions, and visualising what you load.
+- [Benchmark a model on brain-wide recordings](https://iblcore.org/resources/workflows/benchmark-a-model/): Setting up IBL BrainWideBench, pretraining or loading a checkpoint, evaluating, and submitting to the leaderboard.
 
 ### Datasets
 
@@ -42,6 +43,8 @@ Use the canonical pages below for current public information about IBL-Core.
 - [IBL Sorter](https://iblcore.org/resources/tools/ibl-sorter/): IBL's spike sorting pipeline, turning raw Neuropixels electrophysiology into sorted units.
 - [Lightning Pose](https://iblcore.org/resources/tools/lightning-pose/): Semi-supervised 2D and 3D pose estimation, used to track animal movement in video recordings.
 - [Datoviz](https://iblcore.org/resources/tools/datoviz/): High-performance GPU rendering for scientific data visualisation of large datasets.
+- [IBL Data Explorer](https://iblcore.org/resources/tools/data-explorer/): Browse IBL recordings interactively in the browser, from probe locations to recorded activity.
+- [IBL BrainWideBench](https://iblcore.org/resources/tools/brainwide-bench/): A standardised benchmark for models pretrained on brain-wide neural recordings, with a public leaderboard.
 
 ## Projects, publications, and news
 

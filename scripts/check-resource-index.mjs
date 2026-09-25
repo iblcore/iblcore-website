@@ -9,9 +9,11 @@ export async function checkResourceIndex(browser, origin) {
   try {
     await page.goto(`${origin}/resources/`, { waitUntil: "networkidle" });
 
-    const shown = () => page.locator("[data-resource-card]:not([hidden])").count();
-    const names = () =>
-      page.locator("[data-resource-card]:not([hidden]) .resource-card__title").allInnerTexts();
+    // The grid alone: the workflows band holds cards of its own that the
+    // filters never touch.
+    const grid = ":not([data-workflows-band]) > .resource-cards > [data-resource-card]:not([hidden])";
+    const shown = () => page.locator(grid).count();
+    const names = () => page.locator(`${grid} .resource-card__title`).allInnerTexts();
 
     const total = await shown();
     assert(total > 0, "The resource index rendered no cards.");
@@ -28,6 +30,64 @@ export async function checkResourceIndex(browser, origin) {
     await page.fill("#resource-search-input", "");
     assert.equal(await shown(), total, "Clearing the search did not restore every card.");
 
+    // Access routes are a property of datasets, so the row only makes sense
+    // once Datasets is selected. It appears directly under Type and takes its
+    // own selection with it when Datasets is deselected.
+    const accessRow = page.locator('[data-filter-row="access"]');
+    const labels = () =>
+      page.locator("[data-resource-filters] .resource-filters__row:not([hidden]) .resource-filters__label").allInnerTexts();
+
+    assert(await accessRow.isHidden(), "The access row was offered before Datasets was selected.");
+    assert.deepEqual(
+      await labels(),
+      ["I want to...", "Type", "Modality"],
+      "Unexpected filter rows before Datasets was selected.",
+    );
+
+    await page.click('[data-filter-group="type"][data-filter-value="data"]');
+    assert(await accessRow.isVisible(), "Selecting Datasets did not reveal the access row.");
+    assert.deepEqual(
+      await labels(),
+      ["I want to...", "Type", "Access route", "Modality"],
+      "The access row did not sit directly under Type.",
+    );
+
+    await page.locator('[data-filter-group="access"][data-filter-value="dandi"]').first().click();
+    const viaDandi = await shown();
+    assert(viaDandi > 0 && viaDandi < total, "The access chip did not narrow the grid.");
+
+    await page.click('[data-filter-group="type"][data-filter-value="data"]');
+    assert(await accessRow.isHidden(), "Deselecting Datasets left the access row on screen.");
+    assert.equal(await shown(), total, "Deselecting Datasets kept its access filter applied.");
+
+    // A workflow answers a goal, so the goal row narrows the band as well as
+    // the grid. Nothing else does.
+    const bandTitles = () =>
+      page.locator("[data-workflows-band] [data-resource-card]:not([hidden]) .resource-card__title").allInnerTexts();
+    const everyWorkflow = await bandTitles();
+    assert(everyWorkflow.length > 1, "The workflows band needs more than one card to be worth checking.");
+
+    const benchmark = page.locator('[data-filter-group="stage"][data-filter-value="benchmark"]').first();
+    await benchmark.click();
+    assert.deepEqual(
+      await bandTitles(),
+      ["Benchmark a model on brain-wide recordings"],
+      "The goal row did not narrow the workflows band.",
+    );
+
+    // The goal row is offered once, with the workflows, and narrows the grid
+    // below it from there.
+    const benchmarkChips = page.locator('[data-resource-filters] [data-filter-group="stage"][data-filter-value="benchmark"]');
+    assert.equal(await benchmarkChips.count(), 1, "The goal row should be offered once, with the workflows.");
+    assert.equal(await benchmark.getAttribute("aria-pressed"), "true", "The goal chip did not mark itself.");
+    const viaBenchmark = await shown();
+    assert(viaBenchmark > 0 && viaBenchmark < total, "The goal chip did not narrow the grid below the workflows.");
+
+    await benchmark.click();
+    assert.equal(await benchmark.getAttribute("aria-pressed"), "false", "Releasing the goal chip did not unmark it.");
+    assert.equal(await shown(), total, "Releasing the goal chip left the grid narrowed.");
+    assert.deepEqual(await bandTitles(), everyWorkflow, "Releasing the goal chip left workflows hidden.");
+
     // Groups intersect, and an impossible combination shows the empty state.
     await page.click('[data-filter-group="type"][data-filter-value="tools"]');
     const tools = await shown();
@@ -37,6 +97,11 @@ export async function checkResourceIndex(browser, origin) {
     await page.fill("#resource-search-input", "zzzznothing");
     assert.equal(await shown(), 0, "An impossible filter still showed cards.");
     assert(await page.locator("[data-resource-empty]").isVisible(), "The empty state did not appear.");
+    assert.deepEqual(
+      await bandTitles(),
+      everyWorkflow,
+      "A type chip, and a search matching nothing, should leave the workflows band whole.",
+    );
   } finally {
     await page.close();
   }
@@ -51,6 +116,10 @@ export async function checkResourceIndex(browser, origin) {
       "The index listed nothing without JavaScript.",
     );
     assert(await page.locator("[data-resource-search]").isHidden(), "The search box was offered without a script to run it.");
+    assert(
+      await page.locator('[data-filter-row="access"]').isVisible(),
+      "The access row was hidden without a script to reveal it.",
+    );
     const chip = page.locator('[data-filter-group="type"][data-filter-value="tools"]').first();
     assert.equal(await chip.getAttribute("href"), "/resources/tools/", "A chip is not a link to its section page.");
   } finally {
@@ -67,10 +136,13 @@ export async function checkResourceIndex(browser, origin) {
 // the other. Measure contrast instead of trusting either.
 const PORTAL_ROUTES = [
   "/resources/", "/resources/workflows/", "/resources/workflows/explore-ibl-data/",
+  "/resources/workflows/benchmark-a-model/",
   "/resources/data/", "/resources/data/brainwide-map/", "/resources/tools/",
   "/resources/tools/alyx/", "/resources/hardware/", "/resources/stages/",
-  "/resources/stages/analyse/", "/resources/modalities/neuropixels/",
-  "/resources/access-routes/dandi/",
+  "/resources/stages/analyse/", "/resources/stages/benchmark/",
+  "/resources/modalities/neuropixels/", "/resources/access-routes/dandi/",
+  "/resources/protocols/", "/resources/tools/brainwide-bench/",
+  "/resources/tools/data-explorer/",
 ];
 
 // WCAG relative luminance; 3:1 is the large-text floor, so anything below it is

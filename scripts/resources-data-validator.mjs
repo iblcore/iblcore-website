@@ -4,7 +4,7 @@
 // new term page with one member rather than an error.
 export const VOCABULARIES = {
   modality: ["neuropixels", "mesoscope", "fibre-photometry", "widefield", "behavior", "video"],
-  stage: ["collect", "explore", "pre-process", "analyse", "benchmark", "visualise"],
+  stage: ["collect", "pre-process", "analyse", "visualise", "benchmark"],
   access: ["one", "dandi", "ibl-ai-agent"],
 };
 
@@ -28,6 +28,10 @@ export function parseFrontMatter(source, label, parse) {
 }
 
 const REQUIRED_RESOURCE_FIELDS = ["title", "description"];
+
+// The choices a workflow page knows how to fork on. A step carrying one turns
+// its resources into the chooser the rest of the steps narrow to.
+const CHOICES = ["dataset"];
 const STATUSES = ["released", "coming-soon"];
 const LINK_KINDS = ["docs", "code", "platform", "preprint"];
 
@@ -64,6 +68,21 @@ function checkVocabulary(data, taxonomy, path, errors) {
 export function validateResourcesData(resources, workflows) {
   const errors = [];
 
+  // A resource is named by page path wherever one file points at another; the
+  // file that provides one lives at content/<path>.md, so the two are compared
+  // through that mapping.
+  const resourcePaths = new Set(
+    resources.map(({ path }) => path.replace(/^content/, "").replace(/\.md$/, "")),
+  );
+
+  const checkReferences = (references, label) => {
+    for (const reference of [references].flat()) {
+      if (!resourcePaths.has(reference)) {
+        errors.push(`${label} refers to "${reference}", which is not a resource file`);
+      }
+    }
+  };
+
   for (const { path, data } of resources) {
     checkRequiredStrings(data, REQUIRED_RESOURCE_FIELDS, path, errors);
     for (const taxonomy of Object.keys(VOCABULARIES)) {
@@ -72,6 +91,10 @@ export function validateResourcesData(resources, workflows) {
     if (!Array.isArray(data?.stage) || data.stage.length === 0) {
       errors.push(`${path}: every resource needs at least one "stage"`);
     }
+
+    // A resource may declare the datasets it applies to, which narrows where it
+    // is offered inside a workflow.
+    if (data?.datasets !== undefined) checkReferences(data.datasets, `${path}: datasets`);
 
     // A guide for a route the resource does not offer would never render.
     const access = Array.isArray(data?.access) ? data.access : [];
@@ -94,12 +117,6 @@ export function validateResourcesData(resources, workflows) {
     }
   }
 
-  // A step names resources by page path; the file that provides one lives at
-  // content/<path>.md, so the two are compared through that mapping.
-  const resourcePaths = new Set(
-    resources.map(({ path }) => path.replace(/^content/, "").replace(/\.md$/, "")),
-  );
-
   for (const { path, data } of workflows) {
     checkRequiredStrings(data, REQUIRED_RESOURCE_FIELDS, path, errors);
     const steps = data?.steps;
@@ -107,20 +124,28 @@ export function validateResourcesData(resources, workflows) {
       errors.push(`${path}: a workflow needs at least one entry in "steps"`);
       continue;
     }
+    let chooserSeen = false;
     steps.forEach((step, index) => {
       const label = `${path}: step ${index + 1}`;
       if (typeof step?.title !== "string" || step.title.trim() === "") {
         errors.push(`${label} is missing "title"`);
       }
+      if (step?.choice !== undefined) {
+        if (!CHOICES.includes(step.choice)) {
+          errors.push(`${label}: choice "${step.choice}" must be one of ${CHOICES.join(", ")}`);
+        } else if (chooserSeen) {
+          errors.push(`${label}: a workflow can only have one "choice" step`);
+        }
+        chooserSeen = true;
+      }
+      // A step compares access routes beside its cards, and both sides are
+      // resource files: the comparison copy lives on the tool's own page.
+      if (step?.routes !== undefined) checkReferences(step.routes, `${label}: routes`);
       if (step?.resource === undefined) {
         errors.push(`${label} is missing "resource"`);
         return;
       }
-      for (const reference of [step.resource].flat()) {
-        if (!resourcePaths.has(reference)) {
-          errors.push(`${label} refers to "${reference}", which is not a resource file`);
-        }
-      }
+      checkReferences(step.resource, label);
     });
   }
 

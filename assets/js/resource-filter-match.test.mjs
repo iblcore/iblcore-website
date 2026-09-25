@@ -5,7 +5,7 @@ import { matchesFilters } from "./resource-filter-match.js";
 const brainwideMap = {
   type: "data",
   modality: ["neuropixels", "behavior", "video"],
-  stage: ["explore", "analyse"],
+  stage: ["analyse"],
   access: ["one", "dandi", "ibl-ai-agent"],
   search: "brainwide map ibl's flagship dataset dataset",
 };

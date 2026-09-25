@@ -6,7 +6,6 @@ weight: 10
 
 modality: []
 stage:
-  - "explore"
   - "analyse"
 
 access:

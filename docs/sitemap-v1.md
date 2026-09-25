@@ -57,10 +57,39 @@ own page, and as a step in a workflow.
 - Three taxonomies group resources across types, and each term page is a
   shareable filtered view:
   - `modality` — neuropixels, mesoscope, fibre-photometry, widefield, behavior, video
-  - `stage` — collect, explore, pre-process, analyse, benchmark, visualise
-  - `access` — one, dandi, ibl-ai-agent
+  - `stage` — collect, pre-process, analyse, visualise, benchmark (shown in
+    that order, as an "I want to..." row offered once, at the top of the page
+    with the workflows: a goal is the first thing a reader picks, and picking
+    one narrows the whole grid below)
+  - `access` — one, dandi, ibl-ai-agent (offered under Type once Datasets is
+    selected, since access routes are a property of datasets)
 - Workflows (`/resources/workflows/`) are goal-oriented paths whose steps name
   existing resources. They render in their own band above the resource grid.
+  Only the goal row narrows that band, since a workflow answers a goal: type,
+  access route, modality and the search box describe resources rather than
+  paths through them, and leave the workflows whole.
+- A workflow page opens with a stepper: a numbered, clickable map of its steps
+  that lets a reader enter part way down.
+- A workflow step may declare `choice: dataset`, which puts a picker above its
+  cards: a Modality select that shortens the list, and a Dataset select that
+  makes the choice. Picking one narrows the steps below to the resources that
+  work with that dataset and names the choice in the URL as `?dataset=<slug>`.
+  One chooser per workflow. The picker is hidden until the script that acts on
+  it runs, and the page renders unnarrowed, so without JavaScript the workflow
+  is the whole document.
+- A chooser step may also declare `routes:`, the access routes it compares in a
+  "Which route should I use?" panel. Each route's entry is its own resource
+  page read side by side; the panel drops the routes a chosen dataset is not
+  published through, and closes entirely once fewer than two remain. Naming a
+  resource under `routes:` counts as using it, so it earns a workflow backlink
+  like any step resource.
+- A resource may declare `datasets:` to name the datasets it applies to; one
+  that declares none applies to all of them.
+- A dataset card lists one row per access route, each linking that route's
+  step-by-step guide from the dataset's `access_guides`, or saying the guide is
+  still to come. The same rows are the dataset page's "Get the data" section,
+  where each row also says what its route is best for. Because the card holds
+  links of its own it is not itself one link, unlike every other card.
 - Benchmarking is not a page or a type: it is the `benchmark` term of `stage`,
   so `/resources/stages/benchmark/` is its landing page.
 - `/resources/` lists every resource with search and filter chips. Filtering is

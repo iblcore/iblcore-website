@@ -7,7 +7,6 @@ weight: 3
 modality:
   - "behavior"
 stage:
-  - "explore"
   - "analyse"
 
 access:

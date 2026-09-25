@@ -7,7 +7,6 @@ weight: 4
 modality:
   - "widefield"
 stage:
-  - "explore"
   - "analyse"
 
 access:

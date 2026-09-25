@@ -7,29 +7,41 @@
        JavaScript. The script in resource-filter.js reads the data attributes
        and filters in place instead.
 
-       Chips are built from the pages passed in, not from the whole site, so a
-       term nothing in this collection uses is not offered. A row with no
-       chips renders nothing rather than an empty heading. */ -}}
+       Taxonomy chips are built from the pages passed in, not from the whole
+       site, so a term nothing in this collection uses is not offered, and a
+       row with no chips renders nothing rather than an empty heading. Type
+       chips are the exception: every section is offered, filled or not. */ -}}
 {{- $pages := .pages -}}
 {{- $groups := slice
+  (dict "key" "access" "label" "Access route" "revealWithType" "data")
   (dict "key" "modality" "label" "Modality")
-  (dict "key" "stage" "label" "Stage")
-  (dict "key" "access" "label" "Access route")
+  (dict "key" "stage" "label" "I want to..." "order" (slice "collect" "pre-process" "analyse" "visualise" "benchmark"))
 -}}
+{{- /* `groups` names the taxonomy rows this bar renders, so a page can place
+       some of them somewhere else and call the partial again for the rest,
+       or offer the same row in two places. Without it the bar renders them
+       all, in the order declared above. `scope` keeps the label ids of a
+       second bar on the same page distinct from the first. */ -}}
+{{- with .groups }}
+  {{- $groups = where $groups "key" "in" . -}}
+{{- end -}}
+{{- $scope := "" -}}
+{{- with .scope }}{{ $scope = printf "%s-" . }}{{ end -}}
 <div class="resource-filters" data-resource-filters>
   {{- with .sections }}
     <div class="resource-filters__row">
-      <p class="resource-filters__label" id="filter-label-type">Type</p>
-      <ul class="resource-filters__chips" aria-labelledby="filter-label-type">
+      <p class="resource-filters__label" id="filter-label-{{ $scope }}type">Type</p>
+      <ul class="resource-filters__chips" aria-labelledby="filter-label-{{ $scope }}type">
+        {{- /* Every section gets a chip, including one holding nothing yet, so
+               the row states the shape of the portal rather than only the part
+               of it that has been filled in. */ -}}
         {{- range . }}
-          {{- if .Pages }}
-            <li>
-              <a class="resource-chip" href="{{ .RelPermalink }}"
-                 data-filter-group="type"
-                 data-filter-value="{{ path.Base .RelPermalink }}"
-                 aria-pressed="false">{{ .Title }}</a>
-            </li>
-          {{- end }}
+          <li>
+            <a class="resource-chip" href="{{ .RelPermalink }}"
+               data-filter-group="type"
+               data-filter-value="{{ path.Base .RelPermalink }}"
+               aria-pressed="false">{{ .Title }}</a>
+          </li>
         {{- end }}
       </ul>
     </div>
@@ -42,16 +54,37 @@
         {{- $termPages = merge $termPages (dict .Data.Term .) }}
       {{- end }}
     {{- end }}
-    {{- with $termPages }}
-      <div class="resource-filters__row">
-        <p class="resource-filters__label" id="filter-label-{{ $group.key }}">{{ $group.label }}</p>
-        <ul class="resource-filters__chips" aria-labelledby="filter-label-{{ $group.key }}">
-          {{- range $term, $termPage := . }}
+    {{- /* A group with an `order` follows it, so its chips read as the steps
+           of a workflow rather than as an alphabetical list. A term in the
+           order that nothing uses is skipped, like any other unused term.
+           Without an order, ranging the map gives alphabetical chips. */ -}}
+    {{- $chips := slice }}
+    {{- with $group.order }}
+      {{- range $term := . }}
+        {{- with index $termPages $term }}
+          {{- $chips = $chips | append (dict "term" $term "page" .) }}
+        {{- end }}
+      {{- end }}
+    {{- else }}
+      {{- range $term, $termPage := $termPages }}
+        {{- $chips = $chips | append (dict "term" $term "page" $termPage) }}
+      {{- end }}
+    {{- end }}
+    {{- /* A group with a `revealWithType` belongs to one type of resource and
+           is only worth offering once that type is chosen, which the script
+           does. It renders open here so that the row, and the term pages its
+           chips link to, stay reachable with no JavaScript. */ -}}
+    {{- with $chips }}
+      <div class="resource-filters__row" data-filter-row="{{ $group.key }}"
+           {{- with $group.revealWithType }} data-reveal-with-type="{{ . }}"{{ end }}>
+        <p class="resource-filters__label" id="filter-label-{{ $scope }}{{ $group.key }}">{{ $group.label }}</p>
+        <ul class="resource-filters__chips" aria-labelledby="filter-label-{{ $scope }}{{ $group.key }}">
+          {{- range . }}
             <li>
-              <a class="resource-chip" href="{{ $termPage.RelPermalink }}"
+              <a class="resource-chip" href="{{ .page.RelPermalink }}"
                  data-filter-group="{{ $group.key }}"
-                 data-filter-value="{{ $term }}"
-                 aria-pressed="false">{{ partial "resources/term-title.html" $termPage }}</a>
+                 data-filter-value="{{ .term }}"
+                 aria-pressed="false">{{ partial "resources/term-title.html" .page }}</a>
             </li>
           {{- end }}
         </ul>

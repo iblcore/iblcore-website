@@ -6,7 +6,6 @@ weight: 1
 modality: []
 stage:
   - "collect"
-  - "explore"
 
 maintainer: "IBL"
 

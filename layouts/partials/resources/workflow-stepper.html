@@ -1,0 +1,27 @@
+{{- /* The clickable map of a workflow, above its steps.
+
+       Takes (dict "steps" <the page's steps front matter>).
+
+       Each entry anchors to the step it names, so a reader can enter the
+       workflow part way down. The step ids are derived from the titles here
+       and in the layout through the same `anchorize`, so the two stay in
+       step without an id being authored in front matter. */ -}}
+{{- with .steps }}
+  <nav class="workflow-stepper" aria-label="Workflow steps" data-workflow-stepper>
+    <ol class="workflow-stepper__track">
+      {{- range $index, $step := . }}
+        <li class="workflow-stepper__item" data-stepper-item="step-{{ anchorize $step.title }}">
+          <a class="workflow-stepper__link" href="#step-{{ anchorize $step.title }}">
+            <span class="workflow-stepper__number" aria-hidden="true">{{ add $index 1 }}</span>
+            <span class="workflow-stepper__label">{{ $step.title }}</span>
+            {{- /* Filled by the script with the choice made in that step, so
+                   the overview still answers "where am I" once the step
+                   itself has scrolled away. Empty, and invisible, until
+                   then. */ -}}
+            <span class="workflow-stepper__status" data-stepper-status="step-{{ anchorize $step.title }}"></span>
+          </a>
+        </li>
+      {{- end }}
+    </ol>
+  </nav>
+{{- end -}}

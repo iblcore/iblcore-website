@@ -8,7 +8,6 @@ modality:
   - "neuropixels"
   - "behavior"
 stage:
-  - "explore"
   - "analyse"
 
 access:

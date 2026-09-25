@@ -21,11 +21,26 @@
                placeholder="Search by name, description or tag" autocomplete="off">
       </form>
 
+      {{- /* The goal row is offered once, at the top, with the workflows. It
+             is built from the workflows as well as the resources, so a stage
+             only a workflow carries is still offered, and it narrows the grid
+             below as well as naming the path to take through it. */ -}}
+      {{ $workflows := (site.GetPage "/resources/workflows").Pages }}
+      {{ $everything := $resources | append $workflows }}
       {{ partial "resources/workflows-band.html" (dict
-        "workflows" (site.GetPage "/resources/workflows").Pages
+        "workflows" $workflows
+        "filters" (dict "pages" $everything "groups" (slice "stage") "scope" "workflows")
       ) }}
 
-      {{ partial "resources/filter-bar.html" (dict "pages" $resources "sections" $sections) }}
+      <h2 class="resource-index__title">Explore all resources</h2>
+      <p class="resource-index__lead">Every dataset, tool, hardware item and protocol. Narrow them by what you are looking for.</p>
+
+      {{ partial "resources/filter-bar.html" (dict
+        "pages" $everything
+        "sections" $sections
+        "groups" (slice "access" "modality")
+        "scope" "resources"
+      ) }}
 
       <p class="visually-hidden" aria-live="polite" data-resource-status></p>
 

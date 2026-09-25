@@ -13,10 +13,19 @@ const index = document.querySelector("[data-resource-index]");
 
 if (index) {
   const chips = Array.from(index.querySelectorAll("[data-filter-group]"));
-  const cards = Array.from(index.querySelectorAll("[data-resource-card]")).map((element) => ({
+  // The workflows band is inside the index but is not part of the grid. A
+  // workflow answers a goal, so the goal row narrows it; the rows describing
+  // resources — type, modality, access route — and the search box say nothing
+  // about a path through them, and leave the band whole.
+  const allCards = Array.from(index.querySelectorAll("[data-resource-card]")).map((element) => ({
     element,
     card: readCard(element),
+    band: element.closest("[data-workflows-band]") !== null,
   }));
+  const cards = allCards.filter(({ band }) => !band);
+  // Rows that belong to one type of resource: offered only once that type is
+  // selected, and rendered open for readers with no script to hide them.
+  const typedRows = Array.from(index.querySelectorAll("[data-reveal-with-type]"));
   const searchForm = index.querySelector("[data-resource-search]");
   const searchInput = index.querySelector("[data-resource-search] input");
   const status = index.querySelector("[data-resource-status]");
@@ -25,11 +34,21 @@ if (index) {
   const state = { type: [], modality: [], stage: [], access: [], search: "" };
 
   const apply = () => {
+    // A row that is on its way out takes its own selection with it, so a
+    // filter the reader can no longer see is never still narrowing the grid.
+    for (const row of typedRows) {
+      const offered = state.type.includes(row.dataset.revealWithType);
+      if (!offered) state[row.dataset.filterRow] = [];
+      row.hidden = !offered;
+    }
+
+    const goalOnly = { type: [], modality: [], stage: state.stage, access: [], search: "" };
+
     let visible = 0;
-    for (const { element, card } of cards) {
-      const shown = matchesFilters(card, state);
+    for (const { element, card, band } of allCards) {
+      const shown = matchesFilters(card, band ? goalOnly : state);
       element.hidden = !shown;
-      if (shown) visible += 1;
+      if (shown && !band) visible += 1;
     }
 
     for (const chip of chips) {

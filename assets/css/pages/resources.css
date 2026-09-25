@@ -92,10 +92,6 @@
   line-height: 1.28;
 }
 
-.access-method-docs-link {
-  font-size: 0.8rem;
-}
-
 .resource-card__body--stack {
   display: flex;
   height: 100%;
@@ -172,16 +168,6 @@
   text-decoration: underline;
 }
 
-.dataset-guide-pending {
-  margin: 0 0 var(--space-sm);
-  color: var(--color-text-on-dark-muted);
-}
-
-.access-method-list__links .text-link {
-  color: var(--color-brand-light);
-  text-decoration: underline;
-}
-
 @media (max-width: 520px) {
   .resource-cards {
     grid-template-columns: 1fr;
@@ -229,46 +215,144 @@
   list-style: none;
 }
 
-.access-method-list {
-  display: grid;
-  gap: 0;
-  margin: var(--space-md) 0 0;
+/* Dataset guide rows: one access route per row, with the one action it
+   offers. Shared by the dataset card and the dataset page's "Get the data"
+   panel, so a route reads the same in both. */
+.guide-list {
+  margin-top: var(--space-md);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-accent-tint-10);
+}
+
+.resource-card__body p.guide-list__label {
+  margin: 0 0 var(--space-2xs);
+  color: var(--color-accent-tint-70);
+  font-size: 0.78rem;
+}
+
+.guide-list__rows {
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.access-method-list__item {
-  display: grid;
-  gap: 0.35rem;
-  padding: var(--space-sm) 0;
-  border-top: 1px solid var(--color-border-soft);
-}
-
-.access-method-list__item:last-child {
-  border-bottom: 1px solid var(--color-border-soft);
-}
-
-.access-method-list__heading {
+.guide-row {
   display: flex;
+  min-height: 2.6rem;
+  padding: var(--space-2xs) 0;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: space-between;
+  gap: var(--space-sm);
 }
 
-.access-method-list__name {
-  color: var(--color-text-bright);
+.guide-row + .guide-row {
+  border-top: 1px solid var(--color-accent-tint-10);
+}
+
+.guide-row__route {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.guide-row__name {
+  color: var(--color-accent);
+  font-size: 0.9rem;
+}
+
+.guide-action {
+  display: inline-flex;
+  min-height: 2rem;
+  padding: 0 0.85rem;
+  flex: none;
+  align-items: center;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.guide-action--ready {
+  background: var(--color-accent);
+  color: var(--color-surface);
+  font-weight: 700;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.guide-action--ready:hover,
+.guide-action--ready:focus-visible {
+  outline: none;
+  box-shadow: 0 0.35rem 0.8rem var(--color-accent-tint-25);
+  transform: translateY(-1px);
+}
+
+.guide-action--ready:focus-visible {
+  box-shadow: 0 0 0 3px var(--color-brand-sky);
+}
+
+.guide-action--pending {
+  box-shadow: inset 0 0 0 1px var(--color-accent-tint-20);
+  color: var(--color-accent-tint-70);
+}
+
+.guide-card__about {
+  margin-top: auto;
+  padding-top: var(--space-md);
+  align-self: flex-end;
+  color: var(--color-accent);
+  font-size: 0.85rem;
   font-weight: 700;
 }
 
-.access-method-list__description {
-  margin: 0;
-  color: var(--color-accent-soft);
-  font-size: 0.95rem;
+/* The dataset page's panel gives each row room to say what the route is best
+   for, which the card has no space for. */
+.get-data-panel {
+  padding: var(--space-xs) var(--space-lg);
 }
 
-.access-method-list__links {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-sm);
-  margin: 0;
+.guide-row--wide {
+  min-height: 3.4rem;
+}
+
+.guide-row--wide .guide-row__route {
+  flex: 0 0 12rem;
+}
+
+.guide-row__why {
+  flex: 1;
+  color: var(--color-accent-tint-70);
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+.text-link--on-dark {
+  color: var(--color-brand-light);
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .guide-row--wide {
+    padding: var(--space-xs) 0;
+    flex-wrap: wrap;
+  }
+
+  .guide-row--wide .guide-row__route {
+    flex: 1 1 auto;
+  }
+
+  .guide-row--wide .guide-row__why {
+    order: 3;
+    flex-basis: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guide-action--ready {
+    transition: none;
+  }
+
+  .guide-action--ready:hover {
+    transform: none;
+  }
 }

@@ -1,16 +1,20 @@
 {{- /* The workflows that use this resource, derived by scanning workflow steps
-       rather than authored on the resource. Renders nothing when there are
-       none, so a resource no workflow uses shows no empty heading.
+       rather than authored on the resource. A step names a resource either as
+       one of its cards or as one of the access routes it compares, and both
+       count as use. Renders nothing when there are none, so a resource no
+       workflow uses shows no empty heading.
 
        Takes (dict "page" <resource page>). */ -}}
 {{- $page := .page -}}
 {{- $workflows := slice -}}
 {{- range $workflow := (site.GetPage "/resources/workflows").Pages -}}
   {{- range $step := $workflow.Params.steps -}}
-    {{- range $path := partial "resources/step-paths.html" $step -}}
-      {{- with site.GetPage $path -}}
-        {{- if eq .RelPermalink $page.RelPermalink -}}
-          {{- $workflows = $workflows | append $workflow -}}
+    {{- range $key := (slice "resource" "routes") -}}
+      {{- range $path := partial "resources/step-paths.html" (dict "step" $step "key" $key) -}}
+        {{- with site.GetPage $path -}}
+          {{- if eq .RelPermalink $page.RelPermalink -}}
+            {{- $workflows = $workflows | append $workflow -}}
+          {{- end -}}
         {{- end -}}
       {{- end -}}
     {{- end -}}

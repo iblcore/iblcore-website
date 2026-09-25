@@ -25,7 +25,6 @@ modality:
   - "behavior"
   - "video"
 stage:
-  - "explore"
   - "analyse"
 
 access:

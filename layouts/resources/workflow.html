@@ -11,9 +11,12 @@
         <div class="dataset-section-copy prose">{{ . }}</div>
       {{ end }}
 
+      {{ partial "resources/workflow-stepper.html" (dict "steps" .Params.steps) }}
+
       <ol class="workflow-steps">
         {{ range $index, $step := .Params.steps }}
-          <li class="workflow-step">
+          <li class="workflow-step" id="step-{{ anchorize $step.title }}"
+              {{- with $step.choice }} data-choice="{{ . }}"{{ end }}>
             <h2 class="workflow-step__heading">
               <span class="workflow-step__number" aria-hidden="true">{{ add $index 1 }}</span>
               <span class="workflow-step__title">{{ $step.title }}</span>
@@ -23,10 +26,27 @@
               <div class="workflow-step__note prose">{{ $.RenderString (dict "display" "block") . }}</div>
             {{ end }}
 
+            {{- /* The chooser is hidden until the script that acts on it runs:
+                   without one the workflow is simply the whole document. */ -}}
+            {{ if $step.choice }}
+              {{ partial "resources/dataset-picker.html" (dict
+                "pages" (partial "resources/workflow-steps.html" (dict "step" $step "key" "resource"))
+              ) }}
+              {{ partial "resources/route-help.html" (dict
+                "pages" (partial "resources/workflow-steps.html" (dict "step" $step "key" "routes"))
+              ) }}
+              <p class="visually-hidden" aria-live="polite" data-wf-status></p>
+            {{ end }}
+
             {{ partial "resources/resource-grid.html" (dict
-              "pages" (partial "resources/workflow-steps.html" $step)
+              "pages" (partial "resources/workflow-steps.html" (dict "step" $step "key" "resource"))
               "empty" ""
+              "short" true
             ) }}
+
+            {{ if $step.choice }}
+              <button type="button" class="wf-show-all" data-wf-clear hidden>Show all datasets</button>
+            {{ end }}
           </li>
         {{ end }}
       </ol>
