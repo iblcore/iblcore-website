@@ -45,12 +45,8 @@ Notes:
 
 ### 2.3 Resources (`/resources/`)
 
-The section as a whole is still drafted. One page is published ahead of it:
-`/resources/benchmarking/ibl-brainwidebench/`, a temporary landing page for the
-IBL BrainWideBench benchmark, reached from the Resources dropdown. It folds into
-the resource grid when the resources portal ships; its URL is chosen so it does
-not need to move.
-
+`/resources/benchmarking/ibl-brainwidebench/` is the IBL BrainWideBench
+benchmark page, reached from the Benchmarking item in the Resources dropdown.
 
 - Data
   - Brainwide map — within it, access + colab tutorials

@@ -1,0 +1,12 @@
+{{- /* Arrow saying where a link goes: "external" points out of the page,
+       "down" points to a section further down it. Decorative, because the
+       label and the new-tab note already carry the meaning.
+
+         {{ partial "link-arrow.html" (dict "direction" "external") }}
+         {{ partial "link-arrow.html" (dict "direction" "down" "class" "bwb-link__arrow") }}
+
+       The class defaults to the banner-button arrow, sized in
+       assets/css/pages/content.css. */ -}}
+{{- $class := .class | default "button__arrow" -}}
+{{- $path := cond (eq .direction "down") "M12 7v10M8 13l4 4 4-4" "M8 16 16 8M9.5 8H16v6.5" -}}
+<svg class="{{ $class }}" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="{{ $path }}" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>

@@ -2,7 +2,6 @@
 title: "IBL BrainWideBench"
 description: "A standardized benchmark for models pretrained on brain-wide neural recordings."
 draft: false
-placeholder_copy: true
 layout: "benchmark"
 header_variant: "landing"
 footer_variant: "non-landing"
@@ -26,7 +25,6 @@ intro_title: "What it is"
 video: "/videos/ibl-brainwidebench.mp4"
 video_description: "Animated overview of IBL BrainWideBench: the dataset, the three task suites, and how to submit."
 video_caption: "A 34-second overview of the dataset, the task suites and the submission route."
-
 
 cta_title: "Submit your model for evaluation"
 cta_body: |

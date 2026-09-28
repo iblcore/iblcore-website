@@ -102,12 +102,8 @@
           <a class="bwb-link{{ if .lead }} bwb-link--lead{{ end }}" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
             <strong>{{ .title }}</strong>
             {{ with .description }}<span>{{ . }}</span>{{ end }}
-            {{- /* Decorative: every link here leaves the site, and the screen
-                   reader note below already says so. */ -}}
-            <svg class="bwb-link__arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path d="M8 16 16 8M9.5 8H16v6.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            <span class="visually-hidden"> (opens in a new tab)</span>
+            {{ partial "link-arrow.html" (dict "direction" "external" "class" "bwb-link__arrow") }}
+            {{ partial "link-new-tab.html" . }}
           </a>
         {{ end }}
       </div>

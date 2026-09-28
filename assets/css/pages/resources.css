@@ -25,12 +25,6 @@
   color: var(--color-brand-light);
 }
 
-.button__arrow {
-  width: 1.2em;
-  height: 1.2em;
-  flex: 0 0 auto;
-}
-
 .page-resources-benchmark .button--page-cta:hover,
 .page-resources-benchmark .button--page-cta:focus-visible {
   box-shadow:
@@ -74,22 +68,7 @@
   max-width: 68ch;
 }
 
-/* The mark sits inside the h1, so the two align on their centres. */
-.section-hero h1 {
-  display: flex;
-  align-items: center;
-  gap: var(--space-lg);
-  flex-wrap: wrap;
-}
-
-.page-header__mark {
-  height: calc(var(--font-size-page-hero-title) * 1.45);
-  width: auto;
-  flex: 0 0 auto;
-  filter: drop-shadow(0 0.15rem 0.5rem rgba(0, 0, 0, 0.35));
-}
-
-/* Right-hand column: the animation, then the ask. */
+/* Right-hand column: the animation. */
 .bwb-aside {
   /* Wide enough to read the labels inside the square animation, but the square
      sets the height of the whole opening, so it stops well short of the 540px
@@ -116,6 +95,23 @@
   font-size: var(--font-size-footer-legal);
   line-height: 1.35;
   opacity: 0.7;
+}
+
+/* Call to action, directly after the opening copy: the ask follows the
+   explanation, before the reader reaches the figures for scale. */
+.bwb-cta {
+  margin-top: var(--space-xl);
+  padding: var(--space-panel-3xl);
+  border-radius: var(--radius-md);
+  background: var(--color-brand-light-tint-40);
+}
+
+.bwb-cta p {
+  margin: 0;
+}
+
+.bwb-cta p + p {
+  margin-top: var(--space-sm);
 }
 
 /* Task suites, inside the call to action: what a submission is scored on sits
@@ -381,14 +377,11 @@
   outline: none;
 }
 
-.bwb-citation__item pre {
-  margin-top: var(--space-md);
-}
-
 /* BibTeX entries have long author lists and no break opportunities, so they are
-   wrapped rather than left to scroll sideways on a phone. */
+   wrapped rather than left to scroll sideways on a phone. The top margin clears
+   whatever precedes the block: the reference, or the buttons once JS runs. */
 .bwb-citation pre {
-  margin: 0;
+  margin: var(--space-md) 0 0;
   padding: var(--space-md);
   border-radius: var(--radius-md);
   background: var(--color-surface);
@@ -443,21 +436,4 @@
   .bwb-link {
     transition: none;
   }
-}
-
-/* Call to action, directly after the opening copy: the ask follows the
-   explanation, before the reader reaches the figures for scale. */
-.bwb-cta {
-  margin-top: var(--space-xl);
-  padding: var(--space-panel-3xl);
-  border-radius: var(--radius-md);
-  background: var(--color-brand-light-tint-40);
-}
-
-.bwb-cta p {
-  margin: 0;
-}
-
-.bwb-cta p + p {
-  margin-top: var(--space-sm);
 }

@@ -14,7 +14,9 @@
     <div class="section-hero__media" aria-hidden="true"></div>
     <div class="shell page-shell section-hero__inner">
       <div class="section-hero__copy">
-        <h1 id="page-hero-title"{{ if .project_title }} data-project-banner-title{{ end }}>
+        {{- /* `banner_logo` sets a mark beside the title. The modifier carries the
+               layout, so pages without one keep a plain, wrapping h1. */ -}}
+        <h1 id="page-hero-title"{{ if .project_title }} data-project-banner-title{{ end }} class="page-header__title{{ with $page.Params.banner_logo }} page-header__title--with-mark{{ end }}">
           {{- with $page.Params.banner_logo -}}
             <img class="page-header__mark" src="{{ . | relURL }}" alt="" width="140" height="108"><span>{{ $title }}</span>
           {{- else -}}
@@ -41,25 +43,14 @@
           {{- /* Buttons pointing off the site open in a new tab, matching the
                  markdown link render hook. rel="noopener" is required with
                  target="_blank"; the note is for screen readers. */ -}}
-          {{ $external := and
-               (or (strings.HasPrefix .url "http://") (strings.HasPrefix .url "https://"))
-               (not (strings.HasPrefix .url site.BaseURL)) }}
-          {{- /* An arrow saying where the button goes: out to another site, or
-                 down to a section of this one. Decorative, because the label and
-                 the screen-reader note already carry it. */ -}}
+          {{ $external := partial "link-external.html" .url }}
           {{ $anchor := strings.HasPrefix .url "#" }}
           <a class="button button--page-cta{{ if $anchor }} button--page-cta-anchor{{ end }}" href="{{ $href }}"{{ if $external }} target="_blank" rel="noopener noreferrer"{{ end }}>
             {{- .label -}}
-            {{ if $anchor }}
-              <svg class="button__arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M12 7v10M8 13l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            {{ else if $external }}
-              <svg class="button__arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M8 16 16 8M9.5 8H16v6.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            {{ end }}
-            {{- if $external }}<span class="visually-hidden"> (opens in a new tab)</span>{{ end -}}
+            {{ if $anchor }} {{ partial "link-arrow.html" (dict "direction" "down") }}
+            {{- else if $external }} {{ partial "link-arrow.html" (dict "direction" "external") }}
+            {{- end }}
+            {{- if $external }}{{ partial "link-new-tab.html" . }}{{ end -}}
           </a>
         {{ end }}
       </div>
