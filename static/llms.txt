@@ -20,7 +20,7 @@ Use the canonical pages below for current public information about IBL-Core.
 ## Resources
 
 - [Resources overview](https://iblcore.org/#resources): Public software, data, analysis, and visualisation resources.
-- [IBL BrainWideBench](https://iblcore.org/resources/benchmarking/ibl-brainwidebench/): A standardised benchmark for models pretrained on brain-wide neural recordings, with links to the preprint, code, documentation, checkpoints, and leaderboard.
+- [IBL BrainWideBench](https://iblcore.org/resources/benchmarking/ibl-brainwidebench/): A standardized benchmark for models pretrained on brain-wide neural recordings, with links to the preprint, code, documentation, checkpoints, and leaderboard.
 
 ## Projects, publications, and news
 

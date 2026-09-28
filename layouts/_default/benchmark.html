@@ -9,7 +9,7 @@
   <section class="section page-content">
     <div class="shell page-shell">
       <div class="bwb-intro">
-        <div>
+        <div class="bwb-intro__copy">
           <h2 class="bwb-head">{{ .Params.intro_title }}</h2>
           <div class="prose">{{ .Content }}</div>
         </div>
@@ -35,11 +35,17 @@
           <div class="prose">{{ $page.RenderString (dict "display" "block") $page.Params.cta_body }}</div>
           {{ with $page.Params.suites }}
             <div class="bwb-cards">
-              {{ range . }}
+              {{- /* Bind the loop variable: `.` changes inside `with`. */ -}}
+              {{ range $suite := . }}
                 <div class="bwb-card">
-                  <em>{{ .label }}</em>
-                  <h3>{{ .title }}</h3>
-                  <p>{{ .body }}</p>
+                  <em>{{ $suite.label }}</em>
+                  <h3>{{ $suite.title }}</h3>
+                  <p>{{ $suite.body }}</p>
+                  {{ with $suite.image }}
+                    <figure class="bwb-card__fig">
+                      <img src="{{ . | relURL }}" width="620" height="150" loading="lazy" alt="{{ $suite.alt }}">
+                    </figure>
+                  {{ end }}
                 </div>
               {{ end }}
             </div>
@@ -73,15 +79,15 @@
       <div class="prose bwb-citation">
         {{ $page.RenderString (dict "display" "block") .Params.citation_intro }}
         {{- /* The reference is what a reader needs; the BibTeX is what they
-               copy. <details> keeps both without forty lines of author list
-               dominating the page, and needs no JavaScript to open. */ -}}
+               copy. The entry is rendered open, and the script collapses it
+               behind a button: without JavaScript the BibTeX is still there to
+               select, rather than locked behind a control that does nothing. */ -}}
         {{ range $index, $citation := .Params.citations }}
-          <details class="bwb-citation__item">
-            <summary>{{ $page.RenderString $citation.reference }}</summary>
-            <div class="bwb-citation__entry" data-citation>
-              <pre id="bibtex-{{ add $index 1 }}">{{ $citation.entry }}</pre>
-            </div>
-          </details>
+          <article class="bwb-citation__item" data-citation>
+            {{ with $citation.kind }}<p class="bwb-citation__kind">{{ . }}</p>{{ end }}
+            <div class="bwb-citation__ref">{{ $page.RenderString $citation.reference }}</div>
+            <pre id="bibtex-{{ add $index 1 }}">{{ $citation.entry }}</pre>
+          </article>
         {{ end }}
       </div>
     </div>
@@ -95,7 +101,13 @@
         {{ range .Params.links }}
           <a class="bwb-link{{ if .lead }} bwb-link--lead{{ end }}" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
             <strong>{{ .title }}</strong>
-            <span>{{ .description }}</span>
+            {{ with .description }}<span>{{ . }}</span>{{ end }}
+            {{- /* Decorative: every link here leaves the site, and the screen
+                   reader note below already says so. */ -}}
+            <svg class="bwb-link__arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M8 16 16 8M9.5 8H16v6.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="visually-hidden"> (opens in a new tab)</span>
           </a>
         {{ end }}
       </div>

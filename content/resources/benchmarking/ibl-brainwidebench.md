@@ -1,6 +1,6 @@
 ---
 title: "IBL BrainWideBench"
-description: "A standardised benchmark for models pretrained on brain-wide neural recordings."
+description: "A standardized benchmark for models pretrained on brain-wide neural recordings."
 draft: false
 placeholder_copy: true
 layout: "benchmark"
@@ -9,7 +9,7 @@ footer_variant: "non-landing"
 body_class: "page-resources-benchmark"
 banner_logo: "/images/ibl-brainwidebench-logo.png"
 banner_intro: |
-  A standardised benchmark for models pretrained on brain-wide neural recordings.
+  A standardized benchmark for models pretrained on brain-wide neural recordings.
 banner_buttons:
   - label: "Project page"
     url: "https://brainbench-org.github.io/ibl-bwb-project"
@@ -30,22 +30,28 @@ video_caption: "A 34-second overview of the dataset, the task suites and the sub
 
 cta_title: "Submit your model for evaluation"
 cta_body: |
-  Anyone can take part. [How to use it](#how-to-use-it) gives an overview.
+  Anyone can take part. Run your model on the held-out sessions, upload the
+  predictions to the [leaderboard](https://bwb.iblcore.org), and see how it
+  compares. The steps are under [How to use it](#how-to-use-it).
 
-  Generate predictions on the held-out sessions, upload them to the
-  [leaderboard](https://bwb.iblcore.org), and see how your model compares.
-  Models are scored on three task suites:
+  Models are scored on any or all of three task suites:
 
 suites:
   - label: "TS1"
     title: "Behavior"
     body: "Predict trial-level behavioral outcomes from neural population activity."
+    image: "/images/bwb/ts1-behavior.webp"
+    alt: "Spike raster passed to a model, which outputs a behavioral trace."
   - label: "TS2"
     title: "Dynamics"
     body: "Reconstruct firing rate trajectories and spike predictions across brain regions."
+    image: "/images/bwb/ts2-dynamics.webp"
+    alt: "Spike raster with a masked block passed to a model, which reconstructs the masked activity."
   - label: "TS3"
     title: "Anatomy"
     body: "Classify recorded neurons to their brain region from activity alone."
+    image: "/images/bwb/ts3-anatomy.webp"
+    alt: "Spike raster passed to a model, which assigns each neuron to a brain region shown on a coronal atlas slice."
 
 steps_title: "How to use it"
 steps_intro: "The [documentation](https://brainbench-org.github.io/ibl-bwb) covers each stage in full."
@@ -72,36 +78,35 @@ steps:
 links_title: "Links"
 links:
   - title: "Project page"
-    description: "Overview, task definitions, results and news. Start here."
     url: "https://brainbench-org.github.io/ibl-bwb-project"
     lead: true
   - title: "Leaderboard"
     description: "Current standings and model submissions."
     url: "https://bwb.iblcore.org"
   - title: "Documentation"
-    description: "Data access, formats, evaluation protocol."
+    description: "Setup, data, task suites and submission."
     url: "https://brainbench-org.github.io/ibl-bwb"
   - title: "Code"
-    description: "Baselines, dataloaders and scoring."
+    description: "Pretraining, evaluation and scoring code."
     url: "https://github.com/brainbench-org/ibl-bwb"
   - title: "Checkpoints"
     description: "Pretrained models on Hugging Face."
     url: "https://huggingface.co/collections/nerdslab/ibl-bwb"
-  - title: "Training runs"
-    description: "Public Weights & Biases logs for the baselines."
-    url: "https://wandb.ai/ibl-bwb/projects"
   - title: "Paper"
     description: "Benchmark design, baselines and findings."
     url: "https://arxiv.org/abs/2609.22064"
+  - title: "Training runs"
+    description: "Public Weights & Biases logs for the baselines."
+    url: "https://wandb.ai/ibl-bwb/projects"
 
 citation_title: "Citation"
 citation_intro: |
   If you use IBL BrainWideBench, please cite the benchmark paper and the dataset
-  it is built on. Select a reference for its BibTeX entry; the benchmark entry is
-  also in the repository's
+  it is built on. The benchmark entry is also in the repository's
   [CITATION.cff](https://github.com/brainbench-org/ibl-bwb/blob/main/CITATION.cff).
 citations:
-  - reference: |
+  - kind: "Benchmark paper"
+    reference: |
       Andre, A., Mahato, S. P., Arora, V., et al. (2026) *BrainWideBench:
       Benchmarking large-scale pretraining and across-animal transfer in
       multi-region neural recordings*. arXiv:2609.22064.
@@ -115,7 +120,8 @@ citations:
         primaryClass  = {cs.LG},
         url           = {https://arxiv.org/abs/2609.22064},
       }
-  - reference: |
+  - kind: "Dataset"
+    reference: |
       International Brain Laboratory, Benson, B., Benson, J., et al. (2025) 'A
       brain-wide map of neural activity during complex behaviour', *Nature*,
       645(8079), pp. 177-191.
@@ -135,7 +141,7 @@ citations:
 IBL BrainWideBench is an evaluation suite for models trained on brain-wide
 spiking activity. The data comes from the IBL Brain Wide Map, Neuropixels
 recordings from 139 mice performing a sensory-guided decision-making task, with
-behaviour measured at the same time.
+behavior measured at the same time.
 
 Comparing such models has been difficult, because evaluation protocols are
 fragmented and most cover only a single task domain. The suite fixes the

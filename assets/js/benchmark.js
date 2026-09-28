@@ -1,31 +1,58 @@
-// Copy buttons for the BibTeX entries.
+// Copy and show controls for the BibTeX entries.
 //
 // Added here rather than in the template so that a browser without JavaScript
-// shows no button at all, instead of one that does nothing. The entry stays
-// selectable either way.
+// shows no button at all, instead of one that does nothing. The markup renders
+// the entry open; this collapses it, so the BibTeX stays reachable either way.
 (() => {
-  const entries = document.querySelectorAll("[data-citation]");
-  if (!entries.length || !navigator.clipboard) return;
+  const items = document.querySelectorAll("[data-citation]");
+  if (!items.length) return;
 
-  for (const entry of entries) {
-    const bibtex = entry.querySelector("pre");
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "bwb-copy";
-    button.textContent = "Copy";
-    button.setAttribute("aria-label", "Copy BibTeX entry");
+  for (const item of items) {
+    const bibtex = item.querySelector("pre");
+    if (!bibtex) continue;
 
-    button.addEventListener("click", async () => {
-      try {
-        await navigator.clipboard.writeText(bibtex.textContent.trim());
-        button.textContent = "Copied";
-      } catch {
-        // Clipboard access can be refused; say so rather than appear to work.
-        button.textContent = "Press Ctrl+C";
-      }
-      setTimeout(() => { button.textContent = "Copy"; }, 2000);
+    const actions = document.createElement("div");
+    actions.className = "bwb-citation__actions";
+
+    // Copying needs the clipboard API; showing does not, so the show control
+    // appears even where the clipboard is unavailable.
+    if (navigator.clipboard) {
+      const copy = document.createElement("button");
+      copy.type = "button";
+      copy.className = "button button--bwb-solid";
+      copy.textContent = "Copy BibTeX";
+      copy.setAttribute("aria-label", "Copy BibTeX entry");
+
+      copy.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(bibtex.textContent.trim());
+          copy.textContent = "Copied";
+        } catch {
+          // Clipboard access can be refused; say so rather than appear to work.
+          copy.textContent = "Press Ctrl+C";
+        }
+        setTimeout(() => { copy.textContent = "Copy BibTeX"; }, 2000);
+      });
+
+      actions.append(copy);
+    }
+
+    const show = document.createElement("button");
+    show.type = "button";
+    show.className = "button button--bwb-ghost";
+    show.textContent = "Show BibTeX";
+    show.setAttribute("aria-expanded", "false");
+    show.setAttribute("aria-controls", bibtex.id);
+
+    show.addEventListener("click", () => {
+      const open = bibtex.hidden;
+      bibtex.hidden = !open;
+      show.setAttribute("aria-expanded", String(open));
+      show.textContent = open ? "Hide BibTeX" : "Show BibTeX";
     });
 
-    entry.insertBefore(button, bibtex);
+    actions.append(show);
+    bibtex.hidden = true;
+    item.insertBefore(actions, bibtex);
   }
 })();
