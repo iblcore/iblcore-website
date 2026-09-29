@@ -1,0 +1,15 @@
+{{- /* Markdown links. Anything pointing off this site opens in a new tab, so a
+       reader following a reference does not lose the page they were reading.
+       The external test and the screen-reader note are shared partials, so the
+       render hook, the banner buttons and the link cards all agree.
+
+       rel="noopener" is required with target="_blank": without it the opened
+       page can reach back through window.opener.
+
+       The whole template is trimmed: any whitespace it emits after </a> lands
+       in the paragraph as a space, which shows up before a following comma. */ -}}
+{{- $external := partial "link-external.html" .Destination -}}
+{{- printf `<a href="%s"` (.Destination | safeURL) | safeHTML -}}
+{{- with .Title }}{{ printf ` title="%s"` . | safeHTML }}{{ end -}}
+{{- if $external }} target="_blank" rel="noopener noreferrer"{{ end -}}
+>{{ .Text }}{{ if $external }}{{ partial "link-new-tab.html" . }}{{ end }}</a>

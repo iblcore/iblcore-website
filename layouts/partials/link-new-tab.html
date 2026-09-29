@@ -1,0 +1,5 @@
+{{- /* The note a screen reader needs when a link opens in a new tab, which it
+       otherwise has no way to tell. Kept in one place so the wording cannot
+       drift between the render hook, the banner buttons and the link cards.
+       Takes no arguments. */ -}}
+{{- print "<span class=\"visually-hidden\"> (opens in a new tab)</span>" | safeHTML -}}

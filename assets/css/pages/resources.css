@@ -1,0 +1,439 @@
+/* Resources section pages. Loaded from baseof.html when .Section is "resources". */
+
+/* The benchmark page's bands already separate themselves with panels, rules and
+   headings, so they need far less air between them than the site default. */
+.page-resources-benchmark .page-content {
+  padding-block: var(--space-xl);
+}
+
+/* The banner actions in the site's light blue rather than white, matching the
+   tints the rest of the page uses. Scoped to this page: the same pill also
+   appears on Projects and New partner projects. */
+.page-resources-benchmark .button--page-cta {
+  gap: 0.4rem;
+  min-height: 2.2rem;
+  padding: 0.3rem 0.85rem;
+  background: var(--color-brand-light);
+  font-size: 0.85rem;
+  box-shadow: inset 0 0 0 1px var(--color-brand-light);
+}
+
+/* The one button that stays on the page is outlined rather than filled, so the
+   links off the site read as a set. */
+.page-resources-benchmark .button--page-cta-anchor {
+  background: transparent;
+  color: var(--color-brand-light);
+}
+
+.page-resources-benchmark .button--page-cta:hover,
+.page-resources-benchmark .button--page-cta:focus-visible {
+  box-shadow:
+    0 0.35rem 0.8rem var(--color-accent-tint-20),
+    inset 0 0 0 1px var(--color-brand-light);
+}
+
+.bwb-head {
+  margin: 0 0 var(--space-md);
+  font-size: var(--font-size-prose-title);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.bwb-sub {
+  margin: 0 0 var(--space-xl);
+  max-width: 56ch;
+  font-size: var(--font-size-prose-copy);
+  opacity: 0.78;
+}
+
+.section-band .bwb-sub {
+  opacity: 0.82;
+}
+
+/* Opening: copy on the left, the animation on the right. */
+.bwb-intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.85fr) minmax(0, 1fr);
+  gap: var(--space-2xl);
+  align-items: start;
+}
+
+/* Dropped against the square animation, so the heading is not pinned to its top
+   edge. The animation keeps its own size. */
+.bwb-intro__copy {
+  padding-top: var(--space-lg);
+}
+
+.bwb-intro .prose {
+  max-width: 68ch;
+}
+
+/* Right-hand column: the animation. */
+.bwb-aside {
+  /* Wide enough to read the labels inside the square animation, but the square
+     sets the height of the whole opening, so it stops well short of the 540px
+     the 1080px master would stay sharp at on a 2x display. */
+  max-width: 400px;
+  margin-left: auto;
+}
+
+.bwb-figure {
+  margin: 0;
+}
+
+.bwb-figure video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: 0 0.6rem 1.6rem var(--color-accent-tint-15);
+}
+
+.bwb-figcap {
+  margin-top: var(--space-sm);
+  font-size: var(--font-size-footer-legal);
+  line-height: 1.35;
+  opacity: 0.7;
+}
+
+/* Call to action, directly after the opening copy: the ask follows the
+   explanation, before the reader reaches the figures for scale. */
+.bwb-cta {
+  margin-top: var(--space-xl);
+  padding: var(--space-panel-3xl);
+  border-radius: var(--radius-md);
+  background: var(--color-brand-light-tint-40);
+}
+
+.bwb-cta p {
+  margin: 0;
+}
+
+.bwb-cta p + p {
+  margin-top: var(--space-sm);
+}
+
+/* Task suites, inside the call to action: what a submission is scored on sits
+   with the invitation to submit. */
+.bwb-cta .bwb-cards {
+  margin-top: var(--space-lg);
+}
+
+/* The benchmark colour-codes its suites, so the cards carry those colours
+   rather than the site accent. */
+.bwb-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--layout-gap-grid);
+}
+
+.bwb-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-panel-3xl);
+  border-top: 0.35rem solid var(--bwb-behavior);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-accent);
+}
+
+.bwb-card:nth-child(2) { border-top-color: var(--bwb-dynamics); }
+.bwb-card:nth-child(3) { border-top-color: var(--bwb-anatomy); }
+
+.bwb-card em {
+  display: block;
+  margin-bottom: 0.15rem;
+  font-style: normal;
+  font-size: var(--font-size-card-copy);
+  opacity: 0.6;
+}
+
+.bwb-card h3 {
+  margin: 0 0 var(--space-xs);
+  font-size: var(--font-size-card-title);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--bwb-behavior);
+}
+
+.bwb-card:nth-child(2) h3 { color: var(--bwb-dynamics); }
+.bwb-card:nth-child(3) h3 { color: var(--bwb-anatomy); }
+
+.bwb-card p {
+  margin: 0;
+  font-size: var(--font-size-card-copy);
+  line-height: 1.3;
+  opacity: 0.86;
+}
+
+/* The pipeline diagram for the suite. `margin: auto 0 0` pushes it to the foot
+   of the flex column, so the three images line up across cards of unequal
+   text length. */
+.bwb-card__fig {
+  margin: auto 0 0;
+  padding-top: var(--space-md);
+}
+
+.bwb-card__fig img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 620 / 150;
+  border-radius: calc(var(--radius-md) * 0.6);
+}
+
+/* Two across: four short steps read faster side by side than as one long
+   column, and the section stops running past the fold. */
+.bwb-steps {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--space-2xl);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bwb-steps li {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  gap: var(--space-lg);
+  padding: var(--space-lg) 0;
+  border-top: 1px solid var(--color-accent-tint-20);
+}
+
+.bwb-steps li:nth-last-child(-n+2) {
+  border-bottom: 1px solid var(--color-accent-tint-20);
+}
+
+.bwb-steps b {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background: var(--color-brand-light-tint-40);
+  font-size: var(--font-size-prose-copy);
+  font-weight: 400;
+}
+
+.bwb-steps h3 {
+  margin: 0 0 0.2rem;
+  font-size: calc(var(--font-size-prose-copy) * 1.3);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+.bwb-steps p {
+  margin: 0;
+  font-size: var(--font-size-prose-copy);
+  line-height: 1.4;
+  opacity: 0.86;
+}
+
+.bwb-steps a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent-tint-40);
+  text-underline-offset: 0.18em;
+}
+
+.bwb-steps a:hover {
+  text-decoration-color: currentColor;
+}
+
+.bwb-steps code {
+  padding: 0.05rem 0.3rem;
+  border-radius: 0.3rem;
+  background: var(--color-brand-light-tint-40);
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.82em;
+}
+
+.bwb-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--layout-gap-grid);
+}
+
+/* Title and description stack in the first column; the arrow sits in the
+   corner beside them. */
+.bwb-link {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  column-gap: var(--space-md);
+  padding: var(--space-panel-3xl);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.bwb-link:hover,
+.bwb-link:focus-visible {
+  outline: none;
+  transform: translateY(-2px);
+  box-shadow: 0 0.55rem 1.2rem rgba(0, 0, 0, 0.22);
+}
+
+.bwb-link--lead {
+  grid-column: 1 / -1;
+  background: var(--color-brand-light);
+}
+
+.bwb-link strong {
+  grid-column: 1;
+  font-size: var(--font-size-card-title);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.bwb-link--lead strong {
+  font-size: calc(2.5rem * var(--type-scale-base));
+}
+
+.bwb-link span {
+  grid-column: 1;
+  margin-top: 0.2rem;
+  font-size: var(--font-size-card-copy);
+  line-height: 1.3;
+  opacity: 0.78;
+}
+
+.bwb-link__arrow {
+  grid-column: 2;
+  grid-row: 1;
+  width: 1.4rem;
+  height: 1.4rem;
+  opacity: 0.8;
+}
+
+/* Each reference is its own panel, so the kind label, the reference and its
+   controls read as one unit. Same tint as the call to action. */
+.bwb-citation__item {
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  background: var(--color-brand-light-tint-40);
+}
+
+.bwb-citation__item + .bwb-citation__item {
+  margin-top: var(--space-md);
+}
+
+.bwb-citation__kind {
+  margin: 0 0 var(--space-xs);
+  font-size: var(--font-size-footer-legal);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.bwb-citation__ref {
+  font-size: var(--font-size-card-copy);
+  line-height: 1.45;
+}
+
+.bwb-citation__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+/* The shared pill, shrunk: these sit inside a reference, not at the head of a
+   section, so the label matches the reference text and the padding is tight.
+   Overriding the pill's own tokens keeps one set of rules.
+   The uppercasing goes too, because "BibTeX" is spelled that way. */
+.button--bwb-solid,
+.button--bwb-ghost {
+  --button-pill-min-height: calc(2.5rem * var(--type-scale-base));
+  --button-pill-pad-y: 0.1rem;
+  --button-pill-pad-x: calc(1rem * var(--type-scale-base));
+  --button-pill-font-size: var(--font-size-card-copy);
+  border: 1px solid var(--color-accent);
+  font-family: inherit;
+  text-transform: none;
+  cursor: pointer;
+}
+
+.button--bwb-solid {
+  background: var(--color-accent);
+  color: var(--color-surface);
+}
+
+.button--bwb-ghost {
+  background: var(--color-surface);
+  color: var(--color-accent);
+}
+
+.button--bwb-solid:hover,
+.button--bwb-solid:focus-visible,
+.button--bwb-ghost:hover,
+.button--bwb-ghost:focus-visible {
+  transform: translateY(-1px);
+  outline: none;
+}
+
+/* BibTeX entries have long author lists and no break opportunities, so they are
+   wrapped rather than left to scroll sideways on a phone. The top margin clears
+   whatever precedes the block: the reference, or the buttons once JS runs. */
+.bwb-citation pre {
+  margin: var(--space-md) 0 0;
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+
+@media (max-width: 64rem) {
+  .bwb-intro,
+  .bwb-steps,
+  .bwb-links {
+    grid-template-columns: 1fr;
+  }
+
+  .bwb-steps li:nth-last-child(2) {
+    border-bottom: 0;
+  }
+
+  /* The cards stay in a row and shrink instead, so the three suites read as
+     one set; they stack only on a phone. */
+  .bwb-cards {
+    gap: var(--space-md);
+  }
+
+  .bwb-card {
+    padding: var(--space-md);
+  }
+
+  .bwb-card__fig img {
+    border-radius: calc(var(--radius-md) * 0.4);
+  }
+
+  .bwb-aside {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 40rem) {
+  .bwb-cards {
+    grid-template-columns: 1fr;
+  }
+
+  /* Stacked, a full-width diagram would tower over its own caption. */
+  .bwb-card__fig img {
+    max-width: 22rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bwb-link {
+    transition: none;
+  }
+}

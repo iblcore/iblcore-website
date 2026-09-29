@@ -16,6 +16,11 @@ header:
   - key: resources
     title: Resources
     url: /#resources
+    children:
+      - title: Tools
+        url: /#resources
+      - title: Benchmarking
+        url: /resources/benchmarking/ibl-brainwidebench/
   - key: projects
     title: Projects
     url: /new-partner-projects/

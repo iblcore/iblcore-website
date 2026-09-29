@@ -42,6 +42,23 @@
   font-weight: 400;
 }
 
+/* A page carrying `banner_logo` sets its mark beside the title, centred on it.
+   The modifier is only on those pages: making every h1 a flex container would
+   stop long titles wrapping. */
+.page-header__title--with-mark {
+  display: flex;
+  align-items: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.page-header__mark {
+  height: calc(var(--font-size-page-hero-title) * 1.45);
+  width: auto;
+  flex: 0 0 auto;
+  filter: drop-shadow(0 0.15rem 0.5rem rgba(0, 0, 0, 0.35));
+}
+
 .section-banner {
   position: relative;
   z-index: 1;
@@ -146,6 +163,14 @@
   box-shadow:
     0 0.35rem 0.8rem var(--color-accent-tint-20),
     inset 0 0 0 1px var(--color-accent-tint-25);
+}
+
+/* Direction arrow inside a banner button. Lives here because page-header.html
+   emits it for any page, not just the ones with their own stylesheet. */
+.button__arrow {
+  width: 1.2em;
+  height: 1.2em;
+  flex: 0 0 auto;
 }
 
 /* Default interior-page backdrop; only the image is configurable in front matter. */
