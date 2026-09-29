@@ -89,7 +89,11 @@
             <h3 class="what-we-do__row-title">Selected Tools</h3>
             <ul class="what-we-do__tools" aria-label="IBL tools">
               {{ range $tools }}
-                <li><a href="{{ .url }}">{{ .title }}</a></li>
+                {{- /* Off-site links open in a new tab, matching the markdown render
+                       hook. The external test and the screen-reader note come from the
+                       shared partials so the wording cannot drift. */ -}}
+                {{ $external := partial "link-external.html" .url }}
+                <li><a href="{{ .url }}"{{ if $external }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .title }}{{ if $external }}{{ partial "link-new-tab.html" . }}{{ end }}</a></li>
               {{ end }}
             </ul>
           </div>
@@ -103,7 +107,8 @@
         <div class="publications-section__list">
           {{ range $publications }}
             <article class="publication-item">
-              <h3><a href="{{ .read_article }}">{{ .title }}</a></h3>
+              {{ $external := partial "link-external.html" .read_article }}
+              <h3><a href="{{ .read_article }}"{{ if $external }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .title }}{{ if $external }}{{ partial "link-new-tab.html" . }}{{ end }}</a></h3>
               <p class="publication-item__meta">{{ .authors }} | {{ .journal }}, {{ .display_date }}</p>
               <p class="publication-item__summary">{{ .summary }}</p>
             </article>
