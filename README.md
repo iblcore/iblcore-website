@@ -78,6 +78,14 @@ The About navigation includes the Strategic Priorities page at
 `/about/strategic-priorities/`, covering IBL Core's scientific themes,
 methodological commitments, and values for 2026-2029.
 
+The Governance page at `/about/governance/` publishes public policy documents.
+Versioned PDFs live in `static/documents/policies/`, while their titles,
+versions, dates, descriptions, and file details are maintained once in
+`data/policies.yaml`. Keep this central metadata record with each PDF rather
+than adding a separate README for every document. Each policy record also owns
+its current URL, so an anchored Governance section can later move to a separate
+page without changing the download component.
+
 Interior pages share one header, translucent dark introduction, and button-bar
 design. See [Shared page template](docs/page-template.md) for new pages and
 specialized layouts; change shared tokens and components instead of copying CSS.

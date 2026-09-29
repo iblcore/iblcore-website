@@ -356,6 +356,109 @@
   margin-top: 1.1rem;
 }
 
+.page-about-governance .about-single-prose {
+  max-width: var(--content-width-wide-copy);
+}
+
+.page-about-governance .about-single-content {
+  background: var(--color-accent);
+}
+
+.page-about-governance .about-content-block {
+  padding: 0;
+  background: transparent;
+  color: var(--color-surface);
+}
+
+.page-about-governance .about-content-block h2 {
+  margin-bottom: 1.25rem;
+  color: var(--color-surface);
+}
+
+.policy-download {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1.75rem;
+  padding: 1.45rem 0;
+  border-top: 2px solid var(--color-accent-soft);
+  border-bottom: 2px solid var(--color-accent-soft);
+  color: var(--color-surface);
+  scroll-margin-top: 1rem;
+}
+
+.policy-download__copy {
+  min-width: 0;
+}
+
+.policy-download h3 {
+  margin: 0;
+  color: var(--color-surface);
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+  font-weight: 500;
+  line-height: 1.08;
+}
+
+.page-about-governance .policy-download h3 a {
+  color: var(--color-surface);
+  text-decoration: none;
+}
+
+.page-about-governance .policy-download h3 a:hover,
+.page-about-governance .policy-download h3 a:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.14em;
+}
+
+.policy-download h3 + p {
+  margin-top: 0.65rem;
+}
+
+.policy-download__metadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 1.5rem;
+  margin: 1rem 0 0;
+  font-size: 0.92rem;
+}
+
+.policy-download__metadata div {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.policy-download__metadata dt {
+  color: var(--color-accent-soft);
+  font-weight: 700;
+}
+
+.policy-download__metadata dd {
+  margin: 0;
+  color: var(--color-surface);
+}
+
+.page-about-governance .policy-download__button {
+  min-width: 9rem;
+  min-height: 2.45rem;
+  padding: 0.45rem 1rem;
+  border: 2px solid var(--color-surface);
+  background: var(--color-surface);
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  text-decoration: none;
+}
+
+.page-about-governance .policy-download__button:hover,
+.page-about-governance .policy-download__button:focus-visible {
+  border-color: var(--color-accent-soft);
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  transform: translateY(-1px);
+  outline: 0.12rem solid var(--color-accent-soft);
+  outline-offset: 0.18rem;
+}
+
 .about-content-block p,
 .about-content-block ul,
 .about-content-block ol {
@@ -392,6 +495,15 @@
 
   .about-hero__inner {
     padding-bottom: var(--space-text-2xl);
+  }
+
+  .policy-download {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .policy-download__button {
+    width: 100%;
   }
 }
 

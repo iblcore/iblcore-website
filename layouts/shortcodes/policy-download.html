@@ -1,0 +1,27 @@
+{{- $key := .Get "key" -}}
+{{- $policy := index hugo.Data.policies $key -}}
+{{- if not $policy -}}
+  {{- errorf "Policy %q was not found in data/policies.yaml (%s)" $key .Position -}}
+{{- end -}}
+{{- $anchor := $policy.anchor | default $key -}}
+{{- $sectionURL := $policy.url | default (printf "#%s" $anchor) -}}
+{{- $sectionHref := cond (strings.HasPrefix $sectionURL "#") $sectionURL ($sectionURL | relURL) -}}
+<article class="policy-download" id="{{ $anchor }}" aria-labelledby="{{ $anchor }}-title">
+  <div class="policy-download__copy">
+    <h3 id="{{ $anchor }}-title"><a href="{{ $sectionHref }}">{{ $policy.title }}</a></h3>
+    <p>{{ $policy.description }}</p>
+    <dl class="policy-download__metadata">
+      <div>
+        <dt>Version</dt>
+        <dd>{{ $policy.version }}</dd>
+      </div>
+      <div>
+        <dt>Date</dt>
+        <dd>{{ $policy.date }}</dd>
+      </div>
+    </dl>
+  </div>
+  <a class="button policy-download__button" href="{{ $policy.file | relURL }}" download>
+    Download {{ $policy.format }}
+  </a>
+</article>
