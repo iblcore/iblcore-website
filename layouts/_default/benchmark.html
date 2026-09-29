@@ -17,8 +17,14 @@
           {{ with .Params.video }}
             <figure class="bwb-figure">
               {{- /* Muted and looping to match the source animation, but with
-                     controls so it can be stopped: it is 34 seconds long. */ -}}
-              <video autoplay muted loop playsinline controls preload="metadata"
+                     controls so it can be stopped: it is 34 seconds long.
+
+                     `autoplay` is deliberately absent: CSS cannot gate it, so
+                     benchmark.js turns it on only for visitors who have not
+                     asked for reduced motion. Without JavaScript the video
+                     waits on its controls, which is the safe default. */ -}}
+              <video muted loop playsinline controls preload="metadata"
+                     data-bwb-video
                      aria-label="{{ $page.Params.video_description }}">
                 <source src="{{ . | relURL }}#t=0.1" type="video/mp4">
                 <a href="{{ . | relURL }}">Download the video</a>

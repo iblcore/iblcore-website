@@ -1,5 +1,6 @@
-{{- /* Reports whether a URL leaves this site, so every template makes the same
-       call about target="_blank". Takes the raw URL string, returns a boolean.
+{{- /* Reports whether a URL leaves this site, so the templates that open
+       off-site links in a new tab all make the same call about target="_blank".
+       Takes the raw URL string, returns a boolean.
 
          {{ if partial "link-external.html" .url }}...{{ end }}
 
