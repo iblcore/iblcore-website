@@ -36,7 +36,7 @@ Includes:
 - Our Team (`/about/team/`) - staff, PI scientific board, and contact prompt
 - History (`/about/history/`)
 - Strategic Priorities (`/about/strategic-priorities/`)
-- Governance (`/about/governance/`) - includes a Policy section with downloadable policy documents
+- Governance (`/about/governance/`) - includes the Scientific Advisory Board and a Policies and Procedures section with downloadable policy documents
 - FAQ (`/about/faq/`) - general explanation of IBL Core
 - Support (`/about/support/`) - includes funding
 

@@ -1,0 +1,17 @@
+scientific_advisory_board:
+  - name: Saskia de Vries
+    institution: Allen Institute
+    profile_url: https://alleninstitute.org/person/saskia-de-vries
+    image: /images/governance/sab/saskia-de-vries.webp
+  - name: Michale Fee
+    institution: MIT Department of Brain and Cognitive Sciences; McGovern Institute
+    profile_url: https://mcgovern.mit.edu/profile/michale-fee/
+    image: /images/governance/sab/michale-fee.webp
+  - name: Alexandre Pouget
+    institution: University of Geneva
+    profile_url: https://www.unige.ch/medecine/synapsycentre/fr/membres/alexandre-pouget
+    image: /images/governance/sab/alexandre-pouget.webp
+  - name: Eva Dyer
+    institution: Bioengineering and Computer and Information Science, University of Pennsylvania
+    profile_url: https://directory.engineering.upenn.edu/eva-dyer/
+    image: /images/governance/sab/eva-dyer.webp

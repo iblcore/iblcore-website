@@ -23,12 +23,6 @@
   }}
   {{ $majorPublications := where hugo.Data.publications.items "keywords" "intersect" (slice "major") }}
   {{ $publications := sort $majorPublications "date" "desc" }}
-  {{ $supporters := slice
-    (dict "src" "images/funders/simons-foundation-international.png" "alt" "Simons Foundation International logo" "width" 118 "height" 118)
-    (dict "src" "images/funders/simons-foundation.png" "alt" "Simons Foundation logo" "width" 118 "height" 118)
-    (dict "src" "images/wellcome.png" "alt" "Wellcome logo" "width" 118 "height" 118)
-    (dict "src" "images/nih.png" "alt" "National Institutes of Health logo" "width" 118 "height" 118)
-  }}
   <div class="landing-page">
     <section class="hero hero--landing">
       <div class="hero__panel">
@@ -129,13 +123,7 @@
           </div>
           <!-- <a class="button button--support" href="mailto:info@iblcore.org">Contact us</a> -->
         </div>
-        <div class="support-strip" aria-label="Support organizations">
-          {{ range $supporters }}
-            <div class="support-strip__item">
-              <img src="{{ .src | relURL }}" alt="{{ .alt }}" width="{{ .width }}" height="{{ .height }}">
-            </div>
-          {{ end }}
-        </div>
+        {{ partial "supporter-logos.html" . }}
       </div>
     </section>
   </div>
