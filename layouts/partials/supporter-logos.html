@@ -1,0 +1,7 @@
+<div class="support-strip" aria-label="Support organizations">
+  {{ range hugo.Data.supporters.items }}
+    <div class="support-strip__item">
+      <img src="{{ .src | relURL }}" alt="{{ .alt }}" width="{{ .width }}" height="{{ .height }}">
+    </div>
+  {{ end }}
+</div>

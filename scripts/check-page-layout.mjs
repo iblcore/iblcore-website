@@ -8,7 +8,7 @@ export async function checkPageLayout(browser, origin) {
       await page.setViewportSize({ width, height: 1000 });
       let reference;
       for (const route of [
-        "/about/team/", "/about/strategic-priorities/", "/about/history/",
+        "/about/team/", "/about/strategic-priorities/", "/about/governance/", "/about/history/",
         "/about/support/", "/about/faq/", "/events/", "/projects/",
         "/new-partner-projects/", "/publications/", "/news/", "/categories/",
       ]) {

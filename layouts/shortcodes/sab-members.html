@@ -1,0 +1,16 @@
+<ul class="sab-grid" aria-label="Scientific Advisory Board members">
+  {{- range hugo.Data.governance.scientific_advisory_board }}
+    <li class="sab-grid__item">
+      <a class="sab-card" href="{{ .profile_url }}" target="_blank" rel="noopener noreferrer">
+        <span class="sab-card__portrait">
+          <img class="sab-card__image" src="{{ .image | relURL }}" alt="" width="600" height="600" loading="lazy">
+        </span>
+        <span class="sab-card__details">
+          <strong class="sab-card__name">{{ .name }}</strong>
+          <span class="sab-card__institution">{{ .institution }}</span>
+        </span>
+        {{ partial "link-new-tab.html" . }}
+      </a>
+    </li>
+  {{- end }}
+</ul>

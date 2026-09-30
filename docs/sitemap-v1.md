@@ -36,12 +36,13 @@ Includes:
 - Our Team (`/about/team/`) - staff, PI scientific board, and contact prompt
 - History (`/about/history/`)
 - Strategic Priorities (`/about/strategic-priorities/`)
+- Governance (`/about/governance/`) - includes the Scientific Advisory Board and a Policies and Procedures section with downloadable policy documents
 - FAQ (`/about/faq/`) - general explanation of IBL Core
 - Support (`/about/support/`) - includes funding
 
 Notes:
 - `/about/` redirects to `/about/team/`; there is no separate About overview page.
-- The About dropdown children are Our Team, History, FAQ, and Support.
+- The About dropdown children are Our Team, History, Strategic Priorities, Governance, FAQ, and Support.
 
 ### 2.3 Resources (`/resources/`)
 
@@ -148,6 +149,7 @@ Standalone pages nested under About:
 - Our Team
 - History
 - Strategic Priorities
+- Governance
 - FAQ
 - Support
 
@@ -161,6 +163,7 @@ content/
     team.md
     history.md
     strategic-priorities.md
+    governance.md
     faq.md
     support.md
   resources/
