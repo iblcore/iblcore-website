@@ -34,6 +34,11 @@
     {{ if eq .Section "news" }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/news.css") }}
     {{ end }}
+    {{- /* Suite cards appear on the benchmark page and in the news post that
+           announces it. */ -}}
+    {{ if or (eq .Section "resources") (eq .Section "news") }}
+      {{ $pageStyles = $pageStyles | append (resources.Get "css/components/bwb-suites.css") }}
+    {{ end }}
     {{ if eq .Layout "new-partners" }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/new-partners.css") }}
     {{ end }}

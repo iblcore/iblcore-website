@@ -1,14 +1,72 @@
 {{ define "main" }}
-  {{ $press := where .RegularPagesRecursive "Params.category" "press" }}
+  {{ $posts := sort .RegularPagesRecursive "Date" "desc" }}
 
-  {{ partial "page-header.html" (dict "page" . "title" "Press") }}
+  {{ partial "page-header.html" (dict "page" .) }}
 
-  <section class="news-page section" aria-labelledby="press-title">
+  <section class="news-page section" aria-labelledby="news-title">
     <div class="shell page-shell">
-      <h2 class="visually-hidden" id="press-title">Press articles</h2>
-      <div class="publications-page__list accordion-ready" data-accordion data-accordion-default-open="none">
-        {{ range $pressIndex, $pressItem := sort $press "Date" "desc" }}
-          {{ partial "news-card.html" (dict "page" $pressItem "cardId" (printf "press-%d" $pressIndex)) }}
+      <h2 class="visually-hidden" id="news-title">News posts</h2>
+      {{- /* Only posts long enough to have a summary become accordion items.
+             A short post has nothing to expand, so it renders in full and the
+             accordion skips it. Without JS the `accordion-ready` class is never
+             added and every post stays open, readable, and interactive. */ -}}
+      <div class="news-page__list" data-accordion data-accordion-default-open="none" data-accordion-item-click="true">
+        {{ range $index, $post := $posts }}
+          {{ $postId := printf "news-post-%d" $index }}
+          {{ $collapses := $post.Truncated }}
+          {{- /* `logo` is optional: a post without one renders as a plain card. */ -}}
+          <article
+            class="news-post{{ if $collapses }} accordion__item{{ end }}{{ with $post.Params.logo }} news-post--with-logo{{ end }}"
+            {{ if $collapses }}data-accordion-item{{ end }}
+          >
+            {{ with $post.Params.logo }}
+              <div class="news-post__logo" aria-hidden="true">
+                <img src="{{ . | relURL }}" alt="" loading="lazy">
+              </div>
+            {{ end }}
+            <div class="news-post__content">
+              <h3 class="news-post__title">{{ $post.Title }}</h3>
+              <p class="news-post__date">
+                <time datetime="{{ $post.Date.Format "2006-01-02" }}">{{ $post.Date.Format "2 January 2006" }}</time>
+              </p>
+
+              {{ if $collapses }}
+                <div class="news-post__summary prose">{{ $post.Summary }}</div>
+
+                {{- /* `aria-hidden` and `inert` are set by the accordion script,
+                       not here, so the body stays reachable without JS. */ -}}
+                <div
+                  class="news-post__body accordion__panel"
+                  id="{{ $postId }}-panel"
+                  role="region"
+                  aria-labelledby="{{ $postId }}-button"
+                  data-accordion-panel
+                >
+                  <div class="news-post__body-inner accordion__panel-inner prose">
+                    {{ $post.Content }}
+                  </div>
+                </div>
+
+                <button
+                  class="news-post__more"
+                  type="button"
+                  id="{{ $postId }}-button"
+                  aria-expanded="false"
+                  aria-controls="{{ $postId }}-panel"
+                  data-accordion-button
+                >
+                  <span class="news-post__more-text news-post__more-text--more">&hellip;</span>
+                  <span class="news-post__more-text news-post__more-text--less">Show less</span>
+                </button>
+              {{ else }}
+                <div class="news-post__body">
+                  <div class="news-post__body-inner prose">
+                    {{ $post.Content }}
+                  </div>
+                </div>
+              {{ end }}
+            </div>
+          </article>
         {{ end }}
       </div>
     </div>

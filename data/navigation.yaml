@@ -34,6 +34,11 @@ header:
   - key: publications
     title: Publications
     url: /publications/
+    children:
+      - title: Publications
+        url: /publications/
+      - title: Press
+        url: /publications/press/
   - key: events
     title: Events
     url: /events/

@@ -1,0 +1,91 @@
+/* IBL BrainWideBench task-suite cards. Shared by the benchmark page and the
+   news post that announces it, so the suite styling has one definition. */
+/* The benchmark colour-codes its suites, so the cards carry those colours
+   rather than the site accent. */
+.bwb-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--layout-gap-grid);
+}
+
+.bwb-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-panel-3xl);
+  border-top: 0.35rem solid var(--bwb-behavior);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  color: var(--color-accent);
+}
+
+.bwb-card:nth-child(2) { border-top-color: var(--bwb-dynamics); }
+.bwb-card:nth-child(3) { border-top-color: var(--bwb-anatomy); }
+
+.bwb-card em {
+  display: block;
+  margin-bottom: 0.15rem;
+  font-style: normal;
+  font-size: var(--font-size-card-copy);
+  opacity: 0.6;
+}
+
+.bwb-card__title {
+  margin: 0 0 var(--space-xs);
+  font-size: var(--font-size-card-title);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--bwb-behavior);
+}
+
+.bwb-card:nth-child(2) .bwb-card__title { color: var(--bwb-dynamics); }
+.bwb-card:nth-child(3) .bwb-card__title { color: var(--bwb-anatomy); }
+
+.bwb-card p {
+  margin: 0;
+  font-size: var(--font-size-card-copy);
+  line-height: 1.3;
+  opacity: 0.86;
+}
+
+/* The pipeline diagram for the suite. `margin: auto 0 0` pushes it to the foot
+   of the flex column, so the three images line up across cards of unequal
+   text length. */
+.bwb-card__fig {
+  margin: auto 0 0;
+  padding-top: var(--space-md);
+}
+
+.bwb-card__fig img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 620 / 150;
+  border-radius: calc(var(--radius-md) * 0.6);
+}
+
+@media (max-width: 64rem) {
+  /* The cards stay in a row and shrink instead, so the three suites read as
+     one set; they stack only on a phone. */
+  .bwb-cards {
+    gap: var(--space-md);
+  }
+
+  .bwb-card {
+    padding: var(--space-md);
+  }
+
+  .bwb-card__fig img {
+    border-radius: calc(var(--radius-md) * 0.4);
+  }
+}
+
+@media (max-width: 40rem) {
+  .bwb-cards {
+    grid-template-columns: 1fr;
+  }
+
+  /* Stacked, a full-width diagram would tower over its own caption. */
+  .bwb-card__fig img {
+    max-width: 22rem;
+  }
+}

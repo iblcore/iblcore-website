@@ -9,7 +9,7 @@ Intended stack: Hugo static site generator, modern vanilla HTML/CSS, minimal van
 2. About (`/about/team/`; `/about/` redirects here)
 3. Resources (`/#resources`; dropdown: Tools to `/#resources`, Benchmarking to `/resources/benchmarking/ibl-brainwidebench/`)
 4. Projects (`/projects/`)
-5. Publications (`/publications/`)
+5. Publications (`/publications/`; dropdown: Publications to `/publications/`, Press to `/publications/press/`)
 6. Events (`/events/`)
 7. News (`/news/`)
 8. Contact (`/#contact`)
@@ -105,7 +105,9 @@ Includes:
   - Date-first display with category controls that retain newest-first ordering
   - Accordion rows show title and journal/date; expanded details render authors, DOI, summary, and optional article/code/data links from the same data file
   - Button to link to publication IBL 1.0 https://www.internationalbrainlab.com/publications
-- Press
+- Press (`/publications/press/`), a subsection listed in the Publications dropdown
+  - Press articles are maintained as page bundles in `content/publications/press/` with structured source and external-link metadata
+  - Accordion rows show title and source/date; expanded details render the author, summary, and a link to the external article
 
 ### 2.6 Events (`/events/`)
 
@@ -126,9 +128,8 @@ Includes:
 ### 2.7 News (`/news/`)
 
 Includes:
-- News updates
-- Events
-- Press, maintained as page bundles in `content/news/posts/` with structured source and external-link metadata
+- Short news posts, maintained in `content/news/posts/`, listed newest first with their date and body text rendered inline
+- Press now lives under Publications (see 2.5), not News
 
 ## 3. Hugo Content Model (Suggested)
 
@@ -176,6 +177,10 @@ content/
     _index.md
   publications/
     _index.md
+    press/
+      _index.md
+      2026-06-example-article/
+        index.md
   events/
     _index.md
   news/
@@ -280,13 +285,13 @@ Port first:
 
 Then reframe:
 - Old IBL-Core section content redistributed into About/Projects/Join Us.
-- Press into News.
+- Press into Publications (`/publications/press/`).
 
 Validation checks:
 - Every nav item has a landing page.
 - No orphan page without nav/footer path.
 - Contact paths work (form + direct channels).
-- News taxonomy supports both events and press tags.
+- Press articles resolve under Publications; News lists only news posts.
 
 ## 9. Open Decisions for v2
 

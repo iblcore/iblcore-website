@@ -85,7 +85,50 @@ document.querySelectorAll("[data-accordion]").forEach((accordion) => {
     button.addEventListener("click", () => {
       setOpen(item, !item.classList.contains("is-open"));
     });
+
+    // Opt-in: a closed item opens from anywhere on it. An open one is left
+    // alone, so clicking the text you are reading does not collapse it; it
+    // closes from its own button, a click outside it, or Escape.
+    if (accordion.dataset.accordionItemClick === "true") {
+      item.addEventListener("click", (event) => {
+        if (item.classList.contains("is-open")) {
+          return;
+        }
+
+        if (event.target.closest("a, button")) {
+          return;
+        }
+
+        const selection = window.getSelection();
+
+        if (selection && selection.type === "Range") {
+          return;
+        }
+
+        setOpen(item, true);
+      });
+    }
   });
+
+  if (accordion.dataset.accordionItemClick === "true") {
+    const closeOpenItems = (isOutside) => {
+      items.forEach((item) => {
+        if (item.classList.contains("is-open") && isOutside(item)) {
+          setOpen(item, false);
+        }
+      });
+    };
+
+    document.addEventListener("click", (event) => {
+      closeOpenItems((item) => !item.contains(event.target));
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeOpenItems(() => true);
+      }
+    });
+  }
 
   accordion.classList.add("accordion-ready");
 });

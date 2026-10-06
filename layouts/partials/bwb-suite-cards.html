@@ -1,0 +1,24 @@
+{{- /* IBL BrainWideBench task-suite cards. Shared by the benchmark page and the
+       `suite-cards` shortcode, so the markup has one definition.
+       `suites`: the suite list from a page's front matter.
+       `level`:  heading level for each suite title, to fit the host page's
+                 document outline (3 on the benchmark page, 4 inside a news
+                 post whose own title is already an h3). */ -}}
+{{- $level := .level | default 3 -}}
+{{- with .suites -}}
+  <div class="bwb-cards">
+    {{- /* Bind the loop variable: `.` changes inside `with`. */ -}}
+    {{ range $suite := . }}
+      <div class="bwb-card">
+        <em>{{ $suite.label }}</em>
+        <h{{ $level }} class="bwb-card__title">{{ $suite.title }}</h{{ $level }}>
+        <p>{{ $suite.body }}</p>
+        {{ with $suite.image }}
+          <figure class="bwb-card__fig">
+            <img src="{{ . | relURL }}" width="620" height="150" loading="lazy" alt="{{ $suite.alt }}">
+          </figure>
+        {{ end }}
+      </div>
+    {{ end }}
+  </div>
+{{- end -}}

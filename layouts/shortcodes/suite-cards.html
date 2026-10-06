@@ -1,0 +1,9 @@
+{{- /* Renders the IBL BrainWideBench task-suite cards inside page content. The
+       suite copy lives in the benchmark page's front matter, so both pages show
+       the same text and only one file has to be edited when a suite changes. */ -}}
+{{- $path := .Get "page" | default "/resources/benchmarking/ibl-brainwidebench" -}}
+{{- $source := site.GetPage $path -}}
+{{- if not $source -}}
+  {{- errorf "suite-cards: page %q not found (called from %s)" $path .Page.Path -}}
+{{- end -}}
+{{- partial "bwb-suite-cards.html" (dict "suites" $source.Params.suites "level" (.Get "level" | default 4)) -}}

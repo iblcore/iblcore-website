@@ -4,3 +4,210 @@
   padding: var(--space-lg) 0 var(--space-2xl);
   background: var(--color-home-bg);
 }
+
+.news-page__list {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+/* Each post is one card. Collapsed, it shows the logo, title, date, and summary
+   only, so the card stays short until the reader opens it. */
+.news-post {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+  border: 1px solid var(--color-team-banner-border);
+  border-radius: var(--radius-md);
+  background: linear-gradient(180deg, var(--color-team-banner-surface-top), var(--color-team-banner-surface-bottom));
+  box-shadow: inset 0 1px 0 var(--color-team-banner-inset);
+  color: var(--color-text-on-dark);
+  transition: background 200ms ease, border-color 200ms ease;
+}
+
+/* A collapsed card is the toggle once the accordion script has run. Open, it is
+   ordinary text to read, so it loses the pointer. */
+.accordion-ready .news-post.accordion__item {
+  cursor: pointer;
+}
+
+.accordion-ready .news-post.accordion__item.is-open {
+  cursor: auto;
+}
+
+.news-post:hover {
+  border-color: var(--color-accent-soft);
+  background: linear-gradient(180deg, var(--color-brand-light-tint-25), var(--color-brand-light-tint-15));
+}
+
+/* The logo sits on its own light panel: the artwork is dark-on-transparent and
+   disappears against the page's brand blue without one. */
+.news-post__logo {
+  display: flex;
+  width: 9rem;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm);
+  border-radius: var(--radius-sm);
+  background: var(--color-funding-logo-bg);
+}
+
+.news-post__logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  transform-origin: center;
+  transition: transform 200ms ease;
+}
+
+.news-post:hover .news-post__logo img {
+  transform: scale(1.08);
+}
+
+.news-post__content {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.news-post__title {
+  margin: 0;
+  color: var(--color-text-bright);
+  font-size: var(--font-size-card-title);
+  line-height: 1.15;
+  font-weight: 700;
+}
+
+.news-post__date {
+  margin: var(--space-2xs) 0 var(--space-sm);
+  color: var(--color-accent-soft);
+  font-size: var(--font-size-card-copy);
+}
+
+/* The expanded body carries `.prose`, whose copy size is larger than the card
+   size. Pinning all three keeps the type identical open and closed. */
+.news-post__summary,
+.news-post__body,
+.news-post__body-inner {
+  font-size: var(--font-size-card-copy);
+}
+
+.news-post__body-inner {
+  padding: 0;
+}
+
+.news-post__summary a,
+.news-post__body a {
+  color: var(--color-brand-sky);
+}
+
+/* The suite cards are shared with the benchmark page, where they are a main
+   feature. Inside a news post they are a supporting detail, so they are scaled
+   down here only. */
+.news-post__body .bwb-cards {
+  max-width: 42rem;
+  margin: var(--space-md) 0;
+  gap: var(--space-sm);
+}
+
+.news-post__body .bwb-card {
+  padding: var(--space-sm);
+  border-top-width: 0.2rem;
+}
+
+.news-post__body .bwb-card em {
+  font-size: calc(var(--font-size-card-copy) * 0.8);
+}
+
+.news-post__body .bwb-card__title {
+  font-size: calc(var(--font-size-card-copy) * 1.05);
+}
+
+.news-post__body .bwb-card p {
+  font-size: calc(var(--font-size-card-copy) * 0.88);
+  line-height: 1.25;
+}
+
+.news-post__body .bwb-card__fig {
+  padding-top: var(--space-xs);
+}
+
+/* Without JS every post is expanded, so the summary would repeat the opening of
+   the body. It is shown only once the accordion is live and the post is closed. */
+.news-post__summary {
+  display: none;
+}
+
+/* Collapsed, the summary runs inline so the "..." sits at the end of the last
+   sentence rather than dropping onto a line of its own. The body is removed
+   from flow entirely, so it cannot break that line. */
+.accordion-ready .news-post.accordion__item:not(.is-open) .news-post__summary,
+.accordion-ready .news-post.accordion__item:not(.is-open) .news-post__summary p {
+  display: inline;
+}
+
+.accordion-ready .news-post.accordion__item:not(.is-open) .news-post__body {
+  display: none;
+}
+
+/* The "..." control only does something once the accordion script has run. */
+.news-post__more {
+  display: none;
+  padding: 0 0 0 var(--space-2xs);
+  border: 0;
+  background: none;
+  color: var(--color-accent-soft);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--font-size-card-copy);
+  font-weight: 700;
+  line-height: inherit;
+}
+
+.accordion-ready .news-post__more {
+  display: inline;
+}
+
+.accordion-ready .news-post.is-open .news-post__more {
+  display: inline-block;
+  padding-left: 0;
+  margin-top: var(--space-sm);
+}
+
+.news-post__more:hover,
+.news-post__more:focus-visible {
+  color: var(--color-brand-sky);
+}
+
+.news-post__more-text--less,
+.news-post.is-open .news-post__more-text--more {
+  display: none;
+}
+
+.news-post.is-open .news-post__more-text--less {
+  display: inline;
+  font-weight: 400;
+}
+
+@media (max-width: 700px) {
+  .news-post {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .news-post__logo {
+    width: 7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .news-post,
+  .news-post__logo img {
+    transition: none;
+  }
+
+  .news-post:hover .news-post__logo img {
+    transform: none;
+  }
+}

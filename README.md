@@ -54,7 +54,8 @@ workflow.
 ## Repository map
 
 - `content/`: Markdown pages and their metadata
-- `content/news/posts/`: page bundles for news, events, and press coverage
+- `content/news/posts/`: short news posts published through `/news/`
+- `content/publications/press/`: page bundles for press coverage, published through `/publications/press/`
 - `data/`: structured information such as projects, publications, and team data
 - `layouts/`: Hugo templates and reusable partials
 - `assets/css/`: tokens, base, component, and page styles
@@ -231,8 +232,12 @@ followed by a concise internal-projects overview banner and the project content.
 Its centered `New partner projects` CTA is presented in a matching banner at
 the bottom of the page.
 
-News and press entries are maintained as page bundles in `content/news/posts/`
-and are published through `/news/`.
+News posts are maintained in `content/news/posts/` and are published through
+`/news/`, newest first, with each post's date and body text rendered inline.
+
+Press coverage is maintained as page bundles in `content/publications/press/`
+and is published through `/publications/press/`, reached from the Press item in
+the Publications navigation dropdown.
 
 For landing-page visual work, use `docs/landing-prototype-mini.webp` as the
 temporary reference. Other `docs/landing*.*` files are obsolete unless a task
