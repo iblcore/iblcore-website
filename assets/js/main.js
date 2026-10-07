@@ -55,6 +55,15 @@ document.querySelectorAll(".site-nav a").forEach((link) => {
   });
 });
 
+// A drag that starts on a card and ends off it still fires one click, on the
+// nearest common ancestor of the two. Both the open and the close handler stand
+// down while text is selected, so reading-and-copying never toggles the card.
+const hasTextSelection = () => {
+  const selection = window.getSelection();
+
+  return Boolean(selection) && selection.type === "Range";
+};
+
 document.querySelectorAll("[data-accordion]").forEach((accordion) => {
   const items = Array.from(accordion.querySelectorAll("[data-accordion-item]"));
   const defaultOpen = accordion.dataset.accordionDefaultOpen || "none";
@@ -70,6 +79,14 @@ document.querySelectorAll("[data-accordion]").forEach((accordion) => {
     item.classList.toggle("is-open", isOpen);
     button.setAttribute("aria-expanded", String(isOpen));
     panel.setAttribute("aria-hidden", String(!isOpen));
+
+    // `inert` discards focus from inside the panel to <body>, which would send
+    // the next Tab back to the top of the page. Hand focus to the toggle first,
+    // so a keyboard reader closing a card stays where they were.
+    if (!isOpen && panel.contains(document.activeElement)) {
+      button.focus();
+    }
+
     panel.inert = !isOpen;
   };
 
@@ -99,9 +116,7 @@ document.querySelectorAll("[data-accordion]").forEach((accordion) => {
           return;
         }
 
-        const selection = window.getSelection();
-
-        if (selection && selection.type === "Range") {
+        if (hasTextSelection()) {
           return;
         }
 
@@ -120,6 +135,10 @@ document.querySelectorAll("[data-accordion]").forEach((accordion) => {
     };
 
     document.addEventListener("click", (event) => {
+      if (hasTextSelection()) {
+        return;
+      }
+
       closeOpenItems((item) => !item.contains(event.target));
     });
 

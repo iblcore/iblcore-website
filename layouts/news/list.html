@@ -16,7 +16,7 @@
           {{ $collapses := $post.Truncated }}
           {{- /* `logo` is optional: a post without one renders as a plain card. */ -}}
           <article
-            class="news-post{{ if $collapses }} accordion__item{{ end }}{{ with $post.Params.logo }} news-post--with-logo{{ end }}"
+            class="news-post{{ if $collapses }} accordion__item{{ end }}"
             {{ if $collapses }}data-accordion-item{{ end }}
           >
             {{ with $post.Params.logo }}
