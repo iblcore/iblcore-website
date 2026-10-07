@@ -103,10 +103,10 @@
 }
 
 /* The suite cards are shared with the benchmark page, where they are a main
-   feature. Inside a news post they are a supporting detail, so they are scaled
-   down here only. */
+   feature. Inside a news post they are a supporting detail, so the type and
+   padding are scaled down here only. The grid still spans the full width of the
+   post body, so the three cards line up with the text above and below them. */
 .news-post__body .bwb-cards {
-  max-width: 42rem;
   margin: var(--space-md) 0;
   gap: var(--space-sm);
 }
