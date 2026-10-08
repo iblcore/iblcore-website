@@ -20,7 +20,7 @@ about:
     link: "/projects/#ibl-research-projects"
     link_label: "Project"
     link_text: "IBL research projects"
-    paper_title: "A Brain-Wide Map of Neural Activity during Complex Behaviour"
+    paper_title: "A brain-wide map of neural activity during complex behaviour"
     paper_link: "https://www.nature.com/articles/s41586-025-09235-0"
     figure:
       tone: "dark"
@@ -34,7 +34,7 @@ about:
     paper_link: "https://elifesciences.org/articles/63711"
     figure:
       tone: "light"
-      src: "images/brainwide-map-task.jpg"
+      src: "images/ibl-task-schematic.jpg"
       alt: "Two panels of the decision-making task. In each, a head-fixed mouse faces a screen showing a striped stimulus and turns a wheel to move it: turning it to the correct side earns a drop of water, turning it to the wrong side ends the trial without reward."
       caption: "The standardised task. Figure 1b from International Brain Laboratory et al. (2021), eLife 10:e63711, CC BY 4.0."
   - heading: "What's in the dataset"
@@ -62,11 +62,37 @@ modality:
 stage:
   - "analyse"
 
+citation_title: "How to cite"
+citation_intro: |
+  If you use the Brainwide Map in your research, please cite the paper.
+citations:
+  - kind: "Paper"
+    reference: |
+      International Brain Laboratory, Benson, B., Benson, J., et al. (2025) 'A
+      brain-wide map of neural activity during complex behaviour', *Nature*,
+      645(8079), pp. 177-191.
+    entry: |
+      @article{iblbwm2025,
+        title   = {A brain-wide map of neural activity during complex behaviour},
+        journal = {Nature},
+        volume  = {645},
+        number  = {8079},
+        pages   = {177--191},
+        year    = {2025},
+        url     = {https://www.nature.com/articles/s41586-025-09235-0},
+      }
+citation_note: |
+  The dataset is also listed in the AWS Open Data Registry as *IBL Neuropixels
+  Brainwide Map on AWS*, managed by the International Brain Laboratory under
+  CC BY 4.0. If you reach the data through that mirror, follow the How to cite
+  section in its
+  [registry entry](https://registry.opendata.aws/ibl-brain-wide-map/).
+
 access:
   - "one"
   - "dandi"
   - "ibl-ai-agent"
 
 access_guides:
-  one: "https://int-brain-lab.github.io/iblenv/notebooks_external/data_release_brainwidemap.html"
+  one: "https://docs.internationalbrainlab.org/notebooks_external/data_release_brainwidemap.html"
 ---

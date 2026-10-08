@@ -57,7 +57,7 @@ export async function checkWorkflowPage(browser, origin) {
     );
     assert.equal(
       await guideRow("brainwide-map", "ONE").locator("a.guide-action--ready").getAttribute("href"),
-      "https://int-brain-lab.github.io/iblenv/notebooks_external/data_release_brainwidemap.html",
+      "https://docs.internationalbrainlab.org/notebooks_external/data_release_brainwidemap.html",
       "The ONE guide row did not link the guide from the dataset's access_guides.",
     );
     assert(
