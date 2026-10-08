@@ -59,6 +59,18 @@ to disable tracking, or update `scriptURL`, `websiteID`, and `domains` to change
 the tracker. Local Hugo servers omit the script; the domain allowlist limits
 tracking to `iblcore.org` and excludes deployed previews.
 
+`customEvents: true` enables `assets/js/analytics-events.js`, which records
+`resource_link_click` for outbound links in the homepage Resources section,
+resource pages, and the GitHub shortcuts; `download_click` for download links
+and common downloadable file types; `contact_click` for email, telephone, and
+the contact page/section; and `application_click`, `registration_click`, or
+`event_link_click` for the corresponding Events card actions. These measure
+link clicks, not completed downloads, applications, or registrations. Ordinary
+internal navigation uses pageviews only. No extra event properties are sent;
+each tracked click adds one event to Umami Cloud usage. Set `customEvents: false`
+to keep pageviews without click events. The click handler uses the same domain
+allowlist as the tracker and preserves normal link behavior.
+
 - `content/`: Markdown pages and their metadata
 - `content/news/posts/`: page bundles for news, events, and press coverage
 - `data/`: structured information such as projects, publications, and team data
