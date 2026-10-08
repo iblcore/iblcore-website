@@ -55,7 +55,7 @@ workflow.
 
 Umami analytics is configured under `params.umami` in `hugo.yaml` and rendered
 by the shared `layouts/partials/analytics.html` partial. Set `enabled: false`
-to disable tracking, or update `scriptURL`, `websiteID`, and `domains` to change
+to disable tracking, or update `scriptURL`, `hostURL`, `websiteID`, and `domains` to change
 the tracker. Local Hugo servers omit the script; the domain allowlist limits
 tracking to `iblcore.org` and excludes deployed previews.
 
@@ -70,6 +70,14 @@ internal navigation uses pageviews only. No extra event properties are sent;
 each tracked click adds one event to Umami Cloud usage. Set `customEvents: false`
 to keep pageviews without click events. The click handler uses the same domain
 allowlist as the tracker and preserves normal link behavior.
+
+The tracker is served at `/t.js`, and `hostURL` directs collection to
+`https://iblcore.org/api/send`. Cloudflare Pages Functions proxy these requests
+to Umami Cloud. Ordinary website pages and assets remain static. See
+[Deployment administration](docs/admin-deployment.md#umami-proxy) for forwarding,
+limits, verification, and rollback. Changing the website ID or allowed domain
+also requires updating the matching guards in `lib/umami-proxy.mjs`; the proxy
+tests enforce agreement with Hugo settings.
 
 - `content/`: Markdown pages and their metadata
 - `content/news/posts/`: page bundles for news, events, and press coverage
