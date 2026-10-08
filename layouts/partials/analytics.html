@@ -1,0 +1,6 @@
+{{/* Skip local Hugo servers; the domain allowlist excludes deployed previews. */}}
+{{ with .Site.Params.umami }}
+  {{ if and .enabled (not hugo.IsServer) }}
+    <script defer src="{{ .scriptURL }}" data-website-id="{{ .websiteID }}"{{ with .domains }} data-domains="{{ delimit . "," }}"{{ end }}></script>
+  {{ end }}
+{{ end }}

@@ -53,6 +53,12 @@ workflow.
 
 ## Repository map
 
+Umami analytics is configured under `params.umami` in `hugo.yaml` and rendered
+by the shared `layouts/partials/analytics.html` partial. Set `enabled: false`
+to disable tracking, or update `scriptURL`, `websiteID`, and `domains` to change
+the tracker. Local Hugo servers omit the script; the domain allowlist limits
+tracking to `iblcore.org` and excludes deployed previews.
+
 - `content/`: Markdown pages and their metadata
 - `content/news/posts/`: page bundles for news, events, and press coverage
 - `data/`: structured information such as projects, publications, and team data

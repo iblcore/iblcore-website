@@ -7,6 +7,12 @@ params:
   description: "IBL-Core public website built with Hugo, vanilla HTML, CSS, and minimal JavaScript."
   tagline: "Open neuroscience infrastructure, software, and collaboration."
   fingerprintAssets: false
+  umami:
+    enabled: true
+    scriptURL: "https://cloud.umami.is/script.js"
+    websiteID: "b174e1b4-4d3b-41e2-b49c-f8d30d49c8f9"
+    domains:
+      - "iblcore.org"
   funders:
     - "IBL"
     - "Open science partners"
