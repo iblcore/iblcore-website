@@ -28,8 +28,9 @@ Use the canonical pages below for current public information about IBL-Core.
 - [IBL Research Projects](https://iblcore.org/projects/): Current IBL research projects.
 - [Partners and Affiliates](https://iblcore.org/new-partner-projects/): Collaborative partner projects and affiliate research groups working with IBL-Core, in list and map views.
 - [Publications](https://iblcore.org/publications/): Selected scientific and technical publications, with keyword filters.
+- [Press](https://iblcore.org/publications/press/): Press coverage and external features about the International Brain Laboratory.
 - [Events](https://iblcore.org/events/): Approved outreach events in calendar, list, and map views, with Upcoming and Past filters.
-- [News](https://iblcore.org/news/): News, features, and press coverage about the International Brain Laboratory.
+- [News](https://iblcore.org/news/): News updates from the International Brain Laboratory.
 
 ## Optional
 

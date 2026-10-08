@@ -39,23 +39,7 @@
         <aside class="bwb-cta" aria-labelledby="bwb-cta-title">
           <h2 class="bwb-head" id="bwb-cta-title">{{ . }}</h2>
           <div class="prose">{{ $page.RenderString (dict "display" "block") $page.Params.cta_body }}</div>
-          {{ with $page.Params.suites }}
-            <div class="bwb-cards">
-              {{- /* Bind the loop variable: `.` changes inside `with`. */ -}}
-              {{ range $suite := . }}
-                <div class="bwb-card">
-                  <em>{{ $suite.label }}</em>
-                  <h3>{{ $suite.title }}</h3>
-                  <p>{{ $suite.body }}</p>
-                  {{ with $suite.image }}
-                    <figure class="bwb-card__fig">
-                      <img src="{{ . | relURL }}" width="620" height="150" loading="lazy" alt="{{ $suite.alt }}">
-                    </figure>
-                  {{ end }}
-                </div>
-              {{ end }}
-            </div>
-          {{ end }}
+          {{ partial "bwb-suite-cards.html" (dict "suites" $page.Params.suites "level" 3) }}
         </aside>
       {{ end }}
     </div>

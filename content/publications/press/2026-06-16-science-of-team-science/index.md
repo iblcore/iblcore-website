@@ -6,6 +6,8 @@ category: "press"
 source: "Simons Foundation"
 author: "Jane Beaufore"
 external_url: "https://www.simonsfoundation.org/2026/06/16/the-science-of-team-science-lessons-learned-from-the-international-brain-laboratory/"
+aliases:
+  - "/news/posts/2026-06-16-science-of-team-science/"
 ---
 
 An external feature on the lessons learned from building and operating the International Brain Laboratory as a large-scale scientific collaboration.

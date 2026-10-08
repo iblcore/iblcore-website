@@ -16,9 +16,6 @@ resource_cards:
     description: "Renderers, visualization tools, and interfaces for exploring data."
     link: "/resources/"
 news_items:
-  - title: "Foundational Hugo scaffold"
-    description: "The repository now contains the initial Hugo structure, templates, and markdown content stubs."
-    link: "/news/posts/2026-03-foundation-update/"
   - title: "Content migration ready"
     description: "Top-level sections and key About subpages are ready for real markdown content."
     link: "/about/team/"
