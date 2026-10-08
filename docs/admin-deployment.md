@@ -68,12 +68,21 @@ pages and static assets do not invoke a Function.
   browsers for five minutes. Query strings share one cache entry. Failed or
   unexpected responses are not cached.
 - `functions/api/send.js` forwards only pageviews and the documented click
-  categories for this website ID, on the `iblcore.org` hostname. Requests from
-  other hosts, including previews, are rejected before contacting Umami.
-- The collection guard requires the production Origin, JSON, and a maximum
+  categories for approved origin/website-ID pairs in `lib/umami-sites.mjs`.
+  The endpoint itself runs only on `https://iblcore.org`; requests addressed to
+  other hosts, including proxy previews, are rejected before contacting Umami.
+- The collection guard requires an approved HTTPS Origin, matching website ID,
+  hostname and page URL, JSON, and a maximum
   8 KiB body. Identify, performance, replays, and extra event properties are
-  unsupported. These checks reduce misuse but are not authentication or rate
+  unsupported; empty `data` objects from Umami's native event attributes are
+  accepted. These checks reduce misuse but are not authentication or rate
   limiting: a determined client can forge a valid public analytics request.
+- Registered origins can use CORS preflights for POST with Content-Type and
+  Umami's website, hostname, and session-cache headers. Collection responses
+  allow only the requesting registered origin, include `Vary: Origin`, and do
+  not allow credentials. Preflights never reach Umami. Error responses retain
+  CORS for approved sites so their browsers can read them. The public tracker
+  script permits cross-origin loading; its cache does not vary by caller.
 - The shared implementation forwards User-Agent, the trusted Cloudflare client
   IP as X-Forwarded-For (preferring CF-Connecting-IPv6 when present), and Umami's
   session cache header. It does not trust incoming X-Forwarded-For and does not
@@ -83,10 +92,50 @@ pages and static assets do not invoke a Function.
   follow redirects. No request payloads or client addresses are logged by the
   application; Cloudflare and Umami retain their own platform behavior.
 
-The Hugo analytics settings live under `params.umami`. The website ID and
-production hostname must agree with the constants in `lib/umami-proxy.mjs`;
+The Hugo analytics settings live under `params.umami`. This website's ID and
+production hostname must agree with its entry in `lib/umami-sites.mjs`;
 `scripts/check-umami-proxy.test.mjs` checks this in `just check` and GitHub CI.
 The custom-event asset is published with the `site-actions` basename.
+
+### Add another website
+
+The proxy is shared infrastructure, but registration is explicit. In
+`lib/umami-sites.mjs`, add an entry with the site's exact HTTPS origin (no
+trailing slash or path), its own Umami website ID, and its allowed custom event
+names. Use `events: []` for pageviews only. Each additional hostname, such as a
+`www` variant, needs its own entry; it may share the same Umami website ID.
+Keep development and preview origins out of the list. Run the checks and
+redeploy this existing Pages project through the normal approved PR workflow.
+No separate proxy, DNS record, or Cloudflare binding is needed for the new site.
+
+Install this snippet on the new website, substituting its website ID and
+production hostname. If its Content Security Policy restricts external hosts,
+allow `https://iblcore.org` in both `script-src` and `connect-src`.
+
+```html
+<script defer
+  src="https://iblcore.org/t.js"
+  data-host-url="https://iblcore.org"
+  data-website-id="NEW-WEBSITE-ID"
+  data-domains="NEW-PRODUCTION-HOSTNAME"></script>
+```
+
+For a registered event name, use `data-umami-event="resource_open"` on a
+button/link or call `window.umami.track("resource_open")`. Do not attach event
+properties. IBL-Core's custom click handler is specific to this website; the
+shared script does not install those handlers on other websites.
+
+Requests from other websites are third-party requests to `iblcore.org`.
+Sharing removes the need for a proxy on every site, but provides less protection
+against generic third-party blocking than proxying on each site's own hostname.
+Consumption is shared on the proxy's Cloudflare account; Umami usage follows
+the website IDs and their owning accounts/plans. Script delivery needs no
+Umami API key. Confirm each new site's data in its own Umami dashboard.
+
+Automated tests inject a simulated second site without adding it to the
+production list. They cover preflights, site-specific event names, origin/ID/URL
+mismatches, session headers, errors, and preview rejection. A real second-site
+deployment remains unverified until that site exists.
 
 Local Hugo previews omit both tracking scripts. To exercise Functions locally,
 build with Hugo, then run `npx wrangler pages dev public`. Local collection is

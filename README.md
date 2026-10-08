@@ -75,9 +75,12 @@ The tracker is served at `/t.js`, and `hostURL` directs collection to
 `https://iblcore.org/api/send`. Cloudflare Pages Functions proxy these requests
 to Umami Cloud. Ordinary website pages and assets remain static. See
 [Deployment administration](docs/admin-deployment.md#umami-proxy) for forwarding,
-limits, verification, and rollback. Changing the website ID or allowed domain
-also requires updating the matching guards in `lib/umami-proxy.mjs`; the proxy
-tests enforce agreement with Hugo settings.
+limits, verification, and rollback. The shared proxy's approved production
+origins, website IDs, and custom event names live in `lib/umami-sites.mjs`.
+Only `iblcore.org` is registered initially. The proxy tests enforce agreement
+with this site's Hugo settings and exercise a second site using test-only
+configuration. See the deployment guide to register another site and install
+its tracking snippet.
 
 - `content/`: Markdown pages and their metadata
 - `content/news/posts/`: page bundles for news, events, and press coverage
