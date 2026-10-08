@@ -51,6 +51,7 @@
            /resources/modalities/neuropixels/ is styled like the rest. */ -}}
     {{ if hasPrefix .RelPermalink "/resources/" }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/components/resource-index.css") }}
+      {{ $pageStyles = $pageStyles | append (resources.Get "css/components/stats-strip.css") }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/resources.css") }}
     {{ end }}
     {{ if .IsHome }}

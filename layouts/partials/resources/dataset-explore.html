@@ -1,0 +1,40 @@
+{{- /* The call to action pointing at the dataset's interactive viewer. It lists
+       what a visitor can actually do there rather than only naming the link,
+       and shares the about section's two-column layout. */ -}}
+{{- $page := .page -}}
+{{- with $page.Params.explore -}}
+  {{- $explore := . -}}
+  <section id="explore-the-data" class="section section-band dataset-section">
+    <div class="shell page-shell">
+      <h2>{{ .heading | default "Visualise and explore the data" }}</h2>
+      <div class="dataset-section-copy prose">
+        <div class="dataset-split">
+          <div class="dataset-split__copy">
+            <p>{{ .description }}</p>
+            {{- with .highlights }}
+              <ul class="dataset-explore__list">
+                {{- range . }}<li>{{ . }}</li>{{ end }}
+              </ul>
+            {{- end }}
+            {{- with .link }}
+              <p class="dataset-explore__cta">
+                {{- /* The viewer is a separate site, so it opens in its own tab.
+                       The arrow says so on screen; the hidden text says so to a
+                       screen reader. */ -}}
+                <a class="button button--page-cta dataset-explore__link" href="{{ . }}" target="_blank" rel="noreferrer">
+                  {{ $explore.link_text | default "Open the data explorer" }}
+                  <svg class="dataset-explore__arrow" viewBox="0 0 16 16" width="13" height="13" aria-hidden="true" focusable="false">
+                    <path d="M6 3h7v7" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M13 3 4 12" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                  <span class="visually-hidden">(opens in a new tab)</span>
+                </a>
+              </p>
+            {{- end }}
+          </div>
+          {{- partial "resources/dataset-figure.html" (dict "figure" .figure) }}
+        </div>
+      </div>
+    </div>
+  </section>
+{{- end -}}

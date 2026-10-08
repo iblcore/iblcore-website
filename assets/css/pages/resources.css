@@ -356,3 +356,237 @@
     transform: none;
   }
 }
+
+/* One short block of narrative on a resource page, optionally followed by its
+   links out to the project and the paper. */
+.dataset-about__entry + .dataset-about__entry {
+  margin-top: var(--space-2xl);
+}
+
+.dataset-about__heading {
+  margin: 0 0 var(--space-xs);
+  color: var(--color-surface);
+  font-size: 1.15rem;
+}
+
+/* Citations sit apart from the copy they follow: a small caption above the
+   title, which is the link itself. */
+.dataset-about__citations {
+  margin: var(--space-md) 0 0;
+  padding-left: var(--space-md);
+  border-left: 2px solid var(--color-brand-light-tint-25);
+}
+
+.dataset-about__citation + .dataset-about__citation {
+  margin-top: var(--space-sm);
+}
+
+.dataset-about__citation-label {
+  color: var(--color-text-on-dark-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dataset-about__citation-link {
+  margin: 0;
+}
+
+.dataset-about__citation-link .text-link {
+  color: var(--color-brand-light);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-brand-light-tint-40);
+}
+
+.dataset-about__citation-link .text-link:hover,
+.dataset-about__citation-link .text-link:focus-visible {
+  border-bottom-color: var(--color-brand-light);
+}
+
+/* One two-column layout shared by the about entries and the explore block, so
+   the page keeps a single text measure and a single left edge throughout. */
+.dataset-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 26rem);
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+/* Alternate entries put the figure first, so the illustrations zigzag down the
+   section instead of stacking into one rail. The track widths swap with them:
+   reordering alone would hand the figure the wide column and squeeze the copy
+   into the narrow one. */
+.dataset-split--flipped {
+  grid-template-columns: minmax(0, 26rem) minmax(0, 1fr);
+}
+
+.dataset-split--flipped .dataset-figure {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.dataset-split--flipped .dataset-split__copy {
+  grid-column: 2;
+}
+
+.dataset-split__copy > :first-child {
+  margin-top: 0;
+}
+
+/* The clip is authored on black, so it keeps a black panel of its own rather
+   than being blended into the band: on a saturated blue the dark anatomy and
+   the burnt-in lab captions both disappear. */
+.dataset-figure {
+  margin: 0;
+}
+
+.dataset-figure__frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-brand-light-tint-25);
+  border-radius: var(--space-panel-lg);
+}
+
+/* A clip rendered on black keeps a dark frame. */
+.dataset-figure--dark .dataset-figure__frame {
+  background: #000;
+}
+
+/* A diagram lifted from a paper sits on white, so it is given a light card of
+   its own rather than being dropped straight onto the band. */
+.dataset-figure--light .dataset-figure__frame {
+  padding: var(--space-md);
+  border-color: var(--color-accent-tint-10);
+  background: var(--color-surface);
+}
+
+/* The clip is rendered on pure black, which reads harshly against the band.
+   Screening the band's own blue over it lifts those blacks into the same
+   family without touching the brightness of the anatomy itself. */
+.dataset-figure--dark .dataset-figure__frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  mix-blend-mode: screen;
+  opacity: 0.70;
+  pointer-events: none;
+}
+
+.dataset-figure__media,
+.dataset-figure__still {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.dataset-figure__still {
+  display: none;
+}
+
+.dataset-figure__caption {
+  margin-top: var(--space-sm);
+  color: var(--color-text-on-dark-muted);
+  font-size: 0.9rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dataset-figure video.dataset-figure__media {
+    display: none;
+  }
+
+  .dataset-figure__still {
+    display: block;
+  }
+}
+
+@media (max-width: 760px) {
+  /* Stacked, the copy always leads: a figure above its own heading reads as
+     belonging to the entry before it. */
+  .dataset-split {
+    grid-template-columns: 1fr;
+  }
+
+  .dataset-split--flipped,
+  .dataset-split--flipped .dataset-split__copy,
+  .dataset-split--flipped .dataset-figure {
+    grid-row: auto;
+    grid-column: auto;
+    grid-template-columns: 1fr;
+  }
+
+  .dataset-split--flipped .dataset-figure {
+    order: 1;
+  }
+}
+
+/* What a visitor can do at the viewer, listed so the link is more than a name. */
+.dataset-explore__list {
+  margin: var(--space-md) 0 0;
+  padding-left: var(--space-md);
+  list-style: none;
+}
+
+.dataset-explore__list li {
+  position: relative;
+  padding-left: var(--space-md);
+}
+
+.dataset-explore__list li + li {
+  margin-top: var(--space-xs);
+}
+
+.dataset-explore__list li::before {
+  content: "";
+  position: absolute;
+  top: 0.6em;
+  left: 0;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--color-brand-sky);
+}
+
+.dataset-explore__cta {
+  margin-top: var(--space-lg);
+}
+
+.dataset-explore__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.dataset-explore__arrow {
+  flex: none;
+}
+
+/* Plain jump links, aligned with the page's left edge rather than centred in a
+   pill: the band's own rules already separate them from the sections. */
+.page-controls--jump .page-controls__inner {
+  justify-content: flex-start;
+}
+
+.section-jump {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-xs) var(--space-sm);
+}
+
+.section-jump__link {
+  color: var(--color-brand-light);
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.section-jump__link:hover,
+.section-jump__link:focus-visible {
+  color: var(--color-surface);
+  text-decoration: underline;
+}
+
+.section-jump__separator {
+  color: var(--color-brand-light-tint-40);
+}

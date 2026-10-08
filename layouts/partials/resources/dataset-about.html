@@ -1,0 +1,59 @@
+{{- /* The narrative section of a resource page. Every entry sits on the same
+       two-column grid so the section keeps one text measure and one left edge,
+       and illustrated entries alternate sides so the figures do not stack into
+       a single rail. */ -}}
+{{- $page := .page -}}
+{{- with $page.Params.about -}}
+  <section id="about-the-dataset" class="section section-band dataset-section">
+    <div class="shell page-shell">
+      <h2>About the dataset</h2>
+      <div class="dataset-section-copy prose">
+        {{- $illustrated := 0 }}
+        {{- range . }}
+          {{- $entry := . }}
+          {{- /* Count only the entries that carry a figure, so the alternation
+                 is unbroken by entries that have none. */ -}}
+          {{- if .figure }}{{ $illustrated = add $illustrated 1 }}{{ end }}
+          {{- $flipped := and .figure (eq (mod $illustrated 2) 0) }}
+          {{- /* Both kinds of citation render identically; collecting them first
+                 keeps the markup below to one shape. A paper falls back to its
+                 URL's caption when the file gives no title. */ -}}
+          {{- $citations := slice }}
+          {{- with .link }}
+            {{- $citations = $citations | append (dict
+              "label" $entry.link_label
+              "text" ($entry.link_text | default $entry.link_label)
+              "href" (. | relURL)) }}
+          {{- end }}
+          {{- with .paper_link }}
+            {{- $citations = $citations | append (dict
+              "label" "Paper"
+              "text" ($entry.paper_title | default "Read the paper")
+              "href" .) }}
+          {{- end }}
+          <div class="dataset-about__entry">
+            <div class="dataset-split{{ if $flipped }} dataset-split--flipped{{ end }}">
+              <div class="dataset-split__copy">
+                {{- with .heading }}<h3 class="dataset-about__heading">{{ . }}</h3>{{ end }}
+                <p>{{ .description }}</p>
+                {{- with $citations }}
+                  <dl class="dataset-about__citations">
+                    {{- range . }}
+                      <div class="dataset-about__citation">
+                        <dt class="dataset-about__citation-label">{{ .label }}</dt>
+                        <dd class="dataset-about__citation-link">
+                          <a class="text-link" href="{{ .href }}">{{ .text }}</a>
+                        </dd>
+                      </div>
+                    {{- end }}
+                  </dl>
+                {{- end }}
+              </div>
+              {{- partial "resources/dataset-figure.html" (dict "figure" .figure) }}
+            </div>
+          </div>
+        {{- end }}
+      </div>
+    </div>
+  </section>
+{{- end -}}

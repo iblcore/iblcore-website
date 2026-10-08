@@ -1,0 +1,20 @@
+{{- /* Headline figures for a resource, rendered as one band above its narrative.
+       Renders nothing unless the page sets "stats", so every resource template
+       can call it unconditionally. */ -}}
+{{- $page := .page -}}
+{{- with $page.Params.stats -}}
+  <section class="section section-band dataset-section stats-strip" aria-label="At a glance">
+    <div class="shell page-shell">
+      <dl class="stats-strip__list">
+        {{- range . }}
+          {{- /* Label before value in the markup so a screen reader hears
+                 "Probe insertions, 699"; CSS reverses them on screen. */}}
+          <div class="stats-strip__item">
+            <dt class="stats-strip__label">{{ .label }}</dt>
+            <dd class="stats-strip__value">{{ .value }}</dd>
+          </div>
+        {{- end }}
+      </dl>
+    </div>
+  </section>
+{{- end -}}

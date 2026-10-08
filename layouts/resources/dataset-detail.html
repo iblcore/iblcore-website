@@ -1,17 +1,20 @@
 {{ define "main" }}
   {{ $sectionNav := slice }}
-  {{ if or .Params.project .Params.task }}{{ $sectionNav = $sectionNav | append (dict "id" "the-project" "label" "About") }}{{ end }}
+  {{ if .Params.about }}{{ $sectionNav = $sectionNav | append (dict "id" "about-the-dataset" "label" "About") }}{{ end }}
   {{ if .Params.explore }}{{ $sectionNav = $sectionNav | append (dict "id" "explore-the-data" "label" "Explore") }}{{ end }}
   {{ if .Params.access }}{{ $sectionNav = $sectionNav | append (dict "id" "access-methods" "label" "Access") }}{{ end }}
 
-  {{ partial "page-header.html" (dict "page" . "intro" "") }}
+  {{- /* The registry name stays short for cards and listings; the page's own
+         heading names what it is. */ -}}
+  {{ partial "page-header.html" (dict "page" . "intro" "" "title" (printf "%s Dataset" .Title)) }}
 
   {{ if gt (len $sectionNav) 1 }}
-    <section class="page-controls" aria-label="Jump to section">
+    <section class="page-controls page-controls--jump" aria-label="Jump to section">
       <div class="shell page-shell page-controls__inner">
-        <nav class="segmented-control" aria-label="Page sections">
-          {{ range $sectionNav }}
-            <a class="segmented-control__button" href="#{{ .id }}">{{ .label }}</a>
+        <nav class="section-jump" aria-label="Page sections">
+          {{ range $index, $item := $sectionNav }}
+            {{ if $index }}<span class="section-jump__separator" aria-hidden="true">&middot;</span>{{ end }}
+            <a class="section-jump__link" href="#{{ $item.id }}">{{ $item.label }}</a>
           {{ end }}
         </nav>
       </div>
@@ -20,60 +23,16 @@
 
   {{ partial "resources/section-intro.html" (dict "page" .) }}
 
-  {{ if or .Params.project .Params.task }}
-    <section id="the-project" class="section section-band dataset-section">
-      <div class="shell page-shell">
-        <div class="dataset-section-copy prose">
-          <h2>About the dataset</h2>
+  {{ partial "resources/stats-strip.html" (dict "page" .) }}
 
-          {{ with .Params.project }}
-            {{ $project := . }}
-            <p>
-              {{ .description }}
-              {{ with .project_link }}<a class="text-link" href="{{ . | relURL }}">Read more about the project</a>{{ end }}
-              {{ with .paper_link }}&middot; <a class="text-link" href="{{ . }}">Read the paper{{ with $project.paper_title }}: {{ . }}{{ end }}</a>{{ end }}
-            </p>
-          {{ end }}
+  {{ partial "resources/dataset-about.html" (dict "page" .) }}
 
-          {{ with .Params.task }}
-            {{ $task := . }}
-            <p>
-              {{ .description }}
-              {{ with .paper_link }}<a class="text-link" href="{{ . }}">Learn more about the standardised task</a>{{ end }}
-            </p>
-            {{ if .diagram_placeholder }}
-              <div class="resource-card resource-card--placeholder">
-                <div class="resource-card__body">
-                  <h3 class="resource-card__title">Diagram coming soon</h3>
-                  <p>A diagram of the task will go here.</p>
-                </div>
-              </div>
-            {{ end }}
-          {{ end }}
-        </div>
-      </div>
-    </section>
-  {{ end }}
-
-  {{ with .Params.explore }}
-    {{ $explore := . }}
-    <section id="explore-the-data" class="section section-band dataset-section">
-      <div class="shell page-shell">
-        <div class="dataset-section-copy prose">
-          <h2>Visualise and explore the data</h2>
-          <p>{{ .description }}</p>
-          <p>
-            {{ with .link }}<a class="button button--page-cta" href="{{ . }}">{{ $explore.link_text | default "Open the data explorer" }}</a>{{ end }}
-          </p>
-        </div>
-      </div>
-    </section>
-  {{ end }}
+  {{ partial "resources/dataset-explore.html" (dict "page" .) }}
 
   {{ with .Params.access }}
     <section id="access-methods" class="section section-band dataset-section">
       <div class="shell page-shell">
-        <h2>Get the data</h2>
+        <h2>Access the data</h2>
         <p class="dataset-section-copy">Pick a route and follow its step-by-step guide. <a class="text-link text-link--on-dark" href="{{ "/resources/access-routes/" | relURL }}">Compare the access routes</a>.</p>
 
         <div class="resource-card get-data-panel">
