@@ -33,7 +33,16 @@ const REQUIRED_RESOURCE_FIELDS = ["title", "description"];
 // its resources into the chooser the rest of the steps narrow to.
 const CHOICES = ["dataset"];
 const STATUSES = ["released", "coming-soon"];
+// Whether a figure is rendered on a dark frame or a light card. Diagrams lifted
+// from papers sit on white; rendered clips sit on black.
+const FIGURE_TONES = ["light", "dark"];
 const LINK_KINDS = ["docs", "code", "platform", "preprint"];
+
+// Front matter that "about" replaced. A file still carrying one would render
+// nothing at all, so the copy has to be reported rather than quietly dropped.
+const RETIRED_RESOURCE_KEYS = ["project", "task"];
+
+const isAbsoluteUrl = (value) => typeof value === "string" && /^https?:\/\//.test(value);
 
 function checkRequiredStrings(data, fields, path, errors) {
   for (const field of fields) {
@@ -56,6 +65,122 @@ function checkVocabulary(data, taxonomy, path, errors) {
     }
   }
   return terms;
+}
+
+/**
+ * Check the "about" entries a resource page renders as its narrative section.
+ *
+ * Entries are reported by their 1-based position rather than by heading,
+ * because the entry that fails is often the one whose heading is missing too.
+ *
+ * @param {object} data Front matter of one resource.
+ * @param {string} path File the entries came from, used in messages.
+ * @param {string[]} errors Collected messages, appended to in place.
+ */
+function checkAbout(data, path, errors) {
+  const entries = data?.about;
+  if (entries === undefined) return;
+  if (!Array.isArray(entries)) {
+    errors.push(`${path}: "about" must be a list`);
+    return;
+  }
+  entries.forEach((entry, index) => {
+    const label = `${path}: about entry ${index + 1}`;
+    if (typeof entry?.description !== "string" || entry.description.trim() === "") {
+      errors.push(`${label} is missing "description"`);
+    }
+    if (entry?.paper_link !== undefined && !isAbsoluteUrl(entry.paper_link)) {
+      errors.push(`${label}: paper_link must be an absolute URL`);
+    }
+    // Links render as captioned citations, so a label is the caption rather
+    // than decoration: defaulting it would caption the link with a guess.
+    if (entry?.link !== undefined && `${entry?.link_label ?? ""}`.trim() === "") {
+      errors.push(`${label} sets "link" without "link_label"`);
+    }
+    if (entry?.figure !== undefined) checkFigure(entry.figure, `${label}: figure`, errors);
+  });
+}
+
+/**
+ * Check the illustration attached to one "about" entry.
+ *
+ * A figure is either a still ("src") or a looping clip ("video"), never both.
+ * A clip carries a "poster" so the first frame is painted before it loads and
+ * so readers who have asked for reduced motion get a still instead.
+ *
+ * @param {object} figure The entry's figure map.
+ * @param {string} label Entry and file the figure came from, used in messages.
+ * @param {string[]} errors Collected messages, appended to in place.
+ */
+function checkFigure(figure, label, errors) {
+  checkRequiredStrings(figure, ["alt"], label, errors);
+
+  const sources = ["src", "video"].filter((key) => figure?.[key] !== undefined);
+  if (sources.length !== 1) {
+    errors.push(`${label} needs exactly one of "src" or "video"`);
+  }
+  if (figure?.video !== undefined && `${figure?.poster ?? ""}`.trim() === "") {
+    errors.push(`${label} sets "video" without "poster"`);
+  }
+  if (figure?.tone !== undefined && !FIGURE_TONES.includes(figure.tone)) {
+    errors.push(`${label} tone "${figure.tone}" must be one of ${FIGURE_TONES.join(", ")}`);
+  }
+}
+
+/**
+ * Check the "explore" block a dataset page renders as its call to action.
+ *
+ * Its figure is the same shape as an entry's, so it goes through the same
+ * check; the highlights are the few things a visitor can do at the link.
+ *
+ * @param {object} data Front matter of one resource.
+ * @param {string} path File the block came from, used in messages.
+ * @param {string[]} errors Collected messages, appended to in place.
+ */
+function checkExplore(data, path, errors) {
+  const explore = data?.explore;
+  if (explore === undefined) return;
+
+  const label = `${path}: explore`;
+  if (explore.figure !== undefined) checkFigure(explore.figure, `${label}: figure`, errors);
+
+  if (explore.highlights === undefined) return;
+  if (!Array.isArray(explore.highlights)) {
+    errors.push(`${label}: "highlights" must be a list`);
+    return;
+  }
+  explore.highlights.forEach((highlight, index) => {
+    if (typeof highlight !== "string" || highlight.trim() === "") {
+      errors.push(`${label}: highlight ${index + 1} must be a string`);
+    }
+  });
+}
+
+/**
+ * Check the headline figures a resource page renders as its stats strip.
+ *
+ * Values stay strings: they are display text such as "699" or "12", never
+ * arithmetic, and YAML would otherwise coerce some of them to numbers and
+ * others not depending on how they are written.
+ *
+ * @param {object} data Front matter of one resource.
+ * @param {string} path File the entries came from, used in messages.
+ * @param {string[]} errors Collected messages, appended to in place.
+ */
+function checkStats(data, path, errors) {
+  const entries = data?.stats;
+  if (entries === undefined) return;
+  if (!Array.isArray(entries)) {
+    errors.push(`${path}: "stats" must be a list`);
+    return;
+  }
+  entries.forEach((entry, index) => {
+    for (const field of ["value", "label"]) {
+      if (`${entry?.[field] ?? ""}`.trim() === "") {
+        errors.push(`${path}: stats entry ${index + 1} is missing "${field}"`);
+      }
+    }
+  });
 }
 
 /**
@@ -104,6 +229,16 @@ export function validateResourcesData(resources, workflows) {
       }
     }
 
+    checkAbout(data, path, errors);
+    checkStats(data, path, errors);
+    checkExplore(data, path, errors);
+
+    for (const key of RETIRED_RESOURCE_KEYS) {
+      if (data?.[key] !== undefined) {
+        errors.push(`${path}: "${key}" is retired; move its copy into "about"`);
+      }
+    }
+
     if (data?.status !== undefined && !STATUSES.includes(data.status)) {
       errors.push(`${path}: status "${data.status}" must be one of ${STATUSES.join(", ")}`);
     }
@@ -111,7 +246,7 @@ export function validateResourcesData(resources, workflows) {
     for (const [kind, url] of Object.entries(data?.links || {})) {
       if (!LINK_KINDS.includes(kind)) {
         errors.push(`${path}: links key "${kind}" must be one of ${LINK_KINDS.join(", ")}`);
-      } else if (typeof url !== "string" || !/^https?:\/\//.test(url)) {
+      } else if (!isAbsoluteUrl(url)) {
         errors.push(`${path}: links.${kind} must be an absolute URL`);
       }
     }
