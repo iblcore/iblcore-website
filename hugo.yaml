@@ -10,7 +10,8 @@ params:
   umami:
     enabled: true
     customEvents: true
-    scriptURL: "https://cloud.umami.is/script.js"
+    scriptURL: "/t.js"
+    hostURL: "https://iblcore.org"
     websiteID: "b174e1b4-4d3b-41e2-b49c-f8d30d49c8f9"
     domains:
       - "iblcore.org"

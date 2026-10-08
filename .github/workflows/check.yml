@@ -29,6 +29,10 @@ jobs:
         run: node scripts/check-events-data.mjs
       - name: Test Events data validation
         run: node --test scripts/check-events-data.test.mjs
+      - name: Test Umami proxy
+        run: node --test scripts/check-umami-proxy.test.mjs
+      - name: Compile Pages Functions
+        run: npx wrangler pages functions build --outdir .wrangler/functions-check
       - name: Validate agent-readable index
         run: node scripts/check-llms.mjs
       - name: Validate Events interactions
