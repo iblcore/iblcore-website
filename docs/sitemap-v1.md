@@ -87,7 +87,7 @@ own page, and as a step in a workflow.
   that declares none applies to all of them.
 - A dataset card lists one row per access route, each linking that route's
   step-by-step guide from the dataset's `access_guides`, or saying the guide is
-  still to come. The same rows are the dataset page's "Get the data" section,
+  still to come. The same rows are the dataset page's "Access the data" section,
   where each row also says what its route is best for. Because the card holds
   links of its own it is not itself one link, unlike every other card.
 - Benchmarking is not a page or a type: it is the `benchmark` term of `stage`,
