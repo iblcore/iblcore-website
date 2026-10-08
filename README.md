@@ -53,6 +53,35 @@ workflow.
 
 ## Repository map
 
+Umami analytics is configured under `params.umami` in `hugo.yaml` and rendered
+by the shared `layouts/partials/analytics.html` partial. Set `enabled: false`
+to disable tracking, or update `scriptURL`, `hostURL`, `websiteID`, and `domains` to change
+the tracker. Local Hugo servers omit the script; the domain allowlist limits
+tracking to `iblcore.org` and excludes deployed previews.
+
+`customEvents: true` enables `assets/js/analytics-events.js`, which records
+`resource_link_click` for outbound links in the homepage Resources section,
+resource pages, and the GitHub shortcuts; `download_click` for download links
+and common downloadable file types; `contact_click` for email, telephone, and
+the contact page/section; and `application_click`, `registration_click`, or
+`event_link_click` for the corresponding Events card actions. These measure
+link clicks, not completed downloads, applications, or registrations. Ordinary
+internal navigation uses pageviews only. No extra event properties are sent;
+each tracked click adds one event to Umami Cloud usage. Set `customEvents: false`
+to keep pageviews without click events. The click handler uses the same domain
+allowlist as the tracker and preserves normal link behavior.
+
+The tracker is served at `/t.js`, and `hostURL` directs collection to
+`https://iblcore.org/api/send`. Cloudflare Pages Functions proxy these requests
+to Umami Cloud. Ordinary website pages and assets remain static. See
+[Deployment administration](docs/admin-deployment.md#umami-proxy) for forwarding,
+limits, verification, and rollback. The shared proxy's approved production
+origins, website IDs, and custom event names live in `lib/umami-sites.mjs`.
+Only `iblcore.org` is registered initially. The proxy tests enforce agreement
+with this site's Hugo settings and exercise a second site using test-only
+configuration. See the deployment guide to register another site and install
+its tracking snippet.
+
 - `content/`: Markdown pages and their metadata
 - `content/news/posts/`: short news posts published through `/news/`
 - `content/publications/press/`: page bundles for press coverage, published through `/publications/press/`
