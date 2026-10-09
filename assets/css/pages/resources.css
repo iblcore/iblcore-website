@@ -4,13 +4,27 @@
   padding: var(--space-2xl) 0;
 }
 
+/* Sections butt onto one another inside one continuous band, so the space
+   above a heading is what separates one chapter from the last. */
 .dataset-section + .dataset-section {
-  padding-top: 0;
+  padding-top: var(--space-xl);
 }
 
+/* The same heading as the rest of the resource portal: set large and light
+   rather than small and bold, so a section title reads as a chapter mark. */
 .dataset-section h2 {
   margin: 0 0 var(--space-lg);
   color: var(--color-surface);
+  font-size: var(--font-size-prose-title);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+/* A line of section prose keeps a measure: left to the full band it runs to
+   well over a hundred characters. */
+.dataset-section p.dataset-section-copy,
+.dataset-section .dataset-section-copy > p {
+  max-width: 58rem;
 }
 
 .dataset-section .shell > * + * {
@@ -360,15 +374,23 @@
 }
 
 /* One short block of narrative on a resource page, optionally followed by its
-   links out to the project and the paper. */
+   links out to the project and the paper. A hairline carries the full width of
+   the band between entries: it gives the section a structure to sit in, so an
+   entry with no figure reads as a measure of prose rather than as a half-empty
+   row. */
 .dataset-about__entry + .dataset-about__entry {
   margin-top: var(--space-2xl);
+  padding-top: var(--space-2xl);
+  border-top: 1px solid var(--color-brand-light-tint-25);
 }
 
+/* The heading takes the band's pale blue rather than the body's white: colour
+   does the ranking, so the label stays quiet next to the prose it introduces. */
 .dataset-about__heading {
-  margin: 0 0 var(--space-xs);
-  color: var(--color-surface);
-  font-size: 1.15rem;
+  margin: 0 0 var(--space-sm);
+  color: var(--color-brand-light);
+  font-size: 1.1rem;
+  letter-spacing: 0.01em;
 }
 
 /* Citations sit apart from the copy they follow: a small caption above the
@@ -430,6 +452,13 @@
 
 .dataset-split--flipped .dataset-split__copy {
   grid-column: 2;
+}
+
+/* An entry with no figure has nothing to put in the second track, and leaving
+   it open presses the prose into half the band. The entry drops to one column
+   and the copy takes a measure of its own instead. */
+.dataset-section .dataset-split:not(:has(.dataset-figure)) {
+  grid-template-columns: minmax(0, 58rem);
 }
 
 .dataset-split__copy > :first-child {
@@ -846,19 +875,32 @@
   opacity: 0.8;
 }
 
+/* The citations' own panel, which unlike the guide rows holds padded cards:
+   it takes even padding so the entries sit square inside it. */
+.citation-panel {
+  padding: var(--space-lg);
+}
+
+/* A dataset page puts the citations in a white panel inside the dark band,
+   where the page's inherited colour is white: they take the colour a light
+   section would have given them. */
+.dataset-section .citations {
+  color: var(--color-accent);
+}
+
 /* Each reference is its own panel, so the kind label, the reference and its
    controls read as one unit. Same tint as the call to action. */
-.bwb-citation__item {
+.citation {
   padding: var(--space-lg);
   border-radius: var(--radius-md);
   background: var(--color-brand-light-tint-40);
 }
 
-.bwb-citation__item + .bwb-citation__item {
+.citation + .citation {
   margin-top: var(--space-md);
 }
 
-.bwb-citation__kind {
+.citation__kind {
   margin: 0 0 var(--space-xs);
   font-size: var(--font-size-footer-legal);
   letter-spacing: 0.08em;
@@ -866,12 +908,13 @@
   opacity: 0.7;
 }
 
-.bwb-citation__ref {
+.citation__ref {
+  max-width: 76ch;
   font-size: var(--font-size-card-copy);
   line-height: 1.45;
 }
 
-.bwb-citation__actions {
+.citation__actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-sm);
@@ -882,8 +925,8 @@
    section, so the label matches the reference text and the padding is tight.
    Overriding the pill's own tokens keeps one set of rules.
    The uppercasing goes too, because "BibTeX" is spelled that way. */
-.button--bwb-solid,
-.button--bwb-ghost {
+.button--citation-solid,
+.button--citation-ghost {
   --button-pill-min-height: calc(2.5rem * var(--type-scale-base));
   --button-pill-pad-y: 0.1rem;
   --button-pill-pad-x: calc(1rem * var(--type-scale-base));
@@ -894,20 +937,20 @@
   cursor: pointer;
 }
 
-.button--bwb-solid {
+.button--citation-solid {
   background: var(--color-accent);
   color: var(--color-surface);
 }
 
-.button--bwb-ghost {
+.button--citation-ghost {
   background: var(--color-surface);
   color: var(--color-accent);
 }
 
-.button--bwb-solid:hover,
-.button--bwb-solid:focus-visible,
-.button--bwb-ghost:hover,
-.button--bwb-ghost:focus-visible {
+.button--citation-solid:hover,
+.button--citation-solid:focus-visible,
+.button--citation-ghost:hover,
+.button--citation-ghost:focus-visible {
   transform: translateY(-1px);
   outline: none;
 }
@@ -915,7 +958,7 @@
 /* BibTeX entries have long author lists and no break opportunities, so they are
    wrapped rather than left to scroll sideways on a phone. The top margin clears
    whatever precedes the block: the reference, or the buttons once JS runs. */
-.bwb-citation pre {
+.citations pre {
   margin: var(--space-md) 0 0;
   padding: var(--space-md);
   border-radius: var(--radius-md);

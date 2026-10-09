@@ -66,20 +66,7 @@
   <section class="section page-content" id="citation">
     <div class="shell page-shell">
       <h2 class="bwb-head">{{ .Params.citation_title }}</h2>
-      <div class="prose bwb-citation">
-        {{ $page.RenderString (dict "display" "block") .Params.citation_intro }}
-        {{- /* The reference is what a reader needs; the BibTeX is what they
-               copy. The entry is rendered open, and the script collapses it
-               behind a button: without JavaScript the BibTeX is still there to
-               select, rather than locked behind a control that does nothing. */ -}}
-        {{ range $index, $citation := .Params.citations }}
-          <article class="bwb-citation__item" data-citation>
-            {{ with $citation.kind }}<p class="bwb-citation__kind">{{ . }}</p>{{ end }}
-            <div class="bwb-citation__ref">{{ $page.RenderString $citation.reference }}</div>
-            <pre id="bibtex-{{ add $index 1 }}">{{ $citation.entry }}</pre>
-          </article>
-        {{ end }}
-      </div>
+      {{ partial "resources/citation-list.html" (dict "page" $page "citations" .Params.citations "intro" .Params.citation_intro) }}
     </div>
   </section>
 

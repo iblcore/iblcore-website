@@ -112,11 +112,14 @@
         <script src="{{ $moduleJS.RelPermalink }}" defer></script>
       {{ end }}
     {{ end }}
-    {{ $pageScript := "" }}
-    {{ if eq .Layout "events" }}{{ $pageScript = "js/events.js" }}{{ end }}
-    {{ if eq .Layout "new-partners" }}{{ $pageScript = "js/partners.js" }}{{ end }}
-    {{ if eq .Layout "benchmark" }}{{ $pageScript = "js/benchmark.js" }}{{ end }}
-    {{ with $pageScript }}
+    {{ $pageScripts := slice }}
+    {{ if eq .Layout "events" }}{{ $pageScripts = $pageScripts | append "js/events.js" }}{{ end }}
+    {{ if eq .Layout "new-partners" }}{{ $pageScripts = $pageScripts | append "js/partners.js" }}{{ end }}
+    {{ if eq .Layout "benchmark" }}{{ $pageScripts = $pageScripts | append "js/benchmark.js" }}{{ end }}
+    {{- /* The BibTeX controls follow the citations themselves, wherever a page
+           carries them, rather than a layout. */ -}}
+    {{ if .Params.citations }}{{ $pageScripts = $pageScripts | append "js/citation.js" }}{{ end }}
+    {{ range $pageScripts }}
       {{ $pageJS := resources.Get . | minify }}
       {{ if $fingerprintAssets }}
         {{ $pageJS = $pageJS | fingerprint }}

@@ -64,7 +64,10 @@ stage:
 
 citation_title: "How to cite"
 citation_intro: |
-  If you use the Brainwide Map in your research, please cite the paper.
+  If you use the Brainwide Map in your research, please cite the paper. The
+  dataset is also listed in the AWS Open Data Registry as *IBL Neuropixels
+  Brainwide Map on AWS*, managed by the International Brain Laboratory under
+  CC BY 4.0; cite the registry entry as well if you reach the data that way.
 citations:
   - kind: "Paper"
     reference: |
@@ -81,12 +84,10 @@ citations:
         year    = {2025},
         url     = {https://www.nature.com/articles/s41586-025-09235-0},
       }
-citation_note: |
-  The dataset is also listed in the AWS Open Data Registry as *IBL Neuropixels
-  Brainwide Map on AWS*, managed by the International Brain Laboratory under
-  CC BY 4.0. If you reach the data through that mirror, follow the How to cite
-  section in its
-  [registry entry](https://registry.opendata.aws/ibl-brain-wide-map/).
+  - kind: "AWS Open Data Registry"
+    reference: |
+      IBL Neuropixels Brainwide Map on AWS was accessed on DATE from
+      [https://registry.opendata.aws/ibl-brain-wide-map](https://registry.opendata.aws/ibl-brain-wide-map/).
 
 access:
   - "one"
