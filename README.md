@@ -64,10 +64,10 @@ these click events, each with at most one property:
 
 | Event | Property | Recorded for |
 | --- | --- | --- |
-| `Resource link` | `Target`: destination hostname and path | Outbound links in the homepage Resources section, resource pages, and the GitHub shortcuts |
-| `Download` | `File`: file name | Download links and common downloadable file types |
-| `Contact` | none | Email, telephone, and the contact page/section |
-| `Application`, `Registration`, `Event link` | `Event`: event card title | The corresponding Events card actions |
+| `resource_link_click` | `target`: destination hostname and path | Outbound links in the homepage Resources section, resource pages, and the GitHub shortcuts |
+| `download_click` | `file`: file name | Download links and common downloadable file types |
+| `contact_click` | none | Email, telephone, and the contact page/section |
+| `application_click`, `registration_click`, `event_link_click` | `event`: event card title | The corresponding Events card actions |
 
 These measure link clicks, not completed downloads, applications, or
 registrations. Ordinary internal navigation uses pageviews only. Query strings,

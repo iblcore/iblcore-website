@@ -106,8 +106,9 @@ The proxy is shared infrastructure, but registration is explicit. In
 `lib/umami-sites.mjs`, add an entry with the site's exact HTTPS origin (no
 trailing slash or path), its own Umami website ID, and its allowed custom events
 as a map from event name to allowed property keys, for example
-`events: { "Resource open": ["Target"] }`. Use `events: {}` for pageviews only. Each additional hostname, such as a
-`www` variant, needs its own entry; it may share the same Umami website ID.
+`events: { resource_open: ["target"] }`. Use `events: {}` for pageviews only.
+Each additional hostname, such as a `www` variant, needs its own entry; it may
+share the same Umami website ID.
 Keep development and preview origins out of the list. Run the checks and
 redeploy this existing Pages project through the normal approved PR workflow.
 No separate proxy, DNS record, or Cloudflare binding is needed for the new site.
@@ -124,11 +125,11 @@ allow `https://iblcore.org` in both `script-src` and `connect-src`.
   data-domains="NEW-PRODUCTION-HOSTNAME"></script>
 ```
 
-For a registered event name, use `data-umami-event="Resource open"` on a
-button/link or call `window.umami.track("Resource open")`. Attach only registered
-properties, such as `window.umami.track("Resource open", { Target: "Dataset" })`;
-other properties are rejected. HTML lowercases attribute names, so register
-lowercase keys when using `data-umami-event-*` property attributes. IBL-Core's custom click handler is specific to this website; the
+For a registered event name, use `data-umami-event="resource_open"` on a
+button/link or call `window.umami.track("resource_open")`. Attach only registered
+properties, such as `window.umami.track("resource_open", { target: "Dataset" })`;
+or `data-umami-event-target="Dataset"`; other properties are rejected. Use
+lowercase property keys, because HTML lowercases attribute names. IBL-Core's custom click handler is specific to this website; the
 shared script does not install those handlers on other websites.
 
 Requests from other websites are third-party requests to `iblcore.org`.
