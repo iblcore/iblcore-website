@@ -9,6 +9,8 @@ header:
         url: /about/history/
       - title: Strategic Priorities
         url: /about/strategic-priorities/
+      - title: Governance
+        url: /about/governance/
       - title: FAQ
         url: /about/faq/
       - title: Support
@@ -25,6 +27,8 @@ header:
         url: /resources/tools/
       - title: Workflows
         url: /resources/workflows/
+      - title: Benchmarking
+        url: /resources/benchmarking/ibl-brainwidebench/
   - key: projects
     title: Projects
     url: /new-partner-projects/
@@ -36,6 +40,11 @@ header:
   - key: publications
     title: Publications
     url: /publications/
+    children:
+      - title: Publications
+        url: /publications/
+      - title: Press
+        url: /publications/press/
   - key: events
     title: Events
     url: /events/

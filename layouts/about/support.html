@@ -3,20 +3,7 @@
 
   <section class="funding-logos-section" aria-label="Support and funding organisations">
     <div class="shell page-shell">
-      <div class="funding-logos">
-        <div class="funding-logo-card">
-          <img src="{{ "images/funders/simons-foundation-international.png" | relURL }}" alt="Simons Foundation International" width="148" height="148">
-        </div>
-        <div class="funding-logo-card">
-          <img src="{{ "images/funders/simons-foundation.png" | relURL }}" alt="Simons Foundation" width="148" height="148">
-        </div>
-        <div class="funding-logo-card">
-          <img src="{{ "images/wellcome.png" | relURL }}" alt="Wellcome Trust" width="148" height="148">
-        </div>
-        <div class="funding-logo-card">
-          <img src="{{ "images/nih.png" | relURL }}" alt="National Institutes of Health" width="148" height="148">
-        </div>
-      </div>
+      {{ partial "supporter-logos.html" . }}
     </div>
   </section>
 {{ end }}

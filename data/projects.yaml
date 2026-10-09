@@ -47,6 +47,10 @@ sections:
             alt: "Antoine Courbi"
             caption: "Antoine Courbi"
             person: true
+          - image: "/images/new-partners/partners/aurelien-aberlenc.webp"
+            alt: "Aurelien Aberlenc"
+            caption: "Aurelien Aberlenc"
+            person: true
           - image: "/images/new-partners/partners/cazettes-project.webp"
             alt: "Illustration from the Cazettes Lab partner project"
             image_fit: "contain"
@@ -77,6 +81,11 @@ sections:
             role: "Lead PI"
             affiliation: "EPFL - Lausanne"
             image: "/images/new-partners/partners/carl-petersen.webp"
+        team_media:
+          - image: "/images/new-partners/partners/myriam-hamon.webp"
+            alt: "Myriam Hamon"
+            caption: "Myriam Hamon"
+            person: true
         lab:
           title: "About the Laboratory of Sensory Processing"
           institution: "EPFL Brain Mind Institute"

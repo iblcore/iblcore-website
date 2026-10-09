@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {{ partial "analytics.html" . }}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
@@ -33,6 +34,11 @@
     {{ end }}
     {{ if eq .Section "news" }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/news.css") }}
+    {{ end }}
+    {{- /* Suite cards appear on the benchmark page and in the news post that
+           announces it. */ -}}
+    {{ if or (eq .Section "resources") (eq .Section "news") }}
+      {{ $pageStyles = $pageStyles | append (resources.Get "css/components/bwb-suites.css") }}
     {{ end }}
     {{ if eq .Layout "new-partners" }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/new-partners.css") }}
@@ -109,6 +115,7 @@
     {{ $pageScript := "" }}
     {{ if eq .Layout "events" }}{{ $pageScript = "js/events.js" }}{{ end }}
     {{ if eq .Layout "new-partners" }}{{ $pageScript = "js/partners.js" }}{{ end }}
+    {{ if eq .Layout "benchmark" }}{{ $pageScript = "js/benchmark.js" }}{{ end }}
     {{ with $pageScript }}
       {{ $pageJS := resources.Get . | minify }}
       {{ if $fingerprintAssets }}

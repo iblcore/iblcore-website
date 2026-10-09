@@ -1,0 +1,102 @@
+{{ define "main" }}
+  {{- /* Benchmark landing page: alternating full-width bands, so it cannot use
+         _default/single.html, whose single prose column cannot break out to the
+         page edges. Structured blocks come from front matter; the markdown body
+         supplies only the opening prose. */ -}}
+  {{ $page := . }}
+  {{ partial "page-header.html" (dict "page" .) }}
+
+  <section class="section page-content">
+    <div class="shell page-shell">
+      <div class="bwb-intro">
+        <div class="bwb-intro__copy">
+          <h2 class="bwb-head">{{ .Params.intro_title }}</h2>
+          <div class="prose">{{ .Content }}</div>
+        </div>
+        <div class="bwb-aside">
+          {{ with .Params.video }}
+            <figure class="bwb-figure">
+              {{- /* Muted and looping to match the source animation, but with
+                     controls so it can be stopped: it is 34 seconds long.
+
+                     `autoplay` is deliberately absent: CSS cannot gate it, so
+                     benchmark.js turns it on only for visitors who have not
+                     asked for reduced motion. Without JavaScript the video
+                     waits on its controls, which is the safe default. */ -}}
+              <video muted loop playsinline controls preload="metadata"
+                     data-bwb-video
+                     aria-label="{{ $page.Params.video_description }}">
+                <source src="{{ . | relURL }}#t=0.1" type="video/mp4">
+                <a href="{{ . | relURL }}">Download the video</a>
+              </video>
+              {{ with $page.Params.video_caption }}<figcaption class="bwb-figcap">{{ . }}</figcaption>{{ end }}
+            </figure>
+          {{ end }}
+        </div>
+      </div>
+
+      {{ with .Params.cta_title }}
+        <aside class="bwb-cta" aria-labelledby="bwb-cta-title">
+          <h2 class="bwb-head" id="bwb-cta-title">{{ . }}</h2>
+          <div class="prose">{{ $page.RenderString (dict "display" "block") $page.Params.cta_body }}</div>
+          {{ partial "bwb-suite-cards.html" (dict "suites" $page.Params.suites "level" 3) }}
+        </aside>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="section page-content" id="how-to-use-it">
+    <div class="shell page-shell">
+      <h2 class="bwb-head">{{ .Params.steps_title }}</h2>
+      <p class="bwb-sub">{{ $page.RenderString .Params.steps_intro }}</p>
+      <ol class="bwb-steps">
+        {{ range $index, $step := .Params.steps }}
+          <li>
+            <b>{{ add $index 1 }}</b>
+            <div>
+              <h3>{{ $step.title }}</h3>
+              {{ $page.RenderString (dict "display" "block") $step.body }}
+            </div>
+          </li>
+        {{ end }}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section page-content" id="citation">
+    <div class="shell page-shell">
+      <h2 class="bwb-head">{{ .Params.citation_title }}</h2>
+      <div class="prose bwb-citation">
+        {{ $page.RenderString (dict "display" "block") .Params.citation_intro }}
+        {{- /* The reference is what a reader needs; the BibTeX is what they
+               copy. The entry is rendered open, and the script collapses it
+               behind a button: without JavaScript the BibTeX is still there to
+               select, rather than locked behind a control that does nothing. */ -}}
+        {{ range $index, $citation := .Params.citations }}
+          <article class="bwb-citation__item" data-citation>
+            {{ with $citation.kind }}<p class="bwb-citation__kind">{{ . }}</p>{{ end }}
+            <div class="bwb-citation__ref">{{ $page.RenderString $citation.reference }}</div>
+            <pre id="bibtex-{{ add $index 1 }}">{{ $citation.entry }}</pre>
+          </article>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-band">
+    <div class="shell page-shell">
+      <h2 class="bwb-head">{{ .Params.links_title }}</h2>
+      {{ with .Params.links_intro }}<p class="bwb-sub">{{ $page.RenderString . }}</p>{{ end }}
+      <div class="bwb-links">
+        {{ range .Params.links }}
+          <a class="bwb-link{{ if .lead }} bwb-link--lead{{ end }}" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
+            <strong>{{ .title }}</strong>
+            {{ with .description }}<span>{{ . }}</span>{{ end }}
+            {{ partial "link-arrow.html" (dict "direction" "external" "class" "bwb-link__arrow") }}
+            {{ partial "link-new-tab.html" . }}
+          </a>
+        {{ end }}
+      </div>
+    </div>
+  </section>
+{{ end }}

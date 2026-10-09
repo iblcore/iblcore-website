@@ -16,19 +16,13 @@
     "Video"
   }}
   {{ $tools := slice
-    (dict "title" "Alyx" "url" "https://alyx.readthedocs.io/en/latest/")
+    (dict "title" "Alyx" "url" "https://cortex-lab.github.io/alyx/")
     (dict "title" "IBL Sorter" "url" "https://github.com/int-brain-lab/ibl-sorter")
     (dict "title" "Lightning Pose" "url" "https://lightning-pose.readthedocs.io/en/latest/")
     (dict "title" "Datoviz" "url" "https://datoviz.org/")
   }}
   {{ $majorPublications := where hugo.Data.publications.items "keywords" "intersect" (slice "major") }}
   {{ $publications := sort $majorPublications "date" "desc" }}
-  {{ $supporters := slice
-    (dict "src" "images/funders/simons-foundation-international.png" "alt" "Simons Foundation International logo" "width" 118 "height" 118)
-    (dict "src" "images/funders/simons-foundation.png" "alt" "Simons Foundation logo" "width" 118 "height" 118)
-    (dict "src" "images/wellcome.png" "alt" "Wellcome logo" "width" 118 "height" 118)
-    (dict "src" "images/nih.png" "alt" "National Institutes of Health logo" "width" 118 "height" 118)
-  }}
   <div class="landing-page">
     <section class="hero hero--landing">
       <div class="hero__panel">
@@ -89,7 +83,11 @@
             <h3 class="what-we-do__row-title">Selected Tools</h3>
             <ul class="what-we-do__tools" aria-label="IBL tools">
               {{ range $tools }}
-                <li><a href="{{ .url }}">{{ .title }}</a></li>
+                {{- /* Off-site links open in a new tab, matching the markdown render
+                       hook. The external test and the screen-reader note come from the
+                       shared partials so the wording cannot drift. */ -}}
+                {{ $external := partial "link-external.html" .url }}
+                <li><a href="{{ .url }}"{{ if $external }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .title }}{{ if $external }}{{ partial "link-new-tab.html" . }}{{ end }}</a></li>
               {{ end }}
             </ul>
           </div>
@@ -103,7 +101,8 @@
         <div class="publications-section__list">
           {{ range $publications }}
             <article class="publication-item">
-              <h3><a href="{{ .read_article }}">{{ .title }}</a></h3>
+              {{ $external := partial "link-external.html" .read_article }}
+              <h3><a href="{{ .read_article }}"{{ if $external }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .title }}{{ if $external }}{{ partial "link-new-tab.html" . }}{{ end }}</a></h3>
               <p class="publication-item__meta">{{ .authors }} | {{ .journal }}, {{ .display_date }}</p>
               <p class="publication-item__summary">{{ .summary }}</p>
             </article>
@@ -124,13 +123,7 @@
           </div>
           <!-- <a class="button button--support" href="mailto:info@iblcore.org">Contact us</a> -->
         </div>
-        <div class="support-strip" aria-label="Support organizations">
-          {{ range $supporters }}
-            <div class="support-strip__item">
-              <img src="{{ .src | relURL }}" alt="{{ .alt }}" width="{{ .width }}" height="{{ .height }}">
-            </div>
-          {{ end }}
-        </div>
+        {{ partial "supporter-logos.html" . }}
       </div>
     </section>
   </div>

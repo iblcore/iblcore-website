@@ -1,0 +1,10 @@
+{{/* Skip local Hugo servers; the domain allowlist excludes deployed previews. */}}
+{{ with .Site.Params.umami }}
+  {{ if and .enabled (not hugo.IsServer) }}
+    <script defer src="{{ .scriptURL }}" data-website-id="{{ .websiteID }}"{{ with .hostURL }} data-host-url="{{ . }}"{{ end }}{{ with .domains }} data-domains="{{ delimit . "," }}"{{ end }}></script>
+    {{ if .customEvents }}
+      {{ $events := resources.Get "js/analytics-events.js" | resources.Copy "js/site-actions.js" | minify | fingerprint }}
+      <script defer src="{{ $events.RelPermalink }}" integrity="{{ $events.Data.Integrity }}"{{ with .domains }} data-domains="{{ delimit . "," }}"{{ end }}></script>
+    {{ end }}
+  {{ end }}
+{{ end }}

@@ -1,0 +1,17 @@
+items:
+  - src: images/funders/simons-foundation-international.png
+    alt: Simons Foundation International logo
+    width: 118
+    height: 118
+  - src: images/funders/simons-foundation.png
+    alt: Simons Foundation logo
+    width: 118
+    height: 118
+  - src: images/wellcome.png
+    alt: Wellcome logo
+    width: 118
+    height: 118
+  - src: images/nih.png
+    alt: National Institutes of Health logo
+    width: 118
+    height: 118

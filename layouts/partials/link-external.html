@@ -1,0 +1,12 @@
+{{- /* Reports whether a URL leaves this site, so the templates that open
+       off-site links in a new tab all make the same call about target="_blank".
+       Takes the raw URL string, returns a boolean.
+
+         {{ if partial "link-external.html" .url }}...{{ end }}
+
+       A relative or fragment-only URL is internal by definition, so only
+       absolute http(s) URLs outside the site's own base are external. */ -}}
+{{- $url := . -}}
+{{- return and
+      (or (strings.HasPrefix $url "http://") (strings.HasPrefix $url "https://"))
+      (not (strings.HasPrefix $url site.BaseURL)) -}}

@@ -53,8 +53,38 @@ workflow.
 
 ## Repository map
 
+Umami analytics is configured under `params.umami` in `hugo.yaml` and rendered
+by the shared `layouts/partials/analytics.html` partial. Set `enabled: false`
+to disable tracking, or update `scriptURL`, `hostURL`, `websiteID`, and `domains` to change
+the tracker. Local Hugo servers omit the script; the domain allowlist limits
+tracking to `iblcore.org` and excludes deployed previews.
+
+`customEvents: true` enables `assets/js/analytics-events.js`, which records
+`resource_link_click` for outbound links in the homepage Resources section,
+resource pages, and the GitHub shortcuts; `download_click` for download links
+and common downloadable file types; `contact_click` for email, telephone, and
+the contact page/section; and `application_click`, `registration_click`, or
+`event_link_click` for the corresponding Events card actions. These measure
+link clicks, not completed downloads, applications, or registrations. Ordinary
+internal navigation uses pageviews only. No extra event properties are sent;
+each tracked click adds one event to Umami Cloud usage. Set `customEvents: false`
+to keep pageviews without click events. The click handler uses the same domain
+allowlist as the tracker and preserves normal link behavior.
+
+The tracker is served at `/t.js`, and `hostURL` directs collection to
+`https://iblcore.org/api/send`. Cloudflare Pages Functions proxy these requests
+to Umami Cloud. Ordinary website pages and assets remain static. See
+[Deployment administration](docs/admin-deployment.md#umami-proxy) for forwarding,
+limits, verification, and rollback. The shared proxy's approved production
+origins, website IDs, and custom event names live in `lib/umami-sites.mjs`.
+Only `iblcore.org` is registered initially. The proxy tests enforce agreement
+with this site's Hugo settings and exercise a second site using test-only
+configuration. See the deployment guide to register another site and install
+its tracking snippet.
+
 - `content/`: Markdown pages and their metadata
-- `content/news/posts/`: page bundles for news, events, and press coverage
+- `content/news/posts/`: short news posts published through `/news/`
+- `content/publications/press/`: page bundles for press coverage, published through `/publications/press/`
 - `data/`: structured information such as projects, publications, and team data
 - `layouts/`: Hugo templates and reusable partials
 - `assets/css/`: tokens, base, component, and page styles
@@ -84,6 +114,22 @@ and validation policy.
 The About navigation includes the Strategic Priorities page at
 `/about/strategic-priorities/`, covering IBL Core's scientific themes,
 methodological commitments, and values for 2026-2029.
+
+The Governance page at `/about/governance/` lists the Scientific Advisory Board
+and publishes public policy documents. Versioned PDFs live in
+`static/documents/policies/`, while their titles, versions, dates, descriptions,
+and file details are maintained once in `data/policies.yaml`. Keep this central
+metadata record with each PDF rather than adding a separate README for every
+document. Each policy record also owns its current URL, so an anchored
+Governance section can later move to a separate page without changing the
+download component.
+
+Scientific Advisory Board names, institutions, profile links, and local portrait
+paths are maintained in `data/governance.yaml`. Portraits live in
+`static/images/governance/sab/` and render through the `sab-members` shortcode.
+
+Supporter logos are maintained in `data/supporters.yaml` and rendered through
+the shared `supporter-logos.html` partial on both the landing and Support pages.
 
 Interior pages share one header, translucent dark introduction, and button-bar
 design. See [Shared page template](docs/page-template.md) for new pages and
@@ -222,8 +268,12 @@ followed by a concise internal-projects overview banner and the project content.
 Its centered `New partner projects` CTA is presented in a matching banner at
 the bottom of the page.
 
-News and press entries are maintained as page bundles in `content/news/posts/`
-and are published through `/news/`.
+News posts are maintained in `content/news/posts/` and are published through
+`/news/`, newest first, with each post's date and body text rendered inline.
+
+Press coverage is maintained as page bundles in `content/publications/press/`
+and is published through `/publications/press/`, reached from the Press item in
+the Publications navigation dropdown.
 
 For landing-page visual work, use `docs/landing-prototype-mini.webp` as the
 temporary reference. Other `docs/landing*.*` files are obsolete unless a task

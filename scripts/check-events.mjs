@@ -296,6 +296,39 @@ try {
   assert(await linkedEventPage.locator('[id^="event-"]').count() === eventData.length, "Every event should have exactly one anchor in the document.");
   assert(await linkedEventPage.locator("#event-rse-romandie-2026").evaluate((card) => card === document.activeElement), "The linked event card should receive focus.");
   await linkedEventPage.close();
+  const newsPage = await newTestPage();
+  await newsPage.goto(`${origin}/news/`, { waitUntil: "networkidle" });
+  const newsPost = newsPage.locator(".news-post.accordion__item").first();
+  const newsToggle = newsPost.locator("[data-accordion-button]");
+  await newsToggle.click();
+  assert(await newsToggle.getAttribute("aria-expanded") === "true", "A news post did not open from its toggle.");
+
+  // Drag-select a line of the open post and release outside the card. The click
+  // then lands on an ancestor the post does not contain, so the outside-click
+  // close must stand down rather than destroy the reader's selection.
+  const newsParagraph = newsPost.locator(".news-post__body-inner p").first();
+  await newsParagraph.scrollIntoViewIfNeeded();
+  const paragraphBox = await newsParagraph.boundingBox();
+  const postBox = await newsPost.boundingBox();
+  const lineY = paragraphBox.y + 8;
+  await newsPage.mouse.move(paragraphBox.x + paragraphBox.width / 2, lineY);
+  await newsPage.mouse.down();
+  await newsPage.mouse.move(paragraphBox.x + paragraphBox.width / 4, lineY, { steps: 10 });
+  await newsPage.mouse.move(postBox.x - 8, lineY, { steps: 10 });
+  await newsPage.mouse.up();
+  assert(await newsPage.evaluate(() => window.getSelection().toString().trim().length > 0), "The drag did not select any post text, so the guard is untested.");
+  assert(await newsToggle.getAttribute("aria-expanded") === "true", "Selecting post text and releasing outside the card closed the post.");
+
+  // Closing the post makes its panel inert. If focus is still inside the panel
+  // it is discarded to <body> and the next Tab restarts at the top of the page,
+  // so the post must hand focus back to its own toggle on the way out.
+  await newsPage.evaluate(() => window.getSelection().removeAllRanges());
+  await newsPost.locator(".news-post__body-inner a").first().focus();
+  await newsPage.keyboard.press("Escape");
+  assert(await newsToggle.getAttribute("aria-expanded") === "false", "Escape did not close the open news post.");
+  assert(await newsToggle.evaluate((button) => button === document.activeElement), "Closing a post stranded focus instead of returning it to the post toggle.");
+  await newsPage.close();
+
   await checkPageLayout(browser, origin);
   await checkResourceIndex(browser, origin);
   await checkWorkflowPage(browser, origin);

@@ -7,9 +7,9 @@ Intended stack: Hugo static site generator, modern vanilla HTML/CSS, minimal van
 
 1. Home (`/`)
 2. About (`/about/team/`; `/about/` redirects here)
-3. Resources (`/resources/`)
+3. Resources (`/resources/`; dropdown: All Resources to `/resources/`, Datasets to `/resources/data/`, Tools to `/resources/tools/`, Workflows to `/resources/workflows/`, Benchmarking to `/resources/benchmarking/ibl-brainwidebench/`)
 4. Projects (`/projects/`)
-5. Publications (`/publications/`)
+5. Publications (`/publications/`; dropdown: Publications to `/publications/`, Press to `/publications/press/`)
 6. Events (`/events/`)
 7. News (`/news/`)
 8. Contact (`/#contact`)
@@ -36,12 +36,13 @@ Includes:
 - Our Team (`/about/team/`) - staff, PI scientific board, and contact prompt
 - History (`/about/history/`)
 - Strategic Priorities (`/about/strategic-priorities/`)
+- Governance (`/about/governance/`) - includes the Scientific Advisory Board and a Policies and Procedures section with downloadable policy documents
 - FAQ (`/about/faq/`) - general explanation of IBL Core
 - Support (`/about/support/`) - includes funding
 
 Notes:
 - `/about/` redirects to `/about/team/`; there is no separate About overview page.
-- The About dropdown children are Our Team, History, FAQ, and Support.
+- The About dropdown children are Our Team, History, Strategic Priorities, Governance, FAQ, and Support.
 
 ### 2.3 Resources (`/resources/`)
 
@@ -90,8 +91,12 @@ own page, and as a step in a workflow.
   still to come. The same rows are the dataset page's "Access the data" section,
   where each row also says what its route is best for. Because the card holds
   links of its own it is not itself one link, unlike every other card.
-- Benchmarking is not a page or a type: it is the `benchmark` term of `stage`,
-  so `/resources/stages/benchmark/` is its landing page.
+- Benchmarking is not a resource type: it is the `benchmark` term of `stage`,
+  so `/resources/stages/benchmark/` is the landing page for benchmarking work.
+  IBL BrainWideBench additionally has a standalone page of its own at
+  `/resources/benchmarking/ibl-brainwidebench/`, linked from the Benchmarking
+  item in the Resources dropdown, alongside its registry entry at
+  `/resources/tools/brainwide-bench/`.
 - `/resources/` lists every resource with search and filter chips. Filtering is
   client-side over the fully rendered grid, so the page works without
   JavaScript and every chip is a link to its term or section page.
@@ -129,7 +134,9 @@ Includes:
   - Date-first display with category controls that retain newest-first ordering
   - Accordion rows show title and journal/date; expanded details render authors, DOI, summary, and optional article/code/data links from the same data file
   - Button to link to publication IBL 1.0 https://www.internationalbrainlab.com/publications
-- Press
+- Press (`/publications/press/`), a subsection listed in the Publications dropdown
+  - Press articles are maintained as page bundles in `content/publications/press/` with structured source and external-link metadata
+  - Accordion rows show title and source/date; expanded details render the author, summary, and a link to the external article
 
 ### 2.6 Events (`/events/`)
 
@@ -150,9 +157,8 @@ Includes:
 ### 2.7 News (`/news/`)
 
 Includes:
-- News updates
-- Events
-- Press, maintained as page bundles in `content/news/posts/` with structured source and external-link metadata
+- Short news posts, maintained in `content/news/posts/`, listed newest first with their date and body text rendered inline
+- Press now lives under Publications (see 2.5), not News
 
 ## 3. Hugo Content Model (Suggested)
 
@@ -173,6 +179,7 @@ Standalone pages nested under About:
 - Our Team
 - History
 - Strategic Priorities
+- Governance
 - FAQ
 - Support
 
@@ -186,6 +193,7 @@ content/
     team.md
     history.md
     strategic-priorities.md
+    governance.md
     faq.md
     support.md
   resources/
@@ -209,6 +217,10 @@ content/
     _index.md
   publications/
     _index.md
+    press/
+      _index.md
+      2026-06-example-article/
+        index.md
   events/
     _index.md
   news/
@@ -313,13 +325,13 @@ Port first:
 
 Then reframe:
 - Old IBL-Core section content redistributed into About/Projects/Join Us.
-- Press into News.
+- Press into Publications (`/publications/press/`).
 
 Validation checks:
 - Every nav item has a landing page.
 - No orphan page without nav/footer path.
 - Contact paths work (form + direct channels).
-- News taxonomy supports both events and press tags.
+- Press articles resolve under Publications; News lists only news posts.
 
 ## 9. Open Decisions for v2
 

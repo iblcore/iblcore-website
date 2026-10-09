@@ -1,0 +1,26 @@
+{{- /* Markdown links. A link pointing off this site opens in a new tab, so a
+       reader following a reference does not lose the page they were reading.
+       The banner buttons and the home page link lists decide the same way,
+       through link-external.html, and share the screen-reader note through
+       link-new-tab.html so the wording cannot drift.
+
+       This is not yet true of the whole site, in both directions: the card
+       listings on Partners, Publications and Events open off-site links in
+       the same tab, while the BrainWideBench link cards hardcode
+       target="_blank" without consulting the external test at all.
+
+       rel="noopener" is required with target="_blank": without it the opened
+       page can reach back through window.opener.
+
+       The title is written as an ordinary attribute rather than printf'd
+       through safeHTML, so Hugo escapes it: a title containing a quote would
+       otherwise close the attribute early and break the tag. The destination
+       keeps safeURL, which still escapes it for the attribute but leaves the
+       scheme alone; without it Go rewrites anything outside http, https and
+       mailto -- a tel: number, say -- to #ZgotmplZ, silently and with no
+       build warning.
+
+       The whole template is trimmed: any whitespace it emits after </a> lands
+       in the paragraph as a space, which shows up before a following comma. */ -}}
+{{- $external := partial "link-external.html" .Destination -}}
+<a href="{{ .Destination | safeURL }}"{{ with .Title }} title="{{ . }}"{{ end }}{{ if $external }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Text }}{{ if $external }}{{ partial "link-new-tab.html" . }}{{ end }}</a>

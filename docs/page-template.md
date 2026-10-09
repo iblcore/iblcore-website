@@ -24,6 +24,13 @@ The brain image is the default; `backdrop_image` is an optional image override.
 The default archetype includes `banner_intro` and the shared navigation/footer
 variants. Page images do not change banner colors or text styles.
 
+Optional `banner_logo` places a mark beside the title, centred on it. Any page
+may set it; the styling lives in `content.css` with the rest of the header.
+
+```yaml
+banner_logo: "/images/ibl-brainwidebench-logo.png"
+```
+
 Optional `banner_buttons` render centered beneath the introduction on the same
 dark-blue background as the map section, with equal space above and below:
 
@@ -32,6 +39,11 @@ banner_buttons:
   - label: "Explore projects"
     url: "/projects/"
 ```
+
+A button `url` may be a site path, an absolute external URL, or a `#fragment`
+on the same page. The header picks the right treatment: a fragment stays an
+anchor, an external URL opens in a new tab with the shared screen-reader note,
+and both carry a direction arrow.
 
 ## Specialized layouts
 
@@ -62,6 +74,10 @@ category copy; the common header owns its banner markup and appearance.
 - `assets/css/components/segmented-control.css` owns pill buttons, their active,
   hover, focus, disabled, and category-dot states. Use `.segmented-control` and
   `.segmented-control__button` for any new view or category switch.
+- `layouts/partials/link-external.html`, `link-arrow.html`, and
+  `link-new-tab.html` own the external-link treatment. Use them anywhere a
+  template emits a link that may leave the site, rather than repeating the
+  `target`/`rel` test, the arrow, or the note.
 
 Place view/filter buttons inside `.page-controls` with a
 `.shell.page-shell.page-controls__inner` wrapper for the shared dark-blue bar.
