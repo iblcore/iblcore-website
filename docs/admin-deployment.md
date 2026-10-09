@@ -68,14 +68,17 @@ pages and static assets do not invoke a Function.
   browsers for five minutes. Query strings share one cache entry. Failed or
   unexpected responses are not cached.
 - `functions/api/send.js` forwards only pageviews and the documented click
-  categories for approved origin/website-ID pairs in `lib/umami-sites.mjs`.
+  events, with their registered properties, for approved origin/website-ID
+  pairs in `lib/umami-sites.mjs`.
   The endpoint itself runs only on `https://iblcore.org`; requests addressed to
   other hosts, including proxy previews, are rejected before contacting Umami.
 - The collection guard requires an approved HTTPS Origin, matching website ID,
   hostname and page URL, JSON, and a maximum
-  8 KiB body. Identify, performance, replays, and extra event properties are
-  unsupported; empty `data` objects from Umami's native event attributes are
-  accepted. These checks reduce misuse but are not authentication or rate
+  8 KiB body. Identify, performance, and replays are unsupported. Event
+  properties are accepted only for keys registered for that event name, as
+  non-empty strings of at most 200 characters; empty `data` objects from
+  Umami's native event attributes are accepted. Umami Cloud bills each stored
+  property as an additional event, so register as few keys as possible. These checks reduce misuse but are not authentication or rate
   limiting: a determined client can forge a valid public analytics request.
 - Registered origins can use CORS preflights for POST with Content-Type and
   Umami's website, hostname, and session-cache headers. Collection responses
@@ -101,8 +104,9 @@ The custom-event asset is published with the `site-actions` basename.
 
 The proxy is shared infrastructure, but registration is explicit. In
 `lib/umami-sites.mjs`, add an entry with the site's exact HTTPS origin (no
-trailing slash or path), its own Umami website ID, and its allowed custom event
-names. Use `events: []` for pageviews only. Each additional hostname, such as a
+trailing slash or path), its own Umami website ID, and its allowed custom events
+as a map from event name to allowed property keys, for example
+`events: { "Resource open": ["Target"] }`. Use `events: {}` for pageviews only. Each additional hostname, such as a
 `www` variant, needs its own entry; it may share the same Umami website ID.
 Keep development and preview origins out of the list. Run the checks and
 redeploy this existing Pages project through the normal approved PR workflow.
@@ -120,9 +124,11 @@ allow `https://iblcore.org` in both `script-src` and `connect-src`.
   data-domains="NEW-PRODUCTION-HOSTNAME"></script>
 ```
 
-For a registered event name, use `data-umami-event="resource_open"` on a
-button/link or call `window.umami.track("resource_open")`. Do not attach event
-properties. IBL-Core's custom click handler is specific to this website; the
+For a registered event name, use `data-umami-event="Resource open"` on a
+button/link or call `window.umami.track("Resource open")`. Attach only registered
+properties, such as `window.umami.track("Resource open", { Target: "Dataset" })`;
+other properties are rejected. HTML lowercases attribute names, so register
+lowercase keys when using `data-umami-event-*` property attributes. IBL-Core's custom click handler is specific to this website; the
 shared script does not install those handlers on other websites.
 
 Requests from other websites are third-party requests to `iblcore.org`.
@@ -145,7 +151,7 @@ mocked upstream requests and do not write events to the real dashboard.
 After a preview deploy, check that `/t.js` returns JavaScript and that POSTing to
 the preview's `/api/send` returns 404. After publication, check browser Network
 requests for a successful production `/api/send` pageview and named clicks,
-then verify visitor attribution and event categories in Umami. The proxy's
+then verify visitor attribution, event names, and event properties in Umami. The proxy's
 header forwarding follows Umami's documented proxy example; correct Cloud
 attribution still needs confirmation against the live dashboard.
 

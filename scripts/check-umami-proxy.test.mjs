@@ -8,7 +8,7 @@ import { PROXY_ORIGIN, TRACKED_SITES } from "../lib/umami-sites.mjs";
 const primarySite = TRACKED_SITES.find((site) => site.origin === PROXY_ORIGIN);
 const WEBSITE_ID = primarySite.websiteID;
 const HOSTNAME = new URL(primarySite.origin).hostname;
-const secondSite = { origin: "https://research.example", websiteID: "11111111-2222-3333-4444-555555555555", events: ["resource_open"] };
+const secondSite = { origin: "https://research.example", websiteID: "11111111-2222-3333-4444-555555555555", events: { resource_open: [] } };
 const secondEvent = { type: "event", payload: { website: secondSite.websiteID, hostname: "research.example", url: `${secondSite.origin}/resources/`, title: "Research resources" } };
 
 const event = { type: "event", payload: { website: WEBSITE_ID, hostname: HOSTNAME, url: "https://iblcore.org/events/", title: "Events", screen: "1440x900", language: "en", referrer: "" } };
@@ -39,7 +39,8 @@ test("pageviews and clicks preserve session headers, response, and trusted visit
     sent.push({ url, ...options });
     return new Response('{"cache":"next-session","disabled":false}', { headers: { "Content-Type": "application/json", "Set-Cookie": "upstream=secret", "Cache-Control": "public" } });
   });
-  for (const payload of [event, { ...event, payload: { ...event.payload, name: "application_click" } }]) {
+  for (const payload of [event, { ...event, payload: { ...event.payload, name: "Contact" } },
+    { ...event, payload: { ...event.payload, name: "Application", data: { Event: "IBL Summer School 2027" } } }]) {
     const response = await collect(request(payload, { "x-umami-cache": "previous-session", Cookie: "private=1", Authorization: "Bearer private", "X-Forwarded-For": "spoofed", "x-umami-hostname": "spoofed" }));
     assert.deepEqual(await response.json(), { cache: "next-session", disabled: false });
     assert.equal(response.headers.get("Cache-Control"), "no-store");
@@ -79,6 +80,14 @@ test("previews, cross-origin requests, invalid and oversized events never reach 
     [request(changed({ hostname: "pr-23.pages.dev" })), 400],
     [request(changed({ url: "https://pr-23.pages.dev/" })), 400],
     [request(changed({ data: { email: "private" } })), 400],
+    [request(changed({ name: "Contact", data: { Target: "mail@example.org" } })), 400],
+    [request(changed({ name: "Resource link", data: { File: "data.zip" } })), 400],
+    [request(changed({ name: "Resource link", data: { Target: "github.com", Extra: "x" } })), 400],
+    [request(changed({ name: "Resource link", data: { Target: "x".repeat(201) } })), 400],
+    [request(changed({ name: "Resource link", data: { Target: "" } })), 400],
+    [request(changed({ name: "Resource link", data: { Target: 1 } })), 400],
+    [request(changed({ name: "Resource link", data: [] })), 400],
+    [request(changed({ name: "resource_link_click" })), 400],
     [request(changed({ toString: "invalid-property" })), 400],
     [request(changed({ name: "unapproved-event" })), 400],
     [request({ ...event, type: "identify" }), 400],
@@ -148,7 +157,7 @@ test("cross-site pageviews and events retain each site's identity, events, and s
   const count = sent.length;
   for (const [body, origin] of [
     [event, secondSite.origin], [secondEvent, PROXY_ORIGIN],
-    [{ ...secondEvent, payload: { ...secondEvent.payload, name: "application_click" } }, secondSite.origin],
+    [{ ...secondEvent, payload: { ...secondEvent.payload, name: "Application" } }, secondSite.origin],
     [{ ...secondEvent, payload: { ...secondEvent.payload, url: "https://preview.research.example/" } }, secondSite.origin],
     [{ ...secondEvent, payload: { ...secondEvent.payload, name: "resource_open", data: { item: "extra-property" } } }, secondSite.origin],
     [{ ...secondEvent, payload: { ...secondEvent.payload, name: "resource_open", data: [] } }, secondSite.origin],
@@ -176,7 +185,9 @@ test("site configuration rejects duplicate, insecure, and malformed entries", ()
   for (const sites of [
     [secondSite, secondSite], [{ ...secondSite, origin: "http://research.example" }],
     [{ ...secondSite, origin: "https://research.example/path" }],
-    [{ ...secondSite, websiteID: "invalid" }], [{ ...secondSite, events: ["x".repeat(51)] }],
+    [{ ...secondSite, websiteID: "invalid" }], [{ ...secondSite, events: { ["x".repeat(51)]: [] } }],
+    [{ ...secondSite, events: ["resource_open"] }], [{ ...secondSite, events: { resource_open: "Target" } }],
+    [{ ...secondSite, events: { resource_open: ["x".repeat(51)] } }],
   ]) assert.throws(() => createCollector(sites), /Invalid or duplicate/);
 });
 
