@@ -60,14 +60,20 @@ the tracker. Local Hugo servers omit the script; the domain allowlist limits
 tracking to `iblcore.org` and excludes deployed previews.
 
 `customEvents: true` enables `assets/js/analytics-events.js`, which records
-`resource_link_click` for outbound links in the homepage Resources section,
-resource pages, and the GitHub shortcuts; `download_click` for download links
-and common downloadable file types; `contact_click` for email, telephone, and
-the contact page/section; and `application_click`, `registration_click`, or
-`event_link_click` for the corresponding Events card actions. These measure
-link clicks, not completed downloads, applications, or registrations. Ordinary
-internal navigation uses pageviews only. No extra event properties are sent;
-each tracked click adds one event to Umami Cloud usage. Set `customEvents: false`
+these click events, each with at most one property:
+
+| Event | Property | Recorded for |
+| --- | --- | --- |
+| `resource_link_click` | `target`: destination hostname and path | Outbound links in the homepage Resources section, resource pages, and the GitHub shortcuts |
+| `download_click` | `file`: file name | Download links and common downloadable file types |
+| `contact_click` | none | Email, telephone, and the contact page/section |
+| `application_click`, `registration_click`, `event_link_click` | `event`: event card title | The corresponding Events card actions |
+
+These measure link clicks, not completed downloads, applications, or
+registrations. Ordinary internal navigation uses pageviews only. Query strings,
+fragments, and email addresses are never sent. Umami Cloud bills the click and
+each stored property as one event, so a tracked click with a property adds two
+events to usage. Set `customEvents: false`
 to keep pageviews without click events. The click handler uses the same domain
 allowlist as the tracker and preserves normal link behavior.
 
@@ -76,7 +82,8 @@ The tracker is served at `/t.js`, and `hostURL` directs collection to
 to Umami Cloud. Ordinary website pages and assets remain static. See
 [Deployment administration](docs/admin-deployment.md#umami-proxy) for forwarding,
 limits, verification, and rollback. The shared proxy's approved production
-origins, website IDs, and custom event names live in `lib/umami-sites.mjs`.
+origins, website IDs, custom event names, and allowed event properties live in
+`lib/umami-sites.mjs`.
 Only `iblcore.org` is registered initially. The proxy tests enforce agreement
 with this site's Hugo settings and exercise a second site using test-only
 configuration. See the deployment guide to register another site and install
