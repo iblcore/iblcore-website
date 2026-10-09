@@ -1,0 +1,57 @@
+{{ define "main" }}
+  {{- /* Every resource in the four subsections, rendered at build time. The
+         filter chips and the search box narrow what is already on the page;
+         with no JavaScript the list stays complete and the chips are links. */ -}}
+  {{ $sections := slice }}
+  {{ $resources := slice }}
+  {{ range $slug := slice "data" "tools" "hardware" "protocols" }}
+    {{ with site.GetPage (printf "/resources/%s" $slug) }}
+      {{ $sections = $sections | append . }}
+      {{ $resources = $resources | append .Pages }}
+    {{ end }}
+  {{ end }}
+
+  {{ partial "page-header.html" (dict "page" .) }}
+
+  <section class="section section-band dataset-section" data-resource-index>
+    <div class="shell page-shell">
+      <form class="resource-search" role="search" data-resource-search hidden>
+        <label class="resource-search__label" for="resource-search-input">Search resources</label>
+        <input class="resource-search__input" id="resource-search-input" type="search"
+               placeholder="Search by name, description or tag" autocomplete="off">
+      </form>
+
+      {{- /* The goal row is offered once, at the top, with the workflows. It
+             is built from the workflows as well as the resources, so a stage
+             only a workflow carries is still offered, and it narrows the grid
+             below as well as naming the path to take through it. */ -}}
+      {{ $workflows := (site.GetPage "/resources/workflows").Pages }}
+      {{ $everything := $resources | append $workflows }}
+      {{ partial "resources/workflows-band.html" (dict
+        "workflows" $workflows
+        "filters" (dict "pages" $everything "groups" (slice "stage") "scope" "workflows")
+      ) }}
+
+      <h2 class="resource-index__title">Explore all resources</h2>
+      <p class="resource-index__lead">Every dataset, tool, hardware item and protocol. Narrow them by what you are looking for.</p>
+
+      {{ partial "resources/filter-bar.html" (dict
+        "pages" $everything
+        "sections" $sections
+        "groups" (slice "access" "modality")
+        "scope" "resources"
+      ) }}
+
+      <p class="visually-hidden" aria-live="polite" data-resource-status></p>
+
+      {{ partial "resources/resource-grid.html" (dict
+        "pages" $resources
+        "empty" "No resources are listed yet."
+      ) }}
+
+      {{- /* The build-time grid is never empty, so the no-match state belongs
+             to the script that can empty it. */ -}}
+      <p class="resource-grid__empty" data-resource-empty hidden>No resources match these filters.</p>
+    </div>
+  </section>
+{{ end }}

@@ -1,0 +1,17 @@
+{{- /* The resource paths one workflow step refers to under one key, always as
+       a slice.
+
+       Takes (dict "step" <step map> "key" "resource"|"routes") and returns a
+       slice of page paths.
+
+       A step names its cards under `resource` and the access routes it
+       compares under `routes`. Either is a single path or a list of them, so a
+       step showing one card reads the same as one showing five. Both the step
+       renderer and the backlink scan need the same normalisation. */ -}}
+{{- $paths := index .step .key -}}
+{{- if not $paths -}}
+  {{- $paths = slice -}}
+{{- else if not (reflect.IsSlice $paths) -}}
+  {{- $paths = slice $paths -}}
+{{- end -}}
+{{- return $paths -}}

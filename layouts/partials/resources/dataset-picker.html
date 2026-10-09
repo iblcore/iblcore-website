@@ -1,0 +1,51 @@
+{{- /* The question a workflow's chooser step asks, as two native selects.
+
+       Takes (dict "pages" <the step's dataset pages>).
+
+       Both lists are built here, at build time: the modality list is the
+       modalities those datasets actually carry, in vocabulary order, and the
+       dataset list is the step's own cards. The script in workflow-fork.js
+       only shows and hides what is already on the page, and reveals the
+       picker: without a script the workflow is the whole document, so an
+       inert control would promise something the page cannot do. */ -}}
+{{- $pages := .pages -}}
+{{- $order := slice "neuropixels" "mesoscope" "fibre-photometry" "widefield" "behavior" "video" -}}
+{{- $present := slice -}}
+{{- range $page := $pages }}
+  {{- range $page.Params.modality }}
+    {{- $present = $present | append . }}
+  {{- end }}
+{{- end }}
+{{- $modalities := slice -}}
+{{- range $term := $order }}
+  {{- if in $present $term }}{{ $modalities = $modalities | append $term }}{{ end }}
+{{- end }}
+<div class="dataset-picker" data-dataset-picker hidden>
+  <p class="dataset-picker__label">Which dataset are you working with?</p>
+  <div class="dataset-picker__fields">
+    <div class="dataset-picker__field">
+      <label class="dataset-picker__field-label" for="wf-modality">Modality</label>
+      <div class="dataset-picker__control">
+        <select id="wf-modality" class="dataset-picker__select" data-wf-modality>
+          <option value="">Any modality</option>
+          {{- range $modalities }}
+            <option value="{{ . }}">{{ strings.FirstUpper . }}</option>
+          {{- end }}
+        </select>
+      </div>
+    </div>
+    <div class="dataset-picker__field">
+      <label class="dataset-picker__field-label" for="wf-dataset">Dataset</label>
+      <div class="dataset-picker__control">
+        <select id="wf-dataset" class="dataset-picker__select" data-wf-select aria-describedby="wf-dataset-hint">
+          <option value="">Choose a dataset</option>
+          {{- range $page := $pages }}
+            <option value="{{ strings.TrimSuffix "/" $page.RelPermalink }}"
+                    data-modality="{{ delimit ($page.Params.modality | default slice) " " }}">{{ $page.Title }}</option>
+          {{- end }}
+        </select>
+      </div>
+    </div>
+  </div>
+  <p class="dataset-picker__hint" id="wf-dataset-hint" aria-live="polite" data-picker-hint>Choose one to see its access routes and step-by-step guides. Filter by modality to shorten the list.</p>
+</div>

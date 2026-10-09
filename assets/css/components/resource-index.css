@@ -1,0 +1,621 @@
+/* Components shared across the resource portal: the card's own furniture, the
+   taxonomy tags, and the section lists. Dataset-page styling stays in
+   pages/resources.css. */
+
+.resource-type-badge {
+  margin: 0 0 var(--space-2xs);
+  color: var(--color-accent-tint-70);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.resource-card__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.resource-card__title a::after {
+  position: absolute;
+  content: "";
+  inset: 0;
+}
+
+.resource-card {
+  position: relative;
+}
+
+.resource-tags {
+  display: flex;
+  margin: var(--space-sm) 0 0;
+  padding: 0;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  list-style: none;
+}
+
+/* The card title's ::after overlay covers the card so the whole surface is
+   clickable; tags sit above it so they stay individually clickable. */
+.resource-tag {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 0.15rem var(--space-xs);
+  border: 1px solid var(--color-brand-light-tint-40);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-on-dark);
+  font-size: 0.72rem;
+  text-decoration: none;
+}
+
+.resource-tag:hover,
+.resource-tag:focus-visible {
+  border-color: var(--color-brand-light);
+  background: var(--color-brand-light-tint-15);
+}
+
+/* Inside a card the surface is white, so the tag takes the card's colours. */
+.resource-card .resource-tag {
+  border-color: var(--color-accent-tint-20);
+  color: var(--color-accent);
+}
+
+.resource-card .resource-tag:hover,
+.resource-card .resource-tag:focus-visible {
+  border-color: var(--color-accent);
+  background: var(--color-accent-tint-10);
+}
+
+.resource-card__maintainer {
+  color: var(--color-accent-tint-70);
+  font-size: 0.75rem;
+}
+
+.resource-maintainer {
+  color: var(--color-text-on-dark-muted);
+  font-size: 0.75rem;
+}
+
+.resource-card__maintainer {
+  margin: var(--space-xs) 0 0;
+}
+
+.resource-card--coming-soon {
+  border-style: dashed;
+  box-shadow: none;
+  opacity: 0.72;
+}
+
+.resource-card__status {
+  margin: var(--space-xs) 0 0;
+  color: var(--color-accent-tint-70);
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
+.resource-links,
+.resource-section-list {
+  margin: var(--space-md) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resource-links li + li,
+.resource-section-list li + li {
+  margin-top: var(--space-xs);
+}
+
+.resource-grid__empty {
+  margin: 0;
+  padding: var(--space-panel-xl);
+  border: 1px dashed var(--color-brand-light-tint-40);
+  border-radius: var(--space-panel-lg);
+  color: var(--color-text-on-dark);
+  text-align: center;
+}
+
+.resource-term-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resource-term-list li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding: var(--space-xs) 0;
+  border-bottom: 1px solid var(--color-brand-light-tint-25);
+}
+
+.resource-term-list li:last-child {
+  border-bottom: 0;
+}
+
+.resource-term-list__count {
+  color: var(--color-text-on-dark-muted);
+  font-size: 0.8rem;
+}
+
+/* Lists that sit on the band, not inside a card, need on-dark link colour. */
+.resource-term-list .text-link,
+.resource-section-list .text-link,
+.resource-links .text-link {
+  color: var(--color-brand-light);
+  text-decoration: underline;
+}
+
+.resource-search {
+  display: flex;
+  margin-bottom: var(--space-lg);
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.resource-search[hidden] {
+  display: none;
+}
+
+.resource-search__label {
+  color: var(--color-text-on-dark);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.resource-search__input {
+  width: 100%;
+  max-width: 28rem;
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid var(--color-accent-tint-20);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-accent);
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.resource-search__input:focus-visible {
+  border-color: var(--color-accent);
+  outline: 2px solid var(--color-accent-tint-40);
+  outline-offset: 1px;
+}
+
+.resource-filters {
+  display: flex;
+  margin-bottom: var(--space-lg);
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.resource-filters__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2xs) var(--space-sm);
+}
+
+.resource-filters__row[hidden] {
+  display: none;
+}
+
+.resource-filters__label {
+  margin: 0;
+  min-width: 6rem;
+  color: var(--color-text-on-dark);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.resource-filters__chips {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  list-style: none;
+}
+
+/* A chip is a link where it has somewhere to go and a button where it only
+   acts on this page, so the rule resets what a button would otherwise bring
+   with it: its own background and its own font. */
+.resource-chip {
+  display: inline-block;
+  padding: 0.2rem var(--space-sm);
+  border: 1px solid var(--color-brand-light-tint-40);
+  border-radius: 999px;
+  background: none;
+  color: var(--color-text-on-dark);
+  font-family: inherit;
+  font-size: 0.78rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.resource-chip:hover,
+.resource-chip:focus-visible {
+  border-color: var(--color-brand-light);
+  background: var(--color-brand-light-tint-15);
+}
+
+/* The band is dark, so the selected chip inverts to a light fill. */
+.resource-chip.is-active {
+  border-color: var(--color-brand-light);
+  background: var(--color-brand-light);
+  color: var(--color-accent);
+}
+
+@media (max-width: 720px) {
+  .resource-filters__label {
+    min-width: 100%;
+  }
+}
+
+/* A dataset card holds a guide link per route, so it cannot also be one big
+   link: the title keeps its own, and the card only lifts on hover. */
+.resource-card--dataset .resource-card__title a::after {
+  display: none;
+}
+
+.resource-card--dataset .resource-card__title a:hover,
+.resource-card--dataset .resource-card__title a:focus-visible {
+  text-decoration: underline;
+}
+
+/* The question the chooser step asks, as two native selects. */
+.dataset-picker {
+  margin: 0 0 var(--space-lg);
+  padding: var(--space-md) var(--space-lg);
+  border: 1px solid var(--color-brand-light-tint-40);
+  border-radius: var(--space-panel-lg);
+}
+
+.dataset-picker[hidden] {
+  display: none;
+}
+
+.dataset-picker__label {
+  margin: 0 0 var(--space-sm);
+  color: var(--color-surface);
+  font-size: var(--font-size-prose-heading);
+}
+
+.dataset-picker__fields {
+  display: grid;
+  grid-template-columns: minmax(10rem, 16rem) minmax(14rem, 22rem);
+  gap: var(--space-sm) var(--space-lg);
+}
+
+.dataset-picker__field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.dataset-picker__field-label {
+  color: var(--color-brand-light);
+  font-size: 0.85rem;
+}
+
+.dataset-picker__control {
+  position: relative;
+}
+
+/* The select loses its own arrow with `appearance: none`, so the control
+   draws one that follows the brand colours. */
+.dataset-picker__control::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 1rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2px solid var(--color-accent);
+  border-bottom: 2px solid var(--color-accent);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
+
+.dataset-picker__select {
+  width: 100%;
+  min-height: 2.6rem;
+  padding: 0 2.5rem 0 1rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-accent);
+  font: inherit;
+  font-size: 1rem;
+  appearance: none;
+  cursor: pointer;
+}
+
+.dataset-picker__select:focus-visible {
+  outline: 3px solid var(--color-brand-sky);
+  outline-offset: 2px;
+}
+
+.dataset-picker__hint {
+  margin: var(--space-sm) 0 0;
+  color: var(--color-brand-light);
+  font-size: 0.88rem;
+}
+
+.dataset-picker__hint[hidden] {
+  display: none;
+}
+
+.wf-show-all {
+  margin-top: var(--space-md);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--color-brand-light);
+  font: inherit;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.wf-show-all[hidden] {
+  display: none;
+}
+
+/* The route comparison, closed by default: it answers a question the reader
+   may not have. */
+.route-help {
+  margin: 0 0 var(--space-lg);
+  border: 1px solid var(--color-brand-light-tint-40);
+  border-radius: var(--space-panel-lg);
+  color: var(--color-text-on-dark);
+}
+
+.route-help[hidden] {
+  display: none;
+}
+
+.route-help__summary {
+  display: flex;
+  padding: var(--space-sm) var(--space-md);
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2xs) var(--space-md);
+  list-style: none;
+  cursor: pointer;
+}
+
+.route-help__summary::-webkit-details-marker {
+  display: none;
+}
+
+.route-help__summary:focus-visible {
+  outline: 2px solid var(--color-brand-sky);
+  outline-offset: 2px;
+  border-radius: var(--space-panel-lg);
+}
+
+.route-help__q {
+  color: var(--color-surface);
+  font-size: var(--font-size-prose-copy);
+}
+
+.route-help__q::before {
+  display: inline-block;
+  width: 1.1em;
+  content: "+";
+  color: var(--color-brand-sky);
+}
+
+.route-help[open] .route-help__q::before {
+  content: "\2212";
+}
+
+.route-help__hint {
+  color: var(--color-brand-light);
+  font-size: 0.85rem;
+}
+
+.route-help__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 0 var(--space-md) var(--space-md);
+  gap: var(--layout-gap-grid);
+}
+
+.route-help__item[hidden] {
+  display: none;
+}
+
+.route-help__item p {
+  margin: 0 0 var(--space-xs);
+  font-size: 0.88rem;
+  line-height: 1.3;
+}
+
+.route-help__item p.route-help__name {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--color-surface);
+  font-size: 0.95rem;
+}
+
+.route-help__more {
+  color: var(--color-brand-light);
+  font-size: 0.82rem;
+}
+
+@media (max-width: 900px) {
+  .route-help__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .dataset-picker {
+    padding: var(--space-md);
+  }
+
+  .dataset-picker__fields {
+    grid-template-columns: 1fr;
+  }
+}
+
+.workflow-step[hidden] {
+  display: none;
+}
+
+.workflow-stepper {
+  margin: var(--space-lg) 0 0;
+  padding-bottom: var(--space-2xs);
+  overflow-x: auto;
+}
+
+.workflow-stepper__track {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.workflow-stepper__item {
+  position: relative;
+  min-width: 9rem;
+  flex: 1 1 0;
+}
+
+/* The connector runs from the previous node's centre to this one's, level with
+   the numbers, and the nodes paint over it. */
+.workflow-stepper__item + .workflow-stepper__item::before {
+  content: "";
+  position: absolute;
+  top: 1rem;
+  right: 50%;
+  left: -50%;
+  border-top: 1px solid var(--color-brand-light-tint-25);
+}
+
+.workflow-stepper__item[hidden] {
+  display: none;
+}
+
+.workflow-stepper__link {
+  position: relative;
+  display: flex;
+  padding: 0 var(--space-2xs);
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+  color: var(--color-text-on-dark);
+  text-align: center;
+  text-decoration: none;
+}
+
+.workflow-stepper__label {
+  font-size: 0.85rem;
+}
+
+.workflow-stepper__status {
+  min-height: 1.1em;
+  color: var(--color-brand-sky);
+  font-size: 0.8rem;
+}
+
+.workflow-stepper__item.is-done .workflow-stepper__number {
+  background: var(--color-brand-sky);
+  color: var(--color-accent);
+}
+
+.workflow-stepper__link:hover .workflow-stepper__label,
+.workflow-stepper__link:focus-visible .workflow-stepper__label {
+  text-decoration: underline;
+}
+
+.workflow-steps {
+  margin: var(--space-lg) 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: workflow-step;
+}
+
+.workflow-step + .workflow-step {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-2xl);
+  border-top: 1px solid var(--color-brand-light-tint-25);
+}
+
+.workflow-step__heading {
+  display: flex;
+  margin: 0 0 var(--space-sm);
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-prose-heading);
+  font-weight: 400;
+}
+
+/* One numbered node, whether it marks a step or points at one. */
+.workflow-step__number,
+.workflow-stepper__number {
+  display: inline-flex;
+  width: 2rem;
+  height: 2rem;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--color-brand-light);
+  color: var(--color-accent);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.workflow-step__title {
+  color: var(--color-surface);
+}
+
+.workflow-step__note {
+  margin-bottom: var(--space-md);
+  color: var(--color-text-on-dark);
+}
+
+.workflow-step__note a {
+  color: var(--color-brand-light);
+}
+
+.workflow-step__note ul {
+  margin: var(--space-xs) 0 0;
+  padding-left: var(--space-lg);
+}
+
+.workflow-step__note li + li {
+  margin-top: var(--space-2xs);
+}
+
+.workflows-band {
+  margin-bottom: var(--space-2xl);
+  padding-bottom: var(--space-2xl);
+  border-bottom: 1px solid var(--color-brand-light-tint-25);
+}
+
+/* The two halves of the index name themselves the same way: a guided path
+   above, everything there is below. */
+.workflows-band__title,
+.resource-index__title {
+  margin: 0 0 var(--space-2xs);
+  color: var(--color-surface);
+  font-size: var(--font-size-prose-heading);
+  font-weight: 400;
+}
+
+.workflows-band__lead,
+.resource-index__lead {
+  margin: 0 0 var(--space-md);
+  color: var(--color-text-on-dark);
+  font-size: var(--font-size-prose-copy);
+}
+
+.workflow-backlinks h2 {
+  font-size: var(--font-size-prose-heading);
+}

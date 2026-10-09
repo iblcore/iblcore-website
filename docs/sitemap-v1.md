@@ -7,7 +7,7 @@ Intended stack: Hugo static site generator, modern vanilla HTML/CSS, minimal van
 
 1. Home (`/`)
 2. About (`/about/team/`; `/about/` redirects here)
-3. Resources (`/#resources`; dropdown: Tools to `/#resources`, Benchmarking to `/resources/benchmarking/ibl-brainwidebench/`)
+3. Resources (`/resources/`; dropdown: All Resources to `/resources/`, Datasets to `/resources/data/`, Tools to `/resources/tools/`, Workflows to `/resources/workflows/`, Benchmarking to `/resources/benchmarking/ibl-brainwidebench/`)
 4. Projects (`/projects/`)
 5. Publications (`/publications/`; dropdown: Publications to `/publications/`, Press to `/publications/press/`)
 6. Events (`/events/`)
@@ -46,31 +46,60 @@ Notes:
 
 ### 2.3 Resources (`/resources/`)
 
-`/resources/benchmarking/ibl-brainwidebench/` is the IBL BrainWideBench
-benchmark page, reached from the Benchmarking item in the Resources dropdown.
+A registry: every resource is one content file that renders as a card, as its
+own page, and as a step in a workflow.
 
-- Data
-  - Brainwide map — within it, access + colab tutorials
-  - Other flagship datasets
-  - Personal project datasets
-- Modalities
-  - Neuropixels
-    - Chronic Neuropixels
-    - Spike sorting
-    - Surgical Protocols
-    - IBL ephys rig
-  - Mesoscope
-  - Fiberphotometry
-  - Widefield
-  - Behavior
-    - IBL behaviour rig
-  - Video
-- Analysis
-  - Brainbox
-  - Model of Zoe
-- Visualisation
-  - Datoviz
-  - Website renderer
+- Resource types are content subsections, and each section page doubles as the
+  type filter:
+  - Datasets (`/resources/data/`)
+  - Tools (`/resources/tools/`), including the data access routes
+  - Hardware (`/resources/hardware/`)
+  - Protocols (`/resources/protocols/`)
+- Three taxonomies group resources across types, and each term page is a
+  shareable filtered view:
+  - `modality` — neuropixels, mesoscope, fibre-photometry, widefield, behavior, video
+  - `stage` — collect, pre-process, analyse, visualise, benchmark (shown in
+    that order, as an "I want to..." row offered once, at the top of the page
+    with the workflows: a goal is the first thing a reader picks, and picking
+    one narrows the whole grid below)
+  - `access` — one, dandi, ibl-ai-agent (offered under Type once Datasets is
+    selected, since access routes are a property of datasets)
+- Workflows (`/resources/workflows/`) are goal-oriented paths whose steps name
+  existing resources. They render in their own band above the resource grid.
+  Only the goal row narrows that band, since a workflow answers a goal: type,
+  access route, modality and the search box describe resources rather than
+  paths through them, and leave the workflows whole.
+- A workflow page opens with a stepper: a numbered, clickable map of its steps
+  that lets a reader enter part way down.
+- A workflow step may declare `choice: dataset`, which puts a picker above its
+  cards: a Modality select that shortens the list, and a Dataset select that
+  makes the choice. Picking one narrows the steps below to the resources that
+  work with that dataset and names the choice in the URL as `?dataset=<slug>`.
+  One chooser per workflow. The picker is hidden until the script that acts on
+  it runs, and the page renders unnarrowed, so without JavaScript the workflow
+  is the whole document.
+- A chooser step may also declare `routes:`, the access routes it compares in a
+  "Which route should I use?" panel. Each route's entry is its own resource
+  page read side by side; the panel drops the routes a chosen dataset is not
+  published through, and closes entirely once fewer than two remain. Naming a
+  resource under `routes:` counts as using it, so it earns a workflow backlink
+  like any step resource.
+- A resource may declare `datasets:` to name the datasets it applies to; one
+  that declares none applies to all of them.
+- A dataset card lists one row per access route, each linking that route's
+  step-by-step guide from the dataset's `access_guides`, or saying the guide is
+  still to come. The same rows are the dataset page's "Access the data" section,
+  where each row also says what its route is best for. Because the card holds
+  links of its own it is not itself one link, unlike every other card.
+- Benchmarking is not a resource type: it is the `benchmark` term of `stage`,
+  so `/resources/stages/benchmark/` is the landing page for benchmarking work.
+  IBL BrainWideBench additionally has a standalone page of its own at
+  `/resources/benchmarking/ibl-brainwidebench/`, linked from the Benchmarking
+  item in the Resources dropdown, alongside its registry entry at
+  `/resources/tools/brainwide-bench/`.
+- `/resources/` lists every resource with search and filter chips. Filtering is
+  client-side over the fully rendered grid, so the page works without
+  JavaScript and every chip is a link to its term or section page.
 
 ### 2.4 Projects (`/projects/`)
 
@@ -169,10 +198,21 @@ content/
     support.md
   resources/
     _index.md
-    data.md
-    modalities.md
-    analysis.md
-    visualisation.md
+    data/
+      _index.md
+      brainwide-map.md
+      ...
+    tools/
+      _index.md
+      one.md
+      ...
+    hardware/
+      _index.md
+    protocols/
+      _index.md
+    workflows/
+      _index.md
+      explore-ibl-data.md
   projects/
     _index.md
   publications/

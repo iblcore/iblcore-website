@@ -20,6 +20,26 @@ params:
     - "Open science partners"
     - "Research funders"
 
+# Declaring any taxonomy replaces Hugo's defaults, so Hugo's own tag and
+# category are dropped here. No content used either.
+taxonomies:
+  modality: modality
+  stage: stage
+  access: access
+
+# The taxonomy plural doubles as the front matter key, so the vocabularies are
+# authored as `modality:`, `stage:` and `access:`. Permalinks move the generated
+# pages under /resources/, where the content defining them lives.
+permalinks:
+  taxonomy:
+    modality: /resources/modalities/
+    stage: /resources/stages/
+    access: /resources/access-routes/
+  term:
+    modality: /resources/modalities/:slug/
+    stage: /resources/stages/:slug/
+    access: /resources/access-routes/:slug/
+
 markup:
   goldmark:
     renderer:

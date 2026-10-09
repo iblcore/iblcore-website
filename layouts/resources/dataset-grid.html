@@ -1,0 +1,34 @@
+{{ define "main" }}
+  {{ partial "page-header.html" (dict "page" . "intro" "") }}
+
+  {{ partial "resources/section-intro.html" (dict "page" .) }}
+
+  <section class="section section-band dataset-section">
+    <div class="shell page-shell">
+      {{ partial "resources/resource-grid.html" (dict
+        "pages" .Pages
+        "empty" "No datasets are listed yet."
+      ) }}
+
+      {{ with .Params.data_format_intro }}
+        <p class="dataset-section-copy">{{ . }}</p>
+      {{ end }}
+
+      <a class="dataset-format-legend" href="{{ "/resources/access-routes/" | relURL }}" aria-label="Compare the data access routes">
+        <span class="dataset-format-legend__label">Data Access Routes:</span>
+        <span class="dataset-format-legend__item">
+          {{ partial "resources/data-format-icon.html" (dict "key" "one") }}
+        </span>
+        <span class="dataset-format-legend__item">
+          {{ partial "resources/data-format-icon.html" (dict "key" "dandi") }}
+          <span>DANDI &amp; NWB</span>
+        </span>
+        <span class="dataset-format-legend__item">
+          {{ partial "resources/data-format-icon.html" (dict "key" "ibl-ai-agent") }}
+          <span>IBL AI Agent</span>
+        </span>
+      </a>
+    </div>
+  </section>
+
+{{ end }}

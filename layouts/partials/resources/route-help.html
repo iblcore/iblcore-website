@@ -1,0 +1,32 @@
+{{- /* The access routes a workflow step compares, as a closed panel between
+       the question and the cards.
+
+       Takes (dict "pages" <the step's route pages>).
+
+       Each route says what it is best for in its own `short_description`, so
+       the comparison is the tool files read side by side rather than copy
+       kept in the workflow. The script hides the routes no longer in play, and
+       the panel itself once fewer than two remain; with no script every route
+       is listed, which is the honest answer before a dataset is chosen. */ -}}
+{{- $pages := .pages -}}
+{{- with $pages }}
+  <details class="route-help" data-route-help>
+    <summary class="route-help__summary">
+      <span class="route-help__q">Which route should I use?</span>
+      <span class="route-help__hint" data-route-help-hint>Compare what each route is best for.</span>
+    </summary>
+    <div class="route-help__grid">
+      {{- range $page := . }}
+        {{- $key := path.Base $page.RelPermalink }}
+        <div class="route-help__item" data-help-route="{{ $key }}" data-route-name="{{ $page.Title }}">
+          <p class="route-help__name">
+            {{ partial "resources/data-format-icon.html" (dict "key" $key "label" $page.Title "decorative" true) }}
+            {{ $page.Title }}
+          </p>
+          <p>{{ $page.Params.short_description | default $page.Params.description }}</p>
+          <a class="route-help__more" href="{{ $page.RelPermalink }}">More about {{ $page.Title }}</a>
+        </div>
+      {{- end }}
+    </div>
+  </details>
+{{- end }}

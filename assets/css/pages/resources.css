@@ -1,3 +1,629 @@
+/* Resource portal: index, category and dataset pages. */
+
+.dataset-section {
+  padding: var(--space-2xl) 0;
+}
+
+/* Sections butt onto one another inside one continuous band, so the space
+   above a heading is what separates one chapter from the last. */
+.dataset-section + .dataset-section {
+  padding-top: var(--space-xl);
+}
+
+/* The same heading as the rest of the resource portal: set large and light
+   rather than small and bold, so a section title reads as a chapter mark. */
+.dataset-section h2 {
+  margin: 0 0 var(--space-lg);
+  color: var(--color-surface);
+  font-size: var(--font-size-prose-title);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+/* A line of section prose keeps a measure: left to the full band it runs to
+   well over a hundred characters. */
+.dataset-section p.dataset-section-copy,
+.dataset-section .dataset-section-copy > p {
+  max-width: 58rem;
+}
+
+.dataset-section .shell > * + * {
+  margin-top: var(--space-lg);
+}
+
+.resource-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--layout-gap-grid);
+}
+
+.resource-card {
+  overflow: hidden;
+  border: 1px solid var(--color-accent-tint-10);
+  border-radius: var(--space-panel-lg);
+  background: var(--color-surface);
+  box-shadow: 0 0.65rem 1.4rem var(--color-shadow-panel);
+}
+
+.resource-card:hover,
+.resource-card:focus-within {
+  box-shadow: 0 0.65rem 1.4rem var(--color-shadow-panel-strong);
+}
+
+.resource-card--placeholder {
+  border-style: dashed;
+  box-shadow: none;
+}
+
+.dataset-format-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: var(--space-sm);
+}
+
+.dataset-format-badge-icon {
+  display: inline-block;
+  height: 1.4rem;
+  width: auto;
+  vertical-align: middle;
+  padding: 0.2rem 0.45rem;
+  border-radius: 999px;
+  background: var(--color-surface);
+  box-shadow: inset 0 0 0 1px var(--color-accent-tint-15);
+}
+
+.dataset-format-badge-text {
+  display: inline-flex;
+  align-items: center;
+  height: 1.4rem;
+  vertical-align: middle;
+  padding: 0 0.5rem;
+  border-radius: 999px;
+  background: var(--color-surface);
+  box-shadow: inset 0 0 0 1px var(--color-accent-tint-15);
+  color: var(--color-accent);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.resource-card__body {
+  padding: var(--space-panel-3xl);
+}
+
+.resource-card__title {
+  margin: 0 0 var(--space-sm);
+  color: var(--color-accent);
+  font-size: var(--font-size-prose-heading);
+  font-weight: 400;
+}
+
+.resource-card__body p,
+.resource-card__body li {
+  color: var(--color-accent);
+  font-size: var(--font-size-prose-copy);
+  line-height: 1.28;
+}
+
+.resource-card__body--stack {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding: var(--space-md);
+}
+
+.resource-card__body--stack .resource-card__title {
+  font-size: var(--font-size-prose-copy);
+}
+
+.resource-card__body--stack p {
+  font-size: 0.82rem;
+}
+
+.resource-card__cta {
+  margin: var(--space-md) 0 0;
+  align-self: flex-end;
+  color: var(--color-accent);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.resource-card__body--stack .resource-card__cta {
+  margin-top: auto;
+  padding-top: var(--space-md);
+}
+
+.resource-card:hover .resource-card__cta,
+.resource-card:focus-within .resource-card__cta {
+  text-decoration: underline;
+}
+
+.dataset-format-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin: 0 auto;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  background: var(--color-accent-tint-10);
+  text-decoration: none;
+}
+
+.dataset-format-legend:hover,
+.dataset-format-legend:focus-visible {
+  background: var(--color-accent-tint-15);
+  outline: none;
+}
+
+.dataset-format-legend__label {
+  color: var(--color-text-bright);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.dataset-format-legend__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--color-text-bright);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.dataset-section-copy {
+  color: var(--color-surface);
+}
+
+.dataset-section-copy .text-link {
+  color: var(--color-brand-light);
+  text-decoration: underline;
+}
+
+@media (max-width: 520px) {
+  .resource-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.resources-overview {
+  background: var(--color-home-bg);
+}
+
+.resource-category-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.resource-category-list__item {
+  display: grid;
+  gap: 0.2rem;
+  padding: var(--space-sm) 0;
+  border-top: 1px solid var(--color-border-soft);
+}
+
+.resource-category-list__item:last-child {
+  border-bottom: 1px solid var(--color-border-soft);
+}
+
+.resource-category-list__name {
+  color: var(--color-text-bright);
+  font-weight: 700;
+}
+
+.resource-category-list__description {
+  color: var(--color-accent-soft);
+  font-size: 0.95rem;
+}
+
+.resource-tool-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin: var(--space-md) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Dataset guide rows: one access route per row, with the one action it
+   offers. Shared by the dataset card and the dataset page's "Get the data"
+   panel, so a route reads the same in both. */
+.guide-list {
+  margin-top: var(--space-md);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-accent-tint-10);
+}
+
+.resource-card__body p.guide-list__label {
+  margin: 0 0 var(--space-2xs);
+  color: var(--color-accent-tint-70);
+  font-size: 0.78rem;
+}
+
+.guide-list__rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.guide-row {
+  display: flex;
+  min-height: 2.6rem;
+  padding: var(--space-2xs) 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.guide-row + .guide-row {
+  border-top: 1px solid var(--color-accent-tint-10);
+}
+
+.guide-row__route {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.guide-row__name {
+  color: var(--color-accent);
+  font-size: 0.9rem;
+}
+
+.guide-action {
+  display: inline-flex;
+  min-height: 2rem;
+  padding: 0 0.85rem;
+  flex: none;
+  align-items: center;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.guide-action--ready {
+  background: var(--color-accent);
+  color: var(--color-surface);
+  font-weight: 700;
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.guide-action--ready:hover,
+.guide-action--ready:focus-visible {
+  outline: none;
+  box-shadow: 0 0.35rem 0.8rem var(--color-accent-tint-25);
+  transform: translateY(-1px);
+}
+
+.guide-action--ready:focus-visible {
+  box-shadow: 0 0 0 3px var(--color-brand-sky);
+}
+
+.guide-action--pending {
+  box-shadow: inset 0 0 0 1px var(--color-accent-tint-20);
+  color: var(--color-accent-tint-70);
+}
+
+.guide-card__about {
+  margin-top: auto;
+  padding-top: var(--space-md);
+  align-self: flex-end;
+  color: var(--color-accent);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* The dataset page's panel gives each row room to say what the route is best
+   for, which the card has no space for. */
+.get-data-panel {
+  padding: var(--space-xs) var(--space-lg);
+}
+
+.guide-row--wide {
+  min-height: 3.4rem;
+}
+
+.guide-row--wide .guide-row__route {
+  flex: 0 0 12rem;
+}
+
+.guide-row__why {
+  flex: 1;
+  color: var(--color-accent-tint-70);
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+.text-link--on-dark {
+  color: var(--color-brand-light);
+  text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+  .guide-row--wide {
+    padding: var(--space-xs) 0;
+    flex-wrap: wrap;
+  }
+
+  .guide-row--wide .guide-row__route {
+    flex: 1 1 auto;
+  }
+
+  .guide-row--wide .guide-row__why {
+    order: 3;
+    flex-basis: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .guide-action--ready {
+    transition: none;
+  }
+
+  .guide-action--ready:hover {
+    transform: none;
+  }
+}
+
+/* One short block of narrative on a resource page, optionally followed by its
+   links out to the project and the paper. A hairline carries the full width of
+   the band between entries: it gives the section a structure to sit in, so an
+   entry with no figure reads as a measure of prose rather than as a half-empty
+   row. */
+.dataset-about__entry + .dataset-about__entry {
+  margin-top: var(--space-2xl);
+  padding-top: var(--space-2xl);
+  border-top: 1px solid var(--color-brand-light-tint-25);
+}
+
+/* The heading takes the band's pale blue rather than the body's white: colour
+   does the ranking, so the label stays quiet next to the prose it introduces. */
+.dataset-about__heading {
+  margin: 0 0 var(--space-sm);
+  color: var(--color-brand-light);
+  font-size: 1.1rem;
+  letter-spacing: 0.01em;
+}
+
+/* Citations sit apart from the copy they follow: a small caption above the
+   title, which is the link itself. */
+.dataset-about__citations {
+  margin: var(--space-md) 0 0;
+  padding-left: var(--space-md);
+  border-left: 2px solid var(--color-brand-light-tint-25);
+}
+
+.dataset-about__citation + .dataset-about__citation {
+  margin-top: var(--space-sm);
+}
+
+.dataset-about__citation-label {
+  color: var(--color-text-on-dark-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.dataset-about__citation-link {
+  margin: 0;
+}
+
+.dataset-about__citation-link .text-link {
+  color: var(--color-brand-light);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-brand-light-tint-40);
+}
+
+.dataset-about__citation-link .text-link:hover,
+.dataset-about__citation-link .text-link:focus-visible {
+  border-bottom-color: var(--color-brand-light);
+}
+
+/* One two-column layout shared by the about entries and the explore block, so
+   the page keeps a single text measure and a single left edge throughout. */
+.dataset-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 26rem);
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+/* Alternate entries put the figure first, so the illustrations zigzag down the
+   section instead of stacking into one rail. The track widths swap with them:
+   reordering alone would hand the figure the wide column and squeeze the copy
+   into the narrow one. */
+.dataset-split--flipped {
+  grid-template-columns: minmax(0, 26rem) minmax(0, 1fr);
+}
+
+.dataset-split--flipped .dataset-figure {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.dataset-split--flipped .dataset-split__copy {
+  grid-column: 2;
+}
+
+/* An entry with no figure has nothing to put in the second track, and leaving
+   it open presses the prose into half the band. The entry drops to one column
+   and the copy takes a measure of its own instead. */
+.dataset-section .dataset-split:not(:has(.dataset-figure)) {
+  grid-template-columns: minmax(0, 58rem);
+}
+
+.dataset-split__copy > :first-child {
+  margin-top: 0;
+}
+
+/* The clip is authored on black, so it keeps a black panel of its own rather
+   than being blended into the band: on a saturated blue the dark anatomy and
+   the burnt-in lab captions both disappear. */
+.dataset-figure {
+  margin: 0;
+}
+
+.dataset-figure__frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-brand-light-tint-25);
+  border-radius: var(--space-panel-lg);
+}
+
+/* A clip rendered on black keeps a dark frame. */
+.dataset-figure--dark .dataset-figure__frame {
+  background: #000;
+}
+
+/* A diagram lifted from a paper sits on white, so it is given a light card of
+   its own rather than being dropped straight onto the band. */
+.dataset-figure--light .dataset-figure__frame {
+  padding: var(--space-md);
+  border-color: var(--color-accent-tint-10);
+  background: var(--color-surface);
+}
+
+/* The clip is rendered on pure black, which reads harshly against the band.
+   Screening the band's own blue over it lifts those blacks into the same
+   family without touching the brightness of the anatomy itself. */
+.dataset-figure--dark .dataset-figure__frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-accent);
+  mix-blend-mode: screen;
+  opacity: 0.70;
+  pointer-events: none;
+}
+
+.dataset-figure__media,
+.dataset-figure__still {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.dataset-figure__still {
+  display: none;
+}
+
+.dataset-figure__caption {
+  margin-top: var(--space-sm);
+  color: var(--color-text-on-dark-muted);
+  font-size: 0.9rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dataset-figure video.dataset-figure__media {
+    display: none;
+  }
+
+  .dataset-figure__still {
+    display: block;
+  }
+}
+
+@media (max-width: 760px) {
+  /* Stacked, the copy always leads: a figure above its own heading reads as
+     belonging to the entry before it. */
+  .dataset-split {
+    grid-template-columns: 1fr;
+  }
+
+  .dataset-split--flipped,
+  .dataset-split--flipped .dataset-split__copy,
+  .dataset-split--flipped .dataset-figure {
+    grid-row: auto;
+    grid-column: auto;
+    grid-template-columns: 1fr;
+  }
+
+  .dataset-split--flipped .dataset-figure {
+    order: 1;
+  }
+}
+
+/* What a visitor can do at the viewer, listed so the link is more than a name. */
+.dataset-explore__list {
+  margin: var(--space-md) 0 0;
+  padding-left: var(--space-md);
+  list-style: none;
+}
+
+.dataset-explore__list li {
+  position: relative;
+  padding-left: var(--space-md);
+}
+
+.dataset-explore__list li + li {
+  margin-top: var(--space-xs);
+}
+
+.dataset-explore__list li::before {
+  content: "";
+  position: absolute;
+  top: 0.6em;
+  left: 0;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--color-brand-sky);
+}
+
+.dataset-explore__cta {
+  margin-top: var(--space-lg);
+}
+
+.dataset-explore__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.dataset-explore__arrow {
+  flex: none;
+}
+
+/* Plain jump links, aligned with the page's left edge rather than centred in a
+   pill: the band's own rules already separate them from the sections. */
+.page-controls--jump .page-controls__inner {
+  justify-content: flex-start;
+}
+
+.section-jump {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-xs) var(--space-sm);
+}
+
+.section-jump__link {
+  color: var(--color-brand-light);
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.section-jump__link:hover,
+.section-jump__link:focus-visible {
+  color: var(--color-surface);
+  text-decoration: underline;
+}
+
+.section-jump__separator {
+  color: var(--color-brand-light-tint-40);
+}
+
+/* IBL BrainWideBench benchmark page. */
+
 /* Resources section pages. Loaded from baseof.html when .Section is "resources". */
 
 /* The benchmark page's bands already separate themselves with panels, rules and
@@ -249,19 +875,32 @@
   opacity: 0.8;
 }
 
+/* The citations' own panel, which unlike the guide rows holds padded cards:
+   it takes even padding so the entries sit square inside it. */
+.citation-panel {
+  padding: var(--space-lg);
+}
+
+/* A dataset page puts the citations in a white panel inside the dark band,
+   where the page's inherited colour is white: they take the colour a light
+   section would have given them. */
+.dataset-section .citations {
+  color: var(--color-accent);
+}
+
 /* Each reference is its own panel, so the kind label, the reference and its
    controls read as one unit. Same tint as the call to action. */
-.bwb-citation__item {
+.citation {
   padding: var(--space-lg);
   border-radius: var(--radius-md);
   background: var(--color-brand-light-tint-40);
 }
 
-.bwb-citation__item + .bwb-citation__item {
+.citation + .citation {
   margin-top: var(--space-md);
 }
 
-.bwb-citation__kind {
+.citation__kind {
   margin: 0 0 var(--space-xs);
   font-size: var(--font-size-footer-legal);
   letter-spacing: 0.08em;
@@ -269,12 +908,13 @@
   opacity: 0.7;
 }
 
-.bwb-citation__ref {
+.citation__ref {
+  max-width: 76ch;
   font-size: var(--font-size-card-copy);
   line-height: 1.45;
 }
 
-.bwb-citation__actions {
+.citation__actions {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-sm);
@@ -285,8 +925,8 @@
    section, so the label matches the reference text and the padding is tight.
    Overriding the pill's own tokens keeps one set of rules.
    The uppercasing goes too, because "BibTeX" is spelled that way. */
-.button--bwb-solid,
-.button--bwb-ghost {
+.button--citation-solid,
+.button--citation-ghost {
   --button-pill-min-height: calc(2.5rem * var(--type-scale-base));
   --button-pill-pad-y: 0.1rem;
   --button-pill-pad-x: calc(1rem * var(--type-scale-base));
@@ -297,20 +937,20 @@
   cursor: pointer;
 }
 
-.button--bwb-solid {
+.button--citation-solid {
   background: var(--color-accent);
   color: var(--color-surface);
 }
 
-.button--bwb-ghost {
+.button--citation-ghost {
   background: var(--color-surface);
   color: var(--color-accent);
 }
 
-.button--bwb-solid:hover,
-.button--bwb-solid:focus-visible,
-.button--bwb-ghost:hover,
-.button--bwb-ghost:focus-visible {
+.button--citation-solid:hover,
+.button--citation-solid:focus-visible,
+.button--citation-ghost:hover,
+.button--citation-ghost:focus-visible {
   transform: translateY(-1px);
   outline: none;
 }
@@ -318,7 +958,7 @@
 /* BibTeX entries have long author lists and no break opportunities, so they are
    wrapped rather than left to scroll sideways on a phone. The top margin clears
    whatever precedes the block: the reference, or the buttons once JS runs. */
-.bwb-citation pre {
+.citations pre {
   margin: var(--space-md) 0 0;
   padding: var(--space-md);
   border-radius: var(--radius-md);

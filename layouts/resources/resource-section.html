@@ -1,0 +1,12 @@
+{{ define "main" }}
+  {{ partial "page-header.html" (dict "page" .) }}
+
+  <section class="section section-band dataset-section">
+    <div class="shell page-shell">
+      {{ partial "resources/resource-grid.html" (dict
+        "pages" .Pages
+        "empty" (printf "No %s are listed yet." (lower .Title))
+      ) }}
+    </div>
+  </section>
+{{ end }}
