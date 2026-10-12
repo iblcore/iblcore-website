@@ -16,10 +16,10 @@ Or:
 
 > Replace the Support page introduction with this: "...".
 
-That is enough. The agent will ask one short publishing question before it
-edits: whether this should join the shared development work or receive its own
-direct review. You do not need to ask the agent to create a branch, edit files,
-run commands, start the website, commit, or open a pull request.
+That is enough. The agent prepares a focused branch from the latest `main`
+and handles the change through its own pull request. You do not need to ask
+the agent to create a branch, edit files, run commands, start the website,
+commit, or open a pull request.
 
 Most pages are Markdown files under `content/`. Events, projects, partners and
 affiliates are different: they are records in `data/events.yaml` and
@@ -39,21 +39,13 @@ prefer to do it manually, or need to troubleshoot, see
 
 ## What the agent does
 
-Before changing files, the agent asks you to choose one route:
-
-- **Shared development** is best when several related changes should be
-  reviewed and published together. The agent pushes the approved change to
-  `dev`, which is collected in the team's open `dev` to `main` pull request.
-- **Direct review** is best for a small, self-contained, or urgent change. The
-  agent uses a focused branch and opens a dedicated pull request to `main`.
-
-If you have already said which route you want, the agent will use it without
-asking again.
+Every ordinary change uses a focused branch from the latest `main`, followed
+by a dedicated pull request back to `main` after you approve the local result.
 
 The agent will:
 
 1. locate the right website content;
-2. prepare the selected branch safely;
+2. prepare a focused branch from current `main` while preserving unrelated work;
 3. make the requested change;
 4. run the website checks;
 5. start a private copy of the website on your computer;
@@ -85,17 +77,19 @@ The agent will then:
 
 1. review the changed files and exclude unrelated work;
 2. run the final website check;
-3. commit and push the change using the route you selected;
-4. either update the shared `dev` to `main` pull request or open a dedicated
-   pull request to `main`, with clear review instructions;
-5. wait for the automated website preview and checks; and
+3. commit and push the approved change on its focused branch;
+4. open a dedicated pull request to `main`, with exact page paths and clear
+   review instructions;
+5. verify that the automated website checks and preview deployment pass and
+   that the preview link is available; and
 6. hand the pull request to the website administrators.
 
 The agent will confirm that the request is ready for administrator review. You
 do not need to deploy the website or manage Cloudflare.
 
-An administrator reviews and merges the pull request. Only a merge to `main`
-publishes the change to [iblcore.org](https://iblcore.org/).
+The agent does not merge unless explicitly authorized. An administrator
+reviews and merges the pull request. Only a merge to `main` publishes the
+change to [iblcore.org](https://iblcore.org/).
 
 ## Before your first edit
 

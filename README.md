@@ -19,9 +19,11 @@ Choose the guide that matches what you want to do:
 - **Maintain publishing and hosting:** read
   [Deployment administration](docs/admin-deployment.md).
 
-Website changes normally use a pull request. GitHub builds a complete temporary
-preview for review, and an approved merge automatically publishes the change.
-Contributors do not need Cloudflare credentials.
+Ordinary website changes start on a focused branch from the latest `main`,
+with a dedicated pull request back to `main`. For agent-assisted edits, approve
+the local preview before the agent commits and pushes. GitHub builds a complete
+temporary preview for review, and an approved merge automatically publishes
+the change. Contributors do not need Cloudflare credentials.
 
 ## Developer quick start
 
