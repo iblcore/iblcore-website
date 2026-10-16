@@ -1,6 +1,6 @@
 ---
 title: "Datoviz"
-description: "High-performance GPU rendering for scientific data visualisation, built for interactive exploration of large datasets."
+description: "High-performance GPU rendering for scientific data visualization, built for interactive exploration of large datasets."
 weight: 4
 
 modality: []

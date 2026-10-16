@@ -7,7 +7,7 @@
        A step names its cards under `resource` and the access routes it
        compares under `routes`. Either is a single path or a list of them, so a
        step showing one card reads the same as one showing five. Both the step
-       renderer and the backlink scan need the same normalisation. */ -}}
+       renderer and the backlink scan need the same normalization. */ -}}
 {{- $paths := index .step .key -}}
 {{- if not $paths -}}
   {{- $paths = slice -}}

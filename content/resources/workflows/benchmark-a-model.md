@@ -17,7 +17,7 @@ steps:
     note: |
       IBL BrainWideBench scores models on the Brainwide Map: Neuropixels
       recordings from mice performing a sensory-guided decision-making task,
-      with behaviour measured at the same time. The benchmark downloads what it
+      with behavior measured at the same time. The benchmark downloads what it
       needs itself, so this step is for looking at the data on your own terms
       first, through ONE.
 
@@ -31,7 +31,7 @@ steps:
       checkpoint and go straight to evaluation. The suites ask for different
       things from the same model:
 
-      - **Behavior**: predict trial-level behavioural outcomes from neural population activity.
+      - **Behavior**: predict trial-level behavioral outcomes from neural population activity.
       - **Dynamics**: reconstruct firing rate trajectories and spike predictions across brain regions.
       - **Anatomy**: classify recorded neurons to their brain region from activity alone.
 

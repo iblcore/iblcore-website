@@ -301,3 +301,70 @@ test("explore highlights must be a list of strings", () => {
   const errors = validateResourcesData([resource("a.md", { ...valid, explore })], []).join("\n");
   assert.match(errors, /explore: highlight 2 must be a string/);
 });
+
+test("a contents group needs a name to head its column", () => {
+  const contents = [{ items: [{ name: "Trials", description: "Choices." }] }];
+  const errors = validateResourcesData(
+    [resource("a.md", { ...valid, about: [{ description: "Copy.", contents }] })],
+    [],
+  ).join("\n");
+  assert.match(errors, /about entry 1: contents group 1 is missing "name"/);
+});
+
+test("a contents group needs at least one item", () => {
+  const contents = [{ name: "Neural", items: [] }];
+  const errors = validateResourcesData(
+    [resource("a.md", { ...valid, about: [{ description: "Copy.", contents }] })],
+    [],
+  ).join("\n");
+  assert.match(errors, /about entry 1: contents group 1 needs at least one item/);
+});
+
+test("a contents item is reported by its position in its group", () => {
+  const contents = [
+    { name: "Neural", items: [{ name: "Spikes", description: "Units." }, { name: "Raw" }] },
+  ];
+  const errors = validateResourcesData(
+    [resource("a.md", { ...valid, about: [{ description: "Copy.", contents }] })],
+    [],
+  ).join("\n");
+  assert.match(errors, /about entry 1: contents group 1 item 2 is missing "description"/);
+});
+
+// The item name is the scannable part of the row, so a missing one leaves a
+// description with nothing to label it.
+test("a contents item without a name is reported", () => {
+  const contents = [{ name: "Video", items: [{ description: "Tracking." }] }];
+  const errors = validateResourcesData(
+    [resource("a.md", { ...valid, about: [{ description: "Copy.", contents }] })],
+    [],
+  ).join("\n");
+  assert.match(errors, /about entry 1: contents group 1 item 1 is missing "name"/);
+});
+
+test("a contents item's link needs the text that captions it", () => {
+  const contents = [
+    { name: "Video", items: [{ name: "Pose", description: "Tracking.", link: "/resources/tools/x/" }] },
+  ];
+  const errors = validateResourcesData(
+    [resource("a.md", { ...valid, about: [{ description: "Copy.", contents }] })],
+    [],
+  ).join("\n");
+  assert.match(errors, /about entry 1: contents group 1 item 1 sets "link" without "link_text"/);
+});
+
+test("a resource carrying valid contents reports nothing", () => {
+  const contents = [
+    { name: "Neural", items: [{ name: "Spikes", description: "621,733 units." }] },
+    {
+      name: "Video",
+      items: [
+        { name: "Pose", description: "Tracking.", link: "/resources/tools/lightning-pose/", link_text: "Lightning Pose" },
+      ],
+    },
+  ];
+  assert.deepEqual(
+    validateResourcesData([resource("a.md", { ...valid, about: [{ description: "C.", contents }] })], []),
+    [],
+  );
+});

@@ -1,0 +1,15 @@
+{{- /* The display spelling of one vocabulary term.
+
+       Takes the term string and returns a string.
+
+       Three vocabulary words were authored in British spelling. A term doubles
+       as its own URL slug and as the front matter every resource is tagged
+       with, so the portal's American spelling is applied here, where the term
+       is shown, rather than by renaming the terms themselves. Any term without
+       an entry is the vocabulary word, capitalised once. */ -}}
+{{- $spelling := dict
+  "analyse" "Analyze"
+  "visualise" "Visualize"
+  "fibre-photometry" "Fiber photometry"
+-}}
+{{- return (index $spelling . | default (strings.FirstUpper .)) -}}

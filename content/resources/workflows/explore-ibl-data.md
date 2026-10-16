@@ -1,6 +1,6 @@
 ---
-title: "Explore and analyse IBL data"
-description: "From choosing a dataset to visualising what you have loaded, using IBL's released datasets."
+title: "Explore and analyze IBL data"
+description: "From choosing a dataset to visualizing what you have loaded, using IBL's released datasets."
 weight: 1
 
 modality: []
@@ -34,7 +34,7 @@ steps:
       before downloading anything, so a question like "every recording touching
       region X" is answerable up front.
 
-  - title: "Visualise what you load"
+  - title: "Visualize what you load"
     resource:
       - "/resources/tools/datoviz"
       - "/resources/tools/data-explorer"

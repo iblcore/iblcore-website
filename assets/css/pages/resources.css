@@ -222,6 +222,73 @@
   font-size: 0.95rem;
 }
 
+/* The grouped inventory of what a dataset contains. The groups run side by side
+   so the whole release reads in a few hundred pixels: the same rows stacked in
+   one column fill most of a screen, which buries the end of the list.
+   Every size here is a step off the prose copy size rather than a fixed rem, so
+   the three ranks keep their distance when the type scale shrinks. */
+.dataset-contents {
+  display: grid;
+  grid-template-columns: repeat(var(--dataset-contents-columns, 3), minmax(0, 1fr));
+  grid-template-rows: auto repeat(var(--dataset-contents-rows, 1), auto);
+  gap: 0 var(--layout-gap-grid);
+  margin-top: var(--space-lg);
+}
+
+.dataset-contents__group {
+  display: grid;
+  align-content: start;
+}
+
+/* Handing the rows to the group's own tracks is what lines them up across the
+   columns. Without subgrid the groups keep their default stacking, which reads
+   the same but closes each column at its own height. */
+@supports (grid-template-rows: subgrid) {
+  .dataset-contents__group {
+    grid-template-rows: subgrid;
+  }
+
+  .dataset-contents .resource-category-list {
+    display: contents;
+  }
+}
+
+.dataset-contents__group-name {
+  margin: 0 0 var(--space-xs);
+  color: var(--color-brand-light);
+  font-size: calc(var(--font-size-prose-copy) * 0.66);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* A row track is as tall as the deepest cell across the three columns, so the
+   shallower cells pack to the top of theirs rather than spreading their name
+   and description to fill the height. */
+.dataset-contents .resource-category-list__item {
+  align-content: start;
+}
+
+/* The row name sits a step under the entry's copy. At the same size it competed
+   with the paragraph above the grid, which flattened the section to one rank. */
+.dataset-contents .resource-category-list__name {
+  font-size: calc(var(--font-size-prose-copy) * 0.9);
+  line-height: 1.2;
+}
+
+.dataset-contents .resource-category-list__description {
+  font-size: calc(var(--font-size-prose-copy) * 0.74);
+  line-height: 1.4;
+}
+
+/* The link names a tool rather than the row, so it stays at the description's
+   size instead of reading as a second row name. */
+.dataset-contents .resource-category-list__item .text-link {
+  justify-self: start;
+  margin-top: var(--space-2xs);
+  font-size: calc(var(--font-size-prose-copy) * 0.74);
+}
+
 .resource-tool-list {
   display: flex;
   flex-wrap: wrap;
@@ -549,6 +616,19 @@
 
   .dataset-split--flipped .dataset-figure {
     order: 1;
+  }
+
+  /* Three columns of rows would leave each one too narrow to read, so the
+     inventory stacks with the rest of the entry. */
+  .dataset-contents {
+    grid-template-columns: 1fr;
+  }
+
+  /* Side by side the gap between columns separates the groups. Stacked, each
+     group name would otherwise sit straight under the last row of the group
+     before it, reading as part of it. */
+  .dataset-contents__group + .dataset-contents__group {
+    margin-top: var(--space-md);
   }
 }
 

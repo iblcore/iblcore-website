@@ -29,7 +29,7 @@
         <select id="wf-modality" class="dataset-picker__select" data-wf-modality>
           <option value="">Any modality</option>
           {{- range $modalities }}
-            <option value="{{ . }}">{{ strings.FirstUpper . }}</option>
+            <option value="{{ . }}">{{ partial "resources/term-spelling.html" . }}</option>
           {{- end }}
         </select>
       </div>

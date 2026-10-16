@@ -98,6 +98,48 @@ function checkAbout(data, path, errors) {
       errors.push(`${label} sets "link" without "link_label"`);
     }
     if (entry?.figure !== undefined) checkFigure(entry.figure, `${label}: figure`, errors);
+    if (entry?.contents !== undefined) checkContents(entry.contents, label, errors);
+  });
+}
+
+/**
+ * Check the grouped inventory an "about" entry renders below its copy.
+ *
+ * The groups become the columns of the contents grid and their items become
+ * the rows, so both are reported by position: a group that fails its own name
+ * check cannot be named in the message about it.
+ *
+ * @param {object} contents The entry's contents list.
+ * @param {string} label Entry and file the contents came from, used in messages.
+ * @param {string[]} errors Collected messages, appended to in place.
+ */
+function checkContents(contents, label, errors) {
+  if (!Array.isArray(contents)) {
+    errors.push(`${label}: contents must be a list`);
+    return;
+  }
+  contents.forEach((group, groupIndex) => {
+    const groupLabel = `${label}: contents group ${groupIndex + 1}`;
+    if (typeof group?.name !== "string" || group.name.trim() === "") {
+      errors.push(`${groupLabel} is missing "name"`);
+    }
+    if (!Array.isArray(group?.items) || group.items.length === 0) {
+      errors.push(`${groupLabel} needs at least one item`);
+      return;
+    }
+    group.items.forEach((item, itemIndex) => {
+      const itemLabel = `${groupLabel} item ${itemIndex + 1}`;
+      for (const field of ["name", "description"]) {
+        if (typeof item?.[field] !== "string" || item[field].trim() === "") {
+          errors.push(`${itemLabel} is missing "${field}"`);
+        }
+      }
+      // The link is captioned by its own text rather than by the item name,
+      // because the row names the kind of data and the link names the tool.
+      if (item?.link !== undefined && `${item?.link_text ?? ""}`.trim() === "") {
+        errors.push(`${itemLabel} sets "link" without "link_text"`);
+      }
+    });
   });
 }
 

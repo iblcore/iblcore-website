@@ -51,6 +51,39 @@
               </div>
               {{- partial "resources/dataset-figure.html" (dict "figure" .figure) }}
             </div>
+            {{- /* The inventory sits outside the split so its groups can use the
+                   full shell width. Stacked in the copy column the same rows run
+                   to most of a screen; side by side they stay scannable. */ -}}
+            {{- with .contents }}
+              {{- /* Every group spans the same row tracks, so each one's rows
+                     line up with the rows beside it and all the columns close
+                     on one line. The tracks are counted from the longest group
+                     because a shorter one simply leaves its last tracks empty. */ -}}
+              {{- $rows := 0 }}
+              {{- range . }}{{ if gt (len .items) $rows }}{{ $rows = len .items }}{{ end }}{{ end }}
+              <div class="dataset-contents" style="--dataset-contents-rows: {{ $rows }}; --dataset-contents-columns: {{ len . }}">
+                {{- range . }}
+                  <div class="dataset-contents__group" style="grid-row: span {{ add $rows 1 }}">
+                    <h4 class="dataset-contents__group-name">{{ .name }}</h4>
+                    {{- /* The list hands its rows to the group's grid so they can
+                           align across columns; the role keeps it a list while it
+                           has no box of its own. */ -}}
+                    <ul class="resource-category-list" role="list">
+                      {{- range .items }}
+                        {{- $item := . }}
+                        <li class="resource-category-list__item">
+                          <span class="resource-category-list__name">{{ .name }}</span>
+                          <span class="resource-category-list__description">{{ .description }}</span>
+                          {{- with .link }}
+                            <a class="text-link" href="{{ . | relURL }}">{{ $item.link_text }}</a>
+                          {{- end }}
+                        </li>
+                      {{- end }}
+                    </ul>
+                  </div>
+                {{- end }}
+              </div>
+            {{- end }}
           </div>
         {{- end }}
       </div>

@@ -1,6 +1,6 @@
 ---
 title: "IBL BrainWideBench"
-description: "A standardised benchmark for models pretrained on brain-wide neural recordings."
+description: "A standardized benchmark for models pretrained on brain-wide neural recordings."
 weight: 5
 
 modality:
@@ -19,7 +19,7 @@ links:
 IBL BrainWideBench is an evaluation suite for models trained on brain-wide
 spiking activity. The data comes from the IBL Brain Wide Map, Neuropixels
 recordings from 139 mice performing a sensory-guided decision-making task, with
-behaviour measured at the same time.
+behavior measured at the same time.
 
 Comparing such models has been difficult, because evaluation protocols are
 fragmented and most cover only a single task domain. The suite fixes the

@@ -11,7 +11,7 @@ export async function checkWorkflowPage(browser, origin) {
     const stepTitles = await page.locator(".workflow-step__title").allInnerTexts();
     assert.deepEqual(
       stepTitles,
-      ["Choose a dataset and access route", "Find the sessions you need", "Visualise what you load"],
+      ["Choose a dataset and access route", "Find the sessions you need", "Visualize what you load"],
       "The workflow no longer opens by choosing a dataset and its access route.",
     );
 
