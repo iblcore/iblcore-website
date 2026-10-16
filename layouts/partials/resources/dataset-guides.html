@@ -1,0 +1,33 @@
+{{- /* The access routes one dataset is published through, each with its
+       step-by-step guide.
+
+       Takes (dict "page" <dataset page> "wide" <bool>).
+
+       The rows are built from the dataset's own `access` and `access_guides`
+       front matter and nowhere else, so the card, the workflow step and the
+       dataset page all state the same thing. A route with no guide yet still
+       gets a row: that the route exists is worth saying before the guide is
+       written. `wide` is the dataset page's full-width form, which has room
+       for what each route is best for. */ -}}
+{{- $page := .page -}}
+{{- $wide := .wide -}}
+{{- $guides := $page.Params.access_guides | default dict -}}
+<ul class="guide-list__rows">
+  {{- range $key := $page.Params.access }}
+    {{- $route := partial "resources/access-route.html" $key }}
+    <li class="guide-row{{ if $wide }} guide-row--wide{{ end }}">
+      <span class="guide-row__route">
+        {{ partial "resources/data-format-icon.html" (dict "key" $key "label" $route.Title "decorative" true) }}
+        <span class="guide-row__name">{{ $route.Title }}</span>
+      </span>
+      {{- if $wide }}
+        <span class="guide-row__why">{{ $route.Params.short_description | default $route.Params.description }}</span>
+      {{- end }}
+      {{- with index $guides $key }}
+        <a class="guide-action guide-action--ready" href="{{ . }}">Open guide<span class="visually-hidden"> for {{ $page.Title }} via {{ $route.Title }}</span></a>
+      {{- else }}
+        <span class="guide-action guide-action--pending">Coming soon</span>
+      {{- end }}
+    </li>
+  {{- end }}
+</ul>

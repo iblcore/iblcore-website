@@ -1,6 +1,7 @@
 {
   "name": "iblcore-website",
   "private": true,
+  "type": "module",
   "scripts": {
     "capture:landing": "node scripts/capture-landing.mjs",
     "test:events": "node scripts/check-events.mjs",

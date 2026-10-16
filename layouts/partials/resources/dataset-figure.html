@@ -1,0 +1,21 @@
+{{- /* The illustration beside one "about" entry: either a still or a looping
+       clip. A clip renders its poster as a sibling still, which CSS swaps in
+       for readers who have asked for reduced motion, so no script is needed. */ -}}
+{{- $figure := .figure -}}
+{{- with $figure -}}
+  <figure class="dataset-figure dataset-figure--{{ .tone | default "light" }}">
+    <div class="dataset-figure__frame">
+    {{- with .video }}
+      <video class="dataset-figure__media" autoplay loop muted playsinline
+             poster="{{ $figure.poster | relURL }}" aria-label="{{ $figure.alt }}">
+        <source src="{{ . | relURL }}" type="video/mp4">
+      </video>
+      <img class="dataset-figure__still" src="{{ $figure.poster | relURL }}" alt="{{ $figure.alt }}" loading="lazy">
+    {{- end }}
+    {{- with .src }}
+      <img class="dataset-figure__media" src="{{ . | relURL }}" alt="{{ $figure.alt }}" loading="lazy">
+    {{- end }}
+    </div>
+    {{- with .caption }}<figcaption class="dataset-figure__caption">{{ . }}</figcaption>{{ end }}
+  </figure>
+{{- end -}}

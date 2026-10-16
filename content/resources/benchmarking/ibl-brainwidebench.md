@@ -121,11 +121,11 @@ citations:
   - kind: "Dataset"
     reference: |
       International Brain Laboratory, Benson, B., Benson, J., et al. (2025) 'A
-      brain-wide map of neural activity during complex behaviour', *Nature*,
+      brain-wide map of neural activity during complex behavior', *Nature*,
       645(8079), pp. 177-191.
     entry: |
       @article{iblbwm2025,
-        title   = {A brain-wide map of neural activity during complex behaviour},
+        title   = {A brain-wide map of neural activity during complex behavior},
         author  = {IBL and Benson, Brandon and Benson, Julius and Birman, Daniel and Bonacchi, Niccolo and Carandini, Matteo and Catarino, Joana A and Chapuis, Gaelle A and Churchland, Anne K and Dan, Yang and Dayan, Peter and DeWitt, Eric EJ and Engel, Tatiana A and Fabbri, Michele and Faulkner, Mayo and Fiete, Ila Rani and Findling, Charles and Freitas-Silva, Laura and Gercek, Berk and Harris, Kenneth D and Hausser, Michael and Hofer, Sonja B and Hu, Fei and Hubert, Felix and Huntenburg, Julia M and Khanal, Anup and Krasniak, Christopher and Langdon, Christopher and Lau, Petrina Y P and Mainen, Zachary F and Meijer, Guido T and Miska, Nathaniel J and Mrsic-Flogel, Thomas D and Noel, Jean-Paul and Nylund, Kai and Pan-Vazquez, Alejandro and Pouget, Alexandre and Rossant, Cyrille and Roth, Noam and Schaeffer, Rylan and Schartner, Michael and Shi, Yanliang and Socha, Karolina Z and Steinmetz, Nicholas A and Svoboda, Karel and Urai, Anne E and Wells, Miles J and West, Steven Jon and Whiteway, Matthew R and Winter, Olivier and Witten, Ilana B},
         journal = {Nature},
         volume  = {645},

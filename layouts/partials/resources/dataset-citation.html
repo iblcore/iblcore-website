@@ -1,0 +1,21 @@
+{{- /* How to cite a dataset. Renders nothing for a dataset whose front matter
+       carries no `citations`, so a placeholder page shows no empty heading.
+
+       The entries sit in a white panel, as the access guides do, because the
+       panel tint they carry is meant for a light background, not the band.
+
+       Takes (dict "page" <dataset page>). */ -}}
+{{- $page := .page -}}
+{{- with $page.Params.citations -}}
+  <section id="how-to-cite" class="section section-band dataset-section">
+    <div class="shell page-shell">
+      <h2>{{ $page.Params.citation_title | default "How to cite" }}</h2>
+      {{- with $page.Params.citation_intro }}
+        <div class="dataset-section-copy prose">{{ $page.RenderString (dict "display" "block") . }}</div>
+      {{- end }}
+      <div class="resource-card citation-panel">
+        {{ partial "resources/citation-list.html" (dict "page" $page "citations" .) }}
+      </div>
+    </div>
+  </section>
+{{- end -}}
