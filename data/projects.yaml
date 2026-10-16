@@ -88,7 +88,7 @@ sections:
             person: true
           - image: "/images/new-partners/partners/axel-bisi.webp"
             alt: "Axel Bisi"
-            caption: "Axel Bisi - PhD student"
+            caption: "Axel Bisi"
             person: true
         lab:
           title: "About the Laboratory of Sensory Processing"

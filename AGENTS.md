@@ -51,6 +51,9 @@ Avoid pixel-perfect overfitting that makes templates hard to maintain.
 - Keep copy concise and scannable.
 - Keep partner and career paths clear and separate in messaging.
 
+For lab-member additions or caption edits on partner pages, use the
+[partner lab members skill](.agents/skills/partner-lab-members/SKILL.md).
+
 ## Expected Deliverables Per Coding Session
 
 - If changing IA/content structure:
