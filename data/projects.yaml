@@ -86,6 +86,10 @@ sections:
             alt: "Myriam Hamon"
             caption: "Myriam Hamon"
             person: true
+          - image: "/images/new-partners/partners/axel-bisi.webp"
+            alt: "Axel Bisi"
+            caption: "Axel Bisi - PhD student"
+            person: true
         lab:
           title: "About the Laboratory of Sensory Processing"
           institution: "EPFL Brain Mind Institute"
