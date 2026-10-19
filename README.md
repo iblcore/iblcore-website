@@ -140,11 +140,18 @@ Publication records and filter keywords are maintained in
 shared source.
 
 Approved outreach events are maintained in `data/events.yaml`. The `/events/`
-page provides List, Calendar, and Map views with a shared All/Upcoming/Past
-filter. Upcoming and Past status is classified in the browser from the
-visitor's current date, so the page stays correct between deployments; the
-build-time classification remains as the no-JavaScript fallback. List is the
-default view; Calendar opens at a month overview when selected, and
+page stacks Map, Calendar, and List sections, with one shared All/Upcoming/Past
+filter. Status uses the current date in `Europe/Paris`, independent of the
+visitor's time zone. Events remain Upcoming through their `end_date` and become
+Past at the following Paris midnight, including daylight-saving changes. The
+browser refreshes on page load, at that midnight, and on tab visibility/focus
+changes, updating list groups, badges, calendar counts and map markers without
+a deployment. JavaScript-disabled pages retain the Paris-date classification
+from their last Hugo build, so that fallback can age between deployments.
+GitHub Actions runs `scripts/check-events.mjs` on pull requests and pushes to
+`main`; browser-clock tests cover summer/winter midnight boundaries from other
+visitor time zones and stale build output. This is regression testing, not a
+scheduled status update or live monitoring service. Calendar starts at a month overview, and
 previous and next controls allow the user to navigate freely between calendar
 years. Selecting a month expands it into weeks and shows the event details
 below; the expanded view keeps the month and year centered between previous and

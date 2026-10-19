@@ -33,11 +33,6 @@
   <section class="page-controls" aria-label="Event display controls">
     <div class="shell page-shell page-controls__inner">
       <p>Explore events</p>
-      <div class="events-view-switch segmented-control" role="group" aria-label="Choose event view">
-        <button class="segmented-control__button is-active" type="button" aria-pressed="true" data-events-view-button="list">List</button>
-        <button class="segmented-control__button" type="button" aria-pressed="false" data-events-view-button="calendar" disabled hidden>Calendar</button>
-        <button class="segmented-control__button" type="button" aria-pressed="false" data-events-view-button="map" disabled hidden>Map</button>
-      </div>
       <div class="events-status-filter segmented-control" role="group" aria-label="Filter events by date status" data-events-enhanced-controls hidden>
         <button class="segmented-control__button is-active" type="button" aria-pressed="true" data-events-status-filter="all">All</button>
         <button class="segmented-control__button" type="button" aria-pressed="false" data-events-status-filter="upcoming">
@@ -56,9 +51,71 @@
     <div class="shell page-shell">
       <script type="application/json" data-events-data>{{ $events | jsonify | safeJS }}</script>
 
+      <div class="events-view-panel" data-events-view-panel="map" hidden>
+        <h2 class="events-section-title">Map</h2>
+        <div class="events-map world-map" data-events-map data-map-url="{{ "/data/world-countries-110m.json" | relURL }}">
+          <div class="events-map__toolbar world-map__toolbar">
+            <p>Select a marker to view events at that location. Online events are listed separately.</p>
+            <div class="events-map__online" hidden data-events-map-online>
+              <div class="events-map__online-list" data-events-map-online-list>
+                <button class="events-map__online-button events-map__online-button--empty" type="button" aria-label="Online events: 0 events" data-events-map-online-button>
+                  <span class="events-map__online-count" aria-hidden="true">0</span>
+                  <span>Online events</span>
+                </button>
+              </div>
+            </div>
+            <div class="world-map__controls" aria-label="Map zoom controls">
+              <button type="button" data-events-map-zoom="in" aria-label="Zoom in">+</button>
+              <button type="button" data-events-map-zoom="out" aria-label="Zoom out">&minus;</button>
+              <button type="button" data-events-map-zoom="reset">Reset</button>
+            </div>
+          </div>
+          <div class="world-map__canvas">
+            <svg role="img" aria-label="World map showing IBL Core event locations" data-events-map-svg></svg>
+            <div class="events-map__tooltip world-map__tooltip" role="status" hidden data-events-map-tooltip></div>
+            <p class="events-map__empty" hidden data-events-map-empty>No events match this filter.</p>
+          </div>
+        </div>
+        <div class="events-selection" aria-live="polite" hidden data-map-selection></div>
+      </div>
+
+      <div class="events-view-panel" data-events-view-panel="calendar" hidden>
+        <h2 class="events-section-title">Calendar</h2>
+        <div class="events-calendar" data-events-calendar>
+          <div class="events-calendar__overview" data-calendar-overview>
+            <div class="events-calendar__overview-heading">
+              <p>Choose a month</p>
+              <p>Month counts follow the selected event filter.</p>
+            </div>
+            <div class="events-calendar__year-navigation events-calendar__navigation" aria-label="Choose calendar year">
+              <button class="events-calendar__navigation-button" type="button" aria-label="Show previous year" data-calendar-year-change="-1">&larr;</button>
+              <h2 class="events-calendar__navigation-title" aria-live="polite" data-calendar-year-label></h2>
+              <button class="events-calendar__navigation-button" type="button" aria-label="Show next year" data-calendar-year-change="1">&rarr;</button>
+            </div>
+            <div class="events-calendar__months" data-calendar-months></div>
+          </div>
+          <div class="events-calendar__expanded" data-calendar-expanded hidden>
+            <div class="events-calendar__toolbar">
+              <button type="button" data-calendar-overview-button>&larr; All months</button>
+              <div class="events-calendar__month-navigation events-calendar__navigation" aria-label="Choose calendar month">
+                <button class="events-calendar__navigation-button" type="button" aria-label="Show previous month" data-calendar-month-change="-1">&larr;</button>
+                <h2 class="events-calendar__navigation-title" aria-live="polite" data-calendar-title></h2>
+                <button class="events-calendar__navigation-button" type="button" aria-label="Show next month" data-calendar-month-change="1">&rarr;</button>
+              </div>
+              <span aria-hidden="true"></span>
+            </div>
+            <p class="visually-hidden" id="events-calendar-description">
+              This visual calendar is followed by an accessible list of every event in the selected month.
+            </p>
+            <div class="events-calendar__viewport" data-calendar-grid></div>
+          </div>
+        </div>
+        <div class="events-selection" role="region" aria-live="polite" aria-labelledby="events-calendar-selection-title" hidden data-calendar-selection></div>
+      </div>
+
       <div class="events-view-panel events-view-panel--list" data-events-view-panel="list">
-        <h2 class="visually-hidden">Event list</h2>
-        {{ $today := now.Format "2006-01-02" }}
+        <h2 class="events-section-title">Event list</h2>
+        {{ $today := (time.In "Europe/Paris" now).Format "2006-01-02" }}
         {{ $upcoming := slice }}
         {{ $past := slice }}
         {{ range $events }}
@@ -102,66 +159,6 @@
             {{ end }}
           </div>
         </section>
-      </div>
-
-      <div class="events-view-panel" data-events-view-panel="calendar" hidden>
-        <div class="events-calendar" data-events-calendar>
-          <div class="events-calendar__overview" data-calendar-overview>
-            <div class="events-calendar__overview-heading">
-              <p>Choose a month</p>
-              <p>Month counts follow the selected event filter.</p>
-            </div>
-            <div class="events-calendar__year-navigation events-calendar__navigation" aria-label="Choose calendar year">
-              <button class="events-calendar__navigation-button" type="button" aria-label="Show previous year" data-calendar-year-change="-1">&larr;</button>
-              <h2 class="events-calendar__navigation-title" aria-live="polite" data-calendar-year-label></h2>
-              <button class="events-calendar__navigation-button" type="button" aria-label="Show next year" data-calendar-year-change="1">&rarr;</button>
-            </div>
-            <div class="events-calendar__months" data-calendar-months></div>
-          </div>
-          <div class="events-calendar__expanded" data-calendar-expanded hidden>
-            <div class="events-calendar__toolbar">
-              <button type="button" data-calendar-overview-button>&larr; All months</button>
-              <div class="events-calendar__month-navigation events-calendar__navigation" aria-label="Choose calendar month">
-                <button class="events-calendar__navigation-button" type="button" aria-label="Show previous month" data-calendar-month-change="-1">&larr;</button>
-                <h2 class="events-calendar__navigation-title" aria-live="polite" data-calendar-title></h2>
-                <button class="events-calendar__navigation-button" type="button" aria-label="Show next month" data-calendar-month-change="1">&rarr;</button>
-              </div>
-              <span aria-hidden="true"></span>
-            </div>
-            <p class="visually-hidden" id="events-calendar-description">
-              This visual calendar is followed by an accessible list of every event in the selected month.
-            </p>
-            <div class="events-calendar__viewport" data-calendar-grid></div>
-          </div>
-        </div>
-        <div class="events-selection" role="region" aria-live="polite" aria-labelledby="events-calendar-selection-title" hidden data-calendar-selection></div>
-      </div>
-
-      <div class="events-view-panel" data-events-view-panel="map" hidden>
-        <div class="events-map world-map" data-events-map data-map-url="{{ "/data/world-countries-110m.json" | relURL }}">
-          <div class="events-map__toolbar world-map__toolbar">
-            <p>Select a marker to view events at that location. Online events are listed separately.</p>
-            <div class="events-map__online" hidden data-events-map-online>
-              <div class="events-map__online-list" data-events-map-online-list>
-                <button class="events-map__online-button events-map__online-button--empty" type="button" aria-label="Online events: 0 events" data-events-map-online-button>
-                  <span class="events-map__online-count" aria-hidden="true">0</span>
-                  <span>Online events</span>
-                </button>
-              </div>
-            </div>
-            <div class="world-map__controls" aria-label="Map zoom controls">
-              <button type="button" data-events-map-zoom="in" aria-label="Zoom in">+</button>
-              <button type="button" data-events-map-zoom="out" aria-label="Zoom out">&minus;</button>
-              <button type="button" data-events-map-zoom="reset">Reset</button>
-            </div>
-          </div>
-          <div class="world-map__canvas">
-            <svg role="img" aria-label="World map showing IBL Core event locations" data-events-map-svg></svg>
-            <div class="events-map__tooltip world-map__tooltip" role="status" hidden data-events-map-tooltip></div>
-            <p class="events-map__empty" hidden data-events-map-empty>No events match this filter.</p>
-          </div>
-        </div>
-        <div class="events-selection" aria-live="polite" hidden data-map-selection></div>
       </div>
 
       <div hidden aria-hidden="true">

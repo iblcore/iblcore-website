@@ -1,5 +1,12 @@
-.events-view-switch {
-  --segmented-control-button-min-width: 6.25rem;
+.events-view-panel + .events-view-panel {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+}
+
+.events-section-title {
+  margin: 0 0 1rem;
+  color: var(--color-surface);
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 500;
 }
 
 .events-calendar__month-status::before {
@@ -264,6 +271,7 @@
 
 .events-calendar__overview-heading p {
   margin: 0;
+  color: var(--color-accent);
 }
 
 .events-calendar__overview-heading p:first-child {
@@ -660,14 +668,12 @@
     text-align: center;
   }
 
-  .events-view-switch,
   .events-status-filter {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     width: 100%;
   }
 
-  .events-view-switch .segmented-control__button,
   .events-status-filter .segmented-control__button {
     min-width: 0;
     padding-right: 0.45rem;
