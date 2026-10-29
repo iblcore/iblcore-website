@@ -1,6 +1,5 @@
 document.querySelectorAll("[data-events-browser]").forEach((browser) => {
   const page = browser.closest("[data-events-page]") || document;
-  const viewButtons = Array.from(page.querySelectorAll("[data-events-view-button]"));
   const filterControls = page.querySelector("[data-events-enhanced-controls]");
   const filterButtons = Array.from(page.querySelectorAll("[data-events-status-filter]"));
   const dataScript = browser.querySelector("[data-events-data]");
@@ -22,22 +21,30 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
     const [year, month, day] = value.split("-").map(Number);
     return new Date(year, month - 1, day, 12);
   };
+  // Calendar cells are date-only values constructed in the visitor's zone.
   const dayKey = (date) => [
     date.getFullYear(),
     String(date.getMonth() + 1).padStart(2, "0"),
     String(date.getDate()).padStart(2, "0"),
   ].join("-");
+  const parisDateFormatter = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Europe/Paris", year: "numeric", month: "2-digit", day: "2-digit",
+  });
+  const parisDayKey = (date) => {
+    const parts = Object.fromEntries(parisDateFormatter.formatToParts(date).map(({ type, value }) => [type, value]));
+    return `${parts.year}-${parts.month}-${parts.day}`;
+  };
+  let currentDay = parisDayKey(new Date());
   // Coordinates are validated at build time (Hugo template and scripts/check-events-data.mjs).
   const isOnlineEvent = (event) => event.format === "online";
   const events = rawEvents.map((event) => ({
     ...event,
     start: parseDate(event.start_date),
     end: parseDate(event.end_date),
-    status: event.end_date < dayKey(new Date()) ? "past" : "upcoming",
+    status: event.end_date < currentDay ? "past" : "upcoming",
   }));
   const viewPanels = Array.from(browser.querySelectorAll("[data-events-view-panel]"));
   const statusGroups = Array.from(browser.querySelectorAll("[data-events-status-group]"));
-  const readyViews = new Set(["list"]);
   let activeStatusFilter = "all";
   let activeCalendarMonth = null;
   let activeCalendarYear = new Date().getFullYear();
@@ -46,35 +53,12 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
     activeStatusFilter === "all" || event.status === activeStatusFilter
   ));
 
-  const setView = (view) => {
-    if (!readyViews.has(view)) return;
-
-    viewButtons.forEach((button) => {
-      const isActive = button.dataset.eventsViewButton === view;
-      button.classList.toggle("is-active", isActive);
-      button.setAttribute("aria-pressed", String(isActive));
-    });
-    viewPanels.forEach((panel) => {
-      panel.hidden = panel.dataset.eventsViewPanel !== view;
-    });
-    if (view === "map") window.dispatchEvent(new CustomEvent("events-map:shown"));
-  };
-
   const enableView = (view) => {
-    readyViews.add(view);
-    viewButtons
-      .filter((button) => button.dataset.eventsViewButton === view)
-      .forEach((button) => {
-        button.disabled = false;
-        button.hidden = false;
-      });
+    const panel = viewPanels.find((panel) => panel.dataset.eventsViewPanel === view);
+    if (panel) panel.hidden = false;
   };
 
   if (filterControls) filterControls.hidden = false;
-
-  viewButtons.forEach((button) => {
-    button.addEventListener("click", () => setView(button.dataset.eventsViewButton));
-  });
 
   const eventsById = new Map(events.map((event) => [event.id, event]));
   const statusLabels = { upcoming: "Upcoming", past: "Past" };
@@ -122,7 +106,7 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
     upcoming: "No upcoming outreach events are currently scheduled.",
     past: "No past outreach events are listed yet.",
   };
-  statusGroups.forEach((group) => {
+  const renderList = () => statusGroups.forEach((group) => {
     const status = group.dataset.eventsStatusGroup;
     const list = group.querySelector("[data-events-status-list]");
     const count = group.querySelector("[data-events-status-count]");
@@ -134,7 +118,9 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
     if (count) count.textContent = `${groupEvents.length} event${groupEvents.length === 1 ? "" : "s"}`;
   });
 
-  // Profile pages link to /events/#event-<id>; keep the List view and focus that card.
+  renderList();
+
+  // Profile pages link to /events/#event-<id>; focus the canonical list card.
   const linkedEventPrefix = "#event-";
   const linkedEvent = window.location.hash.startsWith(linkedEventPrefix)
     ? eventsById.get(decodeURIComponent(window.location.hash.slice(linkedEventPrefix.length)))
@@ -142,7 +128,6 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
   const openLinkedEvent = () => {
     const card = browser.querySelector(`[data-events-view-panel="list"] [data-event-card-id="${linkedEvent.id}"]`);
     if (!card) return;
-    setView("list");
     card.scrollIntoView({ block: "center" });
     card.setAttribute("tabindex", "-1");
     card.focus({ preventScroll: true });
@@ -381,7 +366,6 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
 
   if (renderMonthOverview()) {
     enableView("calendar");
-    setView("list");
   }
   if (linkedEvent) window.requestAnimationFrame(openLinkedEvent);
 
@@ -402,6 +386,34 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
 
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => setStatusFilter(button.dataset.eventsStatusFilter));
+  });
+
+  // Schedule the next Paris date boundary, including 23/25-hour DST days.
+  // Refresh on return too, since browsers can suspend timers in inactive tabs.
+  let midnightTimer;
+  const refreshDate = () => {
+    window.clearTimeout(midnightTimer);
+    const now = Date.now();
+    const today = parisDayKey(new Date(now));
+    if (today !== currentDay) {
+      currentDay = today;
+      events.forEach((event) => { event.status = event.end_date < today ? "past" : "upcoming"; });
+      renderList();
+      setStatusFilter(activeStatusFilter);
+    }
+    let before = now;
+    let after = now + 27 * 60 * 60 * 1000;
+    while (after - before > 1) {
+      const middle = Math.floor((before + after) / 2);
+      if (parisDayKey(new Date(middle)) === today) before = middle;
+      else after = middle;
+    }
+    midnightTimer = window.setTimeout(refreshDate, after - now);
+  };
+  refreshDate();
+  window.addEventListener("focus", refreshDate);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) refreshDate();
   });
 
   const mapRoot = browser.querySelector("[data-events-map]");
@@ -562,13 +574,13 @@ document.querySelectorAll("[data-events-browser]").forEach((browser) => {
     .then((features) => {
       worldFeatures = features;
       enableView("map");
+      renderMap();
     })
     .catch(() => {
       mapRoot.classList.add("has-map-error");
     });
 
   worldMap.observeResize(canvas, renderMap);
-  window.addEventListener("events-map:shown", () => window.requestAnimationFrame(renderMap));
   window.addEventListener("events-filter:changed", () => {
     mapSelection.hidden = true;
     onlineSelectionActive = false;

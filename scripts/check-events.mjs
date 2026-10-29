@@ -104,23 +104,21 @@ const newTestPage = async () => {
 
 try {
   const page = await newTestPage();
+  page.on("pageerror", (error) => console.error(error));
   await page.goto(`${origin}/events/`, { waitUntil: "networkidle" });
 
-  const listButton = page.locator('[data-events-view-button="list"]');
-  const calendarButton = page.locator('[data-events-view-button="calendar"]');
-  const mapButton = page.locator('[data-events-view-button="map"]');
-  await calendarButton.waitFor({ state: "visible" });
-  assert(await calendarButton.isEnabled(), "Calendar did not become available.");
-  assert(await listButton.getAttribute("aria-pressed") === "true", "List did not remain the default enhanced view.");
-  assert(await page.locator('[data-events-view-panel="list"]').isVisible(), "The default Event list is not visible.");
-  assert(await calendarButton.getAttribute("aria-pressed") === "false", "Calendar replaced the default List view.");
+  const calendarPanel = page.locator('[data-events-view-panel="calendar"]');
+  const mapPanel = page.locator('[data-events-view-panel="map"]');
+  await calendarPanel.waitFor({ state: "visible" });
+  await mapPanel.waitFor({ state: "visible" });
+  assert(await page.locator('[data-events-view-button]').count() === 0, "The old view switch remains.");
+  const panelOrder = await page.locator('[data-events-view-panel]').evaluateAll((panels) => panels.map((panel) => panel.dataset.eventsViewPanel));
+  assert(panelOrder.join(",") === "map,calendar,list", "Events sections are not ordered Map, Calendar, List.");
+  assert(await page.locator('[data-events-view-panel="list"]').isVisible(), "The event list is not visible alongside the map and calendar.");
   const acneiEventCard = page.locator("#event-neural-modelling-ibl-brain-wide-map-2026");
   assert((await acneiEventCard.locator(".event-card__topic").textContent()).includes("15 October 2026"), "The ACNEI application deadline is missing.");
   assert(await acneiEventCard.locator('a[href="https://www.acnei.org/apply/ibl"]').textContent() === "Apply by 15 October", "The ACNEI application link is missing.");
   assert(await acneiEventCard.locator('a[href="https://www.acnei.org/programs/ibl"]').textContent() === "Programme details", "The ACNEI programme link is missing.");
-  await mapButton.waitFor({ state: "visible" });
-  assert(await mapButton.isEnabled(), "Map did not become available after its data loaded.");
-  await mapButton.click();
   const onlineButton = page.locator("[data-events-map-online-button]");
   await onlineButton.waitFor({ state: "visible" });
   await onlineButton.click();
@@ -151,13 +149,12 @@ try {
   const upcomingFilter = page.locator('[data-events-status-filter="upcoming"]');
   await upcomingFilter.click();
   assert(await upcomingFilter.getAttribute("aria-pressed") === "true", "The Upcoming filter is not interactive.");
-  const upcomingTop = await page.locator('[data-events-status-group="upcoming"]').evaluate((element) => element.getBoundingClientRect().top);
+  const upcomingTop = await page.locator('[data-events-status-group="upcoming"]').evaluate((element) => element.getBoundingClientRect().top - element.closest("[data-events-view-panel]").getBoundingClientRect().top);
   const pastFilter = page.locator('[data-events-status-filter="past"]');
   await pastFilter.click();
-  const pastTop = await page.locator('[data-events-status-group="past"]').evaluate((element) => element.getBoundingClientRect().top);
+  const pastTop = await page.locator('[data-events-status-group="past"]').evaluate((element) => element.getBoundingClientRect().top - element.closest("[data-events-view-panel]").getBoundingClientRect().top);
   assert(Math.abs(upcomingTop - pastTop) < 1, "Upcoming and Past lists do not start at the same vertical position.");
   await upcomingFilter.click();
-  await calendarButton.click();
   await page.locator('button[aria-label^="November 2026,"]').click();
   const calendarGroup = page.locator('.events-calendar__grid[role="group"]');
   assert(await calendarGroup.count() === 1, "The expanded calendar is not exposed as an accessible group.");
@@ -175,8 +172,7 @@ try {
 
   const multiweekPage = await newTestPage();
   await multiweekPage.goto(`${origin}/events/?multiweek-events=1`, { waitUntil: "networkidle" });
-  await multiweekPage.locator('[data-events-view-button="calendar"]').waitFor({ state: "visible" });
-  await multiweekPage.locator('[data-events-view-button="calendar"]').click();
+  await multiweekPage.locator('[data-events-view-panel="calendar"]').waitFor({ state: "visible" });
   await multiweekPage.locator('button[aria-label^="July 2026,"]').click();
   assert(await multiweekPage.locator('[data-calendar-event-id="multi-week-test"]').count() === 2, "A multi-week event did not render all calendar segments.");
   assert(await multiweekPage.locator('button[data-calendar-event-id="multi-week-test"]').count() === 1, "A multi-week event rendered multiple interactive buttons.");
@@ -185,7 +181,6 @@ try {
 
   const stalePage = await newTestPage();
   await stalePage.goto(`${origin}/events/?stale-events=1`, { waitUntil: "networkidle" });
-  await stalePage.locator('[data-events-view-button="list"]').click();
   const staleData = JSON.parse(await stalePage.locator("[data-events-data]").textContent());
   const expectedPast = staleData.filter((event) => event.end_date < testDate).length;
   assert(expectedPast > 0, "The stale-build check needs at least one past event in the data.");
@@ -199,19 +194,43 @@ try {
   const fallbackPage = await newTestPage();
   await fallbackPage.goto(`${origin}/events/?invalid-events=1`, { waitUntil: "networkidle" });
   assert(await fallbackPage.locator('[data-events-view-panel="list"]').isVisible(), "List fallback is not visible when event data is invalid.");
-  assert(await fallbackPage.locator('[data-events-view-button="list"]').getAttribute("aria-pressed") === "true", "List is not the fallback view.");
-  assert(await fallbackPage.locator('[data-events-view-button="calendar"]').isHidden(), "Unavailable Calendar control should stay hidden.");
-  assert(await fallbackPage.locator('[data-events-view-button="map"]').isHidden(), "Unavailable Map control should stay hidden.");
+  assert(await fallbackPage.locator('[data-events-view-panel="calendar"]').isHidden(), "Unavailable Calendar should stay hidden.");
+  assert(await fallbackPage.locator('[data-events-view-panel="map"]').isHidden(), "Unavailable Map should stay hidden.");
   assert(await fallbackPage.locator("[data-events-enhanced-controls]").isHidden(), "Unavailable filters should stay hidden.");
   await fallbackPage.close();
 
   const mapFallbackPage = await newTestPage();
   await mapFallbackPage.route("**/data/world-countries-110m.json", (route) => route.abort());
   await mapFallbackPage.goto(`${origin}/events/`, { waitUntil: "networkidle" });
-  await mapFallbackPage.locator('[data-events-view-button="calendar"]').waitFor({ state: "visible" });
-  assert(await mapFallbackPage.locator('[data-events-view-button="list"]').getAttribute("aria-pressed") === "true", "List should remain the default when the map fails.");
-  assert(await mapFallbackPage.locator('[data-events-view-button="map"]').isHidden(), "Unavailable Map control should stay hidden when map data fails.");
+  await mapFallbackPage.locator('[data-events-view-panel="calendar"]').waitFor({ state: "visible" });
+  assert(await mapFallbackPage.locator('[data-events-view-panel="list"]').isVisible(), "List should remain visible when the map fails.");
+  assert(await mapFallbackPage.locator('[data-events-view-panel="map"]').isHidden(), "Unavailable Map should stay hidden when map data fails.");
   await mapFallbackPage.close();
+
+  // Test both Paris offsets from distant visitor time zones. No reload or build
+  // occurs as the clock crosses midnight on the final day of a multi-day event.
+  for (const { endDate, midnight, timezoneId } of [
+    { endDate: "2026-07-10", midnight: "2026-07-10T22:00:00Z", timezoneId: "America/Los_Angeles" },
+    { endDate: "2026-11-26", midnight: "2026-11-26T23:00:00Z", timezoneId: "Asia/Tokyo" },
+  ]) {
+    const boundaryPage = await browser.newPage({ timezoneId });
+    const boundary = Date.parse(midnight);
+    await boundaryPage.clock.install({ time: boundary - 1000 });
+    await boundaryPage.clock.pauseAt(boundary - 1000);
+    await boundaryPage.goto(`${origin}/events/?stale-events=1`, { waitUntil: "networkidle" });
+    const data = JSON.parse(await boundaryPage.locator("[data-events-data]").textContent());
+    const event = data.find((event) => event.end_date === endDate);
+    const card = boundaryPage.locator(`#event-${event.id}`);
+    assert(await card.locator('.event-card__status--upcoming').count() === 1, `${endDate}: event became Past before Paris midnight.`);
+    await boundaryPage.locator('[data-events-status-filter="upcoming"]').click();
+    await boundaryPage.clock.runFor(1000);
+    assert(await boundaryPage.locator(`[data-events-status-group="past"] #event-${event.id}`).count() === 1, `${endDate}: event did not move at Paris midnight.`);
+    assert(await card.locator('.event-card__status--past').count() === 1, `${endDate}: badge did not update at Paris midnight.`);
+    assert(await card.isHidden(), "Midnight refresh did not preserve the Upcoming filter.");
+    await boundaryPage.locator('[data-events-status-filter="past"]').click();
+    assert(await card.isVisible(), "Event is not visible after selecting Past.");
+    await boundaryPage.close();
+  }
 
   const partnersPage = await newTestPage();
   await partnersPage.goto(`${origin}/new-partner-projects/`, { waitUntil: "networkidle" });
@@ -289,8 +308,8 @@ try {
 
   const linkedEventPage = await newTestPage();
   await linkedEventPage.goto(`${origin}/events/#event-rse-romandie-2026`, { waitUntil: "networkidle" });
-  await linkedEventPage.locator('[data-events-view-button="calendar"]').waitFor({ state: "visible" });
-  assert(await linkedEventPage.locator('[data-events-view-button="list"]').getAttribute("aria-pressed") === "true", "A linked event should open in the List view.");
+  await linkedEventPage.locator('[data-events-view-panel="calendar"]').waitFor({ state: "visible" });
+  assert(await linkedEventPage.locator('[data-events-view-panel="list"]').isVisible(), "A linked event's list should be visible.");
   assert(await linkedEventPage.locator('[id^="event-"]').count() === eventData.length, "Every event should have exactly one anchor in the document.");
   assert(await linkedEventPage.locator("#event-rse-romandie-2026").evaluate((card) => card === document.activeElement), "The linked event card should receive focus.");
   await linkedEventPage.close();

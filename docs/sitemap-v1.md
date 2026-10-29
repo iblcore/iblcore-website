@@ -113,9 +113,9 @@ Includes:
 
 Includes:
 - One page, with approved outreach-event records maintained in `data/events.yaml`
-- Interior pages use the shared About-style white title above a translucent dark-blue introduction banner, with shared dark-blue button bars (see `docs/page-template.md`). Events and Partners retain their existing background image and view/category controls.
-- A concise introduction followed by adjacent List/Calendar/Map view controls and All/Upcoming/Past filters
-- List as the default view and progressive fallback, with Calendar and Map available as enhanced alternatives
+- Interior pages use the shared About-style white title above a translucent dark-blue introduction banner, with shared dark-blue button bars (see `docs/page-template.md`). Events and Partners retain their existing background image and date/category filters.
+- A concise introduction followed by a shared All/Upcoming/Past filter; no view-switch buttons
+- Map, Calendar, and List stacked in that order; List remains the progressive fallback when JavaScript is unavailable
 - A month-level calendar overview showing one year at a time, with previous/next year controls for navigating freely through past and future years; selecting a month expands it into a Monday-Sunday calendar and displays that month's event details below, with a centered month-and-year carousel for moving directly to the previous or next month
 - Multi-day events render as one clickable calendar bar spanning their dates within a week, rather than repeating the event in every day cell
 - A List view that clearly separates Upcoming and Past events
@@ -123,7 +123,8 @@ Includes:
 - Online events appear as one clickable button within the map toolbar rather than using a misleading physical marker; its map-marker-sized, status-colored count dot shows how many filtered online events it represents, remains visible with `0` when no online events match, and selection reveals those events below the map
 - Event cards may provide multiple labelled action links for applications, programme details, or other event resources
 - Event records may identify co-organisers (Partner or Affiliate records) and link directly to their profile; each profile lists the events it co-organises and links back to the anchored event card
-- Upcoming events use the global Partner blue and Past events use the global Affiliate pink in calendar and map views; the status filter persists when switching views
+- Upcoming events use the global Partner blue and Past events use the global Affiliate pink in calendar and map views; the shared status filter applies to all three sections
+- Events remain Upcoming through their final date and become Past at the following midnight in Europe/Paris; the browser refreshes on load, at midnight, and when returning to the tab, independently of deployments
 
 ### 2.7 News (`/news/`)
 

@@ -1,7 +1,7 @@
 {{- $event := . -}}
 {{- $start := time.AsTime $event.start_date -}}
 {{- $end := time.AsTime $event.end_date -}}
-{{- $isPast := lt $event.end_date (now.Format "2006-01-02") -}}
+{{- $isPast := lt $event.end_date ((time.In "Europe/Paris" now).Format "2006-01-02") -}}
 <article class="event-card" id="event-{{ $event.id }}" data-event-card-id="{{ $event.id }}" data-event-end="{{ $event.end_date }}">
   <div class="event-card__date" aria-hidden="true">
     <span class="event-card__month">{{ $start.Format "Jan" }}</span>
