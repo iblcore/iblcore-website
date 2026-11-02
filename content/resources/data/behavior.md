@@ -96,4 +96,5 @@ access:
 
 access_guides:
   one: "https://docs.internationalbrainlab.org/notebooks_external/2021_data_release_behavior.html"
+  dandi: "https://dandiarchive.org/dandiset/000045"
 ---

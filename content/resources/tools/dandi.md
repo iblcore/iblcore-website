@@ -11,6 +11,8 @@ stage:
 access:
   - "dandi"
 
+guide_action: "Open dandiset"
+
 maintainer: "DANDI Archive"
 
 links:

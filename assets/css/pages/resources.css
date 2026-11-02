@@ -379,15 +379,6 @@
   color: var(--color-accent-tint-70);
 }
 
-.guide-card__about {
-  margin-top: auto;
-  padding-top: var(--space-md);
-  align-self: flex-end;
-  color: var(--color-accent);
-  font-size: 0.85rem;
-  font-weight: 700;
-}
-
 /* The dataset page's panel gives each row room to say what the route is best
    for, which the card has no space for. */
 .get-data-panel {
@@ -1068,5 +1059,38 @@
 @media (prefers-reduced-motion: reduce) {
   .bwb-link {
     transition: none;
+  }
+}
+
+/* A tool page shows its interface before it explains it: the figures sit in one
+   row across the band, and the copy that describes them follows underneath.
+   The column count comes from the template because it is the number of figures
+   the page happens to carry, not a fixed shape. */
+.resource-gallery {
+  display: grid;
+  grid-template-columns: repeat(var(--resource-gallery-columns, 3), minmax(0, 1fr));
+  gap: var(--space-xl);
+  align-items: start;
+  margin-bottom: var(--space-2xl);
+}
+
+/* Gathered below the figures, the entries read as a list of things you can do
+   rather than as captions, so they take columns of their own and wrap to as
+   many as the measure allows. */
+.resource-showcase {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: var(--space-xl);
+}
+
+.resource-showcase__item > :first-child {
+  margin-top: 0;
+}
+
+@media (max-width: 760px) {
+  /* Three screenshots side by side are already small on a desktop band; across
+     a phone they would be unreadable, so they stack at full width. */
+  .resource-gallery {
+    grid-template-columns: 1fr;
   }
 }

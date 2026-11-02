@@ -48,22 +48,37 @@ export async function checkWorkflowPage(browser, origin) {
       "The step card did not describe the dataset.",
     );
 
-    // Each dataset card offers one row per access route, and the row either
-    // links its guide or says the guide is still to come.
+    // Each dataset card offers one row per access route, and the row links
+    // wherever that route sends you for this dataset: a tutorial for ONE, the
+    // archive record for DANDI, the repository for the agent. The verb naming
+    // the destination belongs to the route, not to the row.
     assert.equal(
       await card("brainwide-map").locator(".guide-row").count(),
       3,
       "The Brainwide Map is published through three routes, so it needs three guide rows.",
     );
-    assert.equal(
-      await guideRow("brainwide-map", "ONE").locator("a.guide-action--ready").getAttribute("href"),
-      "https://docs.internationalbrainlab.org/notebooks_external/data_release_brainwidemap.html",
-      "The ONE guide row did not link the guide from the dataset's access_guides.",
-    );
-    assert(
-      await guideRow("brainwide-map", "DANDI & NWB").locator(".guide-action--pending").isVisible(),
-      "A route with no guide yet should still have a row saying so.",
-    );
+    const destinations = [
+      [
+        "ONE",
+        "https://docs.internationalbrainlab.org/notebooks_external/data_release_brainwidemap.html",
+        "Open guide",
+      ],
+      ["DANDI & NWB", "https://dandiarchive.org/dandiset/000409", "Open dandiset"],
+      ["IBL-AI-Agent", "https://github.com/int-brain-lab/ibl-ai-agent/", "Open on GitHub"],
+    ];
+    for (const [route, href, verb] of destinations) {
+      const action = guideRow("brainwide-map", route).locator("a.guide-action--ready");
+      assert.equal(
+        await action.getAttribute("href"),
+        href,
+        `The ${route} row did not link where that route sends you for this dataset.`,
+      );
+      assert.equal(
+        (await action.textContent()).trim(),
+        `${verb} for Brainwide Map via ${route}`,
+        `The ${route} row did not name its destination with that route's own verb.`,
+      );
+    }
     assert.equal(
       await card("widefield").locator(".guide-row").count(),
       1,

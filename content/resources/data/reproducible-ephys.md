@@ -56,13 +56,13 @@ about:
 
 explore:
   heading: "Explore it in your browser"
-  description: "The repeated-site recordings are in the IBL Data Explorer alongside the Brainwide Map. Switch the session selector to Repeated sites to narrow it to this dataset."
+  description: "The repeated-site recordings sit in the Brainwide Map Explorer alongside the Brainwide Map itself. Switch the session selector to Repeated sites to narrow it to this dataset."
   highlights:
     - "Compare the same target location across twelve laboratories"
     - "Open any session to see where its probe actually landed"
     - "Step through a probe's units and their activity"
   link: "https://viz.internationalbrainlab.org"
-  link_text: "Open the IBL data explorer"
+  link_text: "Open the Brainwide Map Explorer"
 
 citation_title: "How to cite"
 citation_intro: |

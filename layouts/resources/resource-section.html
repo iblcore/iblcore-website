@@ -4,7 +4,7 @@
   <section class="section section-band dataset-section">
     <div class="shell page-shell">
       {{ partial "resources/resource-grid.html" (dict
-        "pages" .Pages
+        "pages" (partial "resources/ibl-maintained.html" .Pages)
         "empty" (printf "No %s are listed yet." (lower .Title))
       ) }}
     </div>

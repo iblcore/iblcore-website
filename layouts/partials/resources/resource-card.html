@@ -22,9 +22,10 @@
        publishes its own in the same form the references use. */ -}}
 {{- $path := strings.TrimSuffix "/" $page.RelPermalink -}}
 {{- $comingSoon := eq ($page.Params.status | default "released") "coming-soon" -}}
-{{- /* A dataset card lists a guide per access route, so it holds links of its
-       own and cannot also be one big link. Every other card stays a single
-       click target. */ -}}
+{{- /* A dataset card lists a guide per access route, which is the only
+       thing that sets it apart here. Every card, this one included, is a
+       single click target: the title's link is stretched over the whole card
+       in CSS, and the links inside ride above it. */ -}}
 {{- $isDataset := and (eq $type "data") (not $comingSoon) -}}
 {{- /* Every element is flattened to a string before joining: appending a
        front matter list to a slice drops it silently, which left the tags out
@@ -79,15 +80,11 @@
           {{ end }}
         </div>
       {{ end }}
-      {{ with $page.Params.maintainer }}
+      {{ with partial "resources/third-party-maintainer.html" $page }}
         <p class="resource-card__maintainer">Maintained by {{ . }}</p>
       {{ end }}
     {{ end }}
 
-    {{ if $isDataset }}
-      <a class="guide-card__about" href="{{ $page.RelPermalink }}">About this dataset</a>
-    {{ else }}
-      <p class="resource-card__cta" aria-hidden="true">Learn more →</p>
-    {{ end }}
+    <p class="resource-card__cta" aria-hidden="true">Learn more →</p>
   </div>
 </article>

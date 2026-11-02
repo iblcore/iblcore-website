@@ -40,5 +40,5 @@ steps:
       - "/resources/tools/data-explorer"
     note: |
       Datoviz renders large datasets interactively from your own code. To look
-      at recordings without writing any, open the IBL Data Explorer.
+      at recordings without writing any, open the Brainwide Map Explorer.
 ---

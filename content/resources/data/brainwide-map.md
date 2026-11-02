@@ -69,17 +69,17 @@ about:
 
 explore:
   heading: "Explore it in your browser"
-  description: "No install, no download, no account. The BWM data explorer opens the whole dataset - 699 insertions, every session - for anyone to look through."
+  description: "No install, no download, no account. The Brainwide Map Explorer opens the whole dataset - 699 insertions, every session - for anyone to look through."
   highlights:
     - "Watch a short video explaining the task"
     - "Search by lab, subject or brain region, or pick an insertion from the 3D brain"
     - "Open any probe to see its units and their activity"
   link: "https://viz.internationalbrainlab.org"
-  link_text: "Open the BWM data explorer"
+  link_text: "Open the Brainwide Map Explorer"
   figure:
     tone: "light"
     src: "images/brainwide-map-explorer.jpg"
-    alt: "The Data Explorer's session selector: a three-dimensional mouse brain holding every probe insertion, with one picked out and a table beside it listing that probe's lab, unit count, spike count and trial count."
+    alt: "The Brainwide Map Explorer's session selector: a three-dimensional mouse brain holding every probe insertion, with one picked out and a table beside it listing that probe's lab, unit count, spike count and trial count."
     caption: "Every insertion in one view; select one to see that probe's recordings."
 
 modality:
@@ -123,4 +123,6 @@ access:
 
 access_guides:
   one: "https://docs.internationalbrainlab.org/notebooks_external/data_release_brainwidemap.html"
+  dandi: "https://dandiarchive.org/dandiset/000409"
+  ibl-ai-agent: "https://github.com/int-brain-lab/ibl-ai-agent/"
 ---

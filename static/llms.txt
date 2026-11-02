@@ -28,7 +28,7 @@ Use the canonical pages below for current public information about IBL-Core.
 ### Datasets
 
 - [Datasets](https://iblcore.org/resources/data/): Every released IBL dataset, with the access routes available for each.
-- [Brainwide Map](https://iblcore.org/resources/data/brainwide-map/): 699 Neuropixels insertions across 241 brain areas during decision-making, with access guides and the data explorer.
+- [Brainwide Map](https://iblcore.org/resources/data/brainwide-map/): 699 Neuropixels insertions across 241 brain areas during decision-making, with access guides and the Brainwide Map Explorer.
 - [Reproducible Ephys](https://iblcore.org/resources/data/reproducible-ephys/): Multi-lab Neuropixels dataset testing the reproducibility of electrophysiology recordings.
 - [Behavior](https://iblcore.org/resources/data/behavior/): Behavioral data from mice learning and performing IBL's standardized visual decision-making task.
 - [Aging](https://iblcore.org/resources/data/aging/): Neuropixels and behavioral data from mice aged 3 to 20 months performing IBL's standardized decision-making task.
@@ -45,7 +45,7 @@ Use the canonical pages below for current public information about IBL-Core.
 - [IBL Sorter](https://iblcore.org/resources/tools/ibl-sorter/): IBL's spike sorting pipeline, turning raw Neuropixels electrophysiology into sorted units.
 - [Lightning Pose](https://iblcore.org/resources/tools/lightning-pose/): Semi-supervised 2D and 3D pose estimation, used to track animal movement in video recordings.
 - [Datoviz](https://iblcore.org/resources/tools/datoviz/): High-performance GPU rendering for scientific data visualisation of large datasets.
-- [IBL Data Explorer](https://iblcore.org/resources/tools/data-explorer/): Browse IBL recordings interactively in the browser, from probe locations to recorded activity.
+- [Brainwide Map Explorer](https://iblcore.org/resources/tools/data-explorer/): Browse the Brainwide Map and repeated-site recordings interactively in the browser, from probe locations to recorded activity.
 - [IBL BrainWideBench](https://iblcore.org/resources/tools/brainwide-bench/): A standardised benchmark for models pretrained on brain-wide neural recordings, with a public leaderboard.
 - [IBL BrainWideBench benchmark page](https://iblcore.org/resources/benchmarking/ibl-brainwidebench/): The full benchmark page, with links to the preprint, code, documentation, checkpoints, and leaderboard.
 

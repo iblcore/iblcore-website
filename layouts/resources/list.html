@@ -11,6 +11,8 @@
     {{ end }}
   {{ end }}
 
+  {{ $resources = partial "resources/ibl-maintained.html" $resources }}
+
   {{ partial "page-header.html" (dict "page" .) }}
 
   <section class="section section-band dataset-section" data-resource-index>

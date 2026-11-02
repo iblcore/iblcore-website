@@ -8,6 +8,8 @@ modality:
 stage:
   - "pre-process"
 
+maintainer: "IBL"
+
 links:
   docs: "https://lightning-pose.readthedocs.io/en/latest/"
   code: "https://github.com/paninski-lab/lightning-pose"

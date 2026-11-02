@@ -1,14 +1,18 @@
-{{- /* The access routes one dataset is published through, each with its
-       step-by-step guide.
+{{- /* The access routes one dataset is published through, each with the
+       place that route sends you.
 
        Takes (dict "page" <dataset page> "wide" <bool>).
 
        The rows are built from the dataset's own `access` and `access_guides`
        front matter and nowhere else, so the card, the workflow step and the
-       dataset page all state the same thing. A route with no guide yet still
-       gets a row: that the route exists is worth saying before the guide is
-       written. `wide` is the dataset page's full-width form, which has room
-       for what each route is best for. */ -}}
+       dataset page all state the same thing. `access_guides` holds wherever
+       a route sends you for this dataset: a step-by-step tutorial for ONE,
+       the archive record for DANDI, the repository for the agent. The route
+       page names the verb for its own destination in `guide_action`, which
+       is why this partial has no per-route special case. A route with no
+       destination yet still gets a row: that the route exists is worth
+       saying before the guide is written. `wide` is the dataset page's
+       full-width form, which has room for what each route is best for. */ -}}
 {{- $page := .page -}}
 {{- $wide := .wide -}}
 {{- $guides := $page.Params.access_guides | default dict -}}
@@ -24,7 +28,7 @@
         <span class="guide-row__why">{{ $route.Params.short_description | default $route.Params.description }}</span>
       {{- end }}
       {{- with index $guides $key }}
-        <a class="guide-action guide-action--ready" href="{{ . }}">Open guide<span class="visually-hidden"> for {{ $page.Title }} via {{ $route.Title }}</span></a>
+        <a class="guide-action guide-action--ready" href="{{ . }}">{{ $route.Params.guide_action | default "Open guide" }}<span class="visually-hidden"> for {{ $page.Title }} via {{ $route.Title }}</span></a>
       {{- else }}
         <span class="guide-action guide-action--pending">Coming soon</span>
       {{- end }}

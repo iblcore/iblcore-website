@@ -36,10 +36,16 @@
 }
 
 /* The card title's ::after overlay covers the card so the whole surface is
-   clickable; tags sit above it so they stay individually clickable. */
-.resource-tag {
+   clickable; everything a reader can click on its own sits above it: the
+   tags, the access-route badges, and a dataset's per-route guide links. */
+.resource-tag,
+.dataset-format-badge-link,
+.guide-action--ready {
   position: relative;
   z-index: 1;
+}
+
+.resource-tag {
   display: inline-block;
   padding: 0.15rem var(--space-xs);
   border: 1px solid var(--color-brand-light-tint-40);
@@ -251,17 +257,6 @@
   .resource-filters__label {
     min-width: 100%;
   }
-}
-
-/* A dataset card holds a guide link per route, so it cannot also be one big
-   link: the title keeps its own, and the card only lifts on hover. */
-.resource-card--dataset .resource-card__title a::after {
-  display: none;
-}
-
-.resource-card--dataset .resource-card__title a:hover,
-.resource-card--dataset .resource-card__title a:focus-visible {
-  text-decoration: underline;
 }
 
 /* The question the chooser step asks, as two native selects. */

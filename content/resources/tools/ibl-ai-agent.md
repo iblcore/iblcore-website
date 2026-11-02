@@ -11,6 +11,8 @@ stage:
 access:
   - "ibl-ai-agent"
 
+guide_action: "Open on GitHub"
+
 maintainer: "IBL"
 
 links:
