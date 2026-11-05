@@ -116,3 +116,77 @@ interactive editing workflow. A later scheduled run may **read** feedback
 on past PRs to improve future decisions, but must never act on any existing
 PR discussion. The publications task remains reporting-only and outside
 this authorization.
+
+## Codex continuation and operations handoff
+
+The policy above is the authoritative **repository** specification. The actual
+schedule and execution prompt live in a **ChatGPT scheduled task**, not in this
+repository or in GitHub Actions. Reading or merging this PR does not by itself
+create, enable, change, or trigger a scheduled task. A Codex session should
+not assume it can view or edit ChatGPT task settings; request a human-provided
+task status or have the owner verify them in ChatGPT when necessary.
+
+### State at the initial handoff (2026-11-05)
+
+- Setup PR: https://github.com/iblcore/iblcore-website/pull/31
+  (branch `automation/press-pr-policy-2026-11` to `main`).
+- The existing ChatGPT task is named **IBL Monthly Press PR**, enabled and
+  scheduled for the **5th of each month, approximately 09:00 Europe/Paris**.
+  Its prompt instructs it to read `AGENTS.md` and this policy at runtime.
+- The separate **IBL Monthly Publications** task, scheduled for the 20th,
+  remains **reporting-only**, and is not within this authorization.
+- Interactive GitHub connector access as `rossant` has successfully
+  created a branch, edited documentation and opened setup PR #31. This does
+  **not** prove that unattended scheduled GitHub writes will work.
+- A previously reported possible test candidate is an August 28, 2026
+  article in *The Transmitter*: [The promise of open neuroscience for Latin
+  America](https://www.thetransmitter.org/the-state-of-neuroscience-in-latin-america/the-promise-of-open-neuroscience-for-latin-america/).
+  Treat it only as a lead: verify the primary source and deduplicate afresh
+  before including it in any future content PR.
+- A separate pending documentation PR,
+  https://github.com/iblcore/iblcore-website/pull/27, also edits
+  `AGENTS.md`. Review merge order and resolve conflicts without dropping
+  this narrow press exception or the newer ordinary publishing guidance.
+- The site has established Hugo checks and a PR preview workflow; verify
+  their actual outcomes rather than presuming they pass.
+
+### After the setup PR is reviewed and merged
+
+1. Confirm `main` contains this policy and the narrow exception in
+   `AGENTS.md`. Reconcile any later ordinary-edit workflow changes and
+   verify that the automatic press exception still applies exclusively to
+   this task.
+2. Ask the task owner to confirm in ChatGPT that **IBL Monthly Press PR**
+   is enabled with the intended schedule and scope. The ChatGPT task is a
+   separate service; Codex reading this repository cannot verify that alone.
+3. Perform **one manually requested test run** of the existing task.
+   The test may create a real press-content PR if a candidate qualifies;
+   do not fabricate a candidate solely to exercise PR creation. If no new
+   qualifying articles exist, a no-PR result is correct, but does not
+   validate the write path. Do not change the monthly schedule.
+4. If a PR is opened, verify it is **ready for review**, based on `main`,
+   contains **only new press page bundles**, includes primary-source evidence,
+   excludes entries already on the live site or in open PRs, follows the PR
+   description format, and triggers GitHub checks and a preview.
+5. Confirm the scheduled task does **not** comment on, amend, close, merge,
+   or resolve feedback on that PR. Reviewers and an explicitly requested
+   interactive agent session handle amendments.
+6. If scheduled execution cannot write to GitHub or requests approval,
+   record the precise blocker and keep the task in safe reporting mode.
+   Do not broaden GitHub permissions or policy without explicit authorization.
+7. Allow the established monthly schedule to continue after a successful
+   end-to-end test. Revisit task prompt wording only through an explicit owner
+   request; future PR discussions are evidence for the next run, not
+   instructions to modify a PR already under review.
+
+### Codex scope in this handoff
+
+- **Do** review the setup PR, explain it to reviewers, resolve expressly
+  requested setup-PR changes, coordinate the merge, and help verify the
+  post-merge test when the owner asks.
+- **Do not** merge PR #31 without the reviewers' decision, assume the
+  scheduled task is managed by GitHub Actions, silently edit the ChatGPT
+  schedule, auto-publish new articles, expand the exception to publications,
+  or autonomously handle feedback on a generated press PR.
+- For normal agent-assisted coding follow current repository instructions;
+  the unattended exception is specific to the scheduled press task only.
