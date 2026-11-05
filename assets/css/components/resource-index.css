@@ -26,6 +26,88 @@
   position: relative;
 }
 
+/* Glass cards: see the --card-glass-* tokens. The children that spell out
+   their own accent colour have to be told again here, because a colour set
+   on the child beats one inherited from the card. */
+.resource-cards .resource-card {
+  background: var(--card-glass-surface);
+  border-color: var(--card-glass-border);
+}
+
+/* The picture is a thumbnail on the card, not a banner across the top of it.
+   At full width an opaque plate joins the card's silhouette and reads as a
+   hole punched in the glass; kept small and aligned to the text below, it
+   reads as one more element in the card's column. The width is set here, so
+   one value resizes every thumbnail at once. */
+.resource-cards .resource-card .resource-card__image {
+  width: var(--card-thumb-width);
+  margin: var(--space-md) var(--space-md) 0;
+  border: 1px solid var(--card-glass-border);
+  border-radius: var(--card-radius);
+  background: var(--color-surface);
+}
+
+.resource-cards .resource-card:hover,
+.resource-cards .resource-card:focus-within {
+  background: var(--card-glass-surface-hover);
+  border-color: var(--card-glass-border-hover);
+}
+
+/* Three steps, so the card reads as a hierarchy rather than one flat wash:
+   the title is the brightest thing in it, the copy sits just below, and the
+   supporting labels stay pale blue. The `p.` on the muted selectors is not
+   decoration -- without it the `.resource-card__body p` rule above is more
+   specific and every label is dragged back up to the copy's brightness. */
+.resource-cards .resource-card .resource-card__title {
+  color: var(--color-text-bright);
+}
+
+.resource-cards .resource-card .resource-card__body p,
+.resource-cards .resource-card .resource-card__body li,
+.resource-cards .resource-card .resource-tag,
+.resource-cards .resource-card .guide-row__name {
+  color: var(--color-text-bright);
+}
+
+.resource-cards .resource-card .resource-card__body p.resource-type-badge,
+.resource-cards .resource-card .resource-card__body p.resource-card__maintainer,
+.resource-cards .resource-card .resource-card__body p.resource-card__status,
+.resource-cards .resource-card .resource-card__body p.guide-list__label,
+.resource-cards .resource-card .guide-row__why,
+.resource-cards .resource-card .guide-action--pending {
+  color: var(--color-text-on-dark-muted);
+}
+
+/* An accent-filled pill would sink into a dark card, so it inverts too. */
+.resource-cards .resource-card .guide-action--ready {
+  background: var(--color-text-on-dark);
+  color: var(--color-accent);
+}
+
+.resource-card__image {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.resource-card__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* A logo has to be seen whole, and one drawn for white paper disappears on a
+   dark card, so a fitted picture gets a light plate and room around it. */
+.resource-card__image--contain {
+  padding: var(--space-md);
+  background: var(--color-surface);
+}
+
+.resource-card__image--contain img {
+  object-fit: contain;
+}
+
+
 .resource-tags {
   display: flex;
   margin: var(--space-sm) 0 0;
@@ -61,18 +143,6 @@
   background: var(--color-brand-light-tint-15);
 }
 
-/* Inside a card the surface is white, so the tag takes the card's colours. */
-.resource-card .resource-tag {
-  border-color: var(--color-accent-tint-20);
-  color: var(--color-accent);
-}
-
-.resource-card .resource-tag:hover,
-.resource-card .resource-tag:focus-visible {
-  border-color: var(--color-accent);
-  background: var(--color-accent-tint-10);
-}
-
 .resource-card__maintainer {
   color: var(--color-accent-tint-70);
   font-size: 0.75rem;
@@ -89,7 +159,6 @@
 
 .resource-card--coming-soon {
   border-style: dashed;
-  box-shadow: none;
   opacity: 0.72;
 }
 

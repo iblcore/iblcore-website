@@ -51,6 +51,15 @@
   data-datasets="{{ delimit $datasets " " }}"
   data-search="{{ lower $haystack }}"
 >
+  {{- /* A resource's own picture, where it has one. Most do not yet, and a
+         card without one is exactly the card as it was, so the grid stays
+         mixed until the images exist. The picture is a square thumbnail at
+         the head of the card's column, sized by the stylesheet. */ -}}
+  {{- with $page.Params.card_image }}
+    <div class="resource-card__image resource-card__image--{{ .fit | default "cover" }}">
+      <img src="{{ .src | relURL }}" alt="{{ .alt }}" loading="lazy">
+    </div>
+  {{- end }}
   <div class="resource-card__body resource-card__body--stack">
     <p class="resource-type-badge">{{ index $typeLabels $type }}</p>
     <h3 class="resource-card__title">

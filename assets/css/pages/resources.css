@@ -39,20 +39,19 @@
 
 .resource-card {
   overflow: hidden;
-  border: 1px solid var(--color-accent-tint-10);
-  border-radius: var(--space-panel-lg);
+  border: 1px solid var(--card-border-color);
+  border-radius: var(--card-radius);
   background: var(--color-surface);
-  box-shadow: 0 0.65rem 1.4rem var(--color-shadow-panel);
+  box-shadow: var(--card-shadow);
 }
 
 .resource-card:hover,
 .resource-card:focus-within {
-  box-shadow: 0 0.65rem 1.4rem var(--color-shadow-panel-strong);
+  border-color: var(--card-border-color-hover);
 }
 
 .resource-card--placeholder {
   border-style: dashed;
-  box-shadow: none;
 }
 
 .dataset-format-badges {
@@ -689,8 +688,10 @@
   text-decoration: underline;
 }
 
+/* Subdued, but still legible on the band: at 40% this separator composited
+   to 2.25:1, under the 3:1 the portal holds itself to. */
 .section-jump__separator {
-  color: var(--color-brand-light-tint-40);
+  color: var(--color-brand-light-tint-65);
 }
 
 /* IBL BrainWideBench benchmark page. */

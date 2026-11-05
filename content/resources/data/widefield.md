@@ -1,5 +1,8 @@
 ---
 title: "Widefield"
+card_image:
+  src: "images/widefield-card.png"
+  alt: "A mouse brain seen from above, nose to the left, with the thirty-two cortical regions the widefield sessions image picked out in greens and teals against the pale grey of the rest of the surface."
 description: "Widefield calcium imaging of dorsal cortex from mice performing IBL's standardized decision-making task."
 lead: "Cortex-wide calcium imaging recorded while mice used prior expectations to guide their decisions, released alongside IBL's prior paper."
 weight: 5

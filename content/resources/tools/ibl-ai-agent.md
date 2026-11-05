@@ -1,5 +1,9 @@
 ---
 title: "IBL-AI-Agent"
+card_image:
+  src: "images/ibl-ai-agent-logo.png"
+  alt: "The IBL AI Agent wordmark beside a small robot face ringed by a halo of connected nodes in blue and magenta."
+  fit: "contain"
 description: "An agent-driven workflow that downloads a compressed, ready-to-use subset of IBL's data. Just describe what you want in plain language."
 short_description: "A small, ready-to-use data subset, delivered by describing what you need in plain language."
 weight: 12

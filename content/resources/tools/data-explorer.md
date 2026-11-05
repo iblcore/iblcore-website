@@ -3,6 +3,10 @@ title: "Brainwide Map Explorer"
 description: "Browse the Brainwide Map and repeated-site recordings interactively without writing code, from probe locations to the activity on each channel."
 weight: 6
 
+card_image:
+  src: "images/brainwide-map-explorer-card.jpg"
+  alt: "A three-dimensional mouse brain holding every probe insertion with one selected, and beside it that probe's recorded units by depth, the AP-band signal along the shank, and the brain regions it passed through from VISpm down to MRN."
+
 modality:
   - "neuropixels"
   - "behavior"

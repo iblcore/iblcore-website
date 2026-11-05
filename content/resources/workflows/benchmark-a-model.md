@@ -13,13 +13,14 @@ steps:
   - title: "Know the recordings underneath"
     resource:
       - "/resources/data/brainwide-map"
-      - "/resources/tools/one"
+      - "/resources/tools/data-explorer"
     note: |
       IBL BrainWideBench scores models on the Brainwide Map: Neuropixels
       recordings from mice performing a sensory-guided decision-making task,
-      with behavior measured at the same time. The benchmark downloads what it
-      needs itself, so this step is for looking at the data on your own terms
-      first, through ONE.
+      with behavior measured at the same time. The benchmark downloads the
+      recordings itself, so nothing needs installing to start here. Open the
+      Brainwide Map Explorer in a browser to see what the scores are built on:
+      where the probes sat, and the activity on each channel.
 
   - title: "Run the benchmark"
     resource: "/resources/tools/brainwide-bench"

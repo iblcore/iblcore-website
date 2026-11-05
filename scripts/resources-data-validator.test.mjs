@@ -46,6 +46,31 @@ test("an access_guides key not in access is reported", () => {
   assert.match(errors, /access_guides key "dandi"/);
 });
 
+test("a card image without alt text is reported", () => {
+  const errors = validateResourcesData(
+    [resource("a.md", { ...valid, card_image: { src: "images/a.jpg" } })],
+    [],
+  ).join("\n");
+  assert.match(errors, /card_image/);
+  assert.match(errors, /"alt"/);
+});
+
+test("a card image needs a source", () => {
+  const errors = validateResourcesData(
+    [resource("a.md", { ...valid, card_image: { alt: "A mouse brain." } })],
+    [],
+  ).join("\n");
+  assert.match(errors, /card_image needs exactly one of "src" or "video"/);
+});
+
+test("a card image fit outside the vocabulary is reported", () => {
+  const errors = validateResourcesData(
+    [resource("a.md", { ...valid, card_image: { src: "a.png", alt: "A logo.", fit: "fill" } })],
+    [],
+  ).join("\n");
+  assert.match(errors, /card_image fit "fill"/);
+});
+
 test("status must be released or coming-soon", () => {
   const errors = validateResourcesData([resource("a.md", { ...valid, status: "draft" })], []).join("\n");
   assert.match(errors, /status "draft"/);

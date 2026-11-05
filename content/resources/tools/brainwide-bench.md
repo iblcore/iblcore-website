@@ -3,6 +3,11 @@ title: "IBL BrainWideBench"
 description: "A standardized benchmark for models pretrained on brain-wide neural recordings."
 weight: 5
 
+card_image:
+  src: "images/ibl-brainwidebench-logo.png"
+  alt: "The BrainWideBench logo: linked nodes arranged symmetrically, shaded from blue to purple."
+  fit: "contain"
+
 modality:
   - "neuropixels"
   - "behavior"

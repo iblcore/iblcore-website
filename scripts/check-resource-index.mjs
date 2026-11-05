@@ -270,6 +270,49 @@ export async function checkResourceIndex(browser, origin) {
       !(await cardPage.locator("body").innerText()).includes("About this dataset"),
       "A card still offered a separate link to the dataset page.",
     );
+
+    // A card shows a picture only where the resource has one of its own, and
+    // the band is drawn only around a picture that exists: an empty slot
+    // would leave a blank strip above the title. Naming a resource that has
+    // no picture would date as the images are filled in, so the rule is
+    // checked over the whole grid instead.
+    await openIndex();
+    const thumbnail = (slug) =>
+      cardPage.locator(`[data-resource-card][data-path$="/${slug}"] .resource-card__image img`);
+    assert.equal(
+      await thumbnail("brainwide-map").count(),
+      1,
+      "The dataset with an image of its own showed no picture on its card.",
+    );
+    const bands = cardPage.locator(".resource-cards .resource-card__image");
+    const filled = cardPage.locator('.resource-cards .resource-card__image img[src]:not([src=""])');
+    assert((await bands.count()) > 0, "No card showed a picture at all.");
+    assert.equal(
+      await bands.count(),
+      await filled.count(),
+      "A card was given a picture slot with no picture in it.",
+    );
+    for (const alt of await cardPage
+      .locator(".resource-cards .resource-card__image img")
+      .evaluateAll((imgs) => imgs.map((i) => i.alt))) {
+      assert(alt.trim().length > 20, `A card picture carried no useful alt text: "${alt}"`);
+    }
+
+    // A logo is not a photograph: cropping it to fill the band would cut it,
+    // and a logo drawn for white paper vanishes on a dark card, so it is
+    // fitted whole onto a light plate instead.
+    assert.equal(
+      await thumbnail("brainwide-bench").evaluate((img) => getComputedStyle(img).objectFit),
+      "contain",
+      "The logo was cropped to fill its band instead of being fitted whole.",
+    );
+    assert.equal(
+      await cardPage
+        .locator('[data-resource-card][data-path$="/brainwide-bench"] .resource-card__image')
+        .evaluate((el) => getComputedStyle(el).backgroundColor),
+      "rgb(255, 255, 255)",
+      "The logo was left without a light plate to read against.",
+    );
   } finally {
     await cardPage.close();
   }
@@ -311,20 +354,36 @@ export async function checkResourceContrast(browser, origin) {
           };
           return 0.2126 * channel(r) + 0.7152 * channel(g) + 0.0722 * channel(b);
         };
+        // A translucent surface shows what is under it, so the colour behind
+        // the text is every layer composited, not the first one found. Taking
+        // the top layer alone reads a 10% white veil as white and calls dark
+        // text on a dark band unreadable.
         const backgroundOf = (element) => {
+          const layers = [];
           for (let node = element; node; node = node.parentElement) {
-            const background = getComputedStyle(node).backgroundColor;
-            if (background && !background.startsWith("rgba(0, 0, 0, 0)")) return parse(background);
+            const [r, g, b, alpha = 1] = (getComputedStyle(node).backgroundColor.match(/[\d.]+/g) || [])
+              .map(Number);
+            if (alpha === 0) continue;
+            layers.push([r, g, b, alpha]);
+            if (alpha === 1) break;
           }
-          return [255, 255, 255];
+          return layers.reduceRight(
+            (under, [r, g, b, alpha]) => [r, g, b].map((c, i) => alpha * c + (1 - alpha) * under[i]),
+            [255, 255, 255],
+          );
         };
         return [...document.querySelectorAll("main *")]
           .filter((el) => [...el.childNodes].some((n) => n.nodeType === 3 && n.textContent.trim()))
           .filter((el) => el.getBoundingClientRect().width > 0)
           .map((el) => {
+            // Translucent text mixes its background in the same way a
+            // translucent surface does, so the colour on screen is the
+            // composite, not the declared one.
+            const behind = backgroundOf(el);
+            const [r, g, b, alpha = 1] = (getComputedStyle(el).color.match(/[\d.]+/g) || []).map(Number);
             const [lighter, darker] = [
-              luminance(parse(getComputedStyle(el).color)),
-              luminance(backgroundOf(el)),
+              luminance([r, g, b].map((c, i) => alpha * c + (1 - alpha) * behind[i])),
+              luminance(behind),
             ].sort((a, b) => b - a);
             return {
               ratio: (lighter + 0.05) / (darker + 0.05),

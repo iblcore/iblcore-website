@@ -82,6 +82,10 @@ explore:
     alt: "The Brainwide Map Explorer's session selector: a three-dimensional mouse brain holding every probe insertion, with one picked out and a table beside it listing that probe's lab, unit count, spike count and trial count."
     caption: "Every insertion in one view; select one to see that probe's recordings."
 
+card_image:
+  src: "images/brainwide-map-card.png"
+  alt: "The same translucent mouse brain shown twice, from the side and from above, both shaded pale green and yellow by region and crossed by the tracks of every probe insertion in the dataset."
+
 modality:
   - "neuropixels"
   - "behavior"

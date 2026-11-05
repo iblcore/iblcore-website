@@ -33,6 +33,9 @@ const REQUIRED_RESOURCE_FIELDS = ["title", "description"];
 // its resources into the chooser the rest of the steps narrow to.
 const CHOICES = ["dataset"];
 const STATUSES = ["released", "coming-soon"];
+// Whether a card picture fills its band or is fitted whole inside it. A
+// photograph or screenshot fills it; a logo is fitted.
+const CARD_IMAGE_FITS = ["cover", "contain"];
 // Whether a figure is rendered on a dark frame or a light card. Diagrams lifted
 // from papers sit on white; rendered clips sit on black.
 const FIGURE_TONES = ["light", "dark"];
@@ -268,6 +271,14 @@ export function validateResourcesData(resources, workflows) {
     for (const key of Object.keys(data?.access_guides || {})) {
       if (!access.includes(key)) {
         errors.push(`${path}: access_guides key "${key}" is not in this resource's access list`);
+      }
+    }
+
+    if (data?.card_image !== undefined) {
+      checkFigure(data.card_image, `${path}: card_image`, errors);
+      const fit = data.card_image?.fit;
+      if (fit !== undefined && !CARD_IMAGE_FITS.includes(fit)) {
+        errors.push(`${path}: card_image fit "${fit}" must be one of ${CARD_IMAGE_FITS.join(", ")}`);
       }
     }
 

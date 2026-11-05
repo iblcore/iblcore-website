@@ -1,5 +1,8 @@
 ---
 title: "Ephys Autism"
+card_image:
+  src: "images/ephys-autism-card.png"
+  alt: "The same head-fixed mouse drawn four times in four colours and labelled Wildtype, Fmr1, Cntnap2 and Shank3: the control group and the three genetic models the recordings compare."
 description: "Neuropixels electrophysiology data from autism model mice performing IBL's standardized decision-making task."
 lead: "Neuropixels recordings and complete training histories from three genetic mouse models of autism and their wildtype controls, all running one standardized decision-making task."
 weight: 6
