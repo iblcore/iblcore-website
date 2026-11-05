@@ -1,0 +1,10 @@
+{{- /* The resource page describing one access route, looked up by its access
+       taxonomy term. Takes the term as a string and returns the page.
+
+       An access term with no resource page is a content error: the dataset
+       would otherwise render a route with no name, so fail the build. */ -}}
+{{- $page := site.GetPage (printf "/resources/tools/%s" .) -}}
+{{- if not $page -}}
+  {{- errorf "access term %q has no resource page at /resources/tools/%s/" . . -}}
+{{- end -}}
+{{- return $page -}}

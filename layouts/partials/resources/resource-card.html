@@ -1,0 +1,99 @@
+{{- /* One resource rendered as a card. Shared by the resource index, the
+       section list pages, the taxonomy term pages and the workflow steps.
+
+       Takes (dict "page" <resource page> "short" <bool>).
+
+       `short` asks for the resource's `short_description` where it has one:
+       inside a workflow a card has to answer "why this one, here", which is
+       what that field says, rather than describe the resource in general.
+
+       The card carries its terms as data attributes so the filter script reads
+       exactly the values the taxonomies use, and a data-search haystack so the
+       same script can match text without a generated index. Both are part of
+       the card's contract, not of the script. */ -}}
+{{- $page := .page -}}
+{{- $typeLabels := dict "data" "Dataset" "tools" "Tool" "hardware" "Hardware" "protocols" "Protocol" "workflows" "Workflow" -}}
+{{- $type := index (split (strings.TrimPrefix "/resources/" $page.RelPermalink) "/") 0 -}}
+{{- $modality := $page.Params.modality | default slice -}}
+{{- $stage := $page.Params.stage | default slice -}}
+{{- $access := $page.Params.access | default slice -}}
+{{- $datasets := $page.Params.datasets | default slice -}}
+{{- /* Paths are written without a trailing slash in front matter, so the card
+       publishes its own in the same form the references use. */ -}}
+{{- $path := strings.TrimSuffix "/" $page.RelPermalink -}}
+{{- $comingSoon := eq ($page.Params.status | default "released") "coming-soon" -}}
+{{- /* A dataset card lists a guide per access route, which is the only
+       thing that sets it apart here. Every card, this one included, is a
+       single click target: the title's link is stretched over the whole card
+       in CSS, and the links inside ride above it. */ -}}
+{{- $isDataset := and (eq $type "data") (not $comingSoon) -}}
+{{- /* Every element is flattened to a string before joining: appending a
+       front matter list to a slice drops it silently, which left the tags out
+       of the haystack and made a search for a modality miss every resource
+       that only carried it as a tag. */ -}}
+{{- $haystack := delimit (slice
+  $page.Title
+  $page.Params.description
+  ($page.Params.maintainer | default "")
+  (delimit $modality " ")
+  (delimit $stage " ")
+  (delimit $access " ")
+  (index $typeLabels $type)
+) " " -}}
+<article
+  class="resource-card{{ if $comingSoon }} resource-card--coming-soon{{ end }}{{ if $isDataset }} resource-card--dataset{{ end }}"
+  data-resource-card
+  data-type="{{ $type }}"
+  data-modality="{{ delimit $modality " " }}"
+  data-stage="{{ delimit $stage " " }}"
+  data-access="{{ delimit $access " " }}"
+  data-path="{{ $path }}"
+  data-datasets="{{ delimit $datasets " " }}"
+  data-search="{{ lower $haystack }}"
+>
+  {{- /* A resource's own picture, where it has one. Most do not yet, and a
+         card without one is exactly the card as it was, so the grid stays
+         mixed until the images exist. The picture is a square thumbnail at
+         the head of the card's column, sized by the stylesheet. */ -}}
+  {{- with $page.Params.card_image }}
+    <div class="resource-card__image resource-card__image--{{ .fit | default "cover" }}">
+      <img src="{{ .src | relURL }}" alt="{{ .alt }}" loading="lazy">
+    </div>
+  {{- end }}
+  <div class="resource-card__body resource-card__body--stack">
+    <p class="resource-type-badge">{{ index $typeLabels $type }}</p>
+    <h3 class="resource-card__title">
+      <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
+    </h3>
+    <p>{{ if .short }}{{ $page.Params.short_description | default $page.Params.description }}{{ else }}{{ $page.Params.description }}{{ end }}</p>
+
+    {{ partial "resources/resource-tags.html" (dict "page" $page) }}
+
+    {{ if $comingSoon }}
+      <p class="resource-card__status">Coming soon</p>
+    {{ else if $isDataset }}
+      {{ with $access }}
+        <div class="guide-list">
+          <p class="guide-list__label">Step-by-step guides</p>
+          {{ partial "resources/dataset-guides.html" (dict "page" $page "wide" false) }}
+        </div>
+      {{ end }}
+    {{ else }}
+      {{ with $access }}
+        <div class="dataset-format-badges" aria-label="Available via">
+          {{ range . }}
+            {{ $route := partial "resources/access-route.html" . }}
+            <a class="dataset-format-badge-link" href="{{ $route.RelPermalink }}">
+              {{ partial "resources/data-format-icon.html" (dict "key" . "label" $route.Title) }}
+            </a>
+          {{ end }}
+        </div>
+      {{ end }}
+      {{ with partial "resources/third-party-maintainer.html" $page }}
+        <p class="resource-card__maintainer">Maintained by {{ . }}</p>
+      {{ end }}
+    {{ end }}
+
+    <p class="resource-card__cta" aria-hidden="true">Learn more →</p>
+  </div>
+</article>

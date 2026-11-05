@@ -1,0 +1,16 @@
+{{ define "main" }}
+  {{ partial "page-header.html" (dict "page" .) }}
+
+  <section class="section section-band dataset-section" data-resource-index>
+    <div class="shell page-shell">
+      {{ partial "resources/filter-bar.html" (dict "pages" .Pages) }}
+
+      {{ partial "resources/resource-grid.html" (dict
+        "pages" .Pages
+        "empty" "No workflows are published yet."
+      ) }}
+
+      <p class="resource-grid__empty" data-resource-empty hidden>No workflows match these filters.</p>
+    </div>
+  </section>
+{{ end }}

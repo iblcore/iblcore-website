@@ -1,0 +1,58 @@
+{{ define "main" }}
+  {{ partial "page-header.html" (dict "page" . "intro" "") }}
+
+  {{ partial "resources/section-intro.html" (dict "page" .) }}
+
+  <section class="section section-band dataset-section">
+    <div class="shell page-shell">
+      <p class="dataset-section-copy">{{ .Params.description }}</p>
+
+      {{ partial "resources/resource-tags.html" (dict "page" .) }}
+
+      {{ with partial "resources/third-party-maintainer.html" . }}
+        <p class="resource-maintainer">Maintained by {{ . }}</p>
+      {{ end }}
+
+      {{ with .Content }}
+        <div class="dataset-section-copy prose">{{ . }}</div>
+      {{ end }}
+
+      {{- /* Opening the tool is what a reader came for, so `platform` is the
+             page's call to action rather than one more entry in the list
+             below it. The list keeps the references you consult afterwards. */ -}}
+      {{ with .Params.links.platform }}
+        {{ $external := partial "link-external.html" . }}
+        <p class="resource-detail__cta">
+          <a class="button button--page-cta" href="{{ . }}"{{ if $external }} target="_blank" rel="noopener noreferrer"{{ end }}>
+            Open {{ $.Title }}
+            {{- if $external }} {{ partial "link-arrow.html" (dict "direction" "external") }}
+              {{- partial "link-new-tab.html" . }}
+            {{- end }}
+          </a>
+        </p>
+      {{ end }}
+
+      {{- /* Ranging a map would order the links alphabetically by key; list them
+             in the order a reader wants them instead. */ -}}
+      {{ with .Params.links }}
+        {{ $links := . }}
+        <ul class="resource-links" aria-label="Links">
+          {{ range $kind := slice
+            (dict "key" "docs" "label" "Documentation")
+            (dict "key" "code" "label" "Source code")
+            (dict "key" "preprint" "label" "Preprint")
+          }}
+            {{ with index $links $kind.key }}
+              <li><a class="text-link" href="{{ . }}">{{ $kind.label }}</a></li>
+            {{ end }}
+          {{ end }}
+        </ul>
+      {{ end }}
+    </div>
+  </section>
+
+  {{ partial "resources/resource-showcase.html" (dict
+    "page" . "heading" "What you can do" "id" "what-you-can-do") }}
+
+  {{ partial "resources/workflow-backlinks.html" (dict "page" .) }}
+{{ end }}

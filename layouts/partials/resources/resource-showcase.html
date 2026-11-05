@@ -1,0 +1,38 @@
+{{- /* A tool page's illustrated section: every figure gathered into one row,
+       with the copy that explains them gathered below.
+
+       Takes (dict "page" <resource page> "heading" "..." "id" "...") and reads
+       the same `about` entries a dataset page narrates. A dataset's entries are
+       chapters, each with its own illustration, so they alternate down the band.
+       A tool's are a tour of one interface: shown side by side the screenshots
+       read as the sequence a visitor would actually click through, which a
+       zigzag of figure-and-paragraph breaks apart. */ -}}
+{{- $page := .page -}}
+{{- with $page.Params.about -}}
+  {{- $entries := . -}}
+  {{- $figures := slice -}}
+  {{- range $entries }}{{ with .figure }}{{ $figures = $figures | append . }}{{ end }}{{ end }}
+  <section id="{{ $.id }}" class="section section-band dataset-section">
+    <div class="shell page-shell">
+      {{- with $figures }}
+        <div class="resource-gallery" style="--resource-gallery-columns: {{ len . }}">
+          {{- range . }}
+            {{- partial "resources/dataset-figure.html" (dict "figure" .) }}
+          {{- end }}
+        </div>
+      {{- end }}
+
+      <h2>{{ $.heading }}</h2>
+      <div class="dataset-section-copy prose">
+        <div class="resource-showcase">
+          {{- range $entries }}
+            <div class="resource-showcase__item">
+              {{- with .heading }}<h3 class="dataset-about__heading">{{ . }}</h3>{{ end }}
+              <p>{{ .description }}</p>
+            </div>
+          {{- end }}
+        </div>
+      </div>
+    </div>
+  </section>
+{{- end -}}

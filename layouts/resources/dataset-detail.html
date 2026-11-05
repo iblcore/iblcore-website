@@ -1,0 +1,53 @@
+{{ define "main" }}
+  {{ $sectionNav := slice }}
+  {{ if .Params.about }}{{ $sectionNav = $sectionNav | append (dict "id" "about-the-dataset" "label" "About") }}{{ end }}
+  {{ if .Params.explore }}{{ $sectionNav = $sectionNav | append (dict "id" "explore-the-data" "label" "Explore") }}{{ end }}
+  {{ if .Params.access }}{{ $sectionNav = $sectionNav | append (dict "id" "access-methods" "label" "Access") }}{{ end }}
+  {{ if .Params.citations }}{{ $sectionNav = $sectionNav | append (dict "id" "how-to-cite" "label" "Cite") }}{{ end }}
+
+  {{- /* The registry name stays short for cards and listings; the page's own
+         heading names what it is. */ -}}
+  {{ partial "page-header.html" (dict "page" . "intro" "" "title" (printf "%s Dataset" .Title)) }}
+
+  {{ if gt (len $sectionNav) 1 }}
+    <section class="page-controls page-controls--jump" aria-label="Jump to section">
+      <div class="shell page-shell page-controls__inner">
+        <nav class="section-jump" aria-label="Page sections">
+          {{ range $index, $item := $sectionNav }}
+            {{ if $index }}<span class="section-jump__separator" aria-hidden="true">&middot;</span>{{ end }}
+            <a class="section-jump__link" href="#{{ $item.id }}">{{ $item.label }}</a>
+          {{ end }}
+        </nav>
+      </div>
+    </section>
+  {{ end }}
+
+  {{ partial "resources/section-intro.html" (dict "page" .) }}
+
+  {{ partial "resources/stats-strip.html" (dict "page" .) }}
+
+  {{ partial "resources/dataset-about.html" (dict "page" .) }}
+
+  {{ partial "resources/dataset-explore.html" (dict "page" .) }}
+
+  {{ with .Params.access }}
+    <section id="access-methods" class="section section-band dataset-section">
+      <div class="shell page-shell">
+        <h2>Access the data</h2>
+        {{- /* A dataset published through one route only has nothing to pick
+               between, so the section goes straight to the guide. */ -}}
+        {{ if gt (len .) 1 }}
+          <p class="dataset-section-copy">Pick a route and follow its step-by-step guide. <a class="text-link text-link--on-dark" href="{{ "/resources/access-routes/" | relURL }}">Compare the access routes</a>.</p>
+        {{ end }}
+
+        <div class="resource-card get-data-panel">
+          {{ partial "resources/dataset-guides.html" (dict "page" $ "wide" true) }}
+        </div>
+      </div>
+    </section>
+  {{ end }}
+
+  {{ partial "resources/dataset-citation.html" (dict "page" .) }}
+
+  {{ partial "resources/workflow-backlinks.html" (dict "page" .) }}
+{{ end }}

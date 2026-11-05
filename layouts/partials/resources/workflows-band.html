@@ -1,0 +1,30 @@
+{{- /* The workflows band above the resource grid.
+
+       Takes (dict "workflows" <page collection> "filters" <filter-bar args>).
+
+       An optional `filters` is passed straight to the filter bar and rendered
+       under the lead, so a row that belongs to a reader's goal can sit with
+       the workflows rather than with the grid below.
+
+       The band marks itself so the filter script can leave it alone: the
+       workflows are the page's fixed way in, and a Type or Access chip that
+       emptied them would take that away just as a reader narrows down.
+
+       Takes its list as a parameter rather than reading the section, so
+       capping how many are shown and adding a "See all workflows" link later
+       is a change inside this partial. Renders nothing at all when empty:
+       there is no workflow to show until one is written. */ -}}
+{{- with .workflows }}
+  <div class="workflows-band" data-workflows-band>
+    <h2 class="workflows-band__title">Start with a workflow</h2>
+    <p class="workflows-band__lead">A guided path through the resources below, from a goal to the tools that get you there.</p>
+    {{- with $.filters }}
+      {{ partial "resources/filter-bar.html" . }}
+    {{- end }}
+    <div class="resource-cards">
+      {{- range . }}
+        {{ partial "resources/resource-card.html" (dict "page" .) }}
+      {{- end }}
+    </div>
+  </div>
+{{- end -}}

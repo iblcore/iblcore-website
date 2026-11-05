@@ -1,0 +1,10 @@
+{{- /* Who to name as a resource's maintainer, or nothing when it is IBL's own.
+
+       Takes a resource page and returns its `maintainer` when someone other
+       than IBL maintains it. This is an IBL site, so "Maintained by IBL" tells
+       a reader nothing they did not already assume; naming an outside
+       maintainer does. `ibl-maintained.html` asks the same question to decide
+       which resources belong in the portal's grids, so the name IBL is written
+       here once and nowhere else. */ -}}
+{{- $maintainer := .Params.maintainer | default "" -}}
+{{- return (cond (eq $maintainer "IBL") "" $maintainer) -}}

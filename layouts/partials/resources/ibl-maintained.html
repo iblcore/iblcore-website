@@ -1,0 +1,17 @@
+{{- /* The resources IBL offers, in the order they were given. Takes a page
+       collection and returns the pages whose `maintainer` is IBL or unset.
+
+       The portal's grids list what IBL builds and releases, so a resource
+       maintained by someone else is left out of them. It keeps its own page,
+       its taxonomy term pages and its rows on the datasets that use it: an
+       access route IBL publishes through is still a true statement about the
+       data, it is just not IBL's software. Filtering here rather than inside
+       `resource-grid.html` is what keeps those term pages whole, since a
+       third-party route is the whole point of its own access-route page. */ -}}
+{{- $ours := slice -}}
+{{- range . -}}
+  {{- if not (partial "resources/third-party-maintainer.html" .) -}}
+    {{- $ours = $ours | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- return $ours -}}

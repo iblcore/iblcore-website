@@ -1,0 +1,18 @@
+{{- /* The resource pages one workflow step refers to under one key.
+
+       Takes (dict "step" <step map> "key" "resource"|"routes") and returns a
+       slice of pages.
+
+       A path that resolves to nothing fails the build: a workflow with a
+       missing step is worse than no workflow. */ -}}
+{{- $step := .step -}}
+{{- $key := .key -}}
+{{- $pages := slice -}}
+{{- range $path := partial "resources/step-paths.html" (dict "step" $step "key" $key) -}}
+  {{- $page := site.GetPage $path -}}
+  {{- if not $page -}}
+    {{- errorf "workflow step %q refers to %q, which is not a resource page" $step.title $path -}}
+  {{- end -}}
+  {{- $pages = $pages | append $page -}}
+{{- end -}}
+{{- return $pages -}}

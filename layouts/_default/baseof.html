@@ -52,7 +52,12 @@
     {{ if eq .Section "events" }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/events.css") }}
     {{ end }}
-    {{ if eq .Section "resources" }}
+    {{- /* Taxonomy and term pages are not in the resources section: Hugo puts
+           them in a section named after the taxonomy. Match the URL instead, so
+           /resources/modalities/neuropixels/ is styled like the rest. */ -}}
+    {{ if hasPrefix .RelPermalink "/resources/" }}
+      {{ $pageStyles = $pageStyles | append (resources.Get "css/components/resource-index.css") }}
+      {{ $pageStyles = $pageStyles | append (resources.Get "css/components/stats-strip.css") }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/resources.css") }}
     {{ end }}
     {{ if .IsHome }}
@@ -92,11 +97,29 @@
     {{ else }}
       <script src="{{ $js.RelPermalink }}" defer></script>
     {{ end }}
-    {{ $pageScript := "" }}
-    {{ if eq .Layout "events" }}{{ $pageScript = "js/events.js" }}{{ end }}
-    {{ if eq .Layout "new-partners" }}{{ $pageScript = "js/partners.js" }}{{ end }}
-    {{ if eq .Layout "benchmark" }}{{ $pageScript = "js/benchmark.js" }}{{ end }}
-    {{ with $pageScript }}
+    {{- /* These scripts import their predicates, so they are bundled rather
+           than minified: minify renames each file and would break the
+           import. */ -}}
+    {{ $moduleScript := "" }}
+    {{ if in (slice "/resources/" "/resources/workflows/") .RelPermalink }}{{ $moduleScript = "js/resource-filter.js" }}{{ end }}
+    {{ if eq .Layout "workflow" }}{{ $moduleScript = "js/workflow-fork.js" }}{{ end }}
+    {{ with $moduleScript }}
+      {{ $moduleJS := resources.Get . | js.Build (dict "minify" true "target" "es2018") }}
+      {{ if $fingerprintAssets }}
+        {{ $moduleJS = $moduleJS | fingerprint }}
+        <script src="{{ $moduleJS.RelPermalink }}" integrity="{{ $moduleJS.Data.Integrity }}" defer></script>
+      {{ else }}
+        <script src="{{ $moduleJS.RelPermalink }}" defer></script>
+      {{ end }}
+    {{ end }}
+    {{ $pageScripts := slice }}
+    {{ if eq .Layout "events" }}{{ $pageScripts = $pageScripts | append "js/events.js" }}{{ end }}
+    {{ if eq .Layout "new-partners" }}{{ $pageScripts = $pageScripts | append "js/partners.js" }}{{ end }}
+    {{ if eq .Layout "benchmark" }}{{ $pageScripts = $pageScripts | append "js/benchmark.js" }}{{ end }}
+    {{- /* The BibTeX controls follow the citations themselves, wherever a page
+           carries them, rather than a layout. */ -}}
+    {{ if .Params.citations }}{{ $pageScripts = $pageScripts | append "js/citation.js" }}{{ end }}
+    {{ range $pageScripts }}
       {{ $pageJS := resources.Get . | minify }}
       {{ if $fingerprintAssets }}
         {{ $pageJS = $pageJS | fingerprint }}
