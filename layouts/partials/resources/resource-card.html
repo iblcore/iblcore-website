@@ -1,0 +1,67 @@
+{{- /* One dataset rendered as a card, for the dataset grid.
+
+       Takes (dict "page" <dataset page>).
+
+       The full resource portal cards tools, hardware and protocols through
+       this partial too, and files them by taxonomy. This site carries the
+       datasets only, so the card is the dataset form of it: a picture, the
+       description, and a guide per access route. The card is a single click
+       target, with the title's link stretched over it in CSS and the guide
+       links riding above it. */ -}}
+{{- $page := .page -}}
+{{- $comingSoon := eq ($page.Params.status | default "released") "coming-soon" -}}
+{{- $modality := $page.Params.modality | default slice -}}
+{{- $stage := $page.Params.stage | default slice -}}
+{{- $access := $page.Params.access | default slice -}}
+{{- /* Every element is flattened to a string before joining: appending a front
+       matter list to a slice drops it silently, which would leave the terms out
+       of the haystack and make a search for a modality miss the datasets that
+       carry it. */ -}}
+{{- $haystack := delimit (slice
+  $page.Title
+  $page.Params.description
+  (delimit $modality " ")
+  (delimit $stage " ")
+  (delimit $access " ")
+) " " -}}
+{{- /* The card carries its terms as data attributes so the filter script reads
+       exactly the values the front matter uses, and a search haystack so it can
+       match text without a generated index. Both are part of the card's
+       contract, not of the script. */ -}}
+<article
+  class="resource-card resource-card--dataset{{ if $comingSoon }} resource-card--coming-soon{{ end }}"
+  data-resource-card
+  data-modality="{{ delimit $modality " " }}"
+  data-access="{{ delimit $access " " }}"
+  data-search="{{ lower $haystack }}"
+>
+  {{- /* A dataset's own picture, where it has one. A card without one is
+         exactly the card as it was, so the grid stays mixed until every
+         picture exists. The picture is a square thumbnail at the head of the
+         card's column, sized by the stylesheet. */ -}}
+  {{- with $page.Params.card_image }}
+    <div class="resource-card__image resource-card__image--{{ .fit | default "cover" }}">
+      <img src="{{ .src | relURL }}" alt="{{ .alt }}" loading="lazy">
+    </div>
+  {{- end }}
+  <div class="resource-card__body resource-card__body--stack">
+    <p class="resource-type-badge">Dataset</p>
+    <h3 class="resource-card__title">
+      <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
+    </h3>
+    <p>{{ $page.Params.description }}</p>
+
+    {{ if $comingSoon }}
+      <p class="resource-card__status">Coming soon</p>
+    {{ else }}
+      {{ with $access }}
+        <div class="guide-list">
+          <p class="guide-list__label">Step-by-step guides</p>
+          {{ partial "resources/dataset-guides.html" (dict "page" $page "wide" false) }}
+        </div>
+      {{ end }}
+    {{ end }}
+
+    <p class="resource-card__cta" aria-hidden="true">Learn more →</p>
+  </div>
+</article>

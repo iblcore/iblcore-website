@@ -1,0 +1,12 @@
+{{- /* The access route named by one `access` term, looked up by that term.
+
+       Takes the term as a string and returns its entry in
+       data/access_routes.yaml.
+
+       A term with no entry is a content error: the dataset would otherwise
+       render a route with no name, so fail the build. */ -}}
+{{- $route := index hugo.Data.access_routes . -}}
+{{- if not $route -}}
+  {{- errorf "access term %q has no entry in data/access_routes.yaml" . -}}
+{{- end -}}
+{{- return $route -}}

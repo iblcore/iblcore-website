@@ -49,6 +49,12 @@ Notes:
 `/resources/benchmarking/ibl-brainwidebench/` is the IBL BrainWideBench
 benchmark page, reached from the Benchmarking item in the Resources dropdown.
 
+`/resources/data/` is the Datasets page, reached from the Datasets item in the
+Resources dropdown. It grids every released dataset, and each dataset has its
+own page describing the project behind it, what the data contains, the access
+routes it is published through, and how to cite it. The routes themselves are
+described in `data/access_routes.yaml`.
+
 - Data
   - Brainwide map — within it, access + colab tutorials
   - Other flagship datasets
@@ -170,7 +176,14 @@ content/
     support.md
   resources/
     _index.md
-    data.md
+    data/
+      _index.md
+      brainwide-map.md
+      reproducible-ephys.md
+      behavior.md
+      aging.md
+      widefield.md
+      ephys-autism.md
     modalities.md
     analysis.md
     visualisation.md
