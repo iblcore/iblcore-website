@@ -47,6 +47,7 @@
   --color-brand-light-tint-15: rgba(177, 225, 242, 0.15);
   --color-brand-light-tint-25: rgba(177, 225, 242, 0.25);
   --color-brand-light-tint-40: rgba(177, 225, 242, 0.4);
+  --color-brand-light-tint-65: rgba(177, 225, 242, 0.65);
 
   /* IBL BrainWideBench task suites. The benchmark colour-codes its three
      suites, and the cards carry those colours rather than the site accent. */
@@ -130,6 +131,24 @@
   --radius-sm: 0.5rem;
   --radius-md: 1rem;
   --radius-lg: 1.5rem;
+
+  /* The card surface, shared by resource cards and event cards. A card is
+     told apart by its edge rather than by floating above the page, so the
+     shadow is off and the border carries the hover. */
+  --card-radius: var(--radius-sm);
+  --card-thumb-width: 15rem;
+  --card-border-color: var(--color-accent-tint-20);
+  --card-border-color-hover: var(--color-accent-tint-40);
+  --card-shadow: none;
+
+  /* A card in a grid sits on the dark band, so it is glass cut out of the
+     band rather than a panel laid on it: a white veil thin enough for the
+     blue to read through, and a white edge. Both lighten on hover, which is
+     the whole click cue now that a card neither lifts nor floats. */
+  --card-glass-surface: rgba(255, 255, 255, 0.1);
+  --card-glass-surface-hover: rgba(255, 255, 255, 0.18);
+  --card-glass-border: rgba(255, 255, 255, 0.45);
+  --card-glass-border-hover: rgba(255, 255, 255, 0.6);
   --space-2xs: 0.25rem;
   --space-xs: 0.5rem;
   --space-sm: 0.75rem;

@@ -1,0 +1,19 @@
+# The routes IBL publishes its datasets through. A dataset names the routes it
+# is released on in its `access` front matter, and the dataset templates read
+# the route's name, description and call to action from here.
+#
+# Each route also has software behind it. This site carries the datasets only,
+# so a route is described here rather than on a page of its own, and a dataset
+# sends you straight to that route's own guide or archive record.
+one:
+  title: "ONE"
+  short_description: "IBL's own Python API, best for deep, IBL-specific analysis with full QC and metadata access."
+  guide_action: "Open guide"
+dandi:
+  title: "DANDI & NWB"
+  short_description: "NWB releases on the DANDI Archive, best for a stable, citable release that works with any NWB tool."
+  guide_action: "Open dandiset"
+ibl-ai-agent:
+  title: "IBL-AI-Agent"
+  short_description: "A small, ready-to-use data subset, delivered by describing what you need in plain language."
+  guide_action: "Open on GitHub"

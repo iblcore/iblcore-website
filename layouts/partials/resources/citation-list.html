@@ -1,0 +1,23 @@
+{{- /* The citation entries for a page: one panel per reference, optionally led
+       by an intro paragraph inside the same prose block.
+
+       The reference is what a reader needs; the BibTeX is what they copy. The
+       entry is rendered open, and citation.js collapses it behind a button:
+       without JavaScript the BibTeX is still there to select, rather than
+       locked behind a control that does nothing. An entry with no `entry` key
+       is a reference only, such as a data-registry citation.
+
+       Takes (dict "page" <page> "citations" <slice> "intro" <markdown|"">). */ -}}
+{{- $page := .page -}}
+<div class="prose citations">
+  {{- with .intro }}
+    {{ $page.RenderString (dict "display" "block") . }}
+  {{- end }}
+  {{ range $index, $citation := .citations }}
+    <article class="citation" data-citation>
+      {{ with $citation.kind }}<p class="citation__kind">{{ . }}</p>{{ end }}
+      <div class="citation__ref">{{ $page.RenderString $citation.reference }}</div>
+      {{ with $citation.entry }}<pre id="bibtex-{{ add $index 1 }}">{{ . }}</pre>{{ end }}
+    </article>
+  {{ end }}
+</div>

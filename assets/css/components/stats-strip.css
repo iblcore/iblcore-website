@@ -1,0 +1,42 @@
+/* Headline figures for a resource, sitting on the same dark band as the
+   narrative below it. Reusable by any resource page that sets "stats". */
+.stats-strip__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--layout-gap-grid);
+  margin: 0;
+  padding: 0;
+}
+
+/* The markup is label-then-value so the pair reads correctly aloud; on screen
+   the figure leads. */
+.stats-strip__item {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--space-2xs);
+  padding-left: var(--space-md);
+  border-left: 2px solid var(--color-brand-light-tint-40);
+}
+
+.stats-strip__value {
+  margin: 0;
+  color: var(--color-surface);
+  font-size: clamp(2rem, 1.4rem + 2vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.stats-strip__label {
+  color: var(--color-brand-light);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 760px) {
+  .stats-strip__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-lg) var(--layout-gap-grid);
+  }
+}

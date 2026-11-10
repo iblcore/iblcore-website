@@ -53,6 +53,8 @@
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/events.css") }}
     {{ end }}
     {{ if eq .Section "resources" }}
+      {{ $pageStyles = $pageStyles | append (resources.Get "css/components/resource-index.css") }}
+      {{ $pageStyles = $pageStyles | append (resources.Get "css/components/stats-strip.css") }}
       {{ $pageStyles = $pageStyles | append (resources.Get "css/pages/resources.css") }}
     {{ end }}
     {{ if .IsHome }}
@@ -92,11 +94,25 @@
     {{ else }}
       <script src="{{ $js.RelPermalink }}" defer></script>
     {{ end }}
-    {{ $pageScript := "" }}
-    {{ if eq .Layout "events" }}{{ $pageScript = "js/events.js" }}{{ end }}
-    {{ if eq .Layout "new-partners" }}{{ $pageScript = "js/partners.js" }}{{ end }}
-    {{ if eq .Layout "benchmark" }}{{ $pageScript = "js/benchmark.js" }}{{ end }}
-    {{ with $pageScript }}
+    {{- /* The filter imports its predicate, so it is bundled rather than
+           minified: minify renames each file and would break the import. */ -}}
+    {{ if eq .Layout "dataset-grid" }}
+      {{ $moduleJS := resources.Get "js/resource-filter.js" | js.Build (dict "minify" true "target" "es2018") }}
+      {{ if $fingerprintAssets }}
+        {{ $moduleJS = $moduleJS | fingerprint }}
+        <script src="{{ $moduleJS.RelPermalink }}" integrity="{{ $moduleJS.Data.Integrity }}" defer></script>
+      {{ else }}
+        <script src="{{ $moduleJS.RelPermalink }}" defer></script>
+      {{ end }}
+    {{ end }}
+    {{ $pageScripts := slice }}
+    {{ if eq .Layout "events" }}{{ $pageScripts = $pageScripts | append "js/events.js" }}{{ end }}
+    {{ if eq .Layout "new-partners" }}{{ $pageScripts = $pageScripts | append "js/partners.js" }}{{ end }}
+    {{ if eq .Layout "benchmark" }}{{ $pageScripts = $pageScripts | append "js/benchmark.js" }}{{ end }}
+    {{- /* The BibTeX controls follow the citations themselves, wherever a page
+           carries them, rather than a layout. */ -}}
+    {{ if .Params.citations }}{{ $pageScripts = $pageScripts | append "js/citation.js" }}{{ end }}
+    {{ range $pageScripts }}
       {{ $pageJS := resources.Get . | minify }}
       {{ if $fingerprintAssets }}
         {{ $pageJS = $pageJS | fingerprint }}

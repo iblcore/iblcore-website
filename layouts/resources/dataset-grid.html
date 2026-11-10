@@ -1,0 +1,51 @@
+{{ define "main" }}
+  {{ partial "page-header.html" (dict "page" . "intro" "") }}
+
+  {{ partial "resources/section-intro.html" (dict "page" .) }}
+
+  {{- /* The grid is rendered whole at build time; the search box and the chips
+         narrow what is already on the page. Both are hidden until the script
+         reveals them, because neither does anything without it. */ -}}
+  <section class="section section-band dataset-section" data-resource-index>
+    <div class="shell page-shell">
+      <form class="resource-search" role="search" data-resource-search hidden>
+        <label class="resource-search__label" for="resource-search-input">Search datasets</label>
+        <input class="resource-search__input" id="resource-search-input" type="search"
+               placeholder="Search by name, description or term" autocomplete="off">
+      </form>
+
+      {{ partial "resources/filter-bar.html" (dict "pages" .Pages) }}
+
+      <p class="visually-hidden" aria-live="polite" data-resource-status></p>
+
+      {{ partial "resources/resource-grid.html" (dict
+        "pages" .Pages
+        "empty" "No datasets are listed yet."
+      ) }}
+
+      {{- /* The build-time grid is never empty, so the no-match state belongs
+             to the script that can empty it. */ -}}
+      <p class="resource-grid__empty" data-resource-empty hidden>No datasets match these filters.</p>
+
+      {{ with .Params.data_format_intro }}
+        <p class="dataset-section-copy">{{ . }}</p>
+      {{ end }}
+
+      <div class="dataset-format-legend">
+        <span class="dataset-format-legend__label">Data Access Routes:</span>
+        <span class="dataset-format-legend__item">
+          {{ partial "resources/data-format-icon.html" (dict "key" "one") }}
+        </span>
+        <span class="dataset-format-legend__item">
+          {{ partial "resources/data-format-icon.html" (dict "key" "dandi") }}
+          <span>DANDI &amp; NWB</span>
+        </span>
+        <span class="dataset-format-legend__item">
+          {{ partial "resources/data-format-icon.html" (dict "key" "ibl-ai-agent") }}
+          <span>IBL AI Agent</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+{{ end }}
