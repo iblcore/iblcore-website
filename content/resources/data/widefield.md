@@ -4,70 +4,57 @@ card_image:
   src: "images/widefield-card.png"
   alt: "A mouse brain seen from above, nose to the left, with the thirty-two cortical regions the widefield sessions image picked out in greens and teals against the pale grey of the rest of the surface."
 description: "Widefield calcium imaging of dorsal cortex from mice performing IBL's standardized decision-making task."
-lead: "Cortex-wide calcium imaging recorded while mice used prior expectations to guide their decisions, released alongside IBL's prior paper."
+lead: "Calcium imaging across the dorsal cortex, recorded while mice make decisions, with 32 regions captured at once in every session."
 weight: 5
 
 stats:
   - value: "50"
-    label: "Imaging sessions"
+    label: "Sessions"
   - value: "6"
     label: "Subjects"
   - value: "32"
     label: "Cortical regions"
-  - value: "1"
-    label: "Laboratory"
+  - value: "41,376"
+    label: "Trials"
 
 about:
   - heading: "The project"
-    description: "IBL's prior paper asked where in the brain an animal's expectation of where the stimulus will appear is represented. It drew on two recording modalities: Neuropixels electrophysiology, which samples a few sites per session at single-spike resolution, and this cortex-wide calcium imaging, which captures 32 cortical regions at once. The expectation turned out to be encoded across a wide span of the brain, from early sensory areas upwards, and the behavioral and decoding results agreed across both modalities. The widefield recordings were made in the Zador lab at Cold Spring Harbor."
+    description: "This project aimed to study how prior expectations are represented across the brain during decision-making. To achieve this, the Zador lab used widefield calcium imaging to record activity from mice performing the standardized IBL task, capturing 32 regions of the dorsal cortex at once in every session, alongside recordings from deeper brain areas made by other IBL labs."
     paper_title: "Brain-wide representations of prior information in mouse decision-making"
     paper_link: "https://doi.org/10.1038/s41586-025-09226-1"
   - heading: "The experiment"
-    description: "Recordings were made while mice performed the IBL task, a standardized decision-making task. A head-fixed mouse turns a wheel to report which side a visual grating appeared on, at varying contrast, and is rewarded for correct choices. In these sessions the grating did not appear on each side equally often: it came in blocks favoring one side, so a mouse could combine what it saw with what it had learned to expect, and that expectation is what the paper set out to find in the brain. The mice were a Camk2a-tTA (JAX 007004) by tetO-GCaMP6s (JAX 024742) cross, which expresses GCaMP6s in excitatory forebrain neurons, imaged across the dorsal cortex."
-    figure:
-      tone: "light"
-      src: "images/ibl-task-schematic.jpg"
-      alt: "Two panels of the decision-making task. In each, a head-fixed mouse faces a screen showing a striped stimulus and turns a wheel to move it: turning it to the correct side earns a drop of water, turning it to the wrong side ends the trial without reward."
-      caption: "The IBL task. Figure 1b from International Brain Laboratory et al. (2021), eLife 10:e63711, CC BY 4.0."
+    task: "ibl"
+    description: "Widefield calcium imaging recorded activity across the dorsal cortex in mice expressing GCaMP6s in excitatory forebrain neurons (Camk2a-tTA x tetO-GCaMP6s; JAX 007004 and 024742). Two cameras filmed the mouse throughout each session, one capturing the face and one the body."
   - heading: "What's in the dataset"
-    description: "Cortex-wide imaging for 50 sessions from 6 mice, with the behavior recorded alongside it. The imaging arrives as the spatial and temporal components of an SVD, which the wfield package rebuilds into the full frame stack, together with the landmarks that register it to the Allen dorsal cortex."
     contents:
-      - name: "Imaging"
+      - name: "widefield"
         items:
           - name: "Spatial and temporal components"
-            description: "The SVD of the frame stack: spatial components, with the hemodynamically corrected temporal components and the uncorrected ones beside them."
+            description: "The imaging data, compressed into spatial maps and their time courses (via SVD). Time courses are provided both with and without hemodynamic correction."
           - name: "Frame times and light source"
-            description: "A timestamp for every frame on the session clock, with the illumination it was taken under and that light source's properties."
+            description: "A timestamp for every frame on the session clock, and which light source (blue or violet) each frame was taken under, used to separate neural signal from blood-flow artifacts."
           - name: "Cortical landmarks"
-            description: "Bregma and lambda located in the imaging window, to warp the stack onto the Allen dorsal cortex."
-      - name: "Behavior"
+            description: "Bregma and lambda located in the imaging window, used to align each session to the Allen dorsal cortex map."
+      - name: "behavior"
         items:
-          - name: "Trials"
+          - name: "Trial events"
             description: "Which side the grating appeared on and at what contrast, the mouse's choice, its response time and the feedback it received."
           - name: "Wheel"
-            description: "Wheel position and timestamps, plus the intervals and peak amplitudes of the movements detected in them."
-          - name: "Session clock"
-            description: "The synchronization pulses that place the imaging frames, the video and the behavior on one clock."
-      - name: "Video"
+            description: "Wheel position over time, plus detected movements with their start and end times and peak amplitudes."
+      - name: "video"
         items:
-          - name: "Pose estimation"
-            description: "DeepLabCut tracking of the body and left cameras, in 32 sessions."
-          - name: "Licks and motion energy"
-            description: "Movement within defined regions of the frame in 32 sessions, and lick times in 15."
           - name: "Raw video"
-            description: "Body camera recordings for 48 sessions and left camera recordings for 47."
+            description: "Recordings from two cameras, one filming the face and one the body, from which all other video measures were computed."
+          - name: "Pose estimation"
+            description: "Positions of the paws, nose, tongue and pupil from the face camera, and the tail from the body camera, tracked with DeepLabCut."
+          - name: "Precomputed measures"
+            description: "Lick times and motion energy within defined regions of the frame, computed from the video and released ready to use."
 
 modality:
   - "widefield"
   - "behavior"
   - "video"
-stage:
-  - "analyse"
 
-citation_title: "How to cite"
-citation_intro: |
-  If you use the widefield data in your research, please cite the paper it was
-  released with.
 citations:
   - kind: "Paper"
     reference: |

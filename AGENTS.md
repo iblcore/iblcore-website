@@ -54,6 +54,11 @@ Avoid pixel-perfect overfitting that makes templates hard to maintain.
 For lab-member additions or caption edits on partner pages, use the
 [partner lab members skill](.agents/skills/partner-lab-members/SKILL.md).
 
+Dataset pages under `content/resources/data/` follow a fixed structure. Before
+adding or editing one, read [docs/dataset-page-schema.md](docs/dataset-page-schema.md)
+and scaffold from `archetypes/dataset.md`; `just check` rejects a page that
+breaks the spine.
+
 ## Expected Deliverables Per Coding Session
 
 - If changing IA/content structure:
@@ -136,7 +141,10 @@ keep using that route for requested revisions unless the user changes it.
    - **Direct review:** from a clean, current `main`, create a focused branch
      automatically and make the requested change there.
    Never make the user manage branches or commands.
-4. Implement only the requested change and run `just check`.
+4. Implement only the requested change and run `just check`. Stop the preview
+   server first: `just check` runs `hugo --cleanDestinationDir`, which deletes
+   the directory the running server serves from, leaving the user on a stale or
+   unstyled page. Restart the preview afterwards.
 5. Start the local preview with `just preview "/affected/path/"`. This command
    prints a clickable local URL, attempts to open it in the default browser, and
    keeps Hugo running. If the browser does not open, the printed URL is the
@@ -146,7 +154,9 @@ keep using that route for requested revisions unless the user changes it.
    request a diff or the next workflow step. End with: "Type `approve` if this
    looks right, or tell me what you would like changed."
 7. If the user requests changes, update the same branch, rerun the check,
-   and reopen or refresh the preview. Repeat until they approve.
+   and reopen or refresh the preview. Repeat until they approve. Verify rendered
+   output through the preview URL, not by reading `public/`, whose markup is
+   minified by `just check` but not by the preview server.
 
 Do not commit, push, or create a pull request before the user approves the
 local result. Their message `approve` is explicit authorization for the

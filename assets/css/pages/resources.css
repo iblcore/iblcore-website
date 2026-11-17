@@ -265,6 +265,22 @@
   font-size: calc(var(--font-size-prose-copy) * 0.74);
 }
 
+/* One modality means one group, and nine rows stacked in a single column run
+   most of a screen. The group then spans the whole grid and lays its own rows
+   out across the columns the other pages' groups occupy, so a one-modality
+   dataset reads at the same density as a three-modality one. */
+.dataset-contents--single .dataset-contents__group {
+  display: block;
+  grid-column: 1 / -1;
+}
+
+.dataset-contents--single .resource-category-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0 var(--layout-gap-grid);
+  align-items: start;
+}
+
 /* Dataset guide rows: one access route per row, with the one action it
    offers. Shared by the dataset card and the dataset page's "Get the data"
    panel, so a route reads the same in both. */
@@ -577,53 +593,16 @@
     grid-template-columns: 1fr;
   }
 
+  .dataset-contents--single .resource-category-list {
+    grid-template-columns: 1fr;
+  }
+
   /* Side by side the gap between columns separates the groups. Stacked, each
      group name would otherwise sit straight under the last row of the group
      before it, reading as part of it. */
   .dataset-contents__group + .dataset-contents__group {
     margin-top: var(--space-md);
   }
-}
-
-/* What a visitor can do at the viewer, listed so the link is more than a name. */
-.dataset-explore__list {
-  margin: var(--space-md) 0 0;
-  padding-left: var(--space-md);
-  list-style: none;
-}
-
-.dataset-explore__list li {
-  position: relative;
-  padding-left: var(--space-md);
-}
-
-.dataset-explore__list li + li {
-  margin-top: var(--space-xs);
-}
-
-.dataset-explore__list li::before {
-  content: "";
-  position: absolute;
-  top: 0.6em;
-  left: 0;
-  width: 0.4rem;
-  height: 0.4rem;
-  border-radius: 50%;
-  background: var(--color-brand-sky);
-}
-
-.dataset-explore__cta {
-  margin-top: var(--space-lg);
-}
-
-.dataset-explore__link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-xs);
-}
-
-.dataset-explore__arrow {
-  flex: none;
 }
 
 /* Plain jump links, aligned with the page's left edge rather than centred in a

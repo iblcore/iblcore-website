@@ -11,10 +11,20 @@
         {{- $illustrated := 0 }}
         {{- range . }}
           {{- $entry := . }}
+          {{- /* An entry naming a shared paradigm renders that paradigm's copy
+                 and figure from data/tasks.yaml first; the entry's own
+                 description then follows as the deviation from it. */ -}}
+          {{- $taskCopy := "" }}
+          {{- $figure := .figure }}
+          {{- with .task }}
+            {{- $task := partial "resources/task.html" . }}
+            {{- $taskCopy = $task.description }}
+            {{- $figure = $task.figure }}
+          {{- end }}
           {{- /* Count only the entries that carry a figure, so the alternation
                  is unbroken by entries that have none. */ -}}
-          {{- if .figure }}{{ $illustrated = add $illustrated 1 }}{{ end }}
-          {{- $flipped := and .figure (eq (mod $illustrated 2) 0) }}
+          {{- if $figure }}{{ $illustrated = add $illustrated 1 }}{{ end }}
+          {{- $flipped := and $figure (eq (mod $illustrated 2) 0) }}
           {{- /* Both kinds of citation render identically; collecting them first
                  keeps the markup below to one shape. A paper falls back to its
                  URL's caption when the file gives no title. */ -}}
@@ -35,7 +45,8 @@
             <div class="dataset-split{{ if $flipped }} dataset-split--flipped{{ end }}">
               <div class="dataset-split__copy">
                 {{- with .heading }}<h3 class="dataset-about__heading">{{ . }}</h3>{{ end }}
-                <p>{{ .description }}</p>
+                {{- with $taskCopy }}<p>{{ . }}</p>{{ end }}
+                {{- with $entry.description }}<p>{{ . }}</p>{{ end }}
                 {{- with $citations }}
                   <dl class="dataset-about__citations">
                     {{- range . }}
@@ -49,7 +60,7 @@
                   </dl>
                 {{- end }}
               </div>
-              {{- partial "resources/dataset-figure.html" (dict "figure" .figure) }}
+              {{- partial "resources/dataset-figure.html" (dict "figure" $figure) }}
             </div>
             {{- /* The inventory sits outside the split so its groups can use the
                    full shell width. Stacked in the copy column the same rows run
@@ -61,10 +72,16 @@
                      because a shorter one simply leaves its last tracks empty. */ -}}
               {{- $rows := 0 }}
               {{- range . }}{{ if gt (len .items) $rows }}{{ $rows = len .items }}{{ end }}{{ end }}
-              <div class="dataset-contents" style="--dataset-contents-rows: {{ $rows }}; --dataset-contents-columns: {{ len . }}">
+              {{- /* A dataset with one modality has one group, and its rows
+                     in a single column run most of a screen: the modifier hands
+                     that group the full width to lay its own rows out in. */ -}}
+              <div class="dataset-contents{{ if eq (len .) 1 }} dataset-contents--single{{ end }}" style="--dataset-contents-rows: {{ $rows }}; --dataset-contents-columns: {{ len . }}">
                 {{- range . }}
                   <div class="dataset-contents__group" style="grid-row: span {{ add $rows 1 }}">
-                    <h4 class="dataset-contents__group-name">{{ .name }}</h4>
+                    {{- /* The group is a modality term, spelled for display
+                           here so the column header and the filter chip on the
+                           index cannot drift apart. */ -}}
+                    <h4 class="dataset-contents__group-name">{{ partial "resources/term-spelling.html" .name }}</h4>
                     {{- /* The list hands its rows to the group's grid so they can
                            align across columns; the role keeps it a list while it
                            has no box of its own. */ -}}

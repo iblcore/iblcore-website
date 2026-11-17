@@ -1,0 +1,15 @@
+{{- /* Every access route, in the order data/access_routes.yaml gives them.
+
+       Takes nothing and returns a slice of route maps, each carrying its own
+       `key` alongside the fields from the data file.
+
+       Hugo sorts a map's keys alphabetically when ranging over it, so the
+       file's `order` field carries the sequence instead, and the key is merged
+       into each route so a caller can still reach the route's icon. The
+       dataset page and the index legend both read this, which is what keeps
+       them listing the routes the same way. */ -}}
+{{- $routes := slice -}}
+{{- range $key, $route := hugo.Data.access_routes -}}
+  {{- $routes = $routes | append (merge $route (dict "key" $key)) -}}
+{{- end -}}
+{{- return (sort $routes "order") -}}

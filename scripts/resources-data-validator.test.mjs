@@ -17,6 +17,44 @@ test("a resource missing required front matter is reported by path", () => {
 
 const valid = { title: "Datoviz", description: "Rendering.", modality: [], stage: ["visualise"] };
 
+const datasetPath = "content/resources/data/brainwide-map.md";
+
+// A dataset page that satisfies the whole spine, so each test below can break
+// exactly one rule and leave the rest reporting nothing.
+const validDataset = {
+  title: "Brainwide Map",
+  description: "IBL's flagship dataset.",
+  lead: "A whole-brain map of neural activity.",
+  weight: 1,
+  card_image: { src: "images/brainwide-map-card.png", alt: "A translucent mouse brain." },
+  modality: ["neuropixels", "behavior"],
+  access: ["one"],
+  stats: [
+    { value: "699", label: "Probe insertions" },
+    { value: "241", label: "Brain regions" },
+    { value: "139", label: "Subjects" },
+    { value: "12", label: "Laboratories" },
+  ],
+  about: [
+    {
+      heading: "The project",
+      description: "Twelve laboratories sampled a shared grid of targets.",
+      paper_title: "A brain-wide map of neural activity",
+      paper_link: "https://www.nature.com/articles/s41586-025-09235-0",
+    },
+    { heading: "The experiment", task: "ibl" },
+    {
+      heading: "What's in the dataset",
+      description: "Neural activity paired trial by trial with behavior.",
+      contents: [
+        { name: "neuropixels", items: [{ name: "Spike-sorted activity", description: "621,733 units." }] },
+        { name: "behavior", items: [{ name: "Trials", description: "Choices." }] },
+      ],
+    },
+  ],
+  citations: [{ kind: "Paper", reference: "IBL et al. (2025).", entry: "@article{iblbwm2025,}" }],
+};
+
 test("a resource needs at least one stage", () => {
   const errors = validateResourcesData(
     [resource("a.md", { ...valid, stage: [] })],
@@ -87,7 +125,7 @@ test("links keys are known and their values absolute", () => {
 
 const resources = [
   resource("content/resources/tools/one.md", valid),
-  resource("content/resources/data/brainwide-map.md", valid),
+  resource(datasetPath, validDataset),
 ];
 
 test("a workflow step needs a title and a resource", () => {
@@ -166,7 +204,7 @@ test("the invalid fixture tree reports every supported category", async () => {
 test("a resource restricted to datasets that do not exist is reported", () => {
   const errors = validateResourcesData(
     [
-      resource("content/resources/data/brainwide-map.md", { ...valid, stage: ["analyse"] }),
+      resource(datasetPath, validDataset),
       resource("content/resources/tools/explorer.md", {
         ...valid,
         datasets: ["/resources/data/brainwide-map", "/resources/data/ghost"],
@@ -183,7 +221,7 @@ const workflowWith = (steps) => ({
   data: { title: "W", description: "D", steps },
 });
 const step = (extra) => ({ title: "S", resource: "/resources/data/brainwide-map", ...extra });
-const dataset = [resource("content/resources/data/brainwide-map.md", { ...valid, stage: ["analyse"] })];
+const dataset = [resource(datasetPath, validDataset)];
 
 test("a step can mark itself the workflow's dataset chooser", () => {
   assert.deepEqual(
@@ -315,17 +353,7 @@ test("a figure tone outside the vocabulary is reported", () => {
   assert.match(errors, /figure tone "transparent" must be one of light, dark/);
 });
 
-test("an explore figure is validated like an about figure", () => {
-  const explore = { description: "Copy.", figure: { src: "images/viz.jpg" } };
-  const errors = validateResourcesData([resource("a.md", { ...valid, explore })], []).join("\n");
-  assert.match(errors, /explore: figure: required field "alt" is missing/);
-});
 
-test("explore highlights must be a list of strings", () => {
-  const explore = { description: "Copy.", highlights: ["Fine", 7] };
-  const errors = validateResourcesData([resource("a.md", { ...valid, explore })], []).join("\n");
-  assert.match(errors, /explore: highlight 2 must be a string/);
-});
 
 test("a contents group needs a name to head its column", () => {
   const contents = [{ items: [{ name: "Trials", description: "Choices." }] }];
@@ -392,4 +420,147 @@ test("a resource carrying valid contents reports nothing", () => {
     validateResourcesData([resource("a.md", { ...valid, about: [{ description: "C.", contents }] })], []),
     [],
   );
+});
+
+// --- Dataset page spine (specs/dataset-page-structure.md) -------------------
+
+test("a dataset page carrying stage is reported", () => {
+  const errors = validateResourcesData(
+    [resource(datasetPath, { ...validDataset, stage: ["analyse"] })],
+    [],
+  ).join("\n");
+  assert.match(errors, /"stage" is retired on dataset pages/);
+});
+
+test("a dataset page is not asked for a stage", () => {
+  assert.deepEqual(validateResourcesData([resource(datasetPath, validDataset)], []), []);
+});
+
+test("a dataset page with a fourth about entry is reported", () => {
+  const about = [...validDataset.about, { heading: "Built on this data", description: "Copy." }];
+  const errors = validateResourcesData([resource(datasetPath, { ...validDataset, about })], []).join("\n");
+  assert.match(errors, /"about" needs exactly 3 entries, not 4/);
+});
+
+test("a dataset about entry under the wrong heading is reported by position", () => {
+  const about = validDataset.about.map((entry, index) =>
+    index === 1 ? { ...entry, heading: "The task" } : entry,
+  );
+  const errors = validateResourcesData([resource(datasetPath, { ...validDataset, about })], []).join("\n");
+  assert.match(errors, /about entry 2: heading "The task" must be "The experiment"/);
+});
+
+test("a dataset project entry without its paper is reported", () => {
+  const about = validDataset.about.map((entry, index) =>
+    index === 0 ? { heading: entry.heading, description: entry.description } : entry,
+  );
+  const errors = validateResourcesData([resource(datasetPath, { ...validDataset, about })], []).join("\n");
+  assert.match(errors, /about entry 1: "The project" needs "paper_title" and "paper_link"/);
+});
+
+test("a dataset experiment entry needs either a task or its own figure", () => {
+  const about = validDataset.about.map((entry, index) =>
+    index === 1 ? { heading: entry.heading, description: "Its own experiment." } : entry,
+  );
+  const errors = validateResourcesData([resource(datasetPath, { ...validDataset, about })], []).join("\n");
+  assert.match(errors, /about entry 2: "The experiment" needs "task", or a "description" with its own "figure"/);
+});
+
+test("a dataset contents entry without contents is reported", () => {
+  const about = validDataset.about.map((entry, index) =>
+    index === 2 ? { heading: entry.heading, description: entry.description } : entry,
+  );
+  const errors = validateResourcesData([resource(datasetPath, { ...validDataset, about })], []).join("\n");
+  assert.match(errors, /about entry 3: "What's in the dataset" needs "contents"/);
+});
+
+test("contents groups that are not the page's modalities are reported", () => {
+  const about = validDataset.about.map((entry, index) =>
+    index === 2 ? { ...entry, contents: [{ name: "Neural", items: [{ name: "N", description: "D." }] }] } : entry,
+  );
+  const errors = validateResourcesData([resource(datasetPath, { ...validDataset, about })], []).join("\n");
+  assert.match(errors, /contents groups \[Neural\] must be the page's modalities \[neuropixels, behavior\]/);
+});
+
+test("contents groups in a different order from modality are reported", () => {
+  const about = validDataset.about.map((entry, index) =>
+    index === 2
+      ? {
+          ...entry,
+          contents: [...entry.contents].reverse(),
+        }
+      : entry,
+  );
+  const errors = validateResourcesData([resource(datasetPath, { ...validDataset, about })], []).join("\n");
+  assert.match(errors, /contents groups \[behavior, neuropixels\] must be the page's modalities/);
+});
+
+test("a dataset stats strip that is not four entries is reported", () => {
+  const stats = validDataset.stats.slice(0, 3);
+  const errors = validateResourcesData([resource(datasetPath, { ...validDataset, stats })], []).join("\n");
+  assert.match(errors, /"stats" needs exactly 4 entries, not 3/);
+});
+
+test("a stat label outside the vocabulary is reported with the label", () => {
+  const stats = validDataset.stats.map((entry, index) =>
+    index === 3 ? { value: "7", label: "Institutions" } : entry,
+  );
+  const errors = validateResourcesData([resource(datasetPath, { ...validDataset, stats })], []).join("\n");
+  assert.match(errors, /stats entry 4: label "Institutions" is not in the stat label vocabulary/);
+});
+
+// A headline figure of one is not a measurement of the dataset, it is a fact
+// about its design: "1 Repeated site", "1 Laboratory".
+test("a stat whose value is one is reported", () => {
+  const stats = validDataset.stats.map((entry, index) =>
+    index === 1 ? { value: "1", label: "Laboratories" } : entry,
+  );
+  const errors = validateResourcesData([resource(datasetPath, { ...validDataset, stats })], []).join("\n");
+  assert.match(errors, /stats entry 2: a value of "1" is not a headline figure/);
+});
+
+test("a citation kind outside the vocabulary is reported with the kind", () => {
+  const citations = [...validDataset.citations, { kind: "AWS Open Data Registry", reference: "R" }];
+  const errors = validateResourcesData([resource(datasetPath, { ...validDataset, citations })], []).join("\n");
+  assert.match(errors, /citation 2: kind "AWS Open Data Registry" must be one of Paper, Data release, Registry entry, Code/);
+});
+
+test("a dataset whose first citation is not the paper is reported", () => {
+  const citations = [{ kind: "Code", reference: "Zenodo." }, ...validDataset.citations];
+  const errors = validateResourcesData([resource(datasetPath, { ...validDataset, citations })], []).join("\n");
+  assert.match(errors, /citation 1 must be the "Paper"/);
+});
+
+test("a paper citation without its BibTeX entry is reported", () => {
+  const citations = [{ kind: "Paper", reference: "IBL et al. (2025)." }];
+  const errors = validateResourcesData([resource(datasetPath, { ...validDataset, citations })], []).join("\n");
+  assert.match(errors, /citation 1: a "Paper" needs "entry"/);
+});
+
+test("a dataset page still carrying an explore block is reported", () => {
+  const explore = { heading: "Explore it", description: "Copy." };
+  const errors = validateResourcesData([resource(datasetPath, { ...validDataset, explore })], []).join("\n");
+  assert.match(errors, /"explore" is retired; the viewer is an access route/);
+});
+
+test("a dataset page missing its lead, weight or card image is reported", () => {
+  const { lead, weight, card_image, ...rest } = validDataset;
+  const errors = validateResourcesData([resource(datasetPath, rest)], []).join("\n");
+  assert.match(errors, /required field "lead" is missing/);
+  assert.match(errors, /required field "weight" is missing/);
+  assert.match(errors, /required field "card_image" is missing/);
+});
+
+test("explorer is an access route a dataset can be published through", () => {
+  const data = { ...validDataset, access: ["explorer", "one"], access_guides: { explorer: "https://viz.internationalbrainlab.org" } };
+  assert.deepEqual(validateResourcesData([resource(datasetPath, data)], []), []);
+});
+
+// The contents grid is the entry's substance: "What's in the dataset" lists
+// what the release holds rather than describing it in prose.
+test("an about entry carrying contents needs no description", () => {
+  const about = validDataset.about.map((entry, index) =>
+    index === 2 ? { heading: entry.heading, contents: entry.contents } : entry,
+  );
+  assert.deepEqual(validateResourcesData([resource(datasetPath, { ...validDataset, about })], []), []);
 });

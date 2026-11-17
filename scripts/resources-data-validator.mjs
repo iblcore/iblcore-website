@@ -5,7 +5,7 @@
 export const VOCABULARIES = {
   modality: ["neuropixels", "mesoscope", "fibre-photometry", "widefield", "behavior", "video"],
   stage: ["collect", "pre-process", "analyse", "visualise", "benchmark"],
-  access: ["one", "dandi", "ibl-ai-agent"],
+  access: ["explorer", "one", "dandi", "ibl-ai-agent"],
 };
 
 /**
@@ -44,6 +44,42 @@ const LINK_KINDS = ["docs", "code", "platform", "preprint"];
 // Front matter that "about" replaced. A file still carrying one would render
 // nothing at all, so the copy has to be reported rather than quietly dropped.
 const RETIRED_RESOURCE_KEYS = ["project", "task"];
+
+// Dataset pages follow a fixed spine the other resource sections do not, so
+// several rules below are keyed on the section a file sits in.
+const DATASET_SECTION = "content/resources/data/";
+const isDatasetPath = (path) => path.startsWith(DATASET_SECTION);
+
+// The headings a dataset page's "about" section carries, in the order it
+// renders them. The set is closed: a page cannot omit, rename, reorder or add
+// one, which is what keeps six dataset pages reading as one series.
+const DATASET_ABOUT_HEADINGS = ["The project", "The experiment", "What's in the dataset"];
+
+// What a dataset's four headline figures are allowed to count. The list is
+// closed so that the same quantity is called the same thing on every page and
+// so the strip cannot fill up with facts about the study design.
+const DATASET_STAT_LABELS = [
+  "Subjects", "Sessions", "Probe insertions", "Laboratories", "Brain regions",
+  "Cortical regions", "Units", "Trials", "Genotypes", "Months of age",
+];
+// stats-strip.css lays the strip out as four equal columns.
+const DATASET_STAT_COUNT = 4;
+
+// What a dataset page can point a reader at, in the order the panel renders
+// them. Every page leads with the paper it was released with.
+const DATASET_CITATION_KINDS = ["Paper", "Data release", "Registry entry", "Code"];
+
+// Front matter every dataset page carries. The lead is the page's one-sentence
+// banner and the card image is how the dataset appears on the index, so a page
+// without either is incomplete rather than merely plain.
+const DATASET_REQUIRED_FIELDS = ["lead", "weight", "card_image"];
+
+// Keys a dataset page can no longer carry. "explore" became an access route;
+// "stage" narrowed nothing, every dataset being "analyse".
+const RETIRED_DATASET_KEYS = {
+  explore: '"explore" is retired; the viewer is an access route',
+  stage: '"stage" is retired on dataset pages; remove it',
+};
 
 const isAbsoluteUrl = (value) => typeof value === "string" && /^https?:\/\//.test(value);
 
@@ -89,7 +125,11 @@ function checkAbout(data, path, errors) {
   }
   entries.forEach((entry, index) => {
     const label = `${path}: about entry ${index + 1}`;
-    if (typeof entry?.description !== "string" || entry.description.trim() === "") {
+    // An entry is allowed no prose of its own where something else carries
+    // it: a shared task in data/tasks.yaml renders that task's copy, and a
+    // contents grid lists the release rather than describing it.
+    const carriesOwnSubstance = entry?.task !== undefined || entry?.contents !== undefined;
+    if (!carriesOwnSubstance && `${entry?.description ?? ""}`.trim() === "") {
       errors.push(`${label} is missing "description"`);
     }
     if (entry?.paper_link !== undefined && !isAbsoluteUrl(entry.paper_link)) {
@@ -103,6 +143,130 @@ function checkAbout(data, path, errors) {
     if (entry?.figure !== undefined) checkFigure(entry.figure, `${label}: figure`, errors);
     if (entry?.contents !== undefined) checkContents(entry.contents, label, errors);
   });
+}
+
+/**
+ * Check what a dataset page tells a reader to cite.
+ *
+ * Only the paper must carry BibTeX: a registry entry or a Zenodo archive is
+ * cited by its own reference line, which the panel renders verbatim.
+ *
+ * @param {object} data Front matter of one dataset page.
+ * @param {string} path File the entries came from, used in messages.
+ * @param {string[]} errors Collected messages, appended to in place.
+ */
+function checkDatasetCitations(data, path, errors) {
+  const entries = data?.citations;
+  if (!Array.isArray(entries)) return;
+  if (entries[0]?.kind !== "Paper") {
+    errors.push(`${path}: citation 1 must be the "Paper" the dataset was released with`);
+  }
+  entries.forEach((entry, index) => {
+    const label = `${path}: citation ${index + 1}`;
+    if (!DATASET_CITATION_KINDS.includes(entry?.kind)) {
+      errors.push(`${label}: kind "${entry?.kind ?? ""}" must be one of ${DATASET_CITATION_KINDS.join(", ")}`);
+    }
+    if (entry?.kind === "Paper" && `${entry?.entry ?? ""}`.trim() === "") {
+      errors.push(`${label}: a "Paper" needs "entry" so the panel can offer BibTeX`);
+    }
+  });
+}
+
+/**
+ * Check the four headline figures a dataset page opens with.
+ *
+ * Values are compared as strings because that is how they are rendered and
+ * stored: "1" is rejected whether the file wrote it quoted or bare.
+ *
+ * @param {object} data Front matter of one dataset page.
+ * @param {string} path File the entries came from, used in messages.
+ * @param {string[]} errors Collected messages, appended to in place.
+ */
+function checkDatasetStats(data, path, errors) {
+  const entries = data?.stats;
+  if (!Array.isArray(entries)) return;
+  if (entries.length !== DATASET_STAT_COUNT) {
+    errors.push(`${path}: "stats" needs exactly ${DATASET_STAT_COUNT} entries, not ${entries.length}`);
+  }
+  entries.forEach((entry, index) => {
+    const label = `${path}: stats entry ${index + 1}`;
+    if (entry?.label !== undefined && !DATASET_STAT_LABELS.includes(entry.label)) {
+      errors.push(`${label}: label "${entry.label}" is not in the stat label vocabulary`);
+    }
+    if (`${entry?.value ?? ""}`.trim() === "1") {
+      errors.push(`${label}: a value of "1" is not a headline figure`);
+    }
+  });
+}
+
+/**
+ * Check the fixed "about" spine a dataset page renders.
+ *
+ * The three entries are checked by position rather than by searching for a
+ * heading, because an entry under the wrong heading is the common error and
+ * reporting it by position says which slot it landed in.
+ *
+ * @param {object} data Front matter of one dataset page.
+ * @param {string} path File the entries came from, used in messages.
+ * @param {string[]} errors Collected messages, appended to in place.
+ */
+function checkDatasetAbout(data, path, errors) {
+  const entries = data?.about;
+  if (!Array.isArray(entries)) return;
+  if (entries.length !== DATASET_ABOUT_HEADINGS.length) {
+    errors.push(
+      `${path}: "about" needs exactly ${DATASET_ABOUT_HEADINGS.length} entries, not ${entries.length}`,
+    );
+    return;
+  }
+
+  const [project, experiment, contents] = entries;
+  DATASET_ABOUT_HEADINGS.forEach((heading, index) => {
+    if (entries[index]?.heading !== heading) {
+      errors.push(
+        `${path}: about entry ${index + 1}: heading "${entries[index]?.heading ?? ""}" must be "${heading}"`,
+      );
+    }
+  });
+
+  if (`${project?.paper_title ?? ""}`.trim() === "" || project?.paper_link === undefined) {
+    errors.push(`${path}: about entry 1: "The project" needs "paper_title" and "paper_link"`);
+  }
+  // Either the entry names a shared paradigm, which brings its own figure, or
+  // it describes and illustrates the page's own: the slot is never bare.
+  if (experiment?.task === undefined && experiment?.figure === undefined) {
+    errors.push(
+      `${path}: about entry 2: "The experiment" needs "task", or a "description" with its own "figure"`,
+    );
+  }
+  if (contents?.contents === undefined) {
+    errors.push(`${path}: about entry 3: "What's in the dataset" needs "contents"`);
+    return;
+  }
+  checkDatasetContentsGroups(contents.contents, data.modality, path, errors);
+}
+
+/**
+ * Check that a dataset's contents grid is split by the modalities it declares.
+ *
+ * The groups carry the vocabulary term, not a display title: the template
+ * spells each one through term-spelling.html, so the column header and the
+ * filter chip on the index cannot drift apart.
+ *
+ * @param {object[]} groups The entry's contents list.
+ * @param {string[]} modality The page's modality terms, in page order.
+ * @param {string} path File the groups came from, used in messages.
+ * @param {string[]} errors Collected messages, appended to in place.
+ */
+function checkDatasetContentsGroups(groups, modality, path, errors) {
+  if (!Array.isArray(groups) || !Array.isArray(modality)) return;
+  const names = groups.map((group) => group?.name);
+  if (names.join("\u0000") !== modality.join("\u0000")) {
+    errors.push(
+      `${path}: about entry 3: contents groups [${names.join(", ")}] must be ` +
+        `the page's modalities [${modality.join(", ")}], in that order`,
+    );
+  }
 }
 
 /**
@@ -173,35 +337,6 @@ function checkFigure(figure, label, errors) {
 }
 
 /**
- * Check the "explore" block a dataset page renders as its call to action.
- *
- * Its figure is the same shape as an entry's, so it goes through the same
- * check; the highlights are the few things a visitor can do at the link.
- *
- * @param {object} data Front matter of one resource.
- * @param {string} path File the block came from, used in messages.
- * @param {string[]} errors Collected messages, appended to in place.
- */
-function checkExplore(data, path, errors) {
-  const explore = data?.explore;
-  if (explore === undefined) return;
-
-  const label = `${path}: explore`;
-  if (explore.figure !== undefined) checkFigure(explore.figure, `${label}: figure`, errors);
-
-  if (explore.highlights === undefined) return;
-  if (!Array.isArray(explore.highlights)) {
-    errors.push(`${label}: "highlights" must be a list`);
-    return;
-  }
-  explore.highlights.forEach((highlight, index) => {
-    if (typeof highlight !== "string" || highlight.trim() === "") {
-      errors.push(`${label}: highlight ${index + 1} must be a string`);
-    }
-  });
-}
-
-/**
  * Check the headline figures a resource page renders as its stats strip.
  *
  * Values stay strings: they are display text such as "699" or "12", never
@@ -258,7 +393,9 @@ export function validateResourcesData(resources, workflows) {
     for (const taxonomy of Object.keys(VOCABULARIES)) {
       checkVocabulary(data, taxonomy, path, errors);
     }
-    if (!Array.isArray(data?.stage) || data.stage.length === 0) {
+    // Datasets reject "stage" through RETIRED_DATASET_KEYS below; every other
+    // section still needs one.
+    if (!isDatasetPath(path) && (!Array.isArray(data?.stage) || data.stage.length === 0)) {
       errors.push(`${path}: every resource needs at least one "stage"`);
     }
 
@@ -283,8 +420,20 @@ export function validateResourcesData(resources, workflows) {
     }
 
     checkAbout(data, path, errors);
+    if (isDatasetPath(path)) {
+      for (const field of DATASET_REQUIRED_FIELDS) {
+        if (data?.[field] === undefined) {
+          errors.push(`${path}: required field "${field}" is missing`);
+        }
+      }
+      checkDatasetAbout(data, path, errors);
+      checkDatasetStats(data, path, errors);
+      checkDatasetCitations(data, path, errors);
+      for (const [key, message] of Object.entries(RETIRED_DATASET_KEYS)) {
+        if (data?.[key] !== undefined) errors.push(`${path}: ${message}`);
+      }
+    }
     checkStats(data, path, errors);
-    checkExplore(data, path, errors);
 
     for (const key of RETIRED_RESOURCE_KEYS) {
       if (data?.[key] !== undefined) {

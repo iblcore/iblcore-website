@@ -1,35 +1,30 @@
 ---
 title: "Reproducible Ephys"
 description: "A multi-lab Neuropixels dataset testing the reproducibility of electrophysiology recordings."
-lead: "Twelve laboratories aimed Neuropixels probes at the same spot in the mouse brain, to find out how far electrophysiology results travel between labs."
+lead: "Neuropixels recordings from the same brain location, repeated across laboratories while mice make decisions, to test how well electrophysiology results reproduce between labs."
 weight: 2
 
 stats:
-  - value: "91"
-    label: "Recording sessions"
+  - value: "88"
+    label: "Sessions"
   - value: "12"
     label: "Laboratories"
-  - value: "1"
-    label: "Repeated site"
   - value: "3"
     label: "Brain regions"
+  - value: "138,545"
+    label: "Units"
 
 about:
   - heading: "The project"
-    description: "Two labs recording from the same brain area often reach different conclusions, and until this study nobody had measured how far apart they land. Twelve laboratories ran one shared task on one shared apparatus and repeatedly targeted the same location, so the spread between them could be quantified rather than assumed."
+    description: "If two labs record from the same brain region in the same task, how similar will their results be? To find out, 12 laboratories used identical rigs and protocols to record from mice performing the standardized IBL task, each inserting Neuropixels probes along the same path through cortex, hippocampus and thalamus. With the same experiment repeated across labs, differences between them could be measured directly."
     paper_title: "Reproducibility of in vivo electrophysiological measurements in mice"
     paper_link: "https://doi.org/10.7554/eLife.100840"
   - heading: "The experiment"
-    description: "Recordings were made while mice performed the IBL task, a standardized decision-making task: a head-fixed mouse turns a wheel to report which side a visual stimulus appeared on, and is rewarded for correct choices. Holding the task fixed is what leaves probe placement and analysis as the variables under test."
-    figure:
-      tone: "light"
-      src: "images/ibl-task-schematic.jpg"
-      alt: "Two panels of the decision-making task. In each, a head-fixed mouse faces a screen showing a striped stimulus and turns a wheel to move it: turning it to the correct side earns a drop of water, turning it to the wrong side ends the trial without reward."
-      caption: "The IBL task. Figure 1b from International Brain Laboratory et al. (2021), eLife 10:e63711, CC BY 4.0."
+    task: "ibl"
+    description: "Spiking activity was recorded with Neuropixels probes inserted along a single repeated trajectory, with each laboratory targeting the same brain regions. Three cameras filmed the mouse throughout each session, two capturing the face and one the body."
   - heading: "What's in the dataset"
-    description: "Processed and raw data from 91 recording sessions at the repeated site, which spans posterior parietal cortex, hippocampus and thalamus, arranged in the standard IBL collections."
     contents:
-      - name: "Neural"
+      - name: "neuropixels"
         items:
           - name: "Spike-sorted activity"
             description: "Spike times and depths, cluster assignments, per-unit quality metrics and mean waveforms for every insertion."
@@ -37,36 +32,21 @@ about:
             description: "The AP and LFP bands as recorded by SpikeGLX, with the synchronization channels alongside them."
           - name: "Channel and unit locations"
             description: "Every channel and every cluster placed in the Allen atlas by histology, so the repeated site can be compared lab by lab."
-      - name: "Behavior"
+      - name: "behavior"
         items:
-          - name: "Trials"
+          - name: "Trial events"
             description: "Which side the stimulus appeared on and at what contrast, the mouse's choice, its response time and the feedback it received."
           - name: "Wheel"
             description: "Wheel position and timestamps, plus the intervals and peak amplitudes of the movements detected in them."
-          - name: "Session metadata"
-            description: "Lab, subject, date and task protocol for every session."
-      - name: "Video"
+      - name: "video"
         items:
-          - name: "Pose estimation"
-            description: "Markerless body-part tracking for the left, right and body cameras, computed with DeepLabCut."
-          - name: "Licks and motion energy"
-            description: "Lick times and movement within defined regions of the frame, extracted from the same video."
           - name: "Raw video"
-            description: "The left, right and body camera recordings the tracking was computed from."
+            description: "Recordings from three cameras, two filming the face and one the body, from which all other video measures were computed."
+          - name: "Pose estimation"
+            description: "Paws, nose, tongue, pupil and tail tracked across the cameras by Lightning Pose, with the earlier DeepLabCut output alongside."
+          - name: "Precomputed measures"
+            description: "Pupil diameter, lick times and motion energy within defined regions of the frame, all computed from the video and released ready to use."
 
-explore:
-  heading: "Explore it in your browser"
-  description: "The repeated-site recordings sit in the Brainwide Map Explorer alongside the Brainwide Map itself. Switch the session selector to Repeated sites to narrow it to this dataset."
-  highlights:
-    - "Compare the same target location across twelve laboratories"
-    - "Open any session to see where its probe actually landed"
-    - "Step through a probe's units and their activity"
-  link: "https://viz.internationalbrainlab.org"
-  link_text: "Open the Brainwide Map Explorer"
-
-citation_title: "How to cite"
-citation_intro: |
-  If you use Reproducible Ephys in your research, please cite the paper.
 citations:
   - kind: "Paper"
     reference: |
@@ -91,12 +71,13 @@ card_image:
 modality:
   - "neuropixels"
   - "behavior"
-stage:
-  - "analyse"
+  - "video"
 
 access:
+  - "explorer"
   - "one"
 
 access_guides:
+  explorer: "https://viz.internationalbrainlab.org"
   one: "https://docs.internationalbrainlab.org/notebooks_external/2024_data_release_repro_ephys.html"
 ---

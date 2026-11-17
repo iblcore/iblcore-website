@@ -26,7 +26,7 @@ Use the canonical pages below for current public information about IBL-Core.
 ### Datasets
 
 - [Datasets](https://iblcore.org/resources/data/): Every released IBL dataset, with the access routes available for each.
-- [Brainwide Map](https://iblcore.org/resources/data/brainwide-map/): 699 Neuropixels insertions across 241 brain areas during decision-making, with access guides and the Brainwide Map Explorer.
+- [Brainwide Map](https://iblcore.org/resources/data/brainwide-map/): 699 Neuropixels insertions across 241 brain areas during decision-making, with a guide for each access route it is published through.
 - [Reproducible Ephys](https://iblcore.org/resources/data/reproducible-ephys/): Multi-lab Neuropixels dataset testing the reproducibility of electrophysiology recordings.
 - [Behavior](https://iblcore.org/resources/data/behavior/): Behavioral data from mice learning and performing IBL's standardized visual decision-making task.
 - [Aging](https://iblcore.org/resources/data/aging/): Neuropixels and behavioral data from mice aged 3 to 20 months performing IBL's standardized decision-making task.

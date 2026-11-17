@@ -31,19 +31,18 @@
         <p class="dataset-section-copy">{{ . }}</p>
       {{ end }}
 
+      {{- /* Built from data/access_routes.yaml so the legend cannot list a
+             route the dataset pages no longer offer, or miss a new one. The
+             icon is decorative here because its name is spelled out beside
+             it. */ -}}
       <div class="dataset-format-legend">
         <span class="dataset-format-legend__label">Data Access Routes:</span>
-        <span class="dataset-format-legend__item">
-          {{ partial "resources/data-format-icon.html" (dict "key" "one") }}
-        </span>
-        <span class="dataset-format-legend__item">
-          {{ partial "resources/data-format-icon.html" (dict "key" "dandi") }}
-          <span>DANDI &amp; NWB</span>
-        </span>
-        <span class="dataset-format-legend__item">
-          {{ partial "resources/data-format-icon.html" (dict "key" "ibl-ai-agent") }}
-          <span>IBL AI Agent</span>
-        </span>
+        {{- range $route := partial "resources/access-routes.html" . }}
+          <span class="dataset-format-legend__item">
+            {{ partial "resources/data-format-icon.html" (dict "key" $route.key "label" $route.title "decorative" true) }}
+            <span>{{ $route.title }}</span>
+          </span>
+        {{- end }}
       </div>
     </div>
   </section>
