@@ -39,8 +39,11 @@ about:
           - name: ""
             description: ""
 
+# The picture is processed to the card thumbnail at build time, so it lives
+# under assets/, not static/. Supply it larger than the box and let Hugo
+# resample it: 1150px wide or more.
 card_image:
-  src: "images/.png"
+  src: "img/resources/.png"
   alt: "What the picture shows, for a reader who cannot see it."
 
 modality:

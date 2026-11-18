@@ -1,7 +1,7 @@
 ---
 title: "Behavior"
 card_image:
-  src: "images/behavior-card.jpg"
+  src: "img/resources/behavior-card.jpg"
   alt: "A head-fixed mouse facing a screen that shows a striped grating, turning a wheel to move the grating towards the centre, with a drop of water beside it for a correct choice."
 description: "Behavioral data from mice learning and performing IBL's standardized visual decision-making task."
 lead: "The full training history of 170 mice learning one standardized decision-making task, recorded across 9 laboratories."

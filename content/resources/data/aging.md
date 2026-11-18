@@ -1,7 +1,7 @@
 ---
 title: "Aging"
 card_image:
-  src: "images/aging-card.png"
+  src: "img/resources/aging-card.png"
   alt: "The same head-fixed mouse drawn 5 times in a row, its coat fading from dark slate to pale along the line, above a scale marked from 3 months to 20 months."
 description: "Neuropixels and behavioral data from mice aged 3 to 20 months performing IBL's standardized decision-making task."
 lead: "Neuropixels recordings and behavior from mice aged 3 to 20 months, recorded while they make decisions, to measure how the brain and behavior change with age."

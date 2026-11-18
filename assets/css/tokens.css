@@ -136,7 +136,6 @@
      told apart by its edge rather than by floating above the page, so the
      shadow is off and the border carries the hover. */
   --card-radius: var(--radius-sm);
-  --card-thumb-width: 15rem;
   --card-border-color: var(--color-accent-tint-20);
   --card-border-color-hover: var(--color-accent-tint-40);
   --card-shadow: none;

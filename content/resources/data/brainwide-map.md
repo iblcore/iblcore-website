@@ -57,7 +57,7 @@ about:
             description: "Pupil diameter, lick times and motion energy within defined regions of the frame, computed from the video and released ready to use."
 
 card_image:
-  src: "images/brainwide-map-card.png"
+  src: "img/resources/brainwide-map-card.png"
   alt: "The same translucent mouse brain shown twice, from the side and from above, both shaded pale green and yellow by region and crossed by the tracks of every probe insertion in the dataset."
 
 modality:

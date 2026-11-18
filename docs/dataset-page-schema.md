@@ -23,6 +23,12 @@ already know where to look on the next.
 
 ## Required front matter
 
+Card pictures live under `assets/img/resources/`, not `static/`: the card
+thumbnail is a fixed 288px box, and the picture is resampled to it at build
+time and served with a 2x candidate. A full-size picture squeezed into the box
+by the browser loses hairlines and small labels. Supply artwork at 1150px wide
+or more and let Hugo do the reduction.
+
 `title`, `description`, `lead`, `weight`, `card_image` (with a non-empty
 `alt`), `modality`, `stats`, `about`, `access`, `citations`.
 

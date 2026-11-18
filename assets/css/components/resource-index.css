@@ -33,13 +33,13 @@
   border-color: var(--card-glass-border);
 }
 
-/* The picture is a thumbnail on the card, not a banner across the top of it.
-   At full width an opaque plate joins the card's silhouette and reads as a
-   hole punched in the glass; kept small and aligned to the text below, it
-   reads as one more element in the card's column. The width is set here, so
-   one value resizes every thumbnail at once. */
+/* The picture sits inset from the card's edge, with its own border and
+   corners: at full width an opaque plate joins the card's silhouette and reads
+   as a hole punched in the glass. It takes whatever width the margin leaves
+   rather than a fixed one, because a fixed width was both too small for the
+   artwork's own detail and, between roughly 520px and 900px, wider than the
+   card itself, so the surplus was cropped away. */
 .resource-cards .resource-card .resource-card__image {
-  width: var(--card-thumb-width);
   margin: var(--space-md) var(--space-md) 0;
   border: 1px solid var(--card-glass-border);
   border-radius: var(--card-radius);

@@ -65,7 +65,7 @@ citations:
       }
 
 card_image:
-  src: "images/reproducible-ephys-card.png"
+  src: "img/resources/reproducible-ephys-card.png"
   alt: "A translucent mouse brain with the repeated-site target regions picked out in teal, green and pink, crossed by a dense bundle of probe tracks."
 
 modality:

@@ -35,12 +35,55 @@
 >
   {{- /* A dataset's own picture, where it has one. A card without one is
          exactly the card as it was, so the grid stays mixed until every
-         picture exists. The picture is a square thumbnail at the head of the
-         card's column, sized by the stylesheet. */ -}}
+         picture exists.
+
+         The picture is inset in the card and takes whatever width the card's
+         margin leaves, which varies with the grid, so it is offered at several
+         widths and the browser takes the one its card and screen density need.
+         Serving the artwork full size instead left the browser to downscale it
+         about five times at draw time, which turns hairline illustrations and
+         small labels to mush.
+
+         A candidate wider than the source is dropped rather than upscaled:
+         enlarging a small original makes a bigger file and a softer picture,
+         so a source narrower than about 1000px cannot fill the widest card on
+         a high-density screen. */ -}}
+  {{- $candidateWidths := slice 360 480 720 980 }}
+  {{- /* The widest card is 411px across a three-column shell and about 488px
+         once the grid drops to one column, less the margin on each side. */ -}}
+  {{- $sizes := "(max-width: 520px) calc(100vw - 4rem), calc(min(33vw, 411px) - 2rem)" }}
   {{- with $page.Params.card_image }}
-    <div class="resource-card__image resource-card__image--{{ .fit | default "cover" }}">
-      <img src="{{ .src | relURL }}" alt="{{ .alt }}" loading="lazy">
-    </div>
+    {{- $card := . }}
+    {{- with .src }}
+      {{- /* errorf marks the build failed but does not halt the template, so
+             the lookup guards everything below it: without the else branch the
+             message is buried under a nil dereference on the first use. */ -}}
+      {{- with resources.Get . }}
+        {{- $source := . }}
+        {{- $rendered := slice }}
+        {{- range $candidateWidths }}
+          {{- if le . $source.Width }}
+            {{- $rendered = $rendered | append ($source.Resize (printf "%dx webp q90 Lanczos" .)) }}
+          {{- end }}
+        {{- end }}
+        {{- if not $rendered }}
+          {{- $rendered = slice ($source.Resize (printf "%dx webp q90 Lanczos" $source.Width)) }}
+        {{- end }}
+        {{- $widest := index $rendered (sub (len $rendered) 1) }}
+        <div class="resource-card__image resource-card__image--{{ $card.fit | default "cover" }}">
+          <img
+            src="{{ $widest.RelPermalink }}"
+            srcset="{{ range $index, $image := $rendered }}{{ if $index }}, {{ end }}{{ $image.RelPermalink }} {{ $image.Width }}w{{ end }}"
+            sizes="{{ $sizes }}"
+            width="{{ $widest.Width }}"
+            height="{{ $widest.Height }}"
+            alt="{{ $card.alt }}"
+            loading="lazy">
+        </div>
+      {{- else }}
+        {{- errorf "card_image %q is not under assets/" . }}
+      {{- end }}
+    {{- end }}
   {{- end }}
   <div class="resource-card__body resource-card__body--stack">
     <p class="resource-type-badge">Dataset</p>
