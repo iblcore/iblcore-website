@@ -501,6 +501,15 @@
   margin-top: 0;
 }
 
+/* An entry whose copy column holds a shared paradigm puts the dataset's own
+   description here instead: below the split and across both of its columns, so
+   the paradigm and its figure stay one block and the deviation from it reads
+   as a note on the whole entry rather than a second paragraph beside the
+   figure. */
+.dataset-about__deviation {
+  margin: var(--space-lg) 0 0;
+}
+
 /* The clip is authored on black, so it keeps a black panel of its own rather
    than being blended into the band: on a saturated blue the dark anatomy and
    the burnt-in lab captions both disappear. */

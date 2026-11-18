@@ -15,11 +15,25 @@
                  and figure from data/tasks.yaml first; the entry's own
                  description then follows as the deviation from it. */ -}}
           {{- $taskCopy := "" }}
+          {{- $taskPaper := false }}
           {{- $figure := .figure }}
           {{- with .task }}
             {{- $task := partial "resources/task.html" . }}
             {{- $taskCopy = $task.description }}
             {{- $figure = $task.figure }}
+            {{- $taskPaper = $task }}
+          {{- end }}
+          {{- /* An entry that renders a shared paradigm's copy keeps its own
+                 description out of the column and below the split, so the
+                 paradigm and its figure read as one block and the dataset's
+                 deviation from it runs the full width underneath. An entry
+                 with no paradigm has nothing above it, so its description
+                 stays in the column where the figure can sit beside it. */ -}}
+          {{- $deviation := "" }}
+          {{- $columnCopy := $entry.description }}
+          {{- if $taskCopy }}
+            {{- $deviation = $entry.description }}
+            {{- $columnCopy = "" }}
           {{- end }}
           {{- /* Count only the entries that carry a figure, so the alternation
                  is unbroken by entries that have none. */ -}}
@@ -40,13 +54,27 @@
               "label" "Paper"
               "text" ($entry.paper_title | default "Read the paper")
               "href" .) }}
+          {{- else }}
+            {{- /* The paradigm's own paper, so every page running it cites the
+                   same reference without repeating it in six files. It is
+                   labelled "Task", not "Paper", because it describes the
+                   paradigm rather than the dataset the page is about. A page
+                   that sets its own paper_link overrides this. */ -}}
+            {{- with $taskPaper }}
+              {{- with .paper_link }}
+                {{- $citations = $citations | append (dict
+                  "label" "Task"
+                  "text" ($taskPaper.paper_title | default "Read the paper")
+                  "href" .) }}
+              {{- end }}
+            {{- end }}
           {{- end }}
           <div class="dataset-about__entry">
             <div class="dataset-split{{ if $flipped }} dataset-split--flipped{{ end }}">
               <div class="dataset-split__copy">
                 {{- with .heading }}<h3 class="dataset-about__heading">{{ . }}</h3>{{ end }}
                 {{- with $taskCopy }}<p>{{ . }}</p>{{ end }}
-                {{- with $entry.description }}<p>{{ . }}</p>{{ end }}
+                {{- with $columnCopy }}<p>{{ . }}</p>{{ end }}
                 {{- with $citations }}
                   <dl class="dataset-about__citations">
                     {{- range . }}
@@ -62,6 +90,9 @@
               </div>
               {{- partial "resources/dataset-figure.html" (dict "figure" $figure) }}
             </div>
+            {{- with $deviation }}
+              <p class="dataset-about__deviation">{{ . }}</p>
+            {{- end }}
             {{- /* The inventory sits outside the split so its groups can use the
                    full shell width. Stacked in the copy column the same rows run
                    to most of a screen; side by side they stay scannable. */ -}}

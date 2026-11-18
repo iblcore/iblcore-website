@@ -1,7 +1,7 @@
 ---
-title: "Brainwide Map"
+title: "Brain-wide Map"
 description: "IBL's flagship dataset: 699 Neuropixels insertions across 241 brain areas during decision-making."
-lead: "A brain-wide map of neural activity recorded while mice make decisions, collected by twelve laboratories running one standardized task."
+lead: "A brain-wide map of neural activity recorded while mice make decisions, collected by 12 laboratories running one standardized task."
 weight: 1
 
 stats:
@@ -16,7 +16,7 @@ stats:
 
 about:
   - heading: "The project"
-    description: "The Brain-wide Map project aimed to study decision-making across the entire mouse brain. To achieve this, twelve laboratories followed shared protocols to record neural activity from 139 mice performing a single, standardized task. The resulting dataset covers 241 regions across 699 Neuropixels insertions and is openly available with standardized processing, ready for exploring how neural activity relates to perception, expectation, and action."
+    description: "The Brain-wide Map project aimed to study decision-making across the entire mouse brain. To achieve this, 12 laboratories followed shared protocols to record neural activity from 139 mice performing a single, standardized task. The resulting dataset covers 241 regions across 699 Neuropixels insertions and is openly available with standardized processing, ready for exploring how neural activity relates to perception, expectation, and action."
     link: "/projects/#ibl-research-projects"
     link_label: "Project"
     link_text: "IBL research projects"
@@ -30,33 +30,31 @@ about:
       caption: "Probe insertions from across the lab network, shown in a common anatomical reference frame."
   - heading: "The experiment"
     task: "ibl"
-    description: "Spiking activity was recorded with Neuropixels probes inserted at a grid of target locations, with each target sampled by multiple laboratories. Three cameras filmed the mouse's face and body throughout each session."
-    paper_title: "Standardized and reproducible measurement of decision-making in mice"
-    paper_link: "https://elifesciences.org/articles/63711"
+    description: "Spiking activity was recorded with Neuropixels probes inserted at a grid of target locations, with each target sampled by multiple laboratories. Three cameras filmed the mouse throughout each session, two capturing the face and one the body."
   - heading: "What's in the dataset"
     contents:
       - name: "neuropixels"
         items:
           - name: "Spike-sorted activity"
-            description: "621,733 units across 241 brain regions."
+            description: "Spike times and depths, cluster assignments, mean waveforms and per-unit quality metrics, ready to analyze without touching the raw recordings."
           - name: "Raw electrophysiology"
-            description: "The AP band at 30 kHz and the LFP band."
+            description: "The AP band at 30 kHz and the LFP band as recorded, for re-sorting the spikes or working with the continuous signal."
           - name: "Channel locations"
-            description: "Every recording channel placed in the Allen Mouse Brain Atlas by histology."
+            description: "Every recording channel placed in the Allen Mouse Brain Atlas by histology, which is what gives each unit its brain region."
       - name: "behavior"
         items:
           - name: "Trial events"
             description: "Which side the stimulus appeared on and at what contrast, the mouse's choice, its response time and the feedback it received, trial by trial."
           - name: "Wheel"
-            description: "Continuous wheel position throughout the session, plus the movements detected in it."
+            description: "Wheel position over time, plus detected movements with their start and end times and peak amplitudes."
       - name: "video"
         items:
           - name: "Raw video"
             description: "Recordings from three cameras, two filming the face and one the body, from which all other video measures were computed."
           - name: "Pose estimation"
-            description: "Paws, nose, tongue, pupil and tail tracked across the cameras by Lightning Pose, with the earlier DeepLabCut output alongside."
+            description: "Positions of the paws, nose, tongue and pupil from the face cameras, and the tail from the body camera, tracked with Lightning Pose, with the earlier DeepLabCut output alongside."
           - name: "Precomputed measures"
-            description: "Pupil diameter, lick times and motion energy within defined regions of the frame, all computed from the video and released ready to use."
+            description: "Pupil diameter, lick times and motion energy within defined regions of the frame, computed from the video and released ready to use."
 
 card_image:
   src: "images/brainwide-map-card.png"

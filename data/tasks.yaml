@@ -20,6 +20,8 @@ ibl:
     must infer the current bias from recent trials, letting researchers study
     how expectations and sensory evidence combine, alongside the many other
     behavioral and neural variables recorded in each session.
+  paper_title: "Standardized and reproducible measurement of decision-making in mice"
+  paper_link: "https://doi.org/10.7554/eLife.63711"
   figure:
     tone: "light"
     src: "images/ibl-task-schematic.jpg"

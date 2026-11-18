@@ -38,10 +38,21 @@ Exactly three entries, under exactly these headings, in this order.
    `paper_title` and `paper_link`. `figure` and `link`/`link_label`/`link_text`
    are optional.
 2. **The experiment** — the paradigm the sessions ran. Either set `task` to a
-   key in `data/tasks.yaml`, in which case that paradigm's description and
-   figure render first and the entry's own `description` follows as the
-   deviation from it; or omit `task` and give the entry its own `description`
-   and `figure`. Either way the entry carries a figure.
+   key in `data/tasks.yaml`, in which case that paradigm's description, figure
+   and paper render first and the entry's own `description` follows below them
+   as the deviation from it; or omit `task` and give the entry its own
+   `description` and `figure`. Either way the entry carries a figure.
+
+   A paradigm's paper is cited from `data/tasks.yaml`, labelled **Task** so it
+   reads as the paper describing the paradigm rather than the paper for the
+   dataset the page is about. Do not repeat it in the page's front matter; a
+   page that genuinely needs a different reference sets its own `paper_link`,
+   which overrides it.
+
+   When a `task` is named, the entry's own `description` renders below the
+   split and across both of its columns, so the paradigm and its figure stay
+   one block. An entry with no `task` keeps its description in the copy column
+   beside the figure.
 3. **What's in the dataset** — what a reader gets on download. Requires
    `contents`. `figure` optional.
 
@@ -65,6 +76,13 @@ columns a three-group page uses rather than running down one tall column.
 
 A row says what the release contains. It does not state what is absent, and it
 does not count how many sessions carry a given data type.
+
+A row name that appears on more than one page carries the same description on
+every one of them, taken from the Brain-wide Map page. A reader comparing two
+datasets should see wording differ only where the data differs: Widefield says
+"two cameras" because it has two, and Widefield and Ephys Autism say
+"DeepLabCut" with no Lightning Pose clause because they carry no Lightning Pose
+output.
 
 ## Stats
 

@@ -2,7 +2,7 @@
 title: "Widefield"
 card_image:
   src: "images/widefield-card.png"
-  alt: "A mouse brain seen from above, nose to the left, with the thirty-two cortical regions the widefield sessions image picked out in greens and teals against the pale grey of the rest of the surface."
+  alt: "A mouse brain seen from above, nose to the left, with the 32 cortical regions the widefield sessions image picked out in greens and teals against the pale grey of the rest of the surface."
 description: "Widefield calcium imaging of dorsal cortex from mice performing IBL's standardized decision-making task."
 lead: "Calcium imaging across the dorsal cortex, recorded while mice make decisions, with 32 regions captured at once in every session."
 weight: 5
@@ -38,7 +38,7 @@ about:
       - name: "behavior"
         items:
           - name: "Trial events"
-            description: "Which side the grating appeared on and at what contrast, the mouse's choice, its response time and the feedback it received."
+            description: "Which side the stimulus appeared on and at what contrast, the mouse's choice, its response time and the feedback it received, trial by trial."
           - name: "Wheel"
             description: "Wheel position over time, plus detected movements with their start and end times and peak amplitudes."
       - name: "video"
@@ -48,7 +48,7 @@ about:
           - name: "Pose estimation"
             description: "Positions of the paws, nose, tongue and pupil from the face camera, and the tail from the body camera, tracked with DeepLabCut."
           - name: "Precomputed measures"
-            description: "Lick times and motion energy within defined regions of the frame, computed from the video and released ready to use."
+            description: "Pupil diameter, lick times and motion energy within defined regions of the frame, computed from the video and released ready to use."
 
 modality:
   - "widefield"

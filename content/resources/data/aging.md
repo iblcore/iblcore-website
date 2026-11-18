@@ -2,9 +2,9 @@
 title: "Aging"
 card_image:
   src: "images/aging-card.png"
-  alt: "The same head-fixed mouse drawn five times in a row, its coat fading from dark slate to pale along the line, above a scale marked from three months to twenty months."
+  alt: "The same head-fixed mouse drawn 5 times in a row, its coat fading from dark slate to pale along the line, above a scale marked from 3 months to 20 months."
 description: "Neuropixels and behavioral data from mice aged 3 to 20 months performing IBL's standardized decision-making task."
-lead: "Neuropixels recordings and behavior from mice aged three to twenty months, recorded while they make decisions, to measure how the brain and behavior change with age."
+lead: "Neuropixels recordings and behavior from mice aged 3 to 20 months, recorded while they make decisions, to measure how the brain and behavior change with age."
 weight: 4
 
 stats:
@@ -19,7 +19,7 @@ stats:
 
 about:
   - heading: "The project"
-    description: "This study asked how behavioral and neural variability change as a mouse ages. Mice from 3 to 20 months old were recorded on one standardized task. Lifespan recordings from the Churchland lab are combined with brain-wide map sessions in the same age range, giving 149 mice, 367 sessions and 503 probe insertions across 16 regions spanning cortex, hippocampus, thalamus, midbrain, basal ganglia and olfactory areas."
+    description: "This study asked how behavioral and neural variability change as a mouse ages. Mice from 3 to 20 months old were recorded on one standardized task. Lifespan recordings from the Churchland lab are combined with Brain-wide Map sessions in the same age range, giving 149 mice, 367 sessions and 503 probe insertions across 16 regions spanning cortex, hippocampus, thalamus, midbrain, basal ganglia and olfactory areas."
     paper_title: "Age-related changes in behavioural and neural variability in a decision-making task"
     paper_link: "https://doi.org/10.1038/s41467-026-74227-1"
   - heading: "The experiment"
@@ -30,25 +30,25 @@ about:
       - name: "neuropixels"
         items:
           - name: "Spike-sorted activity"
-            description: "Spike times, clusters, mean waveforms and per-unit quality metrics for the lifespan recordings."
+            description: "Spike times and depths, cluster assignments, mean waveforms and per-unit quality metrics, ready to analyze without touching the raw recordings."
           - name: "Raw electrophysiology"
-            description: "The AP and LFP bands as recorded by SpikeGLX, with the synchronization channels."
+            description: "The AP band at 30 kHz and the LFP band as recorded, for re-sorting the spikes or working with the continuous signal."
           - name: "Channel locations"
-            description: "Electrode sites placed in the Allen atlas, giving every channel its brain region."
+            description: "Every recording channel placed in the Allen Mouse Brain Atlas by histology, which is what gives each unit its brain region."
       - name: "behavior"
         items:
           - name: "Trial events"
-            description: "Which side the stimulus appeared on and at what contrast, the mouse's choice, its response time and the feedback it received."
+            description: "Which side the stimulus appeared on and at what contrast, the mouse's choice, its response time and the feedback it received, trial by trial."
           - name: "Wheel"
-            description: "Wheel position and timestamps, plus the intervals and peak amplitudes of the movements detected in them."
+            description: "Wheel position over time, plus detected movements with their start and end times and peak amplitudes."
       - name: "video"
         items:
           - name: "Raw video"
             description: "Recordings from three cameras, two filming the face and one the body, from which all other video measures were computed."
           - name: "Pose estimation"
-            description: "Paws, nose, tongue, pupil and tail tracked across the cameras by Lightning Pose, with the earlier DeepLabCut output alongside."
+            description: "Positions of the paws, nose, tongue and pupil from the face cameras, and the tail from the body camera, tracked with Lightning Pose, with the earlier DeepLabCut output alongside."
           - name: "Precomputed measures"
-            description: "Pupil diameter, lick times and motion energy within defined regions of the frame, all computed from the video and released ready to use."
+            description: "Pupil diameter, lick times and motion energy within defined regions of the frame, computed from the video and released ready to use."
 
 modality:
   - "neuropixels"
@@ -57,8 +57,8 @@ modality:
 
 citation_intro: |
   The analysis code and intermediate results are archived separately on Zenodo. If
-  you use the brain-wide map component, follow the citation guidance on the
-  [Brainwide Map](/resources/data/brainwide-map/) page as well.
+  you use the Brain-wide Map component, follow the citation guidance on the
+  [Brain-wide Map](/resources/data/brainwide-map/) page as well.
 citations:
   - kind: "Paper"
     reference: |

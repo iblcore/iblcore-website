@@ -27,25 +27,25 @@ about:
       - name: "neuropixels"
         items:
           - name: "Spike-sorted activity"
-            description: "Spike times and depths, cluster assignments, per-unit quality metrics and mean waveforms for every insertion."
+            description: "Spike times and depths, cluster assignments, mean waveforms and per-unit quality metrics, ready to analyze without touching the raw recordings."
           - name: "Raw electrophysiology"
-            description: "The AP and LFP bands as recorded by SpikeGLX, with the synchronization channels alongside them."
-          - name: "Channel and unit locations"
-            description: "Every channel and every cluster placed in the Allen atlas by histology, so the repeated site can be compared lab by lab."
+            description: "The AP band at 30 kHz and the LFP band as recorded, for re-sorting the spikes or working with the continuous signal."
+          - name: "Channel locations"
+            description: "Every recording channel placed in the Allen Mouse Brain Atlas by histology, which is what gives each unit its brain region."
       - name: "behavior"
         items:
           - name: "Trial events"
-            description: "Which side the stimulus appeared on and at what contrast, the mouse's choice, its response time and the feedback it received."
+            description: "Which side the stimulus appeared on and at what contrast, the mouse's choice, its response time and the feedback it received, trial by trial."
           - name: "Wheel"
-            description: "Wheel position and timestamps, plus the intervals and peak amplitudes of the movements detected in them."
+            description: "Wheel position over time, plus detected movements with their start and end times and peak amplitudes."
       - name: "video"
         items:
           - name: "Raw video"
             description: "Recordings from three cameras, two filming the face and one the body, from which all other video measures were computed."
           - name: "Pose estimation"
-            description: "Paws, nose, tongue, pupil and tail tracked across the cameras by Lightning Pose, with the earlier DeepLabCut output alongside."
+            description: "Positions of the paws, nose, tongue and pupil from the face cameras, and the tail from the body camera, tracked with Lightning Pose, with the earlier DeepLabCut output alongside."
           - name: "Precomputed measures"
-            description: "Pupil diameter, lick times and motion energy within defined regions of the frame, all computed from the video and released ready to use."
+            description: "Pupil diameter, lick times and motion energy within defined regions of the frame, computed from the video and released ready to use."
 
 citations:
   - kind: "Paper"
