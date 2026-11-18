@@ -108,7 +108,15 @@
     {{ $pageScripts := slice }}
     {{ if eq .Layout "events" }}{{ $pageScripts = $pageScripts | append "js/events.js" }}{{ end }}
     {{ if eq .Layout "new-partners" }}{{ $pageScripts = $pageScripts | append "js/partners.js" }}{{ end }}
-    {{ if eq .Layout "benchmark" }}{{ $pageScripts = $pageScripts | append "js/benchmark.js" }}{{ end }}
+    {{- /* A looping clip opts into playback rather than being switched off
+           after the fact, so the script follows the clip wherever it renders:
+           the benchmark page's own video, or a dataset "about" entry whose
+           figure carries one. */ -}}
+    {{ $hasClip := isset .Params "video" }}
+    {{ range .Params.about }}
+      {{ if and .figure (isset .figure "video") }}{{ $hasClip = true }}{{ end }}
+    {{ end }}
+    {{ if $hasClip }}{{ $pageScripts = $pageScripts | append "js/autoplay-clip.js" }}{{ end }}
     {{- /* The BibTeX controls follow the citations themselves, wherever a page
            carries them, rather than a layout. */ -}}
     {{ if .Params.citations }}{{ $pageScripts = $pageScripts | append "js/citation.js" }}{{ end }}

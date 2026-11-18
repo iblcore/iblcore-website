@@ -1,16 +1,19 @@
 {{- /* The illustration beside one "about" entry: either a still or a looping
-       clip. A clip renders its poster as a sibling still, which CSS swaps in
-       for readers who have asked for reduced motion, so no script is needed. */ -}}
+       clip. A clip carries controls and neither autoplay nor preload, so it
+       rests on its poster until autoplay-clip.js starts it, which it does only
+       for a reader who has not asked for reduced motion. Hiding a playing clip
+       in CSS stopped the motion but still downloaded the file behind it. */ -}}
 {{- $figure := .figure -}}
 {{- with $figure -}}
   <figure class="dataset-figure dataset-figure--{{ .tone | default "light" }}">
     <div class="dataset-figure__frame">
     {{- with .video }}
-      <video class="dataset-figure__media" autoplay loop muted playsinline
+      <video class="dataset-figure__media" loop muted playsinline controls preload="none"
+             data-autoplay-clip
              poster="{{ $figure.poster | relURL }}" aria-label="{{ $figure.alt }}">
         <source src="{{ . | relURL }}" type="video/mp4">
+        <a href="{{ . | relURL }}">Download the clip</a>
       </video>
-      <img class="dataset-figure__still" src="{{ $figure.poster | relURL }}" alt="{{ $figure.alt }}" loading="lazy">
     {{- end }}
     {{- with .src }}
       <img class="dataset-figure__media" src="{{ . | relURL }}" alt="{{ $figure.alt }}" loading="lazy">

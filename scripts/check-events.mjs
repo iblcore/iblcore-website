@@ -5,6 +5,7 @@ import process from "node:process";
 import { chromium } from "playwright";
 import { checkCardImages } from "./check-card-images.mjs";
 import { checkCitations } from "./check-citations.mjs";
+import { checkDatasetFigure } from "./check-dataset-figure.mjs";
 import { checkPageLayout } from "./check-page-layout.mjs";
 
 const publicRoot = path.resolve("public");
@@ -350,6 +351,7 @@ try {
 
   await checkCardImages(browser, origin);
   await checkCitations(browser, origin);
+  await checkDatasetFigure(browser, origin);
   await checkPageLayout(browser, origin);
 } finally {
   await browser.close();

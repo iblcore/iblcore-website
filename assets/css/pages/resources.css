@@ -550,31 +550,16 @@
   pointer-events: none;
 }
 
-.dataset-figure__media,
-.dataset-figure__still {
+.dataset-figure__media {
   display: block;
   width: 100%;
   height: auto;
-}
-
-.dataset-figure__still {
-  display: none;
 }
 
 .dataset-figure__caption {
   margin-top: var(--space-sm);
   color: var(--color-text-on-dark-muted);
   font-size: 0.9rem;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .dataset-figure video.dataset-figure__media {
-    display: none;
-  }
-
-  .dataset-figure__still {
-    display: block;
-  }
 }
 
 @media (max-width: 760px) {
