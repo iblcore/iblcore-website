@@ -72,7 +72,14 @@ const DATASET_CITATION_KINDS = ["Paper", "Data release", "Registry entry", "Code
 // Front matter every dataset page carries. The lead is the page's one-sentence
 // banner and the card image is how the dataset appears on the index, so a page
 // without either is incomplete rather than merely plain.
-const DATASET_REQUIRED_FIELDS = ["lead", "weight", "card_image"];
+//
+// The spine's own keys are listed here because the checks below each take a
+// list and return early when handed anything else: absence would otherwise
+// pass, and the page would publish with no stats strip, no narrative, no
+// access panel and no citation block, reporting nothing.
+const DATASET_REQUIRED_FIELDS = [
+  "lead", "weight", "card_image", "stats", "about", "modality", "access", "citations",
+];
 
 // Keys a dataset page can no longer carry. "explore" became an access route;
 // "stage" narrowed nothing, every dataset being "analyse".

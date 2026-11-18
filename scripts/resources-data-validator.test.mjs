@@ -26,7 +26,7 @@ const validDataset = {
   description: "IBL's flagship dataset.",
   lead: "A whole-brain map of neural activity.",
   weight: 1,
-  card_image: { src: "images/brainwide-map-card.png", alt: "A translucent mouse brain." },
+  card_image: { src: "img/resources/brainwide-map-card.png", alt: "A translucent mouse brain." },
   modality: ["neuropixels", "behavior"],
   access: ["one"],
   stats: [
@@ -549,6 +549,20 @@ test("a dataset page missing its lead, weight or card image is reported", () => 
   assert.match(errors, /required field "lead" is missing/);
   assert.match(errors, /required field "weight" is missing/);
   assert.match(errors, /required field "card_image" is missing/);
+});
+
+// The spine checks all take a list and return early when handed something
+// else, so absence has to be reported here or a page carrying none of it
+// publishes with no stats strip, no narrative, no access panel and no
+// citations, silently.
+test("a dataset page missing the spine itself is reported key by key", () => {
+  const { stats, about, modality, access, citations, ...rest } = validDataset;
+  const errors = validateResourcesData([resource(datasetPath, rest)], []).join("\n");
+  assert.match(errors, /required field "stats" is missing/);
+  assert.match(errors, /required field "about" is missing/);
+  assert.match(errors, /required field "modality" is missing/);
+  assert.match(errors, /required field "access" is missing/);
+  assert.match(errors, /required field "citations" is missing/);
 });
 
 test("explorer is an access route a dataset can be published through", () => {
