@@ -1,0 +1,29 @@
+# The experimental paradigms IBL datasets are recorded under. A dataset names
+# the paradigm its sessions ran in the `task` of its "The experiment" entry,
+# and the dataset template renders that paradigm's description and figure
+# there, followed by the page's own description as the deviation from it.
+#
+# The description was repeated near-identically on all six dataset pages, so it
+# lives here for the same reason data/access_routes.yaml holds the access
+# routes: one wording, one figure, one caption, changed in one place. Datasets
+# using another paradigm describe and illustrate it on the page itself.
+ibl:
+  title: "The IBL task"
+  description: >-
+    The IBL task is a visual decision-making task designed to engage
+    perception, learned expectations, action, and reward within each trial. A
+    head-fixed mouse turns a wheel to move a grating, shown on the left or
+    right of a screen, to the center. Correct choices earn sugar water; errors
+    bring a noise burst and timeout. Contrast ranges from 100% to 0%, so some
+    trials offer no visual evidence. In trained mice, the grating appears on
+    one side 80% of the time, in blocks that switch without warning. The mouse
+    must infer the current bias from recent trials, letting researchers study
+    how expectations and sensory evidence combine, alongside the many other
+    behavioral and neural variables recorded in each session.
+  paper_title: "Standardized and reproducible measurement of decision-making in mice"
+  paper_link: "https://doi.org/10.7554/eLife.63711"
+  figure:
+    tone: "light"
+    src: "images/ibl-task-schematic.jpg"
+    alt: "Two panels of the decision-making task. In each, a head-fixed mouse faces a screen showing a striped stimulus and turns a wheel to move it: turning it to the correct side earns a drop of water, turning it to the wrong side ends the trial without reward."
+    caption: "The IBL task. Figure 1b from International Brain Laboratory et al. (2021), eLife 10:e63711, CC BY 4.0."

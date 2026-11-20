@@ -37,7 +37,7 @@ These ideas shaped a new kind of “virtual laboratory”, a coordinated network
 
 The IBL was officially launched in 2017, bringing together laboratories across the world to work on a unified experimental and computational framework.
 
-The initial phase of the collaboration focused on a large-scale, coordinated effort, the Brainwide Map, which established standardized experimental protocols and generated shared datasets across labs. This was followed by a second phase involving a broader set of investigator-led projects and task forces, which diversified the scientific scope while relying on the same shared infrastructure.
+The initial phase of the collaboration focused on a large-scale, coordinated effort, the Brain-wide Map, which established standardized experimental protocols and generated shared datasets across labs. This was followed by a second phase involving a broader set of investigator-led projects and task forces, which diversified the scientific scope while relying on the same shared infrastructure.
 
 Throughout these phases, engineering, and in particular the work of RSEs, became central. Supporting both large-scale coordination and diverse projects required robust data systems, scalable pipelines, and flexible tools that could adapt to different scientific needs.
 

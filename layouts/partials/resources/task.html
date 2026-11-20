@@ -1,0 +1,12 @@
+{{- /* The experimental paradigm named by one `task` term, looked up by that term.
+
+       Takes the term as a string and returns its entry in data/tasks.yaml.
+
+       A term with no entry is a content error: the page's "The experiment"
+       entry would otherwise render with no copy and no figure, so fail the
+       build rather than publish an empty section. */ -}}
+{{- $task := index hugo.Data.tasks . -}}
+{{- if not $task -}}
+  {{- errorf "task %q has no entry in data/tasks.yaml" . -}}
+{{- end -}}
+{{- return $task -}}

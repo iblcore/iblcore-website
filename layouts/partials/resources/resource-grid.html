@@ -1,0 +1,15 @@
+{{- /* A grid of dataset cards, or an empty-state message when there are none.
+
+       Takes (dict "pages" <page collection> "empty" "<message>").
+
+       An empty collection renders no grid container at all, rather than an
+       empty one. */ -}}
+{{- with .pages }}
+  <div class="resource-cards">
+    {{- range . }}
+      {{ partial "resources/resource-card.html" (dict "page" .) }}
+    {{- end }}
+  </div>
+{{- else }}
+  <p class="resource-grid__empty">{{ .empty }}</p>
+{{- end -}}

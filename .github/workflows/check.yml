@@ -33,6 +33,12 @@ jobs:
         run: node --test scripts/check-umami-proxy.test.mjs
       - name: Compile Pages Functions
         run: npx wrangler pages functions build --outdir .wrangler/functions-check
+      - name: Validate resources data
+        run: node scripts/check-resources-data.mjs
+      - name: Test resources data validation
+        run: node --test scripts/resources-data-validator.test.mjs
+      - name: Test resource filter matching
+        run: node --test assets/js/resource-filter-match.test.mjs
       - name: Validate agent-readable index
         run: node scripts/check-llms.mjs
       - name: Validate Events interactions

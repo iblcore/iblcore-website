@@ -1,0 +1,108 @@
+{{- /* One dataset rendered as a card, for the dataset grid.
+
+       Takes (dict "page" <dataset page>).
+
+       The full resource portal cards tools, hardware and protocols through
+       this partial too, and files them by taxonomy. This site carries the
+       datasets only, so the card is the dataset form of it: a picture, the
+       description, and a guide per access route. The card is a single click
+       target, with the title's link stretched over it in CSS and the guide
+       links riding above it. */ -}}
+{{- $page := .page -}}
+{{- $comingSoon := eq ($page.Params.status | default "released") "coming-soon" -}}
+{{- $modality := $page.Params.modality | default slice -}}
+{{- $access := $page.Params.access | default slice -}}
+{{- /* Every element is flattened to a string before joining: appending a front
+       matter list to a slice drops it silently, which would leave the terms out
+       of the haystack and make a search for a modality miss the datasets that
+       carry it. */ -}}
+{{- $haystack := delimit (slice
+  $page.Title
+  $page.Params.description
+  (delimit $modality " ")
+  (delimit $access " ")
+) " " -}}
+{{- /* The card carries its terms as data attributes so the filter script reads
+       exactly the values the front matter uses, and a search haystack so it can
+       match text without a generated index. Both are part of the card's
+       contract, not of the script. */ -}}
+<article
+  class="resource-card resource-card--dataset{{ if $comingSoon }} resource-card--coming-soon{{ end }}"
+  data-resource-card
+  data-modality="{{ delimit $modality " " }}"
+  data-access="{{ delimit $access " " }}"
+  data-search="{{ lower $haystack }}"
+>
+  {{- /* A dataset's own picture, where it has one. A card without one is
+         exactly the card as it was, so the grid stays mixed until every
+         picture exists.
+
+         The picture is inset in the card and takes whatever width the card's
+         margin leaves, which varies with the grid, so it is offered at several
+         widths and the browser takes the one its card and screen density need.
+         Serving the artwork full size instead left the browser to downscale it
+         about five times at draw time, which turns hairline illustrations and
+         small labels to mush.
+
+         A candidate wider than the source is dropped rather than upscaled:
+         enlarging a small original makes a bigger file and a softer picture,
+         so a source narrower than about 1000px cannot fill the widest card on
+         a high-density screen. */ -}}
+  {{- $candidateWidths := slice 360 480 720 980 }}
+  {{- /* The widest card is 411px across a three-column shell and about 488px
+         once the grid drops to one column, less the margin on each side. */ -}}
+  {{- $sizes := "(max-width: 520px) calc(100vw - 4rem), calc(min(33vw, 411px) - 2rem)" }}
+  {{- with $page.Params.card_image }}
+    {{- $card := . }}
+    {{- with .src }}
+      {{- /* errorf marks the build failed but does not halt the template, so
+             the lookup guards everything below it: without the else branch the
+             message is buried under a nil dereference on the first use. */ -}}
+      {{- with resources.Get . }}
+        {{- $source := . }}
+        {{- $rendered := slice }}
+        {{- range $candidateWidths }}
+          {{- if le . $source.Width }}
+            {{- $rendered = $rendered | append ($source.Resize (printf "%dx webp q90 Lanczos" .)) }}
+          {{- end }}
+        {{- end }}
+        {{- if not $rendered }}
+          {{- $rendered = slice ($source.Resize (printf "%dx webp q90 Lanczos" $source.Width)) }}
+        {{- end }}
+        {{- $widest := index $rendered (sub (len $rendered) 1) }}
+        <div class="resource-card__image resource-card__image--{{ $card.fit | default "cover" }}">
+          <img
+            src="{{ $widest.RelPermalink }}"
+            srcset="{{ range $index, $image := $rendered }}{{ if $index }}, {{ end }}{{ $image.RelPermalink }} {{ $image.Width }}w{{ end }}"
+            sizes="{{ $sizes }}"
+            width="{{ $widest.Width }}"
+            height="{{ $widest.Height }}"
+            alt="{{ $card.alt }}"
+            loading="lazy">
+        </div>
+      {{- else }}
+        {{- errorf "card_image %q is not under assets/" . }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+  <div class="resource-card__body resource-card__body--stack">
+    <p class="resource-type-badge">Dataset</p>
+    <h3 class="resource-card__title">
+      <a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a>
+    </h3>
+    <p>{{ $page.Params.description }}</p>
+
+    {{ if $comingSoon }}
+      <p class="resource-card__status">Coming soon</p>
+    {{ else }}
+      {{ with $access }}
+        <div class="guide-list">
+          <p class="guide-list__label">Data access</p>
+          {{ partial "resources/dataset-guides.html" (dict "page" $page "wide" false) }}
+        </div>
+      {{ end }}
+    {{ end }}
+
+    <p class="resource-card__cta" aria-hidden="true">Learn more →</p>
+  </div>
+</article>
