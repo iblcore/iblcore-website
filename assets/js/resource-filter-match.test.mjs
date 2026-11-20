@@ -5,7 +5,7 @@ import { matchesFilters } from "./resource-filter-match.js";
 const brainwideMap = {
   modality: ["neuropixels", "behavior", "video"],
   access: ["one", "dandi", "ibl-ai-agent"],
-  search: "brainwide map ibl's flagship dataset",
+  search: "brain-wide map ibl's flagship dataset",
 };
 
 const widefield = {
@@ -41,6 +41,13 @@ test("terms within a group are alternatives", () => {
 test("search matches description text, case-insensitively", () => {
   assert.equal(matchesFilters(brainwideMap, { ...noFilters, search: "FLAGSHIP" }), true);
   assert.equal(matchesFilters(widefield, { ...noFilters, search: "FLAGSHIP" }), false);
+});
+
+test("search ignores the hyphens in a name", () => {
+  assert.equal(matchesFilters(brainwideMap, { ...noFilters, search: "brainwide" }), true);
+  assert.equal(matchesFilters(brainwideMap, { ...noFilters, search: "brain wide" }), true);
+  assert.equal(matchesFilters(brainwideMap, { ...noFilters, search: "Brain-Wide" }), true);
+  assert.equal(matchesFilters(widefield, { ...noFilters, search: "brainwide" }), false);
 });
 
 test("search and chips both apply", () => {
