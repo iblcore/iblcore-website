@@ -19,6 +19,8 @@ header:
     title: Resources
     url: /#resources
     children:
+      - title: Datasets
+        url: /resources/data/
       - title: Tools
         url: /#resources
       - title: Benchmarking

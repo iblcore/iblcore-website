@@ -19,12 +19,13 @@
               {{- /* Muted and looping to match the source animation, but with
                      controls so it can be stopped: it is 34 seconds long.
 
-                     `autoplay` is deliberately absent: CSS cannot gate it, so
-                     benchmark.js turns it on only for visitors who have not
-                     asked for reduced motion. Without JavaScript the video
-                     waits on its controls, which is the safe default. */ -}}
-              <video muted loop playsinline controls preload="metadata"
-                     data-bwb-video
+                     `autoplay` and preloading are deliberately absent: neither
+                     can be gated by CSS, so autoplay-clip.js turns them on
+                     only for visitors who have not asked for reduced motion.
+                     Without JavaScript the video waits on its controls, which
+                     is the safe default. */ -}}
+              <video muted loop playsinline controls preload="none"
+                     data-autoplay-clip
                      aria-label="{{ $page.Params.video_description }}">
                 <source src="{{ . | relURL }}#t=0.1" type="video/mp4">
                 <a href="{{ . | relURL }}">Download the video</a>
@@ -66,20 +67,9 @@
   <section class="section page-content" id="citation">
     <div class="shell page-shell">
       <h2 class="bwb-head">{{ .Params.citation_title }}</h2>
-      <div class="prose bwb-citation">
-        {{ $page.RenderString (dict "display" "block") .Params.citation_intro }}
-        {{- /* The reference is what a reader needs; the BibTeX is what they
-               copy. The entry is rendered open, and the script collapses it
-               behind a button: without JavaScript the BibTeX is still there to
-               select, rather than locked behind a control that does nothing. */ -}}
-        {{ range $index, $citation := .Params.citations }}
-          <article class="bwb-citation__item" data-citation>
-            {{ with $citation.kind }}<p class="bwb-citation__kind">{{ . }}</p>{{ end }}
-            <div class="bwb-citation__ref">{{ $page.RenderString $citation.reference }}</div>
-            <pre id="bibtex-{{ add $index 1 }}">{{ $citation.entry }}</pre>
-          </article>
-        {{ end }}
-      </div>
+      {{- /* The same partial the dataset pages use, so one set of citation
+             rules styles both and a rename cannot leave this page behind. */ -}}
+      {{ partial "resources/citation-list.html" (dict "page" $page "citations" .Params.citations "intro" .Params.citation_intro) }}
     </div>
   </section>
 

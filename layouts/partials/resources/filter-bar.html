@@ -1,0 +1,49 @@
+{{- /* Filter chips for a collection of datasets.
+
+       Takes (dict "pages" <page collection>).
+
+       The portal builds these rows from taxonomy term pages, so each chip can
+       be a link to the term's own page. This site carries the datasets alone,
+       so the chips are built from the datasets' own `access` and `modality`
+       front matter and are buttons: there is no term page to send a reader to,
+       and nothing here works without the script. A term nothing in the
+       collection uses is not offered, and a row with no chips renders nothing
+       rather than an empty heading.
+
+       Stage is the portal's third row. Every released dataset is one to
+       analyze, so here it would offer a single chip that narrows nothing. */ -}}
+{{- $pages := .pages -}}
+{{- $groups := slice
+  (dict "key" "access" "label" "Access route")
+  (dict "key" "modality" "label" "Modality")
+-}}
+<div class="resource-filters" data-resource-filters hidden>
+  {{- range $group := $groups }}
+    {{- $terms := slice }}
+    {{- range $page := $pages }}
+      {{- range (index $page.Params $group.key | default slice) }}
+        {{- $terms = $terms | append . }}
+      {{- end }}
+    {{- end }}
+    {{- $terms = sort (uniq $terms) }}
+    {{- with $terms }}
+      <div class="resource-filters__row" data-filter-row="{{ $group.key }}">
+        <p class="resource-filters__label" id="filter-label-{{ $group.key }}">{{ $group.label }}</p>
+        <ul class="resource-filters__chips" aria-labelledby="filter-label-{{ $group.key }}">
+          {{- range . }}
+            {{- $label := partial "resources/term-spelling.html" . }}
+            {{- if eq $group.key "access" }}
+              {{- $label = (partial "resources/access-route.html" .).title }}
+            {{- end }}
+            <li>
+              <button class="resource-chip" type="button"
+                      data-filter-group="{{ $group.key }}"
+                      data-filter-value="{{ . }}"
+                      aria-pressed="false">{{ $label }}</button>
+            </li>
+          {{- end }}
+        </ul>
+      </div>
+    {{- end }}
+  {{- end }}
+</div>

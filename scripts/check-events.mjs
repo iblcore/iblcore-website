@@ -3,6 +3,9 @@ import http from "node:http";
 import path from "node:path";
 import process from "node:process";
 import { chromium } from "playwright";
+import { checkCardImages } from "./check-card-images.mjs";
+import { checkCitations } from "./check-citations.mjs";
+import { checkDatasetFigure } from "./check-dataset-figure.mjs";
 import { checkPageLayout } from "./check-page-layout.mjs";
 
 const publicRoot = path.resolve("public");
@@ -346,6 +349,9 @@ try {
   assert(await newsToggle.evaluate((button) => button === document.activeElement), "Closing a post stranded focus instead of returning it to the post toggle.");
   await newsPage.close();
 
+  await checkCardImages(browser, origin);
+  await checkCitations(browser, origin);
+  await checkDatasetFigure(browser, origin);
   await checkPageLayout(browser, origin);
 } finally {
   await browser.close();
